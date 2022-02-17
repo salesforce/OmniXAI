@@ -1,0 +1,272 @@
+#
+# Copyright (c) 2022 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+#
+"""
+The base classes for various explainers.
+"""
+import inspect
+import numpy as np
+from abc import abstractmethod
+from collections import OrderedDict, defaultdict
+from sklearn.base import BaseEstimator
+from typing import Collection, Callable, Any, Dict
+
+from ..utils.misc import AutodocABCMeta, tensor_to_numpy
+from ..data.base import Data
+from ..utils.misc import is_torch_available
+from ..explanations.base import PredictedResults
+
+_EXPLAINERS = defaultdict(list)
+
+
+class ExplainerABCMeta(AutodocABCMeta):
+    """
+    The meta class for an explainer. It will automatically register an explainer class,
+    i.e., storing it in ``_EXPLAINERS``.
+    """
+
+    def __new__(mcls, classname, bases, cls_dict):
+        cls = super().__new__(mcls, classname, bases, cls_dict)
+        if not inspect.isabstract(cls):
+            _module = cls.__module__.split(".")[2]
+            _name = cls.__name__
+            if _name in _EXPLAINERS[_module]:
+                raise RuntimeError(
+                    f"Explainer class name `{_name}` exists in `{_module}`. " f"Please use a different class name."
+                )
+            _EXPLAINERS[_module].append(cls)
+        return cls
+
+
+class ExplainerBase(metaclass=ExplainerABCMeta):
+    """
+    The abstract base class for an explainer. When an explainer inherits from this class,
+    it will be registered automatically.
+    """
+
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def explain(self, **kwargs):
+        raise NotImplementedError
+
+    @property
+    def explanation_type(self):
+        """
+        :return: A string indicates the explanation type, e.g., local, global or both
+        """
+        return "local"
+
+
+class AutoExplainerBase(metaclass=AutodocABCMeta):
+    """
+    The base class for task-specific explainers. The class derived from `AutoExplainerBase`
+    acts as a explainer factory. It allows users to choose multiple explainers and generate
+    different explanations at the same time, which simplifies the interface.
+    """
+
+    _EXPLAINERS = _EXPLAINERS
+
+    def __init__(
+        self,
+        explainers: Collection,
+        mode: str,
+        data: Data,
+        model: Any,
+        preprocess: Callable = None,
+        postprocess: Callable = None,
+        params: Dict = None,
+    ):
+        """
+        :param explainers: The names or alias of the explainers to use.
+        :param mode: The task type, e.g. classification or regression.
+        :param data: The training data used to initialize explainers.
+            For image or text explainers, it can be empty, e.g., `data = Image()` or `data = Text()`.
+        :param model: The machine learning model which can be a scikit-learn model,
+            a tensorflow model, a torch model, or a prediction function.
+        :param preprocess: The preprocessing function that converts the raw data
+            into the inputs of ``model``.
+        :param postprocess: The postprocessing function that transforms the outputs of ``model``
+            to a user-specific form, e.g., the predicted probability for each class.
+        :param params: A dict containing the additional parameters for initializing each explainer,
+            e.g., `params["lime"] = {"param_1": param_1, ...}`.
+        """
+        super().__init__()
+        self._NAME_TO_CLASS = {_class.__name__: _class for _class in self._MODELS}
+        for _class in self._MODELS:
+            if hasattr(_class, "alias"):
+                for name in _class.alias:
+                    assert name not in self._NAME_TO_CLASS, f"Alias {name} exists, please use a different one."
+                    self._NAME_TO_CLASS[name] = _class
+
+        for name in explainers:
+            name = name.split("#")[0]
+            assert (
+                name in self._NAME_TO_CLASS
+            ), f"Explainer {name} is not found. Please choose explainers from {self._NAME_TO_CLASS.keys()}"
+        assert mode in [
+            "classification",
+            "regression",
+            "data_analysis",
+        ], f"Unknown mode: {mode}, please choose `classification`, `regression` or `data_analysis`."
+
+        self.names = explainers
+        self.mode = mode
+        self.data = data
+        self.model = model
+        self.preprocess = preprocess
+        self.postprocess = postprocess
+        self.predict_function = self._build_predict_function()
+        self.explainers = self._build_explainers(params)
+
+    def _build_predict_function(self):
+        """
+        Constructs the prediction function based on the preprocessing function,
+        the model and the postprocessing function.
+
+        :return: The prediction function.
+        :rtype: Callable
+        """
+        # A scikit-learn model
+        if isinstance(self.model, BaseEstimator):
+            # A model derived from sklearn.base.BaseEstimator
+            predict_func = self.model.predict_proba if self.mode == "classification" else self.model.predict
+        else:
+            # A torch model, tensorflow model or general function
+            if is_torch_available():
+                import torch.nn as nn
+
+                if isinstance(self.model, nn.Module):
+                    self.model.eval()
+            predict_func = self.model
+        # Pre-processing and post-processing
+        preprocess = self.preprocess if self.preprocess is not None else lambda x: x
+        postprocess = self.postprocess if self.postprocess is not None else lambda x: x
+
+        # The predict function
+        def _predict(x):
+            inputs = preprocess(x)
+            if not isinstance(inputs, tuple):
+                inputs = (inputs,)
+            return tensor_to_numpy(postprocess(predict_func(*inputs)))
+
+        return _predict
+
+    def _build_explainers(self, params):
+        """
+        Creates instances for the specified explainers. It checks the signatures of
+        the ``__init__`` function of each explainer and determines how to initialize them.
+
+        :return: A dict of initialized explainers.
+        :rtype: Dict
+        """
+        if params is None:
+            params = {}
+        explainers = {}
+        for name in self.names:
+            name = name.split("#")[0]
+            _class = self._NAME_TO_CLASS[name]
+            _param = params.get(name, {})
+            _signature = inspect.signature(_class.__init__).parameters
+            try:
+                if "predict_function" in _signature:
+                    explainer = _class(
+                        predict_function=self.predict_function, mode=self.mode, training_data=self.data, **_param
+                    )
+                elif "model" in _signature:
+                    explainer = _class(
+                        model=self.model,
+                        preprocess_function=self.preprocess,
+                        postprocess_function=self.postprocess,
+                        mode=self.mode,
+                        training_data=self.data,
+                        **_param,
+                    )
+                elif self.mode == "data_analysis":
+                    explainer = _class(training_data=self.data, **_param)
+                else:
+                    raise RuntimeError(
+                        f"`__init__` in class {_class} doesn't have " f"argument `predict_function` or `model`."
+                    )
+                explainers[name] = explainer
+            except Exception as e:
+                raise type(e)(f"Explainer {name} -- {str(e)}")
+        return explainers
+
+    def _predict(self, X):
+        """
+        Gets the predictions given input instances.
+
+        :return: The predictions results.
+        :rtype: PredictedResults
+        """
+        predictions = self.predict_function(X)
+        if not isinstance(predictions, np.ndarray):
+            try:
+                predictions = predictions.detach().cpu().numpy()
+            except AttributeError:
+                predictions = predictions.numpy()
+        return PredictedResults(predictions)
+
+    def explain(self, X, params=None):
+        """
+        Generates local explanations for specific instances.
+
+        :param X: The instances to explain.
+        :param params: A dict containing the additional parameters for generating explanations,
+            e.g., `params["lime"] = {"param_1": param_1, ...}`.
+        :return: A dict of explanation results generated by the explainers that support local explanation.
+        :rtype: OrderedDict
+        """
+        if params is None:
+            params = {}
+        if self.mode != "data_analysis":
+            explanations = OrderedDict({"predict": self._predict(X)})
+        else:
+            explanations = OrderedDict()
+
+        for name in self.names:
+            explainer_name = name.split("#")[0]
+            if self.explainers[explainer_name].explanation_type in ["local", "both"]:
+                try:
+                    param = params.get(name, {})
+                    explanations[name] = self.explainers[explainer_name].explain(X=X, **param)
+                except Exception as e:
+                    raise type(e)(f"Explainer {name} -- {str(e)}")
+        return explanations
+
+    def explain_global(self, params=None):
+        """
+        Generates global explanations.
+
+        :param params: A dict containing the additional parameters for generating explanations,
+            e.g., `params["lime"] = {"param_1": param_1, ...}`.
+        :return: A dict of explanation results generated by the explainers that support global explanation.
+        :rtype: OrderedDict
+        """
+        if params is None:
+            params = {}
+        explanations = OrderedDict()
+        for name in self.names:
+            explainer_name = name.split("#")[0]
+            if self.explainers[explainer_name].explanation_type in ["global", "both"]:
+                try:
+                    param = params.get(name, {})
+                    explanations[name] = self.explainers[explainer_name].explain(**param)
+                except Exception as e:
+                    raise type(e)(f"Explainer {name} -- {str(e)}")
+        return explanations
+
+    @property
+    def explainer_names(self):
+        """
+        Gets the names of the specified explainers.
+
+        :return: Explainer names.
+        :rtype: Collection
+        """
+        return self.names
