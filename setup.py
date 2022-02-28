@@ -36,7 +36,7 @@ setup(
         "matplotlib",
         "pillow",
         "lime",
-        "shap",
+        "shap>=0.40.0",
         "SALib",
         "hnswlib>=0.5.0",
         "dill",
