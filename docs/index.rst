@@ -24,7 +24,7 @@ which can be applied for multiple purposes in various applications:
 #. **Transparency for healthcare and finance**: Why does the model make such judgement? Is the judgement reasonable?
 
 Compared with other existing explanation libraries (such as IBM’s AIX360, Microsoft’s InterpretML, Alibi and explainX),
-our library has a comprehensive list of XAI capabilities and unique features including the following:
+our library has a comprehensive list of XAI capabilities and unique features include the followings:
 
 #. **Data analysis/exploration**: Analyzing feature correlations, checking imbalance issues.
 #. **Support most popular explanation methods**: Many explanation methods can be applied to analyze different aspects of a ML model.

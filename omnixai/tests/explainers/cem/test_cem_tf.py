@@ -17,7 +17,7 @@ class TestCEM(unittest.TestCase):
     def setUp(self) -> None:
         batch_size = 128
         num_classes = 10
-        epochs = 10
+        epochs = 5
         img_rows, img_cols = 28, 28
         (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 

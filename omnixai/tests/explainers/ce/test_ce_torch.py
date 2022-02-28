@@ -107,7 +107,7 @@ class TestCE(unittest.TestCase):
         self.predict_function = lambda ims: self.model(self.transform(ims).to(self.device)).detach().cpu().numpy()
         self.x_train, self.y_train = Image(train_data.data, batched=True), train_data.targets
         self.x_test, self.y_test = Image(test_data.data, batched=True), test_data.targets
-        self.train(learning_rate=1e-3, batch_size=32, num_epochs=10)
+        self.train(learning_rate=1e-3, batch_size=32, num_epochs=5)
 
     def train(self, learning_rate=1e-3, batch_size=32, num_epochs=5):
         device = "cuda" if torch.cuda.is_available() else "cpu"

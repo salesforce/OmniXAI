@@ -42,7 +42,7 @@ class TestLimeText(unittest.TestCase):
         set_random_seed()
         idx = 83
         explainer = LimeText(predict_function=self.predict_function)
-        explanations = explainer.explain(self.x_test[idx : idx + 4], num_features=6)
+        explanations = explainer.explain(self.x_test[idx: idx + 4], num_features=6)
 
         for i, e in enumerate(explanations.get_explanations()):
             print(e["instance"])
