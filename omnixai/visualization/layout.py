@@ -12,11 +12,20 @@ from .plot import plot_one_instance
 from omnixai.explanations.base import DashFigure
 
 
+def create_banner(app):
+    return html.Div(
+        id="banner",
+        className="banner",
+        children=[html.Img(src=app.get_asset_url("logo.png")),
+                  html.Plaintext("  Powered by Salesforce AI Research")],
+    )
+
+
 def create_description_card() -> html.Div:
     return html.Div(
         id="description-card",
         children=[
-            html.H5("OmniXAI: A Library for Explainable AI"),
+            html.H5("A Library for Explainable AI"),
             html.H3("Explanation Dashboard"),
             html.Div(id="intro", children="  "),
         ],
@@ -134,7 +143,7 @@ def create_layout(app) -> html.Div:
         id="app-container",
         children=[
             # Banner
-            # create_banner(app),
+            create_banner(app),
             # Left column
             html.Div(
                 id="left-column",
