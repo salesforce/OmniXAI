@@ -1,4 +1,5 @@
-# OmniXAI: A Library for Explainable AI
+# ![alt text](https://github.com/salesforce/OmniXAI/tree/main/omnixai/visualization/assets/logo.png)
+OmniXAI: A Library for Explainable AI
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -225,7 +226,7 @@ dashboard.show()                                     # Launch the dashboard
 ```
 
 After opening the Dash app in the browser, we will see a dashboard showing the explanations:
-![alt text](https://github.com/yangwenz/OmniXAI/blob/main/docs/_static/demo.png)
+![alt text](https://github.com/salesforce/OmniXAI/tree/main//docs/_static/demo.png)
 
 ## How to Contribute
 
