@@ -104,11 +104,11 @@ cloning the OmniXAI repo, navigating to the root directory, and calling
 
 For example code and an introduction to the library, see the Jupyter notebooks in
 [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials), and the guided walkthrough
-[here](https://fluffy-spork-48665281.pages.github.io/).
+[here](https://fluffy-spork-48665281.pages.github.io/). A dashboard demo can be found [here](https://omnixai-demo.herokuapp.com/).
 
 ## Getting Started
 
-To get started, we recommend the linked tutorials in [tutorials](https://github.com/yangwenz/OmniXAI/tree/main/tutorials).
+To get started, we recommend the linked tutorials in [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
 and `NLPExplainer` for tabular, vision and NLP tasks, respectively. To generate explanations,
 one only needs to specify
