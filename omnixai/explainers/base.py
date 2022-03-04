@@ -168,8 +168,8 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             params = {}
         explainers = {}
         for name in self.names:
-            name = name.split("#")[0]
-            _class = self._NAME_TO_CLASS[name]
+            explainer_name = name.split("#")[0]
+            _class = self._NAME_TO_CLASS[explainer_name]
             _param = params.get(name, {})
             _signature = inspect.signature(_class.__init__).parameters
             try:
@@ -230,11 +230,10 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             explanations = OrderedDict()
 
         for name in self.names:
-            explainer_name = name.split("#")[0]
-            if self.explainers[explainer_name].explanation_type in ["local", "both"]:
+            if self.explainers[name].explanation_type in ["local", "both"]:
                 try:
                     param = params.get(name, {})
-                    explanations[name] = self.explainers[explainer_name].explain(X=X, **param)
+                    explanations[name] = self.explainers[name].explain(X=X, **param)
                 except Exception as e:
                     raise type(e)(f"Explainer {name} -- {str(e)}")
         return explanations
@@ -252,11 +251,10 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             params = {}
         explanations = OrderedDict()
         for name in self.names:
-            explainer_name = name.split("#")[0]
-            if self.explainers[explainer_name].explanation_type in ["global", "both"]:
+            if self.explainers[name].explanation_type in ["global", "both"]:
                 try:
                     param = params.get(name, {})
-                    explanations[name] = self.explainers[explainer_name].explain(**param)
+                    explanations[name] = self.explainers[name].explain(**param)
                 except Exception as e:
                     raise type(e)(f"Explainer {name} -- {str(e)}")
         return explanations
