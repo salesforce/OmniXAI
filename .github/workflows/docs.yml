@@ -24,7 +24,6 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        sudo apt-get update
         sudo apt-get install openjdk-11-jdk
         sudo apt-get install pandoc
     - name: Build Sphinx docs
