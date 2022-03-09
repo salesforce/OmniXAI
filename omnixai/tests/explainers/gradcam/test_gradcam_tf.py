@@ -20,16 +20,8 @@ from omnixai.explainers.vision.specific.gradcam import GradCAM
 class TestGradCAM(unittest.TestCase):
     def setUp(self) -> None:
         directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets")
-        img_1 = Resize((224, 224)).transform(
-            Image(PilImage.open(os.path.join(directory, "images/dog_cat.png")).convert("RGB"))
-        )
-        img_2 = Resize((224, 224)).transform(
-            Image(PilImage.open(os.path.join(directory, "images/dog_cat_2.png")).convert("RGB"))
-        )
-        img_3 = Resize((224, 224)).transform(
-            Image(PilImage.open(os.path.join(directory, "images/camera.jpg")).convert("RGB"))
-        )
-        self.img = Image(data=np.concatenate([img_1.to_numpy(), img_2.to_numpy(), img_3.to_numpy()]), batched=True)
+        self.img = Resize((224, 224)).transform(
+            Image(PilImage.open(os.path.join(directory, "images/dog_cat_2.png")).convert("RGB")))
         self.model = mobilenet_v2.MobileNetV2(include_top=True, weights="imagenet", classes=1000)
 
         def _preprocess(images):

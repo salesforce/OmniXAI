@@ -9,6 +9,17 @@ The class for text data.
 """
 from typing import List, Union, Callable
 from .base import Data
+from ..utils.misc import is_nltk_available
+
+
+if is_nltk_available():
+    import nltk
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        nltk.download('punkt')
+else:
+    nltk = None
 
 
 class Text(Data):
@@ -75,8 +86,8 @@ class Text(Data):
         :rtype: List
         """
         if self.tokenizer is None:
-            import nltk
-
+            if nltk is None:
+                raise ImportError("Package `nltk` is not installed.")
             return [nltk.word_tokenize(s.lower()) for s in self.data]
         else:
             return self.tokenizer(self.data, **kwargs)

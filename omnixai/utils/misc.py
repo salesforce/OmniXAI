@@ -144,6 +144,16 @@ def is_transformers_available():
         return False
 
 
+def is_nltk_available():
+    """
+        Checks if the `nltk` library is installed.
+        """
+    if importlib.util.find_spec("nltk") is not None:
+        return True
+    else:
+        return False
+
+
 def tensor_to_numpy(x):
     """
     Converts a tensor in pytorch or tensorflow into a numpy array.
