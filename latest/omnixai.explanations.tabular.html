@@ -293,6 +293,85 @@ label 1 corresponds to ‘cat’.</p></li>
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.feature_importance.</span></span><span class="sig-name descname"><span class="pre">GlobalFeatureImportance</span></span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<p>The class for global feature importance scores. It uses a dict to store
+the feature importance scores with the following format <cite>{“features”: a list of feature names,
+“scores”: a list of feature importance scores}</cite>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.add" title="Permalink to this definition"></a></dt>
+<dd><p>Adds the generated feature importance scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>feature_names</strong> – The list of the feature column names.</p></li>
+<li><p><strong>importance_scores</strong> – The list of the feature importance scores.</p></li>
+<li><p><strong>sort</strong> – <cite>True</cite> if the features are sorted based on the importance scores.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.get_explanations">
+<span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.get_explanations" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the generated explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The feature importance scores.
+The returned dict has the following format: <cite>{“features”: a list of feature names,
+“scores”: a list of feature importance scores}</cite>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots feature importance scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_features</strong> – The maximum number of features to plot.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A matplotlib figure plotting feature importance scores.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plotly_plot">
+<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plotly_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots feature importance scores for one specific instance using Dash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_features</strong> – The maximum number of features to plot.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A plotly dash figure plotting feature importance scores.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.ipython_plot">
+<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.ipython_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the feature importance scores in IPython.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_features</strong> – The maximum number of features to plot.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-omnixai.explanations.tabular.counterfactual">
 <span id="omnixai-explanations-tabular-counterfactual-module"></span><h2>omnixai.explanations.tabular.counterfactual module<a class="headerlink" href="#module-omnixai.explanations.tabular.counterfactual" title="Permalink to this headline"></a></h2>
