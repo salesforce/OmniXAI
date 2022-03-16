@@ -7,5 +7,13 @@
 from .auto import DataAnalyzer
 from .imbalance import ImbalanceAnalyzer
 from .correlation import CorrelationAnalyzer
+from .mutual_info import MutualInformation
+from .chi_square import ChiSquare
 
-__all__ = ["DataAnalyzer", "ImbalanceAnalyzer", "CorrelationAnalyzer"]
+__all__ = [
+    "DataAnalyzer",
+    "ImbalanceAnalyzer",
+    "CorrelationAnalyzer",
+    "MutualInformation",
+    "ChiSquare"
+]
