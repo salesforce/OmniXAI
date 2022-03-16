@@ -193,3 +193,113 @@ class FeatureImportance(ExplanationBase):
 
         assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
         plotly.offline.iplot(self._plotly_figure(index, class_names=class_names, num_features=num_features, **kwargs))
+
+
+class GlobalFeatureImportance(ExplanationBase):
+    """
+    The class for global feature importance scores. It uses a dict to store
+    the feature importance scores with the following format `{"features": a list of feature names,
+    "scores": a list of feature importance scores}`.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.explanations = {}
+
+    def add(self, feature_names, importance_scores, sort=False, **kwargs):
+        """
+        Adds the generated feature importance scores.
+
+        :param feature_names: The list of the feature column names.
+        :param importance_scores: The list of the feature importance scores.
+        :param sort: `True` if the features are sorted based on the importance scores.
+        """
+        scores = list(zip(feature_names, importance_scores))
+        if sort:
+            scores = sorted(scores, key=lambda x: abs(x[-1]), reverse=True)
+        self.explanations = {
+            "features": [s[0] for s in scores],
+            "scores": [s[1] for s in scores],
+        }
+
+    def get_explanations(self):
+        """
+        Gets the generated explanations.
+
+        :return: The feature importance scores.
+            The returned dict has the following format: `{"features": a list of feature names,
+            "scores": a list of feature importance scores}`.
+        :rtype: Dict
+        """
+        return self.explanations
+
+    def plot(self, num_features=20, **kwargs):
+        """
+        Plots feature importance scores.
+
+        :param num_features: The maximum number of features to plot.
+        :return: A matplotlib figure plotting feature importance scores.
+        """
+        import matplotlib.pyplot as plt
+
+        fig, axes = plt.subplots(1, 1)
+        exp = self.get_explanations()
+        feat_scores = sorted(
+            list(zip([f"{f}    " for f in exp["features"]], exp["scores"])),
+            key=lambda x: abs(x[1]),
+        )
+        if num_features is not None:
+            feat_scores = feat_scores[-num_features:]
+        fnames = [f for f, s in feat_scores]
+        scores = [s for f, s in feat_scores]
+        colors = ["green" if x > 0 else "red" for x in scores]
+        positions = np.arange(len(scores)) + 0.5
+
+        plt.sca(axes)
+        plt.barh(positions, scores, align="center", color=colors)
+        axes.yaxis.set_ticks_position("right")
+        plt.yticks(positions, fnames, ha="right")
+        plt.title(f"Global Feature Importance")
+        return fig
+
+    def _plotly_figure(self, num_features=20, **kwargs):
+        import plotly.express as px
+
+        exp = self.explanations
+        title = f"Global Feature Importance"
+        feat_scores = sorted(
+            list(zip(exp["features"], exp["scores"])),
+            key=lambda x: abs(x[1]),
+        )
+        if num_features is not None:
+            feat_scores = feat_scores[-num_features:]
+        fnames = [f for f, s in feat_scores]
+        scores = [s for f, s in feat_scores]
+
+        fig = px.bar(
+            y=fnames,
+            x=scores,
+            orientation="h",
+            labels={"x": "Importance scores", "y": "Features"},
+            title=title,
+            color_discrete_map={True: "#008B8B", False: "#DC143C"},
+        )
+        return fig
+
+    def plotly_plot(self, num_features=20, **kwargs):
+        """
+        Plots feature importance scores for one specific instance using Dash.
+
+        :param num_features: The maximum number of features to plot.
+        :return: A plotly dash figure plotting feature importance scores.
+        """
+        return DashFigure(self._plotly_figure(num_features=num_features, **kwargs))
+
+    def ipython_plot(self, num_features=20, **kwargs):
+        """
+        Plots the feature importance scores in IPython.
+
+        :param num_features: The maximum number of features to plot.
+        """
+        import plotly
+        plotly.offline.iplot(self._plotly_figure(num_features=num_features, **kwargs))

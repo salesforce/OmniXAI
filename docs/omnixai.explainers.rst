@@ -133,6 +133,7 @@ Explainers for different tasks
 .. toctree::
    :maxdepth: 2
 
+   omnixai.explainers.data
    omnixai.explainers.tabular
    omnixai.explainers.vision
    omnixai.explainers.nlp

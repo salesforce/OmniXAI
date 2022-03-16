@@ -31,7 +31,7 @@ class CorrelationAnalyzer(ExplainerBase):
 
     def __init__(self, training_data: Tabular, **kwargs):
         """
-        :param training_data: The data from training a ML model.
+        :param training_data: The data from training an ML model.
         :param kwargs: Not used here.
         """
         super().__init__()

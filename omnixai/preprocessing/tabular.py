@@ -64,7 +64,7 @@ class TabularTransform(TransformBase):
         df = x.to_pd()
         cate_df = df[x.categorical_columns] if x.categorical_columns else None
         cont_df = df[x.continuous_columns] if x.continuous_columns else None
-        targ_df = df[x.target_column] if x.target_column else None
+        targ_df = df[[x.target_column]] if x.target_column else None
         return cate_df, cont_df, targ_df
 
     def fit(self, x: Tabular):
