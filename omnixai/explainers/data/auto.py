@@ -44,3 +44,22 @@ class DataAnalyzer(AutoExplainerBase):
             postprocess=None,
             params=params,
         )
+
+    @staticmethod
+    def list_explainers():
+        """
+        List the supported explainers.
+        """
+        from tabulate import tabulate
+        lists = []
+        for _class in DataAnalyzer._MODELS:
+            alias = _class.alias if hasattr(_class, "alias") else _class.__name__
+            explanation_type = _class.explanation_type \
+                if _class.explanation_type != "both" else "global & local"
+            lists.append([_class.__module__, _class.__name__, alias, explanation_type])
+        table = tabulate(
+            lists,
+            headers=["Package", "Explainer Class", "Alias", "Explanation Type"],
+            tablefmt='orgtbl'
+        )
+        print(table)

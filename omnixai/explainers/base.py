@@ -268,3 +268,10 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         :rtype: Collection
         """
         return self.names
+
+    @staticmethod
+    def list_explainers():
+        """
+        List the supported explainers.
+        """
+        pass

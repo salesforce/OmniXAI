@@ -44,6 +44,7 @@ setup(
         "wheel",
         "packaging",
         "ipython",
+        "tabulate"
     ],
     extras_require=extras_require,
     python_requires=">=3.7.0",
