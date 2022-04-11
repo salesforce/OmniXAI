@@ -21,3 +21,4 @@ Subpackages
 
    omnixai.explainers.nlp.agnostic
    omnixai.explainers.nlp.specific
+   omnixai.explainers.nlp.counterfactual

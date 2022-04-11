@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>omnixai.explainers.nlp.specific package &mdash; OmniXAI  documentation</title>
+  <title>omnixai.explainers.nlp.counterfactual package &mdash; OmniXAI  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -20,8 +20,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="omnixai.explainers.nlp.counterfactual package" href="omnixai.explainers.nlp.counterfactual.html" />
-    <link rel="prev" title="omnixai.explainers.nlp.agnostic package" href="omnixai.explainers.nlp.agnostic.html" /> 
+    <link rel="next" title="omnixai.explanations package" href="omnixai.explanations.html" />
+    <link rel="prev" title="omnixai.explainers.nlp.specific package" href="omnixai.explainers.nlp.specific.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -62,11 +62,11 @@
 <li class="toctree-l6"><a class="reference internal" href="omnixai.explainers.nlp.html#module-omnixai.explainers.nlp.auto">omnixai.explainers.nlp.auto module</a></li>
 <li class="toctree-l6 current"><a class="reference internal" href="omnixai.explainers.nlp.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.nlp.agnostic.html">omnixai.explainers.nlp.agnostic package</a></li>
-<li class="toctree-l7 current"><a class="current reference internal" href="#">omnixai.explainers.nlp.specific package</a><ul>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.nlp.specific.ig">omnixai.explainers.nlp.specific.ig module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.nlp.specific.html">omnixai.explainers.nlp.specific package</a></li>
+<li class="toctree-l7 current"><a class="current reference internal" href="#">omnixai.explainers.nlp.counterfactual package</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.nlp.counterfactual.polyjuice">omnixai.explainers.nlp.counterfactual.polyjuice module</a></li>
 </ul>
 </li>
-<li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.nlp.counterfactual.html">omnixai.explainers.nlp.counterfactual package</a></li>
 </ul>
 </li>
 </ul>
@@ -101,9 +101,9 @@
           <li><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a> &raquo;</li>
           <li><a href="omnixai.explainers.html">omnixai.explainers package</a> &raquo;</li>
           <li><a href="omnixai.explainers.nlp.html">omnixai.explainers.nlp package</a> &raquo;</li>
-      <li>omnixai.explainers.nlp.specific package</li>
+      <li>omnixai.explainers.nlp.counterfactual package</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/omnixai.explainers.nlp.specific.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/omnixai.explainers.nlp.counterfactual.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -135,72 +135,68 @@
     text-align: unset;
 }
 </style>
-<section id="module-omnixai.explainers.nlp.specific">
-<span id="omnixai-explainers-nlp-specific-package"></span><h1>omnixai.explainers.nlp.specific package<a class="headerlink" href="#module-omnixai.explainers.nlp.specific" title="Permalink to this headline"></a></h1>
+<section id="module-omnixai.explainers.nlp.counterfactual">
+<span id="omnixai-explainers-nlp-counterfactual-package"></span><h1>omnixai.explainers.nlp.counterfactual package<a class="headerlink" href="#module-omnixai.explainers.nlp.counterfactual" title="Permalink to this headline"></a></h1>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.nlp.specific.ig" title="omnixai.explainers.nlp.specific.ig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ig</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.nlp.counterfactual.polyjuice" title="omnixai.explainers.nlp.counterfactual.polyjuice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polyjuice</span></code></a></p></td>
+<td><p>The NLP counterfactual explainer based on the Polyjuice model.</p></td>
 </tr>
 </tbody>
 </table>
-<section id="module-omnixai.explainers.nlp.specific.ig">
-<span id="omnixai-explainers-nlp-specific-ig-module"></span><h2>omnixai.explainers.nlp.specific.ig module<a class="headerlink" href="#module-omnixai.explainers.nlp.specific.ig" title="Permalink to this headline"></a></h2>
+<section id="module-omnixai.explainers.nlp.counterfactual.polyjuice">
+<span id="omnixai-explainers-nlp-counterfactual-polyjuice-module"></span><h2>omnixai.explainers.nlp.counterfactual.polyjuice module<a class="headerlink" href="#module-omnixai.explainers.nlp.counterfactual.polyjuice" title="Permalink to this headline"></a></h2>
+<p>The NLP counterfactual explainer based on the Polyjuice model.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="omnixai.explainers.nlp.specific.ig.IntegratedGradientText">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.nlp.specific.ig.</span></span><span class="sig-name descname"><span class="pre">IntegratedGradientText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id2token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.specific.ig.IntegratedGradientText" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="omnixai.explainers.nlp.counterfactual.polyjuice.Polyjuice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.nlp.counterfactual.polyjuice.</span></span><span class="sig-name descname"><span class="pre">Polyjuice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.counterfactual.polyjuice.Polyjuice" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The integrated-gradient explainer for text data.
-If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/ankurtaly/Integrated-Gradients">https://github.com/ankurtaly/Integrated-Gradients</a>.</p>
+<p>The counterfactual explainer for NLP tasks.
+The method implemented here is based on the model developed by Wu et al.,
+please cite the work: <a class="reference external" href="https://github.com/tongshuangwu/polyjuice">https://github.com/tongshuangwu/polyjuice</a> if using this explainer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> – The model whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
-<li><p><strong>embedding_layer</strong> – The embedding layer in the model, which can be
-<cite>tf.keras.layers.Layer</cite> or <cite>torch.nn.Module</cite>.</p></li>
-<li><p><strong>preprocess_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The pre-processing function that converts the raw input data
-into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>. The first output of <code class="docutils literal notranslate"><span class="pre">preprocess_function</span></code> should
-be the token ids.</p></li>
-<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
-<li><p><strong>id2token</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – The mapping from token ids to tokens.</p></li>
-<li><p><strong>kwargs</strong> – Not used.</p></li>
+<li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the machine learning
+model to explain. When the task is <cite>classification</cite>, the outputs of the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
+are the class probabilities.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type which can be <cite>classification</cite> only.</p></li>
+<li><p><strong>kwargs</strong> – Additional parameters, e.g., <cite>model_path</cite> and <cite>cuda</cite>.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="omnixai.explainers.nlp.specific.ig.IntegratedGradientText.explanation_type">
-<span class="sig-name descname"><span class="pre">explanation_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'local'</span></em><a class="headerlink" href="#omnixai.explainers.nlp.specific.ig.IntegratedGradientText.explanation_type" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="omnixai.explainers.nlp.counterfactual.polyjuice.Polyjuice.explanation_type">
+<span class="sig-name descname"><span class="pre">explanation_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'local'</span></em><a class="headerlink" href="#omnixai.explainers.nlp.counterfactual.polyjuice.Polyjuice.explanation_type" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="omnixai.explainers.nlp.specific.ig.IntegratedGradientText.alias">
-<span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['ig',</span> <span class="pre">'integrated_gradient']</span></em><a class="headerlink" href="#omnixai.explainers.nlp.specific.ig.IntegratedGradientText.alias" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="omnixai.explainers.nlp.counterfactual.polyjuice.Polyjuice.alias">
+<span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['polyjuice']</span></em><a class="headerlink" href="#omnixai.explainers.nlp.counterfactual.polyjuice.Polyjuice.alias" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="omnixai.explainers.nlp.specific.ig.IntegratedGradientText.explain">
-<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.specific.ig.IntegratedGradientText.explain" title="Permalink to this definition"></a></dt>
-<dd><p>Generates the word/token-importance explanations for the input instances.</p>
+<dt class="sig sig-object py" id="omnixai.explainers.nlp.counterfactual.polyjuice.Polyjuice.explain">
+<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_number_examples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.counterfactual.polyjuice.Polyjuice.explain" title="Permalink to this definition"></a></dt>
+<dd><p>Generates the counterfactual explanations for the input instances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – A batch of input instances.</p></li>
-<li><p><strong>y</strong> – A batch of labels to explain. For regression, <code class="docutils literal notranslate"><span class="pre">y</span></code> is ignored.
-For classification, the top predicted label of each input instance will be explained
-when <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">None</span></code>.</p></li>
-<li><p><strong>kwargs</strong> – Additional parameters, e.g., <code class="docutils literal notranslate"><span class="pre">steps</span></code> for
-<cite>IntegratedGradient.compute_integrated_gradients</cite>.</p></li>
+<li><p><strong>max_number_examples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The maximum number of the generated counterfactual
+examples for each input instance.</p></li>
+<li><p><strong>kwargs</strong> – Additional parameters for <cite>polyjuice.Polyjuice</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The explanations for all the instances, e.g., word.token importance scores.</p>
+<dd class="field-even"><p>The explanations for all the input instances.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance" title="omnixai.explanations.text.word_importance.WordImportance">WordImportance</a></p>
+<dd class="field-odd"><p>NLPCounterfactualExplanation</p>
 </dd>
 </dl>
 </dd></dl>
@@ -214,8 +210,8 @@ when <code class="docutils literal notranslate"><span class="pre">y</span> <span
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="omnixai.explainers.nlp.agnostic.html" class="btn btn-neutral float-left" title="omnixai.explainers.nlp.agnostic package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="omnixai.explainers.nlp.counterfactual.html" class="btn btn-neutral float-right" title="omnixai.explainers.nlp.counterfactual package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="omnixai.explainers.nlp.specific.html" class="btn btn-neutral float-left" title="omnixai.explainers.nlp.specific package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="omnixai.explanations.html" class="btn btn-neutral float-right" title="omnixai.explanations package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
