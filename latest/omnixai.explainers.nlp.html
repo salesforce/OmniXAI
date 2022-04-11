@@ -406,6 +406,58 @@ when <code class="docutils literal notranslate"><span class="pre">y</span> <span
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explainers.nlp.Polyjuice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.nlp.</span></span><span class="sig-name descname"><span class="pre">Polyjuice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.Polyjuice" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
+<p>The counterfactual explainer for NLP tasks.
+The method implemented here is based on the model developed by Wu et al.,
+please cite the work: <a class="reference external" href="https://github.com/tongshuangwu/polyjuice">https://github.com/tongshuangwu/polyjuice</a> if using this explainer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the machine learning
+model to explain. When the task is <cite>classification</cite>, the outputs of the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
+are the class probabilities.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type which can be <cite>classification</cite> only.</p></li>
+<li><p><strong>kwargs</strong> – Additional parameters, e.g., <cite>model_path</cite> and <cite>cuda</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="omnixai.explainers.nlp.Polyjuice.explanation_type">
+<span class="sig-name descname"><span class="pre">explanation_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'local'</span></em><a class="headerlink" href="#omnixai.explainers.nlp.Polyjuice.explanation_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="omnixai.explainers.nlp.Polyjuice.alias">
+<span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['polyjuice']</span></em><a class="headerlink" href="#omnixai.explainers.nlp.Polyjuice.alias" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explainers.nlp.Polyjuice.explain">
+<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_number_examples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.Polyjuice.explain" title="Permalink to this definition"></a></dt>
+<dd><p>Generates the counterfactual explanations for the input instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – A batch of input instances.</p></li>
+<li><p><strong>max_number_examples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The maximum number of the generated counterfactual
+examples for each input instance.</p></li>
+<li><p><strong>kwargs</strong> – Additional parameters for <cite>polyjuice.Polyjuice</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The explanations for all the input instances.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>NLPCounterfactualExplanation</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <section id="module-omnixai.explainers.nlp.auto">
 <span id="omnixai-explainers-nlp-auto-module"></span><h2>omnixai.explainers.nlp.auto module<a class="headerlink" href="#module-omnixai.explainers.nlp.auto" title="Permalink to this headline"></a></h2>
 <dl class="py class">
