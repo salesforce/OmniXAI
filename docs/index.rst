@@ -53,7 +53,7 @@ Sensitivity analysis     Black box             Global                           
 LIME                     Black box             Local                            ✓        ✓        ✓
 SHAP                     Black box*            Local                            ✓        ✓        ✓
 Integrated gradient      Torch or TF           Local                            ✓        ✓        ✓
-Counterfactual           Black box*            Local                            ✓        ✓
+Counterfactual           Black box*            Local                            ✓        ✓        ✓
 Contrastive explanation  Torch or TF           Local                                     ✓
 Grad-CAM, Grad-CAM++     Torch or TF           Local                                     ✓
 Learning to explain      Black box             Local                            ✓        ✓        ✓
@@ -94,6 +94,7 @@ Text       LIME                  ✓        ✘            ✘       ✓     ✓
 \          SHAP                  ✓        ✘            ✘       ✘     ✓       ✘      ✘
 \          Integrated gradient   ✓        ✘            ✘       ✘     ✓       ✓      ✘
 \          L2X                   ✓        ✘            ✘       ✘     ✘       ✘      ✘
+\          Counterfactual        ✓        ✘            ✘       ✘     ✘       ✘      ✘
 =========  ====================  =======  ===========  ======  ====  ======  =====  ========
 
 Installation
