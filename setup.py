@@ -9,7 +9,7 @@ from setuptools import setup, find_namespace_packages
 extras_require = {
     "plot": ["plotly>=4", "dash>=2.0", "dash_bootstrap_components>=1.0"],
     "vision": ["torch>=1.3", "torchvision>=0.6.1", "opencv-python-headless>=4.4"],
-    "nlp": ["nltk>=3.4.5"],
+    "nlp": ["nltk>=3.4.5", "polyjuice_nlp"],
 }
 extras_require["all"] = sum(extras_require.values(), [])
 

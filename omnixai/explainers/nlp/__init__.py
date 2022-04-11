@@ -9,5 +9,13 @@ from .agnostic.lime import LimeText
 from .agnostic.shap import ShapText
 from .agnostic.l2x import L2XText
 from .specific.ig import IntegratedGradientText
+from .counterfactual.polyjuice import Polyjuice
 
-__all__ = ["NLPExplainer", "LimeText", "ShapText", "L2XText", "IntegratedGradientText"]
+__all__ = [
+    "NLPExplainer",
+    "LimeText",
+    "ShapText",
+    "L2XText",
+    "IntegratedGradientText",
+    "Polyjuice"
+]
