@@ -50,7 +50,7 @@ explanation methods for vision and NLP tasks.
 |          LIME           | Black box     | Local            |               | ✅      | ✅     | ✅   |
 |          SHAP           | Black box*    | Local            |               | ✅      | ✅     | ✅   |
 |   Integrated gradient   | Torch or TF   | Local            |               | ✅      | ✅     | ✅   |
-|     Counterfactual      | Black box*    | Local            |               | ✅      | ✅     |      |
+|     Counterfactual      | Black box*    | Local            |               | ✅      | ✅     | ✅   |
 | Contrastive explanation | Torch or TF   | Local            |               |         | ✅    |      |
 |  Grad-CAM, Grad-CAM++   | Torch or TF   | Local            |               |         | ✅    |      |
 |   Learning to explain   | Black box     | Local            |               | ✅      | ✅     | ✅   |
@@ -64,28 +64,29 @@ image data.
 The following table shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
 in literature:
 
-| Data Type | Method               | OmniXAI | InterpretML | AIX360 | Eli5  | Captum | Alibi | explainX
-:---:       | :---:                | :---:  | :---:       | :---:  | :---: | :---:  | :---: | :---:
-| Tabular   | LIME                 | ✅ | ✅ | ✅ | | ✅ | | |
-|           | SHAP                 | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
-|           | PDP                  | ✅ | ✅ | | | | | |
-|           | Sensitivity          | ✅ | ✅ | | | | | |
+| Data Type |        Method        | OmniXAI | InterpretML | AIX360 | Eli5  | Captum | Alibi | explainX
+:---:       |:--------------------:| :---:  | :---:       | :---:  | :---: | :---:  | :---: | :---:
+| Tabular   |         LIME         | ✅ | ✅ | ✅ | | ✅ | | |
+|           |         SHAP         | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
+|           |         PDP          | ✅ | ✅ | | | | | |
+|           |     Sensitivity      | ✅ | ✅ | | | | | |
 |           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           | Counterfactual       | ✅ | | | | | ✅ | |
-|           | Linear models        | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
-|           | Tree models          | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
-|           | L2X                  | ✅ | | | | | | |
-| Image     | LIME                 | ✅ | | | | ✅ | | |
-|           | SHAP                 | ✅ | | | | ✅ | | |
+|           |    Counterfactual    | ✅ | | | | | ✅ | |
+|           |    Linear models     | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
+|           |     Tree models      | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
+|           |         L2X          | ✅ | | | | | | |
+| Image     |         LIME         | ✅ | | | | ✅ | | |
+|           |         SHAP         | ✅ | | | | ✅ | | |
 |           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
 |           | Grad-CAM, Grad-CAM++ | ✅ | | | ✅ | ✅ | | |
-|           | CEM                  | ✅ | | ✅ | | | ✅ | |
-|           | Counterfactual       | ✅ | | | | | ✅ | |
-|           | L2X                  | ✅ | | | | | | |
-| Text      | LIME                 | ✅ | | | ✅ | ✅ | | |
-|           | SHAP                 | ✅ | | | | ✅ | | |
+|           |         CEM          | ✅ | | ✅ | | | ✅ | |
+|           |    Counterfactual    | ✅ | | | | | ✅ | |
+|           |         L2X          | ✅ | | | | | | |
+| Text      |         LIME         | ✅ | | | ✅ | ✅ | | |
+|           |         SHAP         | ✅ | | | | ✅ | | |
 |           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           | L2X                  | ✅ | | | | | | |
+|           |         L2X          | ✅ | | | | | | |
+|           |    Counterfactual    | ✅ | | | | | | |
 
 ## Installation
 
