@@ -168,7 +168,8 @@ class CFExplanation(ExplanationBase):
 
         exp = self.explanations[index]
         if exp["counterfactual"] is None:
-            return None
+            return DashFigure(self._plotly_table(exp["query"], None))
+
         columns = self._get_changed_columns(exp["query"], exp["counterfactual"])
         query, cfs = exp["query"][columns], exp["counterfactual"][columns]
         df = pd.concat([query, cfs], axis=0)
@@ -207,23 +208,25 @@ class CFExplanation(ExplanationBase):
         Plots a table showing the generated counterfactual examples.
         """
         from dash import dash_table
-
-        feature_columns = cfs.columns
+        feature_columns = query.columns
         columns = [{"name": "#", "id": "#"}] + [{"name": c, "id": c} for c in feature_columns]
 
-        query, cfs = query.values, cfs.values
         highlights = []
-        for i, cf in enumerate(cfs):
-            for j in range(len(cf) - 1):
-                if query[0][j] != cf[j]:
-                    highlights.append((i, j))
+        query = query.values
+        if cfs is not None:
+            cfs = cfs.values
+            for i, cf in enumerate(cfs):
+                for j in range(len(cf) - 1):
+                    if query[0][j] != cf[j]:
+                        highlights.append((i, j))
 
         data = []
         for x in query:
             data.append({c: d for c, d in zip(feature_columns, x)})
         data.append({c: "-" for c in feature_columns})
-        for x in cfs:
-            data.append({c: d for c, d in zip(feature_columns, x)})
+        if cfs is not None:
+            for x in cfs:
+                data.append({c: d for c, d in zip(feature_columns, x)})
         for i, d in enumerate(data):
             if i == 0:
                 d.update({"#": "Query"})
@@ -245,6 +248,7 @@ class CFExplanation(ExplanationBase):
             id="table",
             columns=columns,
             data=data,
+            style_header_conditional=[{"textAlign": "center"}],
             style_cell_conditional=[{"textAlign": "center"}],
             style_data_conditional=style_data_conditional,
             style_header={"backgroundColor": "rgb(230, 230, 230)", "fontWeight": "bold"},

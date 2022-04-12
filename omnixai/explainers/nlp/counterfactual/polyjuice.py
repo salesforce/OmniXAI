@@ -90,28 +90,27 @@ class Polyjuice(ExplainerBase):
                     query=pd.DataFrame([[text, original_label]], columns=["text", "label"]),
                     cfs=None
                 )
+            else:
+                examples = []
+                original_tokens = Text(text).to_tokens()[0]
+                original_token_counts = Counter(original_tokens)
 
-            examples = []
-            original_tokens = Text(text).to_tokens()[0]
-            original_token_counts = Counter(original_tokens)
+                for t, p, label in zip(cf_texts, cf_predictions, cf_labels):
+                    perturb_tokens = Text(t).to_tokens()[0]
+                    perturb_token_counts = Counter(perturb_tokens)
 
-            for t, p, label in zip(cf_texts, cf_predictions, cf_labels):
-                perturb_tokens = Text(t).to_tokens()[0]
-                perturb_token_counts = Counter(perturb_tokens)
+                    a, b = 0, 0
+                    for key, value in original_token_counts.items():
+                        a += max(0, value - perturb_token_counts.get(key, 0))
+                    for key, value in perturb_token_counts.items():
+                        b += max(0, value - original_token_counts.get(key, 0))
+                    distance = max(a, b)
 
-                a, b = 0, 0
-                for key, value in original_token_counts.items():
-                    a += max(0, value - perturb_token_counts.get(key, 0))
-                for key, value in perturb_token_counts.items():
-                    b += max(0, value - original_token_counts.get(key, 0))
-                distance = max(a, b)
-
-                score = p[original_label] + (distance / len(original_tokens))
-                examples.append((t, score, label))
-            examples = sorted(examples, key=lambda x: x[1])[:max_number_examples]
-
-            explanations.add(
-                query=pd.DataFrame([[text, original_label]], columns=["text", "label"]),
-                cfs=pd.DataFrame([(e[0], e[2]) for e in examples], columns=["text", "label"])
-            )
+                    score = p[original_label] + (distance / len(original_tokens))
+                    examples.append((t, score, label))
+                examples = sorted(examples, key=lambda x: x[1])[:max_number_examples]
+                explanations.add(
+                    query=pd.DataFrame([[text, original_label]], columns=["text", "label"]),
+                    cfs=pd.DataFrame([(e[0], e[2]) for e in examples], columns=["text", "label"])
+                )
         return explanations
