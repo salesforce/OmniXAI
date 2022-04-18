@@ -225,12 +225,12 @@ class Tabular(Data):
 
     def get_continuous_medians(self) -> Dict:
         """
-        Gets the median values of the continuous-valued features.
+        Gets the absolute median values of the continuous-valued features.
 
-        :return: The median values of the continuous-valued features.
+        :return: The absolute median values of the continuous-valued features.
         :rtype: Dict
         """
-        return {c: np.median(self.data[c].values.astype(float)) for c in self.continuous_columns}
+        return {c: np.median(np.abs(self.data[c].values.astype(float))) for c in self.continuous_columns}
 
     def get_continuous_bounds(self) -> tuple:
         """
