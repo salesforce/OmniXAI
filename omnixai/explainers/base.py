@@ -108,11 +108,6 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             assert (
                 name in self._NAME_TO_CLASS
             ), f"Explainer {name} is not found. Please choose explainers from {self._NAME_TO_CLASS.keys()}"
-        assert mode in [
-            "classification",
-            "regression",
-            "data_analysis",
-        ], f"Unknown mode: {mode}, please choose `classification`, `regression` or `data_analysis`."
 
         self.names = explainers
         self.mode = mode
