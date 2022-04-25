@@ -76,6 +76,7 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.vision.html">omnixai.explainers.vision package</a></li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.nlp.html">omnixai.explainers.nlp package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.timeseries.html">omnixai.explainers.timeseries package</a></li>
 </ul>
 </li>
 </ul>
@@ -219,11 +220,11 @@ e.g., <code class="docutils literal notranslate"><span class="pre">num_features<
 <cite>LimeTabularExplainer.explain_instance</cite>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The feature-importance explanations for all the input instances.</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.FeatureImportance" title="omnixai.explanations.tabular.feature_importance.FeatureImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.FeatureImportance" title="omnixai.explanations.tabular.feature_importance.FeatureImportance">FeatureImportance</a></p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The feature-importance explanations for all the input instances.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -281,11 +282,11 @@ when <code class="docutils literal notranslate"><span class="pre">y</span> <span
 <li><p><strong>kwargs</strong> – Additional parameters for <cite>shap.KernelExplainer.shap_values</cite>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The feature-importance explanations for all the input instances.</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.FeatureImportance" title="omnixai.explanations.tabular.feature_importance.FeatureImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.FeatureImportance" title="omnixai.explanations.tabular.feature_importance.FeatureImportance">FeatureImportance</a></p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The feature-importance explanations for all the input instances.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -334,11 +335,11 @@ candidates for each feature during generating partial dependence plots.</p></li>
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates global PDP explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The generated PDP explanations.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.pdp.PDPExplanation" title="omnixai.explanations.tabular.pdp.PDPExplanation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PDPExplanation</span></code></a></p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.pdp.PDPExplanation" title="omnixai.explanations.tabular.pdp.PDPExplanation">PDPExplanation</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The generated PDP explanations.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -389,11 +390,11 @@ class probabilities are not supported.</p></li>
 <dd class="field-odd"><p><strong>kwargs</strong> – Additional parameters, e.g., <code class="docutils literal notranslate"><span class="pre">nsamples</span></code> –
 the number of samples in Morris sampling.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The generated global explanations.</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.sensitivity.SensitivityExplanation" title="omnixai.explanations.tabular.sensitivity.SensitivityExplanation"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensitivityExplanation</span></code></a></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.sensitivity.SensitivityExplanation" title="omnixai.explanations.tabular.sensitivity.SensitivityExplanation">SensitivityExplanation</a></p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The generated global explanations.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -532,11 +533,11 @@ or <cite>np.ndarray</cite>, <code class="docutils literal notranslate"><span cla
 <li><p><strong>kwargs</strong> – Not used here.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The feature-importance explanations for all the input instances.</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.FeatureImportance" title="omnixai.explanations.tabular.feature_importance.FeatureImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.FeatureImportance" title="omnixai.explanations.tabular.feature_importance.FeatureImportance">FeatureImportance</a></p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The feature-importance explanations for all the input instances.</p>
 </dd>
 </dl>
 </dd></dl>

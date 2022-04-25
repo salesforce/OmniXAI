@@ -22,6 +22,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Counterfactual explanation on time series anomaly detection" href="../timeseries/ce.html" />
     <link rel="prev" title="LIME for text classification" href="lime.html" /> 
 </head>
 
@@ -52,6 +53,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#tabular-explainers">Tabular Explainers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#vision-explainers">Vision Explainers</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../tutorials.html#nlp-explainers">NLP Explainers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ce_classification.html">Counterfactual explanation for text classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ce_qa.html">Counterfactual explanation for question answering</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ig_tf.html">Integrated-gradient on IMDB dataset (Tensorflow)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ig_torch.html">Integrated-gradient on IMDB dataset (PyTorch)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="l2x.html">L2X (learning to explain) for text classification</a></li>
@@ -59,6 +62,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">SHAP for sentiment analysis</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#timeseries-explainers">Timeseries Explainers</a></li>
 </ul>
 </li>
 </ul>
@@ -378,7 +382,7 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A transformer model for sentiment analysis</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">transformers</span><span class="o">.</span><span class="n">pipeline</span><span class="p">(</span>
     <span class="s1">&#39;sentiment-analysis&#39;</span><span class="p">,</span>
-    <span class="n">model</span><span class="o">=</span><span class="s1">&#39;/home/ywz/data/models/distilbert-base-uncased-finetuned-sst-2-english&#39;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s1">&#39;distilbert-base-uncased-finetuned-sst-2-english&#39;</span><span class="p">,</span>
     <span class="n">return_all_scores</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 </pre></div>
@@ -440,6 +444,7 @@ Partition explainer: 7it [00:17,  3.51s/it]
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="lime.html" class="btn btn-neutral float-left" title="LIME for text classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../timeseries/ce.html" class="btn btn-neutral float-right" title="Counterfactual explanation on time series anomaly detection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

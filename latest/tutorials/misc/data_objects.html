@@ -53,6 +53,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#Tabular-data">Tabular data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Image-data">Image data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Text-data">Text data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Time-series-data">Time series data</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="preprocessing.html">Examples of data preprocessing</a></li>
@@ -62,6 +63,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#tabular-explainers">Tabular Explainers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#vision-explainers">Vision Explainers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#nlp-explainers">NLP Explainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#timeseries-explainers">Timeseries Explainers</a></li>
 </ul>
 </li>
 </ul>
@@ -785,6 +787,65 @@ Raw strings: [&#39;What a great movie! if you have no taste.&#39;, &#39;it was a
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 [[&#39;what&#39;, &#39;a&#39;, &#39;great&#39;, &#39;movie&#39;, &#39;!&#39;, &#39;if&#39;, &#39;you&#39;, &#39;have&#39;, &#39;no&#39;, &#39;taste&#39;, &#39;.&#39;], [&#39;it&#39;, &#39;was&#39;, &#39;a&#39;, &#39;fantastic&#39;, &#39;performance&#39;, &#39;!&#39;], [&#39;best&#39;, &#39;film&#39;, &#39;ever&#39;], [&#39;such&#39;, &#39;a&#39;, &#39;great&#39;, &#39;show&#39;, &#39;!&#39;], [&#39;it&#39;, &#39;was&#39;, &#39;a&#39;, &#39;horrible&#39;, &#39;movie&#39;], [&#39;i&#39;, &#34;&#39;ve&#34;, &#39;never&#39;, &#39;watched&#39;, &#39;something&#39;, &#39;as&#39;, &#39;bad&#39;]]
+</pre></div></div>
+</div>
+</section>
+<section id="Time-series-data">
+<h2>Time series data<a class="headerlink" href="#Time-series-data" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> class represents a batch of time series. The values of metrics/variables are stored in a numpy array with shape <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">timestamps,</span> <span class="pre">num_variables)</span></code>. If there is only one time series, <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> is 1.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.data.timeseries</span> <span class="kn">import</span> <span class="n">Timeseries</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+   <span class="p">[[</span><span class="s1">&#39;2017-12-27&#39;</span><span class="p">,</span> <span class="mf">1263.94091</span><span class="p">,</span> <span class="mf">394.507</span><span class="p">,</span> <span class="mf">16.530</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;2017-12-28&#39;</span><span class="p">,</span> <span class="mf">1299.86398</span><span class="p">,</span> <span class="mf">506.424</span><span class="p">,</span> <span class="mf">14.162</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;2017-12-29&#39;</span><span class="p">,</span> <span class="mf">1319.76541</span><span class="p">,</span> <span class="mf">610.314</span><span class="p">,</span> <span class="mf">15.173</span><span class="p">]],</span>
+   <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Consumption&#39;</span><span class="p">,</span> <span class="s1">&#39;Wind&#39;</span><span class="p">,</span> <span class="s1">&#39;Solar&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We can construct a <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> instance from one or a list of pandas dataframes. The index of the dataframe indicates the timestamps and the columns are the variables.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_a</span> <span class="o">=</span> <span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">ts_b</span> <span class="o">=</span> <span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">df</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Here are some useful functions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch size of ts_a: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch size of ts_b: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_b</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Length of ts_a: </span><span class="si">{</span><span class="n">ts_a</span><span class="o">.</span><span class="n">ts_len</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To pandas dataframe:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts_a</span><span class="o">.</span><span class="n">to_pd</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Batch size of ts_a: 1
+Batch size of ts_b: 2
+Length of ts_a: 3
+To pandas dataframe:
+            Consumption     Wind   Solar
+timestamp
+2017-12-27   1263.94091  394.507  16.530
+2017-12-28   1299.86398  506.424  14.162
+2017-12-29   1319.76541  610.314  15.173
 </pre></div></div>
 </div>
 </section>

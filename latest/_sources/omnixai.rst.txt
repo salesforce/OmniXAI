@@ -10,10 +10,11 @@ including high-quality implementations of various model-agnostic and model-speci
 e.g., feature-importance explanation, counterfactual explanation, gradient-based explanation, which supports
 tabular data, image data and text data. It has five key subpackages:
 
-- :py:mod:`omnixai.data`: This package contains the classes for representing tabular data, image data and text data,
-  i.e., :py:mod:`omnixai.data.tabular`, :py:mod:`omnixai.data.image` and :py:mod:`omnixai.data.text`, respectively. For example,
-  the explainers for tabular data use an instance of :py:mod:`omnixai.data.tabular` as one of their inputs. The library provides
-  simple constructors for creating instances of these classes from numpy arrays, pandas dataframes, pillow images or strings.
+- :py:mod:`omnixai.data`: This package contains the classes for representing tabular, image, text, and time series data,
+  i.e., :py:mod:`omnixai.data.tabular`, :py:mod:`omnixai.data.image`, :py:mod:`omnixai.data.text` and :py:mod:`omnixai.data.timeseries`,
+  respectively. For example, the explainers for tabular data use an instance of :py:mod:`omnixai.data.tabular` as one of their inputs.
+  The library provides simple constructors for creating instances of these classes from numpy arrays, pandas dataframes,
+  pillow images or strings.
 - :py:mod:`omnixai.preprocessing`: This package contains various pre-processing functions for different feature types:
 
   - One-hot encoding and ordinal encoding for categorical features.
@@ -37,6 +38,7 @@ tabular data, image data and text data. It has five key subpackages:
   - :py:mod:`omnixai.explainers.vision`: It contains the explainers for vision tasks, e.g., integrated-gradient,
     Grad-CAM, contrastive explanation, counterfactuals.
   - :py:mod:`omnixai.explainers.nlp`: It contains the explainers for NLP tasks, e.g., LIME, integrated-gradient.
+  - :py:mod:`omnixai.explainers.timeseries`: It contains the explainers for time series tasks, e.g., SHAP, counterfactual.
 
 For each group, the explainers are further categorized into "model-agnostic", "model-specific" and "counterfactual".
 A "model-agnostic" explainer can handle black-box ML models, i.e., only requiring a prediction function without
@@ -52,6 +54,7 @@ explanation methods.
   - :py:mod:`omnixai.explanations.tabular`: For tabular explainers, e.g., feature-importance explanation, etc.
   - :py:mod:`omnixai.explanations.image`: For vision explainers, e.g., pixel-importance explanation, etc.
   - :py:mod:`omnixai.explanations.text`: For NLP explainers, e.g., word/token-importance explanation, etc.
+  - :py:mod:`omnixai.explanations.timeseries`: For time series explainers, e.g., counterfactual explanation, etc.
 
 - :py:mod:`omnixai.visualization`: This package provides a dashboard for visualization implemented using Plotly Dash. The
   dashboard supports both global explanations and local explanations.
@@ -75,8 +78,8 @@ Getting Started
 
 To get started, we recommend the linked tutorials in :ref:`Tutorials & Example Code <tutorial>`.
 In general, we recommend using :py:mod:`omnixai.explainers.tabular.TabularExplainer`, :py:mod:`omnixai.explainers.vision.VisionExplainer`,
-and :py:mod:`omnixai.explainers.nlp.NLPExplainer` for tabular, vision and NLP tasks, respectively. To generate explanations,
-one only needs to specify
+:py:mod:`omnixai.explainers.nlp.NLPExplainer` and :py:mod:`omnixai.explainers.timeseries.TimeseriesExplainer` for tabular, vision, NLP and
+time series tasks, respectively. To generate explanations, one only needs to specify
 
 - **The ML model to explain**: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.
 - **The pre-processing function**: i.e., converting raw data into the model inputs.

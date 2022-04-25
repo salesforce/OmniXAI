@@ -137,3 +137,4 @@ Explainers for different tasks
    omnixai.explainers.tabular
    omnixai.explainers.vision
    omnixai.explainers.nlp
+   omnixai.explainers.timeseries

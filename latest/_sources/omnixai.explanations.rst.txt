@@ -22,6 +22,7 @@ Three categories of explanation results
    omnixai.explanations.tabular
    omnixai.explanations.image
    omnixai.explanations.text
+   omnixai.explanations.timeseries
 
 omnixai.explanations.base module
 -------------------------------------

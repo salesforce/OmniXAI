@@ -132,10 +132,11 @@ including high-quality implementations of various model-agnostic and model-speci
 e.g., feature-importance explanation, counterfactual explanation, gradient-based explanation, which supports
 tabular data, image data and text data. It has five key subpackages:</p>
 <ul>
-<li><p><a class="reference internal" href="omnixai.data.html#module-omnixai.data" title="omnixai.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data</span></code></a>: This package contains the classes for representing tabular data, image data and text data,
-i.e., <a class="reference internal" href="omnixai.data.html#module-omnixai.data.tabular" title="omnixai.data.tabular"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data.tabular</span></code></a>, <a class="reference internal" href="omnixai.data.html#module-omnixai.data.image" title="omnixai.data.image"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data.image</span></code></a> and <a class="reference internal" href="omnixai.data.html#module-omnixai.data.text" title="omnixai.data.text"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data.text</span></code></a>, respectively. For example,
-the explainers for tabular data use an instance of <a class="reference internal" href="omnixai.data.html#module-omnixai.data.tabular" title="omnixai.data.tabular"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data.tabular</span></code></a> as one of their inputs. The library provides
-simple constructors for creating instances of these classes from numpy arrays, pandas dataframes, pillow images or strings.</p></li>
+<li><p><a class="reference internal" href="omnixai.data.html#module-omnixai.data" title="omnixai.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data</span></code></a>: This package contains the classes for representing tabular, image, text, and time series data,
+i.e., <a class="reference internal" href="omnixai.data.html#module-omnixai.data.tabular" title="omnixai.data.tabular"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data.tabular</span></code></a>, <a class="reference internal" href="omnixai.data.html#module-omnixai.data.image" title="omnixai.data.image"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data.image</span></code></a>, <a class="reference internal" href="omnixai.data.html#module-omnixai.data.text" title="omnixai.data.text"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data.text</span></code></a> and <a class="reference internal" href="omnixai.data.html#module-omnixai.data.timeseries" title="omnixai.data.timeseries"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data.timeseries</span></code></a>,
+respectively. For example, the explainers for tabular data use an instance of <a class="reference internal" href="omnixai.data.html#module-omnixai.data.tabular" title="omnixai.data.tabular"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.data.tabular</span></code></a> as one of their inputs.
+The library provides simple constructors for creating instances of these classes from numpy arrays, pandas dataframes,
+pillow images or strings.</p></li>
 <li><p><a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.preprocessing" title="omnixai.preprocessing"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.preprocessing</span></code></a>: This package contains various pre-processing functions for different feature types:</p>
 <ul class="simple">
 <li><p>One-hot encoding and ordinal encoding for categorical features.</p></li>
@@ -159,6 +160,7 @@ such as PDP, local explanations such as LIME, SHAP, MACE.</p></li>
 <li><p><a class="reference internal" href="omnixai.explainers.vision.html#module-omnixai.explainers.vision" title="omnixai.explainers.vision"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision</span></code></a>: It contains the explainers for vision tasks, e.g., integrated-gradient,
 Grad-CAM, contrastive explanation, counterfactuals.</p></li>
 <li><p><a class="reference internal" href="omnixai.explainers.nlp.html#module-omnixai.explainers.nlp" title="omnixai.explainers.nlp"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp</span></code></a>: It contains the explainers for NLP tasks, e.g., LIME, integrated-gradient.</p></li>
+<li><p><a class="reference internal" href="omnixai.explainers.timeseries.html#module-omnixai.explainers.timeseries" title="omnixai.explainers.timeseries"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries</span></code></a>: It contains the explainers for time series tasks, e.g., SHAP, counterfactual.</p></li>
 </ul>
 </li>
 </ul>
@@ -176,6 +178,7 @@ and “ipython_plot” for IPython. Explanations are categorized into three grou
 <li><p><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular" title="omnixai.explanations.tabular"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explanations.tabular</span></code></a>: For tabular explainers, e.g., feature-importance explanation, etc.</p></li>
 <li><p><a class="reference internal" href="omnixai.explanations.image.html#module-omnixai.explanations.image" title="omnixai.explanations.image"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explanations.image</span></code></a>: For vision explainers, e.g., pixel-importance explanation, etc.</p></li>
 <li><p><a class="reference internal" href="omnixai.explanations.text.html#module-omnixai.explanations.text" title="omnixai.explanations.text"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explanations.text</span></code></a>: For NLP explainers, e.g., word/token-importance explanation, etc.</p></li>
+<li><p><a class="reference internal" href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries" title="omnixai.explanations.timeseries"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explanations.timeseries</span></code></a>: For time series explainers, e.g., counterfactual explanation, etc.</p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="omnixai.visualization.html#module-omnixai.visualization" title="omnixai.visualization"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.visualization</span></code></a>: This package provides a dashboard for visualization implemented using Plotly Dash. The
@@ -200,8 +203,8 @@ root directory of the repo.</p></li>
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p>To get started, we recommend the linked tutorials in <a class="reference internal" href="tutorials.html#tutorial"><span class="std std-ref">Tutorials &amp; Example Code</span></a>.
 In general, we recommend using <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.TabularExplainer" title="omnixai.explainers.tabular.TabularExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code></a>, <a class="reference internal" href="omnixai.explainers.vision.html#omnixai.explainers.vision.VisionExplainer" title="omnixai.explainers.vision.VisionExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code></a>,
-and <a class="reference internal" href="omnixai.explainers.nlp.html#omnixai.explainers.nlp.NLPExplainer" title="omnixai.explainers.nlp.NLPExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code></a> for tabular, vision and NLP tasks, respectively. To generate explanations,
-one only needs to specify</p>
+<a class="reference internal" href="omnixai.explainers.nlp.html#omnixai.explainers.nlp.NLPExplainer" title="omnixai.explainers.nlp.NLPExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code></a> and <a class="reference internal" href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.TimeseriesExplainer" title="omnixai.explainers.timeseries.TimeseriesExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code></a> for tabular, vision, NLP and
+time series tasks, respectively. To generate explanations, one only needs to specify</p>
 <ul class="simple">
 <li><p><strong>The ML model to explain</strong>: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.</p></li>
 <li><p><strong>The pre-processing function</strong>: i.e., converting raw data into the model inputs.</p></li>
@@ -357,6 +360,7 @@ defined in <code class="docutils literal notranslate"><span class="pre">alias</s
 <li class="toctree-l2"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.tabular">omnixai.data.tabular module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.image">omnixai.data.image module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.text">omnixai.data.text module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.timeseries">omnixai.data.timeseries module</a></li>
 </ul>
 </li>
 </ul>
@@ -412,6 +416,11 @@ defined in <code class="docutils literal notranslate"><span class="pre">alias</s
 <li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.nlp.html#subpackages">Subpackages</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="omnixai.explainers.timeseries.html">omnixai.explainers.timeseries package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.timeseries.html#module-omnixai.explainers.timeseries.auto">omnixai.explainers.timeseries.auto module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.timeseries.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -445,6 +454,11 @@ defined in <code class="docutils literal notranslate"><span class="pre">alias</s
 </li>
 <li class="toctree-l3"><a class="reference internal" href="omnixai.explanations.text.html">omnixai.explanations.text package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="omnixai.explanations.text.html#module-omnixai.explanations.text.word_importance">omnixai.explanations.text.word_importance module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="omnixai.explanations.timeseries.html">omnixai.explanations.timeseries package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries.feature_importance">omnixai.explanations.timeseries.feature_importance module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries.counterfactual">omnixai.explanations.timeseries.counterfactual module</a></li>
 </ul>
 </li>
 </ul>

@@ -100,14 +100,14 @@
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>OmniXAI is a Python library for explainable AI and interpretable machine learning.
-The library provides a comprehensive family of explainable AI capabilities and interpretable
+The library provides a comprehensive family of interpretable
 machine learning algorithms. It includes high-quality implementations of various model-agnostic and
 model-specific explanation methods, e.g., feature-attribution explanation, counterfactual explanation,
-gradient-based explanation, and supports tabular data, image data and text data. It also provides an
-easy-to-use interface that allows users to obtain explanations by writing few lines of codes,
+gradient-based explanation, and supports tabular data, image data, text data and time series data. It also provides an
+easy-to-use interface that allows users to obtain explanations by writing a few lines of codes,
 which can be applied for multiple purposes in various applications:</p>
 <ol class="arabic simple">
-<li><p><strong>Data exploration</strong>: What are highly correlated features? Does there exist data imbalance issues?</p></li>
+<li><p><strong>Data exploration</strong>: What are highly correlated features? Do there exist data imbalance issues?</p></li>
 <li><p><strong>Feature engineering</strong>: Which features are important for the task? How to improve the model performance?</p></li>
 <li><p><strong>Model debugging</strong>: Does the model utilize wrong features? Why does the model make a mistake?</p></li>
 <li><p><strong>Decision support for business applications</strong>: How to understand the model’s decision and why to trust them?</p></li>
@@ -119,9 +119,9 @@ our library has a comprehensive list of XAI capabilities and unique features inc
 <li><p><strong>Data analysis/exploration</strong>: Analyzing feature correlations, checking imbalance issues.</p></li>
 <li><p><strong>Support most popular explanation methods</strong>: Many explanation methods can be applied to analyze different aspects of a ML model.</p></li>
 <li><p><strong>Support counterfactual explanation</strong>: Providing the information about how to change the current prediction.</p></li>
-<li><p><strong>Support gradient-based explanation</strong>: Integrated-gradient, Grad-CAM and Grad-CAM++ are included.</p></li>
-<li><p><strong>Support Image and text data</strong>: Our library provides various explanations for image/text models.</p></li>
-<li><p><strong>A much simpler interface</strong>: Users only need to write few lines of code to generate various explanations.</p></li>
+<li><p><strong>Support gradient-based explanation</strong>: Integrated-gradient, Grad-CAM and its variants are included.</p></li>
+<li><p><strong>Support image, text and timeseries data</strong>: Our library provides various explanations for image, text and timeseries models.</p></li>
+<li><p><strong>A much simpler interface</strong>: Users only need to write a few lines of code to generate various explanations.</p></li>
 <li><p><strong>A GUI dashboard</strong>: Providing an GUI dashboard for users to examine the generated explanations.</p></li>
 <li><p><strong>Easy to extend</strong>: Developers can add new explanation algorithms easily by implementing a single class derived from
 the explainer base class.</p></li>
@@ -131,16 +131,17 @@ the explainer base class.</p></li>
 <h2>Capabilities and Features<a class="headerlink" href="#capabilities-and-features" title="Permalink to this headline"></a></h2>
 <p>The following table shows the supported explanation methods and features in our library.
 We will continue improving this library to make it more comprehensive in the future, e.g., supporting more
-explanation methods for vision and NLP tasks.</p>
+explanation methods for vision, NLP and time series tasks.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 25%" />
 <col style="width: 22%" />
-<col style="width: 17%" />
-<col style="width: 14%" />
-<col style="width: 8%" />
-<col style="width: 8%" />
-<col style="width: 8%" />
+<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 10%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
@@ -150,21 +151,24 @@ explanation methods for vision and NLP tasks.</p>
 <th class="head"><p>Tabular</p></th>
 <th class="head"><p>Image</p></th>
 <th class="head"><p>Text</p></th>
+<th class="head"><p>Timeseries</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Feature correlation</p></td>
+<tr class="row-even"><td><p>Feature analysis</p></td>
 <td><p>NA</p></td>
 <td><p>Global</p></td>
 <td><p>✓</p></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Feature imbalance</p></td>
+<tr class="row-odd"><td><p>Feature selection</p></td>
 <td><p>NA</p></td>
 <td><p>Global</p></td>
 <td><p>✓</p></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -176,12 +180,14 @@ explanation methods for vision and NLP tasks.</p>
 <td><p>✓</p></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="row-odd"><td><p>Sensitivity analysis</p></td>
 <td><p>Black box</p></td>
 <td><p>Global</p></td>
 <td></td>
 <td><p>✓</p></td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -192,11 +198,13 @@ explanation methods for vision and NLP tasks.</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
+<td></td>
 </tr>
 <tr class="row-odd"><td><p>SHAP</p></td>
 <td><p>Black box*</p></td>
 <td><p>Local</p></td>
 <td></td>
+<td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
@@ -208,11 +216,13 @@ explanation methods for vision and NLP tasks.</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
+<td></td>
 </tr>
 <tr class="row-odd"><td><p>Counterfactual</p></td>
 <td><p>Black box*</p></td>
 <td><p>Local</p></td>
 <td></td>
+<td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
@@ -224,6 +234,7 @@ explanation methods for vision and NLP tasks.</p>
 <td></td>
 <td><p>✓</p></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="row-odd"><td><p>Grad-CAM, Grad-CAM++</p></td>
 <td><p>Torch or TF</p></td>
@@ -231,6 +242,7 @@ explanation methods for vision and NLP tasks.</p>
 <td></td>
 <td></td>
 <td><p>✓</p></td>
+<td></td>
 <td></td>
 </tr>
 <tr class="row-even"><td><p>Learning to explain</p></td>
@@ -240,6 +252,7 @@ explanation methods for vision and NLP tasks.</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
+<td></td>
 </tr>
 <tr class="row-odd"><td><p>Linear models</p></td>
 <td><p>Linear models</p></td>
@@ -248,12 +261,14 @@ explanation methods for vision and NLP tasks.</p>
 <td><p>✓</p></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="row-even"><td><p>Tree models</p></td>
 <td><p>Tree models</p></td>
 <td><p>Global and Local</p></td>
 <td></td>
 <td><p>✓</p></td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -269,15 +284,15 @@ image data.</p>
 in literature:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 12%" />
+<col style="width: 13%" />
 <col style="width: 26%" />
 <col style="width: 9%" />
 <col style="width: 14%" />
 <col style="width: 8%" />
 <col style="width: 5%" />
 <col style="width: 8%" />
-<col style="width: 7%" />
-<col style="width: 11%" />
+<col style="width: 6%" />
+<col style="width: 10%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Data Type</p></th>
@@ -502,6 +517,26 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
+<tr class="row-odd"><td><p>Timeseries</p></td>
+<td><p>SHAP</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Counterfactual</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -523,12 +558,12 @@ root directory of the repo.</p></li>
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p>To get started, we recommend the linked tutorials in <a class="reference internal" href="tutorials.html#tutorial"><span class="std std-ref">Tutorials &amp; Example Code</span></a>.
 In general, we recommend using <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.TabularExplainer" title="omnixai.explainers.tabular.TabularExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code></a>, <a class="reference internal" href="omnixai.explainers.vision.html#omnixai.explainers.vision.VisionExplainer" title="omnixai.explainers.vision.VisionExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code></a>,
-and <a class="reference internal" href="omnixai.explainers.nlp.html#omnixai.explainers.nlp.NLPExplainer" title="omnixai.explainers.nlp.NLPExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code></a> for tabular, vision and NLP tasks, respectively. To generate explanations,
-one only needs to specify</p>
+<a class="reference internal" href="omnixai.explainers.nlp.html#omnixai.explainers.nlp.NLPExplainer" title="omnixai.explainers.nlp.NLPExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code></a> and <a class="reference internal" href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.TimeseriesExplainer" title="omnixai.explainers.timeseries.TimeseriesExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code></a> for tabular, vision, NLP and
+time series tasks, respectively. To generate explanations, one only needs to specify</p>
 <ul class="simple">
 <li><p><strong>The ML model to explain</strong>: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.</p></li>
 <li><p><strong>The pre-processing function</strong>: i.e., converting raw data into the model inputs.</p></li>
-<li><p><strong>The post-processing function (optional)</strong>: i.e., converting the model outputs into class probabilities.</p></li>
+<li><p><strong>The post-processing function (optional)</strong>: e.g., converting the model outputs into class probabilities.</p></li>
 <li><p><strong>The explainers to apply</strong>: e.g., SHAP, MACE, Grad-CAM.</p></li>
 </ul>
 <p>Let’s take the income prediction task as an example.
@@ -684,6 +719,7 @@ defined in <code class="docutils literal notranslate"><span class="pre">alias</s
 <li class="toctree-l4"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.tabular">omnixai.data.tabular module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.image">omnixai.data.image module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.text">omnixai.data.text module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.timeseries">omnixai.data.timeseries module</a></li>
 </ul>
 </li>
 </ul>
@@ -734,6 +770,7 @@ defined in <code class="docutils literal notranslate"><span class="pre">alias</s
 <li class="toctree-l4"><a class="reference internal" href="tutorials/misc/data_objects.html#Tabular-data">Tabular data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tutorials/misc/data_objects.html#Image-data">Image data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tutorials/misc/data_objects.html#Text-data">Text data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/misc/data_objects.html#Time-series-data">Time series data</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/misc/preprocessing.html">Examples of data preprocessing</a><ul>
@@ -751,6 +788,7 @@ defined in <code class="docutils literal notranslate"><span class="pre">alias</s
 <li class="toctree-l3"><a class="reference internal" href="tutorials/auto_vision.html">VisionExplainer for image classification</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/auto_nlp.html">NLPExplainer for sentiment analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/auto_nlp_imdb.html">NLPExplainer on IMDB dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/auto_timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials.html#tabular-explainers">Tabular Explainers</a><ul>
@@ -781,11 +819,18 @@ defined in <code class="docutils literal notranslate"><span class="pre">alias</s
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials.html#nlp-explainers">NLP Explainers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/ce_classification.html">Counterfactual explanation for text classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/ce_qa.html">Counterfactual explanation for question answering</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/ig_tf.html">Integrated-gradient on IMDB dataset (Tensorflow)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/ig_torch.html">Integrated-gradient on IMDB dataset (PyTorch)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/l2x.html">L2X (learning to explain) for text classification</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/lime.html">LIME for text classification</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/shap.html">SHAP for sentiment analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#timeseries-explainers">Timeseries Explainers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/timeseries/ce.html">Counterfactual explanation on time series anomaly detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/timeseries/shap.html">SHAP for time series anomaly detection</a></li>
 </ul>
 </li>
 </ul>

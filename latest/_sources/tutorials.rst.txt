@@ -23,6 +23,7 @@ Auto-Explainers
    tutorials/auto_vision.ipynb
    tutorials/auto_nlp.ipynb
    tutorials/auto_nlp_imdb.ipynb
+   tutorials/auto_timeseries.ipynb
 
 Tabular Explainers
 ---------------------
@@ -47,3 +48,11 @@ NLP Explainers
    :glob:
 
    tutorials/nlp/*
+
+Timeseries Explainers
+---------------------
+.. toctree::
+   :maxdepth: 2
+   :glob:
+
+   tutorials/timeseries/*

@@ -64,6 +64,7 @@
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.text.html">omnixai.explanations.text package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.timeseries.html">omnixai.explanations.timeseries package</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="omnixai.explanations.html#module-omnixai.explanations.base">omnixai.explanations.base module</a></li>
@@ -494,16 +495,16 @@ label 1 corresponds to ‘cat’.</p></li>
 <span id="omnixai-explanations-image-counterfactual-module"></span><h2>omnixai.explanations.image.counterfactual module<a class="headerlink" href="#module-omnixai.explanations.image.counterfactual" title="Permalink to this headline"></a></h2>
 <p>Counterfactual explanations for vision tasks.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CounterfactualExplanation">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.image.counterfactual.</span></span><span class="sig-name descname"><span class="pre">CounterfactualExplanation</span></span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CounterfactualExplanation" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CFExplanation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.image.counterfactual.</span></span><span class="sig-name descname"><span class="pre">CFExplanation</span></span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
 <p>The class for image counterfactual explanations. The counterfactual examples of the input
 instances are stored in a list. Each item in the list is a dict with the following format:
 <cite>{“image”: the input image, “label”: the predicted label of the input image, “cf”:
 the counterfactual example, “cf_label”: the predicted label of the counterfactual example}</cite>.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CounterfactualExplanation.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CounterfactualExplanation.add" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CFExplanation.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation of one image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -518,8 +519,8 @@ the counterfactual example, “cf_label”: the predicted label of the counterfa
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CounterfactualExplanation.get_explanations">
-<span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CounterfactualExplanation.get_explanations" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CFExplanation.get_explanations">
+<span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -537,8 +538,8 @@ the predicted label of the counterfactual example}</cite>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CounterfactualExplanation.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CounterfactualExplanation.plot" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CFExplanation.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a matplotlib figure showing the counterfactual explanations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -558,8 +559,8 @@ label 1 corresponds to ‘cat’.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CounterfactualExplanation.plotly_plot">
-<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CounterfactualExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CFExplanation.plotly_plot">
+<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a plotly dash figure showing the counterfactual explanations for
 one specific instance.</p>
 <dl class="field-list simple">
@@ -580,8 +581,8 @@ label 1 corresponds to ‘cat’.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CounterfactualExplanation.ipython_plot">
-<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CounterfactualExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CFExplanation.ipython_plot">
+<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots counterfactual examples in IPython.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

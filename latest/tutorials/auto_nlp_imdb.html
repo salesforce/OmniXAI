@@ -22,7 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Counterfactual explanation on Diabetes dataset" href="tabular/ce.html" />
+    <link rel="next" title="TimeseriesExplainer for time series anomaly detection" href="auto_timeseries.html" />
     <link rel="prev" title="NLPExplainer for sentiment analysis" href="auto_nlp.html" /> 
 </head>
 
@@ -56,11 +56,13 @@
 <li class="toctree-l3"><a class="reference internal" href="auto_vision.html">VisionExplainer for image classification</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_nlp.html">NLPExplainer for sentiment analysis</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">NLPExplainer on IMDB dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#tabular-explainers">Tabular Explainers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#vision-explainers">Vision Explainers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#nlp-explainers">NLP Explainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#timeseries-explainers">Timeseries Explainers</a></li>
 </ul>
 </li>
 </ul>
@@ -367,6 +369,16 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
+<span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
+<span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -384,7 +396,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>We apply a simple CNN model for this text classification task. Note that the method <code class="docutils literal notranslate"><span class="pre">forward</span></code> has two inputs <code class="docutils literal notranslate"><span class="pre">inputs</span></code> (token ids) and <code class="docutils literal notranslate"><span class="pre">masks</span></code> (the sentence masks). The first input of the model must be the token ids.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TextModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -421,7 +433,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>We use a <code class="docutils literal notranslate"><span class="pre">Text</span></code> object to represent a batch of texts/sentences. The package <code class="docutils literal notranslate"><span class="pre">omnixai.preprocessing.text</span></code> provides some transforms related to text data such as <code class="docutils literal notranslate"><span class="pre">Tfidf</span></code> and <code class="docutils literal notranslate"><span class="pre">Word2Id</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the training and test datasets</span>
@@ -439,7 +451,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>The preprocessing function converts a batch of texts into token IDs and the masks. The outputs of the preprocessing function must fit the inputs of the model.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">256</span>
@@ -463,7 +475,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>We now train the CNN model and evaluate its performance.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">TextModel</span><span class="p">(</span>
@@ -493,11 +505,11 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
- |████████████████████████████████████████| 100.0% Complete, Loss 0.0008
+ |████████████████████████████████████████| 100.0% Complete, Loss 0.0010
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
@@ -525,7 +537,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Test accuracy: 0.847249703205382
+Test accuracy: 0.8492442322991249
 </pre></div></div>
 </div>
 <p>Similar to <code class="docutils literal notranslate"><span class="pre">TabularExplainer</span></code>, to initialize <code class="docutils literal notranslate"><span class="pre">NLPExplainer</span></code>, we need to set the following parameters:</p>
@@ -539,7 +551,7 @@ Test accuracy: 0.847249703205382
 <p>The preprocessing function takes a <code class="docutils literal notranslate"><span class="pre">Text</span></code> instance as its input and outputs the processed features that the ML model consumes, e.g., the <code class="docutils literal notranslate"><span class="pre">Text</span></code> object is converted into pytorch tensors in this example.</p>
 <p>The postprocessing function converts the outputs into class probabilities.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The preprocessing function</span>
@@ -548,7 +560,7 @@ Test accuracy: 0.847249703205382
 <span class="n">postprocess_func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">logits</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1"># Initialize a NLPExplainer</span>
 <span class="n">explainer</span> <span class="o">=</span> <span class="n">NLPExplainer</span><span class="p">(</span>
-    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ig&quot;</span><span class="p">,</span> <span class="s2">&quot;lime&quot;</span><span class="p">],</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ig&quot;</span><span class="p">,</span> <span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;polyjuice&quot;</span><span class="p">],</span>
     <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
     <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
     <span class="n">preprocess</span><span class="o">=</span><span class="n">preprocess_func</span><span class="p">,</span>
@@ -561,11 +573,10 @@ Test accuracy: 0.847249703205382
 </div>
 <p>There is no “global explanation” for <code class="docutils literal notranslate"><span class="pre">NLPExplainer</span></code> currently. One can simply call explainer.explain to generate local explanations for NLP tasks.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Text</span><span class="p">([</span>
-    <span class="s2">&quot;What a great movie! if you have no taste.&quot;</span><span class="p">,</span>
     <span class="s2">&quot;it was a fantastic performance!&quot;</span><span class="p">,</span>
     <span class="s2">&quot;best film ever&quot;</span><span class="p">,</span>
     <span class="s2">&quot;such a great show!&quot;</span><span class="p">,</span>
@@ -579,8 +590,21 @@ Test accuracy: 0.847249703205382
 <span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;ig&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LIME results:&quot;</span><span class="p">)</span>
 <span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Counterfactual results:&quot;</span><span class="p">)</span>
+<span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;polyjuice&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:polyjuice.polyjuice_wrapper:Setup Polyjuice.
+INFO:polyjuice.polyjuice_wrapper:Setup SpaCy processor.
+INFO:polyjuice.polyjuice_wrapper:Setup perplexity scorer.
+Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -595,17 +619,15 @@ Integrated gradient results:
 </div>
 <div class="output_area rendered_html docutils container">
 <div>Instance 0: Class positive</div>
-<div><span style='color:rgb(142,121,121)'>what </span><span style='color:rgb(127,129,127)'>a </span><span style='color:rgb(65,254,65)'>great </span><span style='color:rgb(126,131,126)'>movie </span><span style='color:rgb(133,125,125)'>if </span><span style='color:rgb(126,131,126)'>you </span><span style='color:rgb(127,128,128)'>have </span><span style='color:rgb(169,107,107)'>no </span><span style='color:rgb(118,148,118)'>taste</span></div><br>
+<div><span style='color:rgb(127,129,127)'>it </span><span style='color:rgb(134,125,125)'>was </span><span style='color:rgb(127,128,128)'>a </span><span style='color:rgb(65,254,65)'>fantastic </span><span style='color:rgb(110,164,110)'>performance</span></div><br>
 <div>Instance 1: Class positive</div>
-<div><span style='color:rgb(127,130,127)'>it </span><span style='color:rgb(140,122,122)'>was </span><span style='color:rgb(128,128,128)'>a </span><span style='color:rgb(65,254,65)'>fantastic </span><span style='color:rgb(120,144,120)'>performance</span></div><br>
+<div><span style='color:rgb(65,254,65)'>best </span><span style='color:rgb(99,185,99)'>film </span><span style='color:rgb(109,165,109)'>ever</span></div><br>
 <div>Instance 2: Class positive</div>
-<div><span style='color:rgb(65,254,65)'>best </span><span style='color:rgb(105,173,105)'>film </span><span style='color:rgb(111,162,111)'>ever</span></div><br>
-<div>Instance 3: Class positive</div>
-<div><span style='color:rgb(176,104,104)'>such </span><span style='color:rgb(128,127,128)'>a </span><span style='color:rgb(65,254,65)'>great </span><span style='color:rgb(117,150,117)'>show</span></div><br>
+<div><span style='color:rgb(189,97,97)'>such </span><span style='color:rgb(127,129,127)'>a </span><span style='color:rgb(65,254,65)'>great </span><span style='color:rgb(120,143,120)'>show</span></div><br>
+<div>Instance 3: Class negative</div>
+<div><span style='color:rgb(131,126,126)'>it </span><span style='color:rgb(122,140,122)'>was </span><span style='color:rgb(130,127,127)'>a </span><span style='color:rgb(65,254,65)'>horrible </span><span style='color:rgb(120,143,120)'>movie</span></div><br>
 <div>Instance 4: Class negative</div>
-<div><span style='color:rgb(135,124,124)'>it </span><span style='color:rgb(119,145,119)'>was </span><span style='color:rgb(128,128,128)'>a </span><span style='color:rgb(65,254,65)'>horrible </span><span style='color:rgb(123,137,123)'>movie</span></div><br>
-<div>Instance 5: Class negative</div>
-<div><span style='color:rgb(127,129,127)'>i </span><span style='color:rgb(140,122,122)'>never </span><span style='color:rgb(134,125,125)'>watched </span><span style='color:rgb(144,120,120)'>something </span><span style='color:rgb(130,127,127)'>as </span><span style='color:rgb(65,254,65)'>bad</span></div><br></div>
+<div><span style='color:rgb(128,127,128)'>i </span><span style='color:rgb(141,121,121)'>never </span><span style='color:rgb(132,126,126)'>watched </span><span style='color:rgb(151,116,116)'>something </span><span style='color:rgb(139,122,122)'>as </span><span style='color:rgb(65,254,65)'>bad</span></div><br></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -615,26 +637,39 @@ Integrated gradient results:
 LIME results:
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
 <div>Instance 0: Class positive</div>
-<div><span style='color:rgb(65,254,65)'>great </span><span style='color:rgb(92,200,92)'>taste </span><span style='color:rgb(156,114,114)'>no </span><span style='color:rgb(124,135,124)'>you </span><span style='color:rgb(126,132,126)'>a </span><span style='color:rgb(126,132,126)'>movie </span><span style='color:rgb(127,130,127)'>What </span><span style='color:rgb(129,127,127)'>have </span><span style='color:rgb(128,128,128)'>if</span></div><br>
+<div><span style='color:rgb(65,254,65)'>fantastic </span><span style='color:rgb(104,175,104)'>performance </span><span style='color:rgb(147,118,118)'>was </span><span style='color:rgb(123,137,123)'>it </span><span style='color:rgb(123,137,123)'>a</span></div><br>
 <div>Instance 1: Class positive</div>
-<div><span style='color:rgb(65,254,65)'>fantastic </span><span style='color:rgb(143,120,120)'>was </span><span style='color:rgb(125,133,125)'>performance </span><span style='color:rgb(126,132,126)'>it </span><span style='color:rgb(127,129,127)'>a</span></div><br>
+<div><span style='color:rgb(65,254,65)'>best </span><span style='color:rgb(89,205,89)'>ever </span><span style='color:rgb(90,204,90)'>film</span></div><br>
 <div>Instance 2: Class positive</div>
-<div><span style='color:rgb(65,254,65)'>best </span><span style='color:rgb(88,207,88)'>ever </span><span style='color:rgb(91,201,91)'>film</span></div><br>
-<div>Instance 3: Class positive</div>
-<div><span style='color:rgb(65,254,65)'>great </span><span style='color:rgb(147,118,118)'>such </span><span style='color:rgb(126,131,126)'>a </span><span style='color:rgb(127,130,127)'>show</span></div><br>
+<div><span style='color:rgb(65,254,65)'>great </span><span style='color:rgb(143,120,120)'>such </span><span style='color:rgb(124,135,124)'>a </span><span style='color:rgb(124,135,124)'>show</span></div><br>
+<div>Instance 3: Class negative</div>
+<div><span style='color:rgb(65,254,65)'>horrible </span><span style='color:rgb(119,145,119)'>was </span><span style='color:rgb(137,123,123)'>it </span><span style='color:rgb(123,137,123)'>movie </span><span style='color:rgb(135,124,124)'>a</span></div><br>
 <div>Instance 4: Class negative</div>
-<div><span style='color:rgb(65,254,65)'>horrible </span><span style='color:rgb(123,137,123)'>was </span><span style='color:rgb(135,124,124)'>it </span><span style='color:rgb(133,125,125)'>a </span><span style='color:rgb(128,127,128)'>movie</span></div><br>
-<div>Instance 5: Class negative</div>
-<div><span style='color:rgb(65,254,65)'>bad </span><span style='color:rgb(133,125,125)'>never </span><span style='color:rgb(131,126,126)'>i </span><span style='color:rgb(126,131,126)'>something </span><span style='color:rgb(127,129,127)'>as </span><span style='color:rgb(128,128,128)'>ve </span><span style='color:rgb(128,127,128)'>watched</span></div><br></div>
+<div><span style='color:rgb(65,254,65)'>bad </span><span style='color:rgb(135,124,124)'>never </span><span style='color:rgb(134,125,125)'>i </span><span style='color:rgb(131,126,126)'>something </span><span style='color:rgb(130,127,127)'>as </span><span style='color:rgb(128,128,128)'>ve </span><span style='color:rgb(128,127,128)'>watched</span></div><br></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Counterfactual results:
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_auto_nlp_imdb_16_6.png" src="../_images/tutorials_auto_nlp_imdb_16_6.png" />
+</div>
 </div>
 <p>Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test instances and the generated local explanations.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch a dashboard for visualization</span>
@@ -654,9 +689,25 @@ LIME results:
 <div class="highlight"><pre>
 Dash is running on http://127.0.0.1:8050/
 
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:omnixai.visualization.dashboard:Dash is running on http://127.0.0.1:8050/
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
  * Serving Flask app &#34;omnixai.visualization.dashboard&#34; (lazy loading)
  * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
+<span class="ansi-red-fg">   WARNING: This is a development server. Do not use it in a production deployment.</span>
    Use a production WSGI server instead.
  * Debug mode: off
 </pre></div></div>
@@ -666,7 +717,7 @@ Dash is running on http://127.0.0.1:8050/
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
- * Running on http://127.0.0.1:8050/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:8050/ (Press CTRL+C to quit)
 </pre></div></div>
 </div>
 </section>
@@ -676,7 +727,7 @@ Dash is running on http://127.0.0.1:8050/
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="auto_nlp.html" class="btn btn-neutral float-left" title="NLPExplainer for sentiment analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tabular/ce.html" class="btn btn-neutral float-right" title="Counterfactual explanation on Diabetes dataset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="auto_timeseries.html" class="btn btn-neutral float-right" title="TimeseriesExplainer for time series anomaly detection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -73,6 +73,7 @@
 
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
@@ -99,7 +100,7 @@
       <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.contrast.ContrastiveExplanation.add">add() (omnixai.explanations.image.contrast.ContrastiveExplanation method)</a>
 
       <ul>
-        <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CounterfactualExplanation.add">(omnixai.explanations.image.counterfactual.CounterfactualExplanation method)</a>
+        <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CFExplanation.add">(omnixai.explanations.image.counterfactual.CFExplanation method)</a>
 </li>
         <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.mask.MaskExplanation.add">(omnixai.explanations.image.mask.MaskExplanation method)</a>
 </li>
@@ -122,6 +123,10 @@
         <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.add">(omnixai.explanations.tabular.sensitivity.SensitivityExplanation method)</a>
 </li>
         <li><a href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance.add">(omnixai.explanations.text.word_importance.WordImportance method)</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.counterfactual.CFExplanation.add">(omnixai.explanations.timeseries.counterfactual.CFExplanation method)</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.feature_importance.FeatureImportance.add">(omnixai.explanations.timeseries.feature_importance.FeatureImportance method)</a>
 </li>
       </ul></li>
       <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.tree.TreeExplanation.add_global">add_global() (omnixai.explanations.tabular.tree.TreeExplanation method)</a>
@@ -175,6 +180,8 @@
 </li>
         <li><a href="omnixai.explainers.tabular.agnostic.html#omnixai.explainers.tabular.agnostic.shap.ShapTabular.alias">(omnixai.explainers.tabular.agnostic.shap.ShapTabular attribute)</a>
 </li>
+        <li><a href="omnixai.explainers.tabular.counterfactual.html#omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer.alias">(omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer attribute)</a>
+</li>
         <li><a href="omnixai.explainers.tabular.counterfactual.html#omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer.alias">(omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer attribute)</a>
 </li>
         <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.CounterfactualExplainer.alias">(omnixai.explainers.tabular.CounterfactualExplainer attribute)</a>
@@ -214,6 +221,14 @@
         <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.TreeClassifier.alias">(omnixai.explainers.tabular.TreeClassifier attribute)</a>
 </li>
         <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.TreeRegressor.alias">(omnixai.explainers.tabular.TreeRegressor attribute)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.agnostic.html#omnixai.explainers.timeseries.agnostic.shap.ShapTimeseries.alias">(omnixai.explainers.timeseries.agnostic.shap.ShapTimeseries attribute)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.counterfactual.html#omnixai.explainers.timeseries.counterfactual.ce.CounterfactualExplainer.alias">(omnixai.explainers.timeseries.counterfactual.ce.CounterfactualExplainer attribute)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.CounterfactualExplainer.alias">(omnixai.explainers.timeseries.CounterfactualExplainer attribute)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.ShapTimeseries.alias">(omnixai.explainers.timeseries.ShapTimeseries attribute)</a>
 </li>
         <li><a href="omnixai.explainers.vision.agnostic.html#omnixai.explainers.vision.agnostic.l2x.L2XImage.alias">(omnixai.explainers.vision.agnostic.l2x.L2XImage attribute)</a>
 </li>
@@ -259,6 +274,14 @@
   </ul></td>
 </tr></table>
 
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.batch_size">batch_size (omnixai.data.timeseries.Timeseries property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -276,8 +299,14 @@
       </ul></li>
       <li><a href="omnixai.explainers.vision.specific.html#omnixai.explainers.vision.specific.cem.CEMOptimizer">CEMOptimizer (class in omnixai.explainers.vision.specific.cem)</a>
 </li>
-      <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.counterfactual.CFExplanation">CFExplanation (class in omnixai.explanations.tabular.counterfactual)</a>
+      <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CFExplanation">CFExplanation (class in omnixai.explanations.image.counterfactual)</a>
+
+      <ul>
+        <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.counterfactual.CFExplanation">(class in omnixai.explanations.tabular.counterfactual)</a>
 </li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.counterfactual.CFExplanation">(class in omnixai.explanations.timeseries.counterfactual)</a>
+</li>
+      </ul></li>
       <li><a href="omnixai.explainers.data.html#omnixai.explainers.data.ChiSquare">ChiSquare (class in omnixai.explainers.data)</a>
 
       <ul>
@@ -289,13 +318,17 @@
       <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.SklearnBase.class_names">class_names() (omnixai.explainers.tabular.base.SklearnBase method)</a>
 </li>
       <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.columns">columns (omnixai.data.tabular.Tabular property)</a>
+
+      <ul>
+        <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.columns">(omnixai.data.timeseries.Timeseries property)</a>
 </li>
+      </ul></li>
       <li><a href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.ig.IntegratedGradient.compute_integrated_gradients">compute_integrated_gradients() (omnixai.explainers.tabular.specific.ig.IntegratedGradient static method)</a>
+</li>
+      <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.continuous_columns">continuous_columns (omnixai.data.tabular.Tabular property)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.continuous_columns">continuous_columns (omnixai.data.tabular.Tabular property)</a>
-</li>
       <li><a href="omnixai.explainers.vision.html#omnixai.explainers.vision.ContrastiveExplainer">ContrastiveExplainer (class in omnixai.explainers.vision)</a>
 
       <ul>
@@ -311,6 +344,8 @@
 </li>
         <li><a href="omnixai.data.html#omnixai.data.text.Text.copy">(omnixai.data.text.Text method)</a>
 </li>
+        <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.copy">(omnixai.data.timeseries.Timeseries method)</a>
+</li>
       </ul></li>
       <li><a href="omnixai.explainers.data.html#omnixai.explainers.data.CorrelationAnalyzer">CorrelationAnalyzer (class in omnixai.explainers.data)</a>
 
@@ -323,13 +358,23 @@
       <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.CounterfactualExplainer">CounterfactualExplainer (class in omnixai.explainers.tabular)</a>
 
       <ul>
+        <li><a href="omnixai.explainers.tabular.counterfactual.html#omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer">(class in omnixai.explainers.tabular.counterfactual.ce)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.CounterfactualExplainer">(class in omnixai.explainers.timeseries)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.counterfactual.html#omnixai.explainers.timeseries.counterfactual.ce.CounterfactualExplainer">(class in omnixai.explainers.timeseries.counterfactual.ce)</a>
+</li>
         <li><a href="omnixai.explainers.vision.html#omnixai.explainers.vision.CounterfactualExplainer">(class in omnixai.explainers.vision)</a>
 </li>
         <li><a href="omnixai.explainers.vision.counterfactual.html#omnixai.explainers.vision.counterfactual.ce.CounterfactualExplainer">(class in omnixai.explainers.vision.counterfactual.ce)</a>
 </li>
       </ul></li>
-      <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CounterfactualExplanation">CounterfactualExplanation (class in omnixai.explanations.image.counterfactual)</a>
+      <li><a href="omnixai.explainers.tabular.counterfactual.html#omnixai.explainers.tabular.counterfactual.ce.CounterfactualOptimizer">CounterfactualOptimizer (class in omnixai.explainers.tabular.counterfactual.ce)</a>
+
+      <ul>
+        <li><a href="omnixai.explainers.timeseries.counterfactual.html#omnixai.explainers.timeseries.counterfactual.ce.CounterfactualOptimizer">(class in omnixai.explainers.timeseries.counterfactual.ce)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -350,6 +395,8 @@
         <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.data_type">(omnixai.data.tabular.Tabular attribute)</a>
 </li>
         <li><a href="omnixai.data.html#omnixai.data.text.Text.data_type">(omnixai.data.text.Text attribute)</a>
+</li>
+        <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.data_type">(omnixai.data.timeseries.Timeseries attribute)</a>
 </li>
       </ul></li>
       <li><a href="omnixai.explainers.data.html#omnixai.explainers.data.DataAnalyzer">DataAnalyzer (class in omnixai.explainers.data)</a>
@@ -437,6 +484,8 @@
 </li>
         <li><a href="omnixai.explainers.tabular.agnostic.html#omnixai.explainers.tabular.agnostic.shap.ShapTabular.explain">(omnixai.explainers.tabular.agnostic.shap.ShapTabular method)</a>
 </li>
+        <li><a href="omnixai.explainers.tabular.counterfactual.html#omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer.explain">(omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer method)</a>
+</li>
         <li><a href="omnixai.explainers.tabular.counterfactual.html#omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer.explain">(omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer method)</a>
 </li>
         <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.CounterfactualExplainer.explain">(omnixai.explainers.tabular.CounterfactualExplainer method)</a>
@@ -464,6 +513,14 @@
         <li><a href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.linear.LinearBase.explain">(omnixai.explainers.tabular.specific.linear.LinearBase method)</a>
 </li>
         <li><a href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular.explain">(omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular method)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.agnostic.html#omnixai.explainers.timeseries.agnostic.shap.ShapTimeseries.explain">(omnixai.explainers.timeseries.agnostic.shap.ShapTimeseries method)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.counterfactual.html#omnixai.explainers.timeseries.counterfactual.ce.CounterfactualExplainer.explain">(omnixai.explainers.timeseries.counterfactual.ce.CounterfactualExplainer method)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.CounterfactualExplainer.explain">(omnixai.explainers.timeseries.CounterfactualExplainer method)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.ShapTimeseries.explain">(omnixai.explainers.timeseries.ShapTimeseries method)</a>
 </li>
         <li><a href="omnixai.explainers.vision.agnostic.html#omnixai.explainers.vision.agnostic.l2x.L2XImage.explain">(omnixai.explainers.vision.agnostic.l2x.L2XImage method)</a>
 </li>
@@ -561,6 +618,8 @@
 </li>
         <li><a href="omnixai.explainers.tabular.agnostic.html#omnixai.explainers.tabular.agnostic.shap.ShapTabular.explanation_type">(omnixai.explainers.tabular.agnostic.shap.ShapTabular attribute)</a>
 </li>
+        <li><a href="omnixai.explainers.tabular.counterfactual.html#omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer.explanation_type">(omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer attribute)</a>
+</li>
         <li><a href="omnixai.explainers.tabular.counterfactual.html#omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer.explanation_type">(omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer attribute)</a>
 </li>
         <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.CounterfactualExplainer.explanation_type">(omnixai.explainers.tabular.CounterfactualExplainer attribute)</a>
@@ -588,6 +647,14 @@
         <li><a href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.linear.LinearBase.explanation_type">(omnixai.explainers.tabular.specific.linear.LinearBase attribute)</a>
 </li>
         <li><a href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular.explanation_type">(omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular attribute)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.agnostic.html#omnixai.explainers.timeseries.agnostic.shap.ShapTimeseries.explanation_type">(omnixai.explainers.timeseries.agnostic.shap.ShapTimeseries attribute)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.counterfactual.html#omnixai.explainers.timeseries.counterfactual.ce.CounterfactualExplainer.explanation_type">(omnixai.explainers.timeseries.counterfactual.ce.CounterfactualExplainer attribute)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.CounterfactualExplainer.explanation_type">(omnixai.explainers.timeseries.CounterfactualExplainer attribute)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.ShapTimeseries.explanation_type">(omnixai.explainers.timeseries.ShapTimeseries attribute)</a>
 </li>
         <li><a href="omnixai.explainers.vision.agnostic.html#omnixai.explainers.vision.agnostic.l2x.L2XImage.explanation_type">(omnixai.explainers.vision.agnostic.l2x.L2XImage attribute)</a>
 </li>
@@ -637,7 +704,11 @@
       <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.feature_columns">feature_columns (omnixai.data.tabular.Tabular property)</a>
 </li>
       <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.FeatureImportance">FeatureImportance (class in omnixai.explanations.tabular.feature_importance)</a>
+
+      <ul>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.feature_importance.FeatureImportance">(class in omnixai.explanations.timeseries.feature_importance)</a>
 </li>
+      </ul></li>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.fill.FillNaN">FillNaN (class in omnixai.preprocessing.fill)</a>
 </li>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.fill.FillNaNTabular">FillNaNTabular (class in omnixai.preprocessing.fill)</a>
@@ -708,6 +779,8 @@
         <li><a href="omnixai.explainers.vision.agnostic.html#omnixai.explainers.vision.agnostic.l2x.DefaultSelectionModel.forward">(omnixai.explainers.vision.agnostic.l2x.DefaultSelectionModel method)</a>
 </li>
       </ul></li>
+      <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.from_pd">from_pd() (omnixai.data.timeseries.Timeseries class method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -725,7 +798,7 @@
 </li>
         <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.contrast.ContrastiveExplanation.get_explanations">(omnixai.explanations.image.contrast.ContrastiveExplanation method)</a>
 </li>
-        <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CounterfactualExplanation.get_explanations">(omnixai.explanations.image.counterfactual.CounterfactualExplanation method)</a>
+        <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CFExplanation.get_explanations">(omnixai.explanations.image.counterfactual.CFExplanation method)</a>
 </li>
         <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.mask.MaskExplanation.get_explanations">(omnixai.explanations.image.mask.MaskExplanation method)</a>
 </li>
@@ -750,6 +823,10 @@
         <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.tree.TreeExplanation.get_explanations">(omnixai.explanations.tabular.tree.TreeExplanation method)</a>
 </li>
         <li><a href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance.get_explanations">(omnixai.explanations.text.word_importance.WordImportance method)</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.counterfactual.CFExplanation.get_explanations">(omnixai.explanations.timeseries.counterfactual.CFExplanation method)</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.feature_importance.FeatureImportance.get_explanations">(omnixai.explanations.timeseries.feature_importance.FeatureImportance method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -797,6 +874,8 @@
 </li>
       </ul></li>
       <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.imbalance.ImbalanceExplanation">ImbalanceExplanation (class in omnixai.explanations.tabular.imbalance)</a>
+</li>
+      <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.index">index (omnixai.data.timeseries.Timeseries property)</a>
 </li>
       <li><a href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.ig.IntegratedGradient">IntegratedGradient (class in omnixai.explainers.tabular.specific.ig)</a>
 </li>
@@ -867,7 +946,7 @@
 </li>
         <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.contrast.ContrastiveExplanation.ipython_plot">(omnixai.explanations.image.contrast.ContrastiveExplanation method)</a>
 </li>
-        <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CounterfactualExplanation.ipython_plot">(omnixai.explanations.image.counterfactual.CounterfactualExplanation method)</a>
+        <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CFExplanation.ipython_plot">(omnixai.explanations.image.counterfactual.CFExplanation method)</a>
 </li>
         <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.mask.MaskExplanation.ipython_plot">(omnixai.explanations.image.mask.MaskExplanation method)</a>
 </li>
@@ -892,6 +971,10 @@
         <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.tree.TreeExplanation.ipython_plot">(omnixai.explanations.tabular.tree.TreeExplanation method)</a>
 </li>
         <li><a href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance.ipython_plot">(omnixai.explanations.text.word_importance.WordImportance method)</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.counterfactual.CFExplanation.ipython_plot">(omnixai.explanations.timeseries.counterfactual.CFExplanation method)</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.feature_importance.FeatureImportance.ipython_plot">(omnixai.explanations.timeseries.feature_importance.FeatureImportance method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -948,10 +1031,10 @@
       </ul></li>
       <li><a href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.linear.LinearBase">LinearBase (class in omnixai.explainers.tabular.specific.linear)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.linear.LinearExplanation">LinearExplanation (class in omnixai.explanations.tabular.linear)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.LinearRegression">LinearRegression (class in omnixai.explainers.tabular)</a>
 
       <ul>
@@ -972,6 +1055,10 @@
         <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.auto.TabularExplainer.list_explainers">(omnixai.explainers.tabular.auto.TabularExplainer static method)</a>
 </li>
         <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.TabularExplainer.list_explainers">(omnixai.explainers.tabular.TabularExplainer static method)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.auto.TimeseriesExplainer.list_explainers">(omnixai.explainers.timeseries.auto.TimeseriesExplainer static method)</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.TimeseriesExplainer.list_explainers">(omnixai.explainers.timeseries.TimeseriesExplainer static method)</a>
 </li>
         <li><a href="omnixai.explainers.vision.html#omnixai.explainers.vision.auto.VisionExplainer.list_explainers">(omnixai.explainers.vision.auto.VisionExplainer static method)</a>
 </li>
@@ -1017,6 +1104,8 @@
         <li><a href="omnixai.data.html#module-omnixai.data.tabular">omnixai.data.tabular</a>
 </li>
         <li><a href="omnixai.data.html#module-omnixai.data.text">omnixai.data.text</a>
+</li>
+        <li><a href="omnixai.data.html#module-omnixai.data.timeseries">omnixai.data.timeseries</a>
 </li>
         <li><a href="omnixai.explainers.html#module-omnixai.explainers">omnixai.explainers</a>
 </li>
@@ -1074,6 +1163,8 @@
 </li>
         <li><a href="omnixai.explainers.tabular.counterfactual.html#module-omnixai.explainers.tabular.counterfactual">omnixai.explainers.tabular.counterfactual</a>
 </li>
+        <li><a href="omnixai.explainers.tabular.counterfactual.html#module-omnixai.explainers.tabular.counterfactual.ce">omnixai.explainers.tabular.counterfactual.ce</a>
+</li>
         <li><a href="omnixai.explainers.tabular.counterfactual.html#module-omnixai.explainers.tabular.counterfactual.mace.mace">omnixai.explainers.tabular.counterfactual.mace.mace</a>
 </li>
         <li><a href="omnixai.explainers.tabular.specific.html#module-omnixai.explainers.tabular.specific">omnixai.explainers.tabular.specific</a>
@@ -1085,6 +1176,18 @@
         <li><a href="omnixai.explainers.tabular.specific.html#module-omnixai.explainers.tabular.specific.linear">omnixai.explainers.tabular.specific.linear</a>
 </li>
         <li><a href="omnixai.explainers.tabular.specific.html#module-omnixai.explainers.tabular.specific.shap_tree">omnixai.explainers.tabular.specific.shap_tree</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#module-omnixai.explainers.timeseries">omnixai.explainers.timeseries</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.agnostic.html#module-omnixai.explainers.timeseries.agnostic">omnixai.explainers.timeseries.agnostic</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.agnostic.html#module-omnixai.explainers.timeseries.agnostic.shap">omnixai.explainers.timeseries.agnostic.shap</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.html#module-omnixai.explainers.timeseries.auto">omnixai.explainers.timeseries.auto</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.counterfactual.html#module-omnixai.explainers.timeseries.counterfactual">omnixai.explainers.timeseries.counterfactual</a>
+</li>
+        <li><a href="omnixai.explainers.timeseries.counterfactual.html#module-omnixai.explainers.timeseries.counterfactual.ce">omnixai.explainers.timeseries.counterfactual.ce</a>
 </li>
         <li><a href="omnixai.explainers.vision.html#module-omnixai.explainers.vision">omnixai.explainers.vision</a>
 </li>
@@ -1147,6 +1250,12 @@
         <li><a href="omnixai.explanations.text.html#module-omnixai.explanations.text">omnixai.explanations.text</a>
 </li>
         <li><a href="omnixai.explanations.text.html#module-omnixai.explanations.text.word_importance">omnixai.explanations.text.word_importance</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries">omnixai.explanations.timeseries</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries.counterfactual">omnixai.explanations.timeseries.counterfactual</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries.feature_importance">omnixai.explanations.timeseries.feature_importance</a>
 </li>
         <li><a href="omnixai.preprocessing.html#module-omnixai.preprocessing">omnixai.preprocessing</a>
 </li>
@@ -1245,6 +1354,13 @@
 
       <ul>
         <li><a href="omnixai.data.html#module-omnixai.data.text">module</a>
+</li>
+      </ul></li>
+      <li>
+    omnixai.data.timeseries
+
+      <ul>
+        <li><a href="omnixai.data.html#module-omnixai.data.timeseries">module</a>
 </li>
       </ul></li>
       <li>
@@ -1444,6 +1560,13 @@
 </li>
       </ul></li>
       <li>
+    omnixai.explainers.tabular.counterfactual.ce
+
+      <ul>
+        <li><a href="omnixai.explainers.tabular.counterfactual.html#module-omnixai.explainers.tabular.counterfactual.ce">module</a>
+</li>
+      </ul></li>
+      <li>
     omnixai.explainers.tabular.counterfactual.mace.mace
 
       <ul>
@@ -1486,6 +1609,50 @@
 </li>
       </ul></li>
       <li>
+    omnixai.explainers.timeseries
+
+      <ul>
+        <li><a href="omnixai.explainers.timeseries.html#module-omnixai.explainers.timeseries">module</a>
+</li>
+      </ul></li>
+      <li>
+    omnixai.explainers.timeseries.agnostic
+
+      <ul>
+        <li><a href="omnixai.explainers.timeseries.agnostic.html#module-omnixai.explainers.timeseries.agnostic">module</a>
+</li>
+      </ul></li>
+      <li>
+    omnixai.explainers.timeseries.agnostic.shap
+
+      <ul>
+        <li><a href="omnixai.explainers.timeseries.agnostic.html#module-omnixai.explainers.timeseries.agnostic.shap">module</a>
+</li>
+      </ul></li>
+      <li>
+    omnixai.explainers.timeseries.auto
+
+      <ul>
+        <li><a href="omnixai.explainers.timeseries.html#module-omnixai.explainers.timeseries.auto">module</a>
+</li>
+      </ul></li>
+      <li>
+    omnixai.explainers.timeseries.counterfactual
+
+      <ul>
+        <li><a href="omnixai.explainers.timeseries.counterfactual.html#module-omnixai.explainers.timeseries.counterfactual">module</a>
+</li>
+      </ul></li>
+      <li>
+    omnixai.explainers.timeseries.counterfactual.ce
+
+      <ul>
+        <li><a href="omnixai.explainers.timeseries.counterfactual.html#module-omnixai.explainers.timeseries.counterfactual.ce">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
     omnixai.explainers.vision
 
       <ul>
@@ -1499,8 +1666,6 @@
         <li><a href="omnixai.explainers.vision.agnostic.html#module-omnixai.explainers.vision.agnostic">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     omnixai.explainers.vision.agnostic.l2x
 
@@ -1705,6 +1870,27 @@
 </li>
       </ul></li>
       <li>
+    omnixai.explanations.timeseries
+
+      <ul>
+        <li><a href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries">module</a>
+</li>
+      </ul></li>
+      <li>
+    omnixai.explanations.timeseries.counterfactual
+
+      <ul>
+        <li><a href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries.counterfactual">module</a>
+</li>
+      </ul></li>
+      <li>
+    omnixai.explanations.timeseries.feature_importance
+
+      <ul>
+        <li><a href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries.feature_importance">module</a>
+</li>
+      </ul></li>
+      <li>
     omnixai.preprocessing
 
       <ul>
@@ -1790,6 +1976,12 @@
       </ul></li>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.encode.OneHot">OneHot (class in omnixai.preprocessing.encode)</a>
 </li>
+      <li><a href="omnixai.explainers.tabular.counterfactual.html#omnixai.explainers.tabular.counterfactual.ce.CounterfactualOptimizer.optimize">optimize() (omnixai.explainers.tabular.counterfactual.ce.CounterfactualOptimizer method)</a>
+
+      <ul>
+        <li><a href="omnixai.explainers.timeseries.counterfactual.html#omnixai.explainers.timeseries.counterfactual.ce.CounterfactualOptimizer.optimize">(omnixai.explainers.timeseries.counterfactual.ce.CounterfactualOptimizer method)</a>
+</li>
+      </ul></li>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.encode.Ordinal">Ordinal (class in omnixai.preprocessing.encode)</a>
 </li>
       <li><a href="omnixai.preprocessing.html#omnixai.sampler.tabular.Sampler.oversample">oversample() (omnixai.sampler.tabular.Sampler static method)</a>
@@ -1827,7 +2019,7 @@
 </li>
         <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.contrast.ContrastiveExplanation.plot">(omnixai.explanations.image.contrast.ContrastiveExplanation method)</a>
 </li>
-        <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CounterfactualExplanation.plot">(omnixai.explanations.image.counterfactual.CounterfactualExplanation method)</a>
+        <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CFExplanation.plot">(omnixai.explanations.image.counterfactual.CFExplanation method)</a>
 </li>
         <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.mask.MaskExplanation.plot">(omnixai.explanations.image.mask.MaskExplanation method)</a>
 </li>
@@ -1853,6 +2045,10 @@
 </li>
         <li><a href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance.plot">(omnixai.explanations.text.word_importance.WordImportance method)</a>
 </li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.counterfactual.CFExplanation.plot">(omnixai.explanations.timeseries.counterfactual.CFExplanation method)</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.feature_importance.FeatureImportance.plot">(omnixai.explanations.timeseries.feature_importance.FeatureImportance method)</a>
+</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -1863,7 +2059,7 @@
 </li>
         <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.contrast.ContrastiveExplanation.plotly_plot">(omnixai.explanations.image.contrast.ContrastiveExplanation method)</a>
 </li>
-        <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CounterfactualExplanation.plotly_plot">(omnixai.explanations.image.counterfactual.CounterfactualExplanation method)</a>
+        <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.counterfactual.CFExplanation.plotly_plot">(omnixai.explanations.image.counterfactual.CFExplanation method)</a>
 </li>
         <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.mask.MaskExplanation.plotly_plot">(omnixai.explanations.image.mask.MaskExplanation method)</a>
 </li>
@@ -1888,6 +2084,10 @@
         <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.tree.TreeExplanation.plotly_plot">(omnixai.explanations.tabular.tree.TreeExplanation method)</a>
 </li>
         <li><a href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance.plotly_plot">(omnixai.explanations.text.word_importance.WordImportance method)</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.counterfactual.CFExplanation.plotly_plot">(omnixai.explanations.timeseries.counterfactual.CFExplanation method)</a>
+</li>
+        <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.feature_importance.FeatureImportance.plotly_plot">(omnixai.explanations.timeseries.feature_importance.FeatureImportance method)</a>
 </li>
       </ul></li>
       <li><a href="omnixai.explainers.vision.specific.html#omnixai.explainers.vision.specific.cem.CEMOptimizer.pn_optimize">pn_optimize() (omnixai.explainers.vision.specific.cem.CEMOptimizer method)</a>
@@ -1949,6 +2149,8 @@
       <ul>
         <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.shape">(omnixai.data.tabular.Tabular property)</a>
 </li>
+        <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.shape">(omnixai.data.timeseries.Timeseries property)</a>
+</li>
       </ul></li>
       <li><a href="omnixai.explainers.vision.html#omnixai.explainers.vision.ShapImage">ShapImage (class in omnixai.explainers.vision)</a>
 
@@ -1970,6 +2172,12 @@
         <li><a href="omnixai.explainers.nlp.agnostic.html#omnixai.explainers.nlp.agnostic.shap.ShapText">(class in omnixai.explainers.nlp.agnostic.shap)</a>
 </li>
       </ul></li>
+      <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.ShapTimeseries">ShapTimeseries (class in omnixai.explainers.timeseries)</a>
+
+      <ul>
+        <li><a href="omnixai.explainers.timeseries.agnostic.html#omnixai.explainers.timeseries.agnostic.shap.ShapTimeseries">(class in omnixai.explainers.timeseries.agnostic.shap)</a>
+</li>
+      </ul></li>
       <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.ShapTreeTabular">ShapTreeTabular (class in omnixai.explainers.tabular)</a>
 
       <ul>
@@ -1983,6 +2191,8 @@
 </li>
       </ul></li>
       <li><a href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.SklearnBase">SklearnBase (class in omnixai.explainers.tabular.base)</a>
+</li>
+      <li><a href="omnixai.data.html#omnixai.data.text.Text.split">split() (omnixai.data.text.Text method)</a>
 </li>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.normalize.Standard">Standard (class in omnixai.preprocessing.normalize)</a>
 </li>
@@ -2016,6 +2226,14 @@
 </li>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.text.Tfidf">Tfidf (class in omnixai.preprocessing.text)</a>
 </li>
+      <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries">Timeseries (class in omnixai.data.timeseries)</a>
+</li>
+      <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.TimeseriesExplainer">TimeseriesExplainer (class in omnixai.explainers.timeseries)</a>
+
+      <ul>
+        <li><a href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.auto.TimeseriesExplainer">(class in omnixai.explainers.timeseries.auto)</a>
+</li>
+      </ul></li>
       <li><a href="omnixai.explanations.html#omnixai.explanations.base.DashFigure.to_html">to_html() (omnixai.explanations.base.DashFigure method)</a>
 </li>
       <li><a href="omnixai.explanations.html#omnixai.explanations.base.DashFigure.to_html_div">to_html_div() (omnixai.explanations.base.DashFigure method)</a>
@@ -2025,9 +2243,15 @@
       <ul>
         <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.to_numpy">(omnixai.data.tabular.Tabular method)</a>
 </li>
+        <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.to_numpy">(omnixai.data.timeseries.Timeseries method)</a>
+</li>
       </ul></li>
       <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.to_pd">to_pd() (omnixai.data.tabular.Tabular method)</a>
+
+      <ul>
+        <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.to_pd">(omnixai.data.timeseries.Timeseries method)</a>
 </li>
+      </ul></li>
       <li><a href="omnixai.data.html#omnixai.data.image.Image.to_pil">to_pil() (omnixai.data.image.Image method)</a>
 </li>
       <li><a href="omnixai.data.html#omnixai.data.text.Text.to_str">to_str() (omnixai.data.text.Text method)</a>
@@ -2048,6 +2272,8 @@
         <li><a href="omnixai.explainers.vision.agnostic.html#omnixai.explainers.vision.agnostic.l2x.DefaultSelectionModel.training">(omnixai.explainers.vision.agnostic.l2x.DefaultSelectionModel attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.base.Identity.transform">transform() (omnixai.preprocessing.base.Identity method)</a>
 
       <ul>
@@ -2088,8 +2314,6 @@
         <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.text.Word2Id.transform">(omnixai.preprocessing.text.Word2Id method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.base.TransformBase">TransformBase (class in omnixai.preprocessing.base)</a>
 </li>
       <li><a href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.decision_tree.TreeBase">TreeBase (class in omnixai.explainers.tabular.specific.decision_tree)</a>
@@ -2108,6 +2332,8 @@
         <li><a href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.decision_tree.TreeRegressor">(class in omnixai.explainers.tabular.specific.decision_tree)</a>
 </li>
       </ul></li>
+      <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.ts_len">ts_len (omnixai.data.timeseries.Timeseries property)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -2132,6 +2358,8 @@
         <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.values">(omnixai.data.tabular.Tabular property)</a>
 </li>
         <li><a href="omnixai.data.html#omnixai.data.text.Text.values">(omnixai.data.text.Text property)</a>
+</li>
+        <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.values">(omnixai.data.timeseries.Timeseries property)</a>
 </li>
       </ul></li>
   </ul></td>
