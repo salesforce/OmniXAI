@@ -64,14 +64,13 @@ class SensitivityAnalysisTabular(TabularExplainer):
         problem = {"num_vars": len(self.feature_columns), "names": self.feature_columns, "bounds": bounds}
         return problem
 
-    def explain(self, **kwargs):
+    def explain(self, **kwargs) -> SensitivityExplanation:
         """
         Generates sensitivity analysis explanations.
 
         :param kwargs: Additional parameters, e.g., ``nsamples`` --
             the number of samples in Morris sampling.
         :return: The generated global explanations.
-        :rtype: SensitivityExplanation
         """
         nsamples = kwargs.get("nsamples", 1024)
         explanations = SensitivityExplanation()

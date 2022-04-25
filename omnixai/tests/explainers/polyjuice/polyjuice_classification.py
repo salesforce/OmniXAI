@@ -9,16 +9,9 @@ from omnixai.explainers.nlp.counterfactual.polyjuice import Polyjuice
 class TestPolyjuice(unittest.TestCase):
 
     def setUp(self) -> None:
-        try:
-            self.model = transformers.pipeline(
-                "sentiment-analysis",
-                model="/home/ywz/data/models/distilbert-base-uncased-finetuned-sst-2-english",
-                return_all_scores=True,
-            )
-        except:
-            self.model = transformers.pipeline(
-                "sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english", return_all_scores=True
-            )
+        self.model = transformers.pipeline(
+            "sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english", return_all_scores=True
+        )
 
         def _predict(x):
             scores = []
@@ -34,20 +27,25 @@ class TestPolyjuice(unittest.TestCase):
             return np.array(scores)
 
         self.idx2label = {"NEGATIVE": 0, "POSITIVE": 1}
-        self.explainer = Polyjuice(
-            predict_function=_predict,
-            model_path="/home/ywz/data/models/uw-hai/polyjuice"
-        )
+        self.explainer = Polyjuice(predict_function=_predict)
 
     def test_explain(self):
-        text = Text([
+        x = Text([
+            "What a great movie!",
             "it was a fantastic performance!",
-            "it was a horrible movie"
+            "best film ever",
+            "such a great show!",
+            "it was a horrible movie",
+            "i've never watched something as bad"
         ])
-        explanations = self.explainer.explain(text)
+        explanations = self.explainer.explain(x)
 
-        fig = explanations.plotly_plot(index=1)
-        fig.show()
+        from omnixai.visualization.dashboard import Dashboard
+        dashboard = Dashboard(
+            instances=x,
+            local_explanations={"polyjuice": explanations}
+        )
+        dashboard.show()
 
 
 if __name__ == "__main__":

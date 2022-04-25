@@ -11,14 +11,14 @@
 ## Introduction
 
 OmniXAI is a Python library for explainable AI and interpretable machine learning.
-The library provides a comprehensive family of explainable AI capabilities and interpretable
+The library provides a comprehensive family of interpretable
 machine learning algorithms. It includes high-quality implementations of various model-agnostic and
 model-specific explanation methods, e.g., feature-attribution explanation, counterfactual explanation,
-gradient-based explanation, and supports tabular data, image data and text data. It also provides an
-easy-to-use interface that allows users to obtain explanations by writing a few lines of codes,
+gradient-based explanation, and supports tabular data, image data, text data and time series data. It also provides an
+easy-to-use interface that allows users to obtain explanations by writing few lines of codes,
 which can be applied for multiple purposes in various applications:
 
-- **Data exploration**: What are highly correlated features? Do there exist data imbalance issues?
+- **Data exploration**: What are highly correlated features? Does there exist data imbalance issues?
 - **Feature engineering**: Which features are important for the task? How to improve the model performance?
 - **Model debugging**: Does the model utilize wrong features? Why does the model make a mistake?
 - **Decision support for business applications**: How to understand the model’s decision and why to trust them?
@@ -30,32 +30,32 @@ our library has a comprehensive list of XAI capabilities and unique features inc
 - **Data analysis/exploration**: Analyzing feature correlations, checking imbalance issues.
 - **Support most popular explanation methods**: Many explanation methods can be applied to analyze different aspects of a ML model.
 - **Support counterfactual explanation**: Providing the information about how to change the current prediction.
-- **Support gradient-based explanation**: Integrated-gradient, Grad-CAM and Grad-CAM++ are included.
-- **Support Image and text data**: Our library provides various explanations for image/text models.
-- **A much simpler interface**: Users only need to write a few lines of code to generate various explanations.
+- **Support gradient-based explanation**: Integrated-gradient, Grad-CAM and its variants are included.
+- **Support image, text and timeseries data**: Our library provides various explanations for image, text and timeseries models.
+- **A much simpler interface**: Users only need to write few lines of code to generate various explanations.
 - **A GUI dashboard**: Providing an GUI dashboard for users to examine the generated explanations.
 - **Easy to extend**: Developers can add new explanation algorithms easily by implementing a single class derived from
    the explainer base class.
 
 The following table shows the supported explanation methods and features in our library.
 We will continue improving this library to make it more comprehensive in the future, e.g., supporting more
-explanation methods for vision and NLP tasks.
+explanation methods for vision, NLP and time series tasks.
 
-|         Method          | Model Type    | Explanation Type | Data Analysis | Tabular | Image | Text | 
-:-----------------------:| :---:         | :---:            | :---:         | :---:   | :---: | :---:
-|    Feature analysis     | NA            | Global           | ✅            |         |       |      |
-|    Feature selection    | NA            | Global           | ✅            |         |       |      |
-|   Partial dependence    | Black box     | Global           |               | ✅      |       |      |
-|  Sensitivity analysis   | Black box     | Global           |               | ✅      |       |      |
-|          LIME           | Black box     | Local            |               | ✅      | ✅     | ✅   |
-|          SHAP           | Black box*    | Local            |               | ✅      | ✅     | ✅   |
-|   Integrated gradient   | Torch or TF   | Local            |               | ✅      | ✅     | ✅   |
-|     Counterfactual      | Black box*    | Local            |               | ✅      | ✅     | ✅   |
-| Contrastive explanation | Torch or TF   | Local            |               |         | ✅    |      |
-|  Grad-CAM, Grad-CAM++   | Torch or TF   | Local            |               |         | ✅    |      |
-|   Learning to explain   | Black box     | Local            |               | ✅      | ✅     | ✅   |
-|      Linear models      | Linear models | Global and Local |               | ✅      |       |      |
-|       Tree models       | Tree models   | Global and Local |               | ✅      |       |      |
+| Method                  | Model Type    | Explanation Type | Data Analysis | Tabular | Image | Text | Timeseries | 
+:---:                     | :---:         | :---:            | :---:         | :---:   | :---: | :---: | :---:
+| Feature analysis        | NA            | Global           | ✅            |         |       |      |      |
+| Feature selection       | NA            | Global           | ✅            |         |       |      |      |
+| Partial dependence      | Black box     | Global           |               | ✅      |       |      |      |
+| Sensitivity analysis    | Black box     | Global           |               | ✅      |       |      |      |
+| LIME                    | Black box     | Local            |               | ✅      | ✅     | ✅   |      |
+| SHAP                    | Black box*    | Local            |               | ✅      | ✅     | ✅   |  ✅  |
+| Integrated gradient     | Torch or TF   | Local            |               | ✅      | ✅     | ✅   |      |
+| Counterfactual          | Black box*    | Local            |               | ✅      | ✅     | ✅   |  ✅  |
+| Contrastive explanation | Torch or TF   | Local            |               |         | ✅    |      |      |
+| Grad-CAM, Grad-CAM++    | Torch or TF   | Local            |               |         | ✅    |      |      |
+| Learning to explain     | Black box     | Local            |               | ✅      | ✅     | ✅   |      |
+| Linear models           | Linear models | Global and Local |               | ✅      |       |      |      |
+| Tree models             | Tree models   | Global and Local |               | ✅      |       |      |      |
 
 *SHAP* accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
 for text data. *Counterfactual* accepts black box models for tabular data and PyTorch/Tensorflow models for
@@ -64,29 +64,31 @@ image data.
 The following table shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
 in literature:
 
-| Data Type |        Method        | OmniXAI | InterpretML | AIX360 | Eli5  | Captum | Alibi | explainX
-:---:       |:--------------------:| :---:  | :---:       | :---:  | :---: | :---:  | :---: | :---:
-| Tabular   |         LIME         | ✅ | ✅ | ✅ | | ✅ | | |
-|           |         SHAP         | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
-|           |         PDP          | ✅ | ✅ | | | | | |
-|           |     Sensitivity      | ✅ | ✅ | | | | | |
+| Data Type | Method               | OmniXAI | InterpretML | AIX360 | Eli5  | Captum | Alibi | explainX
+:---:       | :---:                | :---:  | :---:       | :---:  | :---: | :---:  | :---: | :---:
+| Tabular   | LIME                 | ✅ | ✅ | ✅ | | ✅ | | |
+|           | SHAP                 | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
+|           | PDP                  | ✅ | ✅ | | | | | |
+|           | Sensitivity          | ✅ | ✅ | | | | | |
 |           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           |    Counterfactual    | ✅ | | | | | ✅ | |
-|           |    Linear models     | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
-|           |     Tree models      | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
-|           |         L2X          | ✅ | | | | | | |
-| Image     |         LIME         | ✅ | | | | ✅ | | |
-|           |         SHAP         | ✅ | | | | ✅ | | |
+|           | Counterfactual       | ✅ | | | | | ✅ | |
+|           | Linear models        | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
+|           | Tree models          | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
+|           | L2X                  | ✅ | | | | | | |
+| Image     | LIME                 | ✅ | | | | ✅ | | |
+|           | SHAP                 | ✅ | | | | ✅ | | |
 |           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
 |           | Grad-CAM, Grad-CAM++ | ✅ | | | ✅ | ✅ | | |
-|           |         CEM          | ✅ | | ✅ | | | ✅ | |
-|           |    Counterfactual    | ✅ | | | | | ✅ | |
-|           |         L2X          | ✅ | | | | | | |
-| Text      |         LIME         | ✅ | | | ✅ | ✅ | | |
-|           |         SHAP         | ✅ | | | | ✅ | | |
+|           | CEM                  | ✅ | | ✅ | | | ✅ | |
+|           | Counterfactual       | ✅ | | | | | ✅ | |
+|           | L2X                  | ✅ | | | | | | |
+| Text      | LIME                 | ✅ | | | ✅ | ✅ | | |
+|           | SHAP                 | ✅ | | | | ✅ | | |
 |           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           |         L2X          | ✅ | | | | | | |
-|           |    Counterfactual    | ✅ | | | | | | |
+|           | L2X                  | ✅ | | | | | | |
+|           | Counterfactual       | ✅ | | | | | | |
+| Timeseries  | SHAP       | ✅ | | | | | | |
+|           | Counterfactual       | ✅ | | | | | | |
 
 ## Installation
 
@@ -111,12 +113,12 @@ For example code and an introduction to the library, see the Jupyter notebooks i
 
 To get started, we recommend the linked tutorials in [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
-and `NLPExplainer` for tabular, vision and NLP tasks, respectively. To generate explanations,
+`NLPExplainer` and `TimeseriesExplainer` for tabular, vision, NLP and time series tasks, respectively. To generate explanations,
 one only needs to specify
 
 - **The ML model to explain**: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.
 - **The pre-processing function**: i.e., converting raw data into the model inputs.
-- **The post-processing function (optional)**: i.e., converting the model outputs into class probabilities.
+- **The post-processing function (optional)**: e.g., converting the model outputs into class probabilities.
 - **The explainers to apply**: e.g., SHAP, MACE, Grad-CAM.
 
 Let's take the income prediction task as an example.

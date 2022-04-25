@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import os
 import unittest
 import pprint
 from omnixai.utils.misc import set_random_seed
@@ -13,7 +14,8 @@ from omnixai.tests.explainers.tasks import TabularClassification
 
 class TestLimeTabular(unittest.TestCase):
     def test_1(self):
-        task = TabularClassification.train_adult(num_training_samples=2000)
+        base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+        task = TabularClassification(base_folder).train_adult(num_training_samples=2000)
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
         explainer = LimeTabular(training_data=task.train_data, predict_function=predict_function, kernel_width=3)
 
@@ -43,7 +45,7 @@ class TestLimeTabular(unittest.TestCase):
                 self.assertAlmostEqual(e["scores"][2], -0.0851, delta=1e-3)
 
     def test_2(self):
-        task = TabularClassification.train_iris()
+        task = TabularClassification().train_iris()
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
         explainer = LimeTabular(training_data=task.train_data, predict_function=predict_function)
 
@@ -61,7 +63,8 @@ class TestLimeTabular(unittest.TestCase):
             self.assertAlmostEqual(e["scores"][1], 0.0330, delta=1e-3)
 
     def test_3(self):
-        task = TabularClassification.train_agaricus()
+        base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+        task = TabularClassification(base_folder).train_agaricus()
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
         explainer = LimeTabular(training_data=task.train_data, predict_function=predict_function)
 

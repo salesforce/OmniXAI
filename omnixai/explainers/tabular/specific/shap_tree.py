@@ -73,7 +73,7 @@ class ShapTreeTabular(SklearnBase):
             data = shap.sample(data, nsamples=kwargs["nsamples"])
         self.explainer = shap.TreeExplainer(self.model, data, **kwargs)
 
-    def explain(self, X: Tabular, y: List = None, **kwargs):
+    def explain(self, X: Tabular, y: List = None, **kwargs) -> FeatureImportance:
         """
         Generates the feature-importance explanations for the input instances.
 
@@ -82,7 +82,6 @@ class ShapTreeTabular(SklearnBase):
             For classification, the top predicted label for each input instance will be explained
             when `y = None`.
         :param kwargs: Not used.
-        :rtype: FeatureImportance
         """
         X = X.remove_target_column()
         explanations = FeatureImportance(self.mode)

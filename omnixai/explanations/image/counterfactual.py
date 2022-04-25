@@ -12,7 +12,7 @@ import numpy as np
 from ..base import ExplanationBase, DashFigure
 
 
-class CounterfactualExplanation(ExplanationBase):
+class CFExplanation(ExplanationBase):
     """
     The class for image counterfactual explanations. The counterfactual examples of the input
     instances are stored in a list. Each item in the list is a dict with the following format:

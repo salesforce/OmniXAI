@@ -134,7 +134,6 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             # A torch model, tensorflow model or general function
             if is_torch_available():
                 import torch.nn as nn
-
                 if isinstance(self.model, nn.Module):
                     self.model.eval()
             predict_func = self.model

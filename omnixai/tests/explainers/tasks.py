@@ -53,11 +53,14 @@ class Task:
 
 
 class TabularClassification:
-    def __init__(self):
+    def __init__(self, base_folder=None):
+        if base_folder is None:
+            self.base_folder = os.path.dirname(os.path.abspath(__file__))
+        else:
+            self.base_folder = base_folder
         self.tasks = [self.train_adult, self.train_iris, self.train_agaricus]
 
-    @staticmethod
-    def train_adult(num_training_samples=None):
+    def train_adult(self, num_training_samples=None):
         feature_names = [
             "Age",
             "Workclass",
@@ -75,7 +78,7 @@ class TabularClassification:
             "Country",
             "label",
         ]
-        data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../datasets")
+        data_dir = os.path.join(self.base_folder, "../datasets")
         data = np.genfromtxt(os.path.join(data_dir, "adult.data"), delimiter=", ", dtype=str)
         tabular_data = Tabular(
             data,
@@ -106,8 +109,7 @@ class TabularClassification:
             test_data=transformer.invert(test),
         )
 
-    @staticmethod
-    def train_iris():
+    def train_iris(self):
         iris = sklearn.datasets.load_iris()
         tabular_data = Tabular(iris.data, feature_columns=iris.feature_names)
 
@@ -133,8 +135,7 @@ class TabularClassification:
             test_data=transformer.invert(test),
         )
 
-    @staticmethod
-    def train_agaricus():
+    def train_agaricus(self):
         feature_names = (
             "label,cap-shape,cap-surface,cap-color,bruises?,odor,gill-attachment,"
             "gill-spacing,gill-size,gill-color,stalk-shape,stalk-root,"
@@ -143,7 +144,7 @@ class TabularClassification:
             "veil-color,ring-number,ring-type,spore-print-color,"
             "population,habitat".split(",")
         )
-        data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../datasets")
+        data_dir = os.path.join(self.base_folder, "../datasets")
         data = np.genfromtxt(os.path.join(data_dir, "agaricus-lepiota.data"), delimiter=",", dtype="<U20")
         tabular_data = Tabular(
             data, feature_columns=feature_names, categorical_columns=feature_names[1:], target_column="label"
@@ -180,8 +181,7 @@ class TabularRegression:
     def __init__(self):
         self.tasks = [self.train_boston, self.train_boston_continuous]
 
-    @staticmethod
-    def train_boston():
+    def train_boston(self):
         set_random_seed()
         boston = load_boston()
         tabular_data = Tabular(
@@ -212,8 +212,7 @@ class TabularRegression:
             test_data=transformer.invert(test),
         )
 
-    @staticmethod
-    def train_boston_continuous():
+    def train_boston_continuous(self):
         set_random_seed()
         boston = load_boston()
         df = pd.DataFrame(
@@ -246,8 +245,7 @@ class TabularRegression:
             test_data=transformer.invert(test),
         )
 
-    @staticmethod
-    def train_california_housing():
+    def train_california_housing(self):
         set_random_seed()
         housing = fetch_california_housing()
         df = pd.DataFrame(

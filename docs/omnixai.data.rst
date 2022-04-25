@@ -11,6 +11,7 @@ omnixai.data package
    tabular
    image
    text
+   timeseries
 
 This package provides classes for representing tabular data, image data and text data,
 i.e., :py:mod:`omnixai.data.tabular`, :py:mod:`omnixai.data.image` and :py:mod:`omnixai.data.text`, respectively.
@@ -81,6 +82,23 @@ an ``Text`` instance:
 The ``Text`` class also allows to specify the tokenizer to split each text/sentence into tokens via the ``tokenizer``
 parameter. If ``tokenizer`` is set to `None`, a default tokenizer ``nltk.word_tokenize`` is applied.
 
+The ``Timeseries`` class represents a batch of time series. The values of metrics/variables are stored in a numpy array
+with shape `(batch_size, timestamps, num_variables)`. If there is only one time series, `batch_size` is 1.
+We can construct a ``Timeseries`` instance from one or a list of pandas dataframes. The index of the dataframe
+indicates the timestamps and the columns are the variables.
+
+.. code-block:: python
+
+   from omnixai.data.timeseries import Timeseries
+   df = pd.DataFrame(
+       [['2017-12-27', 1263.94091, 394.507, 16.530],
+        ['2017-12-28', 1299.86398, 506.424, 14.162]],
+       columns=['Date', 'Consumption', 'Wind', 'Solar']
+   )
+   df = df.set_index('Date')
+   df.index = pd.to_datetime(df.index)
+   ts = Timeseries.from_pd(self.df)
+
 omnixai.data.base module
 --------------------------
 
@@ -109,6 +127,14 @@ omnixai.data.text module
 --------------------------
 
 .. automodule:: omnixai.data.text
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+omnixai.data.timeseries module
+------------------------------
+
+.. automodule:: omnixai.data.timeseries
    :members:
    :undoc-members:
    :show-inheritance:

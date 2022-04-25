@@ -117,6 +117,5 @@ class PartialDependenceTabular(TabularExplainer):
         Generates global PDP explanations.
 
         :return: The generated PDP explanations.
-        :rtype: PDPExplanation
         """
         return self._global_explain()

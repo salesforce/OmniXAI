@@ -13,7 +13,7 @@ from omnixai.tests.explainers.tasks import TabularRegression
 
 class TestLimeTabular(unittest.TestCase):
     def test_explain(self):
-        task = TabularRegression.train_boston()
+        task = TabularRegression().train_boston()
         predict_function = lambda z: task.model.predict(task.transform.transform(z))
         explainer = L2XTabular(training_data=task.train_data, predict_function=predict_function, mode="regression")
 

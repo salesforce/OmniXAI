@@ -52,7 +52,7 @@ class ShapText(ExplainerBase):
         self.model = model
         self.explainer = shap.Explainer(model, **kwargs)
 
-    def explain(self, X: Text, y=None, **kwargs):
+    def explain(self, X: Text, y=None, **kwargs) -> WordImportance:
         """
         Generates the word/token-importance explanations for the input instances.
 
@@ -61,7 +61,6 @@ class ShapText(ExplainerBase):
             of each input instance will be explained when `y = None`.
         :param kwargs: Additional parameters for `shap.Explainer`.
         :return: The explanations for all the instances.
-        :rtype: WordImportance
         """
         explanations = WordImportance(mode=self.mode)
         class_names = None

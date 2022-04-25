@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import os
 import unittest
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,7 +20,8 @@ pd.set_option("display.max_columns", None)
 
 class TestExample(unittest.TestCase):
     def test_explain(self):
-        task = TabularClassification.train_adult()
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        task = TabularClassification(base_folder).train_adult()
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
         class_names = task.transform.class_names
 

@@ -144,7 +144,10 @@ class CFExplanation(ExplanationBase):
             exp = explanations[index]
             if exp["counterfactual"] is None:
                 continue
-            columns = self._get_changed_columns(exp["query"], exp["counterfactual"])
+            if len(exp["query"].columns) > 5:
+                columns = self._get_changed_columns(exp["query"], exp["counterfactual"])
+            else:
+                columns = exp["query"].columns
             query, cfs = exp["query"][columns], exp["counterfactual"][columns]
             df = pd.concat([query, cfs], axis=0)
             if class_names is not None:
@@ -170,7 +173,10 @@ class CFExplanation(ExplanationBase):
         if exp["counterfactual"] is None:
             return DashFigure(self._plotly_table(exp["query"], None))
 
-        columns = self._get_changed_columns(exp["query"], exp["counterfactual"])
+        if len(exp["query"].columns) > 5:
+            columns = self._get_changed_columns(exp["query"], exp["counterfactual"])
+        else:
+            columns = exp["query"].columns
         query, cfs = exp["query"][columns], exp["counterfactual"][columns]
         df = pd.concat([query, cfs], axis=0)
         if class_names is not None:
@@ -195,7 +201,10 @@ class CFExplanation(ExplanationBase):
         exp = self.explanations[index]
         if exp["counterfactual"] is None:
             return None
-        columns = self._get_changed_columns(exp["query"], exp["counterfactual"])
+        if len(exp["query"].columns) > 5:
+            columns = self._get_changed_columns(exp["query"], exp["counterfactual"])
+        else:
+            columns = exp["query"].columns
         query, cfs = exp["query"][columns], exp["counterfactual"][columns]
         df = pd.concat([query, cfs], axis=0)
         if class_names is not None:

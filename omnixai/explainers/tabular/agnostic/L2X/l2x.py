@@ -276,7 +276,7 @@ class L2XTabular(TabularExplainer):
                     f"The L2X prediction model accuracy is too low, " "please tuning the training parameters."
                 )
 
-    def explain(self, X, **kwargs):
+    def explain(self, X, **kwargs) -> FeatureImportance:
         """
         Generates the explanations corresponding to the input instances. For classification,
         it explains the top predicted label for each input instance.
@@ -285,7 +285,6 @@ class L2XTabular(TabularExplainer):
             or `np.ndarray`, ``X`` will be converted into `Tabular` automatically.
         :param kwargs: Not used here.
         :return: The feature-importance explanations for all the input instances.
-        :rtype: FeatureImportance
         """
         X = self._to_tabular(X).remove_target_column()
         explanations = FeatureImportance(self.mode)

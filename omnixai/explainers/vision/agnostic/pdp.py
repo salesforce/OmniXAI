@@ -92,7 +92,7 @@ class PartialDependenceImage(ExplainerBase):
                 scores[i] = np.array([self.predict_function(im)[0] for im in ims])
         return scores
 
-    def explain(self, X: Image, y=None, **kwargs):
+    def explain(self, X: Image, y=None, **kwargs) -> PixelImportance:
         """
         Generates PDP explanations.
 
@@ -104,7 +104,6 @@ class PartialDependenceImage(ExplainerBase):
             the resolution in the grid search, and ``n_segments`` -- the number of image segments used
             by image segmentation methods.
         :return: The generated explanations, e.g., the importance scores for image segments.
-        :rtype: PixelImportance
         """
         from ....utils.segmentation import image_segmentation
 

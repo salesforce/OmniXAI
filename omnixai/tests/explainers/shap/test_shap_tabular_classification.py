@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import os
 import unittest
 import pprint
 from omnixai.utils.misc import set_random_seed
@@ -13,7 +14,8 @@ from omnixai.tests.explainers.tasks import TabularClassification
 
 class TestShapTabular(unittest.TestCase):
     def test_1(self):
-        task = TabularClassification.train_adult(num_training_samples=2000)
+        base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+        task = TabularClassification(base_folder).train_adult(num_training_samples=2000)
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
 
         set_random_seed()
@@ -33,7 +35,7 @@ class TestShapTabular(unittest.TestCase):
             self.assertEqual(e["features"][2], "Race")
 
     def test_2(self):
-        task = TabularClassification.train_iris()
+        task = TabularClassification().train_iris()
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
 
         set_random_seed()
@@ -48,7 +50,8 @@ class TestShapTabular(unittest.TestCase):
             pprint.pprint(list(zip(e["features"], e["values"], e["scores"])))
 
     def test_3(self):
-        task = TabularClassification.train_agaricus()
+        base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+        task = TabularClassification(base_folder).train_agaricus()
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
 
         set_random_seed()

@@ -13,7 +13,7 @@ from omnixai.tests.explainers.tasks import TabularRegression
 
 class TestShapTabular(unittest.TestCase):
     def test_explain(self):
-        task = TabularRegression.train_boston()
+        task = TabularRegression().train_boston()
         predict_function = lambda z: task.model.predict(task.transform.transform(z))
 
         set_random_seed()

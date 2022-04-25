@@ -44,7 +44,7 @@ class LimeText(ExplainerBase):
         self.predict_fn = lambda x: predict_function(Text(x))
         self.explainer = lime_text.LimeTextExplainer(**kwargs)
 
-    def explain(self, X: Text, y=None, **kwargs):
+    def explain(self, X: Text, y=None, **kwargs) -> WordImportance:
         """
         Generates the word/token-importance explanations for the input instances.
 
@@ -53,7 +53,6 @@ class LimeText(ExplainerBase):
             of each input instance will be explained when `y = None`.
         :param kwargs: Additional parameters for `LimeTextExplainer.explain_instance`.
         :return: The explanations for all the input instances.
-        :rtype: WordImportance
         """
         if "labels" in kwargs:
             warnings.warn(

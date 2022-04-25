@@ -13,3 +13,11 @@ omnixai.explainers.tabular.counterfactual.mace.mace module
    :members:
    :undoc-members:
    :show-inheritance:
+
+omnixai.explainers.tabular.counterfactual.ce module
+---------------------------------------------------
+
+.. automodule:: omnixai.explainers.tabular.counterfactual.ce
+   :members:
+   :undoc-members:
+   :show-inheritance:

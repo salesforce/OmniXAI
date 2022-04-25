@@ -11,6 +11,7 @@ import warnings
 
 warnings.filterwarnings("ignore", ".*bins whose width are too small.*")
 
+import pandas as pd
 from sklearn import preprocessing
 from .base import TransformBase
 
@@ -108,10 +109,14 @@ class LabelEncoder(TransformBase):
         self.encoder = preprocessing.LabelEncoder()
 
     def fit(self, x):
+        if isinstance(x, pd.DataFrame):
+            x = x.values.flatten()
         self.encoder.fit(x)
         return self
 
     def transform(self, x):
+        if isinstance(x, pd.DataFrame):
+            x = x.values.flatten()
         return self.encoder.transform(x)
 
     def invert(self, x):

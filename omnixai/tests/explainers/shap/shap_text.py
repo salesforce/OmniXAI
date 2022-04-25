@@ -16,7 +16,7 @@ class TestText(unittest.TestCase):
         try:
             self.model = transformers.pipeline(
                 "sentiment-analysis",
-                model="/home/ywz/data/models/distilbert-base-uncased-finetuned-sst-2-english",
+                model="distilbert-base-uncased-finetuned-sst-2-english",
                 return_all_scores=True,
             )
         except:

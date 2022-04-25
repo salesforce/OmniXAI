@@ -106,6 +106,9 @@ class Text(Data):
         else:
             return self.data.copy() if copy else self.data
 
+    def split(self, sep=None, maxsplit=-1):
+        return [s.split(sep, maxsplit) for s in self.data]
+
     def copy(self):
         """
         Returns a copy of the text data.

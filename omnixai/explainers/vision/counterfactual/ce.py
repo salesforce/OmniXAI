@@ -13,7 +13,7 @@ from typing import Callable
 from omnixai.explainers.base import ExplainerBase
 from omnixai.data.image import Image
 from omnixai.explainers.tabular.counterfactual.ce import CounterfactualOptimizer
-from omnixai.explanations.image.counterfactual import CounterfactualExplanation
+from omnixai.explanations.image.counterfactual import CFExplanation
 from omnixai.utils.misc import is_torch_available, is_tf_available
 
 if is_torch_available():
@@ -128,7 +128,7 @@ class CounterfactualExplainer(ExplainerBase):
         y = np.argmax(scores, axis=1).astype(int)
         return y
 
-    def explain(self, X: Image, **kwargs):
+    def explain(self, X: Image, **kwargs) -> CFExplanation:
         """
         Generates the counterfactual explanations for the input images.
         Note that the returned results including the original input images and the
@@ -139,11 +139,10 @@ class CounterfactualExplainer(ExplainerBase):
         :param X: A batch of the input images.
         :param kwargs: Not used here.
         :return: The counterfactual explanations for all the images, e.g., counterfactual images.
-        :rtype: CounterfactualExplanation
         """
         assert min(X.shape[1:3]) > 4, f"The image size ({X.shape[1]}, {X.shape[2]}) is too small."
         verbose = kwargs.get("kwargs", True)
-        explanations = CounterfactualExplanation()
+        explanations = CFExplanation()
         y = self._predict(self._preprocess(X))
 
         for i in range(len(X)):

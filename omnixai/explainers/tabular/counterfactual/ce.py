@@ -404,7 +404,7 @@ class CounterfactualExplainer(TabularExplainer):
                     return inputs[k : k + 1]
         return cf
 
-    def explain(self, X, **kwargs):
+    def explain(self, X, **kwargs) -> CFExplanation:
         """
         Generates the counterfactual explanations for the input instances.
 
@@ -412,7 +412,6 @@ class CounterfactualExplainer(TabularExplainer):
             or `np.ndarray`, ``X`` will be converted into `Tabular` automatically.
         :param kwargs: Additional parameters, not used here.
         :return: The counterfactual explanations for all the input instances.
-        :rtype: CFExplanation
         """
         verbose = kwargs.get("kwargs", True)
         explanations = CFExplanation()

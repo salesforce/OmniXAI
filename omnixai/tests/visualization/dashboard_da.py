@@ -41,7 +41,8 @@ class TestImbalance(unittest.TestCase):
         )
 
         explainer = DataAnalyzer(
-            explainers=["correlation", "imbalance#0", "imbalance#1", "imbalance#2", "imbalance#3"], data=tabular_data
+            explainers=["correlation", "imbalance#0", "imbalance#1", "imbalance#2", "imbalance#3", "mutual", "chi2"],
+            data=tabular_data
         )
         explanations = explainer.explain_global(
             params={

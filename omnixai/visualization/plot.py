@@ -11,6 +11,7 @@ from dash import dash_table, html, dcc
 from ..data.tabular import Tabular
 from ..data.image import Image
 from ..data.text import Text
+from ..data.timeseries import Timeseries
 from ..preprocessing.image import Resize
 
 
@@ -38,6 +39,49 @@ def plot_text(text, limit=800):
     return dcc.Markdown(id="text-instance", children=f"_{text}_")
 
 
+def plot_timeseries(ts):
+    import plotly
+    import plotly.graph_objects as go
+    from plotly.subplots import make_subplots
+
+    traces = []
+    color_list = plotly.colors.qualitative.Dark24
+    for i in range(ts.shape[1]):
+        v = ts[[ts.columns[i]]]
+        color = color_list[i % len(color_list)]
+        traces.append(go.Scatter(
+            name=ts.columns[i],
+            x=v.index,
+            y=v.values.flatten(),
+            mode="lines",
+            line=dict(color=color)
+        ))
+
+    layout = dict(
+        showlegend=True,
+        xaxis=dict(
+            title="Time",
+            type="date",
+            rangeselector=dict(
+                buttons=list(
+                    [
+                        dict(count=7, label="1w", step="day", stepmode="backward"),
+                        dict(count=1, label="1m", step="month", stepmode="backward"),
+                        dict(count=6, label="6m", step="month", stepmode="backward"),
+                        dict(count=1, label="1y", step="year", stepmode="backward"),
+                        dict(step="all"),
+                    ]
+                )
+            )
+        ),
+    )
+    fig = make_subplots(figure=go.Figure(layout=layout))
+    fig.update_yaxes(title_text="Timeseries")
+    for trace in traces:
+        fig.add_trace(trace)
+    return html.Div([dcc.Graph(figure=fig)])
+
+
 def plot_one_instance(instances, index):
     if instances is None:
         return None
@@ -48,5 +92,7 @@ def plot_one_instance(instances, index):
         return plot_image(img.to_pil())
     elif isinstance(instances, Text):
         return plot_text(instances[index].to_str())
+    elif isinstance(instances, Timeseries):
+        return plot_timeseries(instances[index].to_pd())
     else:
         raise NotImplementedError

@@ -66,7 +66,7 @@ class MACEExplainer(ExplainerBase):
         self.diversity = DiversityModule(training_data, predict_function)
         self.refinement = BinarySearchRefinement(training_data, predict_function)
 
-    def explain(self, X: Tabular, y: Union[List, np.ndarray] = None, max_number_examples: int = 5):
+    def explain(self, X: Tabular, y: Union[List, np.ndarray] = None, max_number_examples: int = 5) -> CFExplanation:
         """
         Generates counterfactual explanations.
 
@@ -76,7 +76,6 @@ class MACEExplainer(ExplainerBase):
         :param max_number_examples: The maximum number of the generated counterfactual
             examples per class for each input instance.
         :return: A CFExplanation object containing the generated explanations.
-        :rtype: CFExplanation
         """
         if y is not None:
             assert len(y) == X.shape[0], (

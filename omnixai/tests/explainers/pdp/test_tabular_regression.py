@@ -15,7 +15,7 @@ from omnixai.tests.explainers.tasks import TabularRegression
 class TestPDPTabular(unittest.TestCase):
     def test_explain(self):
         set_random_seed()
-        task = TabularRegression.train_boston()
+        task = TabularRegression().train_boston()
         predict_function = lambda z: task.model.predict(task.transform.transform(z))
         explainer = PartialDependenceTabular(
             training_data=task.train_data, predict_function=predict_function, mode="regression"

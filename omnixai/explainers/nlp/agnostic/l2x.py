@@ -267,7 +267,7 @@ class L2XText(ExplainerBase):
                     f"The L2X prediction model accuracy is too low, " "please tuning the training parameters."
                 )
 
-    def explain(self, X: Text, **kwargs):
+    def explain(self, X: Text, **kwargs) -> WordImportance:
         """
         Generates the explanations for the input instances. For classification,
         it explains the top predicted label for each input instance.
@@ -275,7 +275,6 @@ class L2XText(ExplainerBase):
         :param X: A batch of input instances.
         :param kwargs: Additional parameters, not used here.
         :return: The explanations for all the input instances.
-        :rtype: WordImportance
         """
         explanations = WordImportance(self.mode)
         instances = self.transform.transform(X)

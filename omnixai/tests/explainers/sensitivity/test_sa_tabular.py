@@ -14,7 +14,7 @@ from omnixai.tests.explainers.tasks import TabularRegression
 class TestSensitivity(unittest.TestCase):
     def test_explain(self):
         set_random_seed()
-        task = TabularRegression.train_boston_continuous()
+        task = TabularRegression().train_boston_continuous()
         predict_function = lambda z: task.model.predict(task.transform.transform(z))
         explainer = SensitivityAnalysisTabular(training_data=task.train_data, predict_function=predict_function)
         explanations = explainer.explain()

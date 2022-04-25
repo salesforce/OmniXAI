@@ -48,7 +48,7 @@ class ShapTabular(TabularExplainer):
             self.predict_fn, data, link="logit" if mode == "classification" else "identity", **kwargs
         )
 
-    def explain(self, X, y=None, **kwargs):
+    def explain(self, X, y=None, **kwargs) -> FeatureImportance:
         """
         Generates the feature-importance explanations for the input instances.
 
@@ -59,7 +59,6 @@ class ShapTabular(TabularExplainer):
             when ``y = None``.
         :param kwargs: Additional parameters for `shap.KernelExplainer.shap_values`.
         :return: The feature-importance explanations for all the input instances.
-        :rtype: FeatureImportance
         """
         X = self._to_tabular(X).remove_target_column()
         explanations = FeatureImportance(self.mode)

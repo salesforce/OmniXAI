@@ -39,7 +39,7 @@ class LimeImage(ExplainerBase):
         self.mode = mode
         self.predict_fn = lambda x: predict_function(Image(x, batched=True))
 
-    def explain(self, X, **kwargs):
+    def explain(self, X, **kwargs) -> MaskExplanation:
         """
         Generates the explanations for the input instances.
 
@@ -48,7 +48,6 @@ class LimeImage(ExplainerBase):
             of the top labels to explain. Please refer to the doc of
             `LimeImageExplainer.explain_instance`.
         :return: The explanations for all the input instances.
-        :rtype: MaskExplanation
         """
         if "top_labels" not in kwargs:
             kwargs["top_labels"] = 2

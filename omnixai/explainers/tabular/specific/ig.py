@@ -202,7 +202,7 @@ class IntegratedGradientTabular(TabularExplainer, IntegratedGradient):
         y = np.argmax(scores, axis=1).astype(int)
         return y
 
-    def explain(self, X, y=None, baseline=None, **kwargs):
+    def explain(self, X, y=None, baseline=None, **kwargs) -> FeatureImportance:
         """
         Generates the explanations for the input instances.
 
@@ -216,7 +216,6 @@ class IntegratedGradientTabular(TabularExplainer, IntegratedGradient):
         :param kwargs: Additional parameters, e.g., ``steps`` for
             `IntegratedGradient.compute_integrated_gradients`.
         :return: The explanations for all the input instances.
-        :rtype: FeatureImportance
         """
         steps = kwargs.get("steps", 50)
         explanations = FeatureImportance(self.mode)

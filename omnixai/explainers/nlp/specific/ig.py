@@ -230,7 +230,7 @@ class IntegratedGradientText(ExplainerBase):
                 tf_inputs.append(x)
             return tuple(tf_inputs)
 
-    def explain(self, X: Text, y=None, **kwargs):
+    def explain(self, X: Text, y=None, **kwargs) -> WordImportance:
         """
         Generates the word/token-importance explanations for the input instances.
 
@@ -241,7 +241,6 @@ class IntegratedGradientText(ExplainerBase):
         :param kwargs: Additional parameters, e.g., ``steps`` for
             `IntegratedGradient.compute_integrated_gradients`.
         :return: The explanations for all the instances, e.g., word.token importance scores.
-        :rtype: WordImportance
         """
         steps = kwargs.get("steps", 50)
         explanations = WordImportance(mode=self.mode)

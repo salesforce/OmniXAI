@@ -36,7 +36,8 @@ class Polyjuice(ExplainerBase):
         :param kwargs: Additional parameters, e.g., `model_path` and `cuda`.
         """
         super().__init__()
-        assert mode == "classification", "Only supports classification tasks for text data."
+        assert mode in ["classification", "qa"], \
+            "Only supports classification and question-answering (qa) tasks for text data."
         self.mode = mode
         self.predict_function = predict_function
 
@@ -46,11 +47,115 @@ class Polyjuice(ExplainerBase):
             is_cuda=kwargs.get("cuda", True)
         )
 
-    def _predict(self, X: Text):
-        scores = self.predict_function(X)
+    def _predict(self, x: Text):
+        scores = self.predict_function(x)
         return scores, np.argmax(scores, axis=1)
 
-    def explain(self, X: Text, max_number_examples: int = 5, **kwargs):
+    @staticmethod
+    def _distance(a, b):
+        if isinstance(a, Text):
+            a, b = Counter(a.to_tokens()[0]), Counter(b.to_tokens()[0])
+        elif isinstance(a, list):
+            a, b = Counter(a), Counter(b)
+
+        x, y = 0, 0
+        for key, value in a.items():
+            x += max(0, value - b.get(key, 0))
+        for key, value in b.items():
+            y += max(0, value - a.get(key, 0))
+        distance = max(x, y)
+        return distance
+
+    def _perturb(self, text, **kwargs):
+        ce_type = kwargs.get("ce_type", "perturb")
+        if ce_type == "perturb":
+            perturb_texts = self.explainer.perturb(
+                text,
+                num_perturbations=kwargs.get("num_perturbations", 10),
+                perplex_thred=kwargs.get("perplex_thred", 10)
+            )
+        elif ce_type == "blank":
+            perturb_texts = self.explainer.get_random_blanked_sentences(
+                sentence=text,
+                max_blank_sent_count=kwargs.get("num_perturbations", 10),
+                is_token_only=True,
+                max_blank_block=1
+            )
+        else:
+            raise ValueError(f"Unknown `ce_type`: {ce_type}. Please choose 'perturb' or 'blank'.")
+        return perturb_texts
+
+    def _explain_classification(self, X: Text, max_number_examples: int = 5, **kwargs):
+        explanations = CFExplanation()
+        predictions, labels = self._predict(X)
+        tokenizer = X.tokenizer
+
+        for idx, text in enumerate(X.values):
+            original_label = labels[idx]
+            perturb_texts = self._perturb(text.lower(), **kwargs)
+            perturb_texts = list(set([t.lower() for t in perturb_texts]))
+            perturb_predictions, perturb_labels = self._predict(
+                Text(perturb_texts, tokenizer=tokenizer))
+
+            flips, non_flips = [], []
+            original_tokens = Text(text, tokenizer=tokenizer).to_tokens()[0]
+            original_token_counts = Counter(original_tokens)
+
+            for t, p, label in zip(perturb_texts, perturb_predictions, perturb_labels):
+                perturb_tokens = Text(t, tokenizer=tokenizer).to_tokens()[0]
+                perturb_token_counts = Counter(perturb_tokens)
+                distance = self._distance(original_token_counts, perturb_token_counts)
+                score = p[original_label] + (distance / len(original_tokens))
+                if label != original_label:
+                    flips.append((t, score, label))
+                else:
+                    non_flips.append((t, score, label))
+
+            examples = sorted(flips, key=lambda x: x[1]) + sorted(non_flips, key=lambda x: x[1])
+            explanations.add(
+                query=pd.DataFrame([[text, original_label]], columns=["text", "label"]),
+                cfs=pd.DataFrame([(e[0], e[2]) for e in examples[:max_number_examples]], columns=["text", "label"])
+            )
+        return explanations
+
+    def _explain_question_answering(self, X: Text, max_number_examples: int = 5, **kwargs):
+        sep = kwargs.get("sep", "[SEP]")
+        explanations = CFExplanation()
+        tokenizer = X.tokenizer
+
+        for x in X:
+            # The answer obtained by the model
+            res = self.predict_function(x)
+            if not isinstance(res, str):
+                res = res[0]
+            # Get the context and question
+            context, question = x.split(sep, 1)[0]
+            perturb_questions = self._perturb(question, **kwargs)
+            # Perturb the question
+            flips, non_flips = [], []
+            for perturbation in perturb_questions:
+                if perturbation == question:
+                    continue
+                ce_res = self.predict_function(Text(f"{context}{sep}{perturbation}", tokenizer=tokenizer))
+                if not isinstance(ce_res, str):
+                    ce_res = ce_res[0]
+                # Sort the results by a simple distance function
+                distance = self._distance(
+                    Text(question, tokenizer=tokenizer), Text(perturbation, tokenizer=tokenizer))
+                if ce_res == res:
+                    non_flips.append((perturbation, ce_res, distance))
+                else:
+                    flips.append((perturbation, ce_res, distance))
+
+            examples = sorted(flips, key=lambda z: z[-1]) + sorted(non_flips, key=lambda z: z[-1])
+            cfs = [[q, r] for q, r, _ in examples[:max_number_examples]]
+            explanations.add(
+                query=pd.DataFrame([[question, res]], columns=["question", "answer"]),
+                cfs=pd.DataFrame(cfs, columns=["question", "answer"]) if cfs else None
+            )
+        return explanations
+
+    def explain(self, X: Text, max_number_examples: int = 5, **kwargs) -> CFExplanation:
         """
         Generates the counterfactual explanations for the input instances.
 
@@ -59,58 +164,8 @@ class Polyjuice(ExplainerBase):
             examples for each input instance.
         :param kwargs: Additional parameters for `polyjuice.Polyjuice`.
         :return: The explanations for all the input instances.
-        :rtype: NLPCounterfactualExplanation
         """
-        from polyjuice.generations import ALL_CTRL_CODES
-
-        explanations = CFExplanation()
-        predictions, labels = self._predict(X)
-
-        for idx, text in enumerate(X.values):
-            original_label = labels[idx]
-            perturb_texts = self.explainer.perturb(
-                text.lower(),
-                ctrl_code=ALL_CTRL_CODES,
-                num_perturbations=kwargs.get("num_perturbations", None),
-                perplex_thred=kwargs.get("perplex_thred", 10)
-            )
-            perturb_texts = list(set([t.lower() for t in perturb_texts]))
-            perturb_predictions, perturb_labels = self._predict(Text(perturb_texts))
-
-            # Only keep the generated texts with different predicted labels
-            cf_texts, cf_predictions, cf_labels = [], [], []
-            for t, p, label in zip(perturb_texts, perturb_predictions, perturb_labels):
-                if label != original_label:
-                    cf_texts.append(t)
-                    cf_predictions.append(p)
-                    cf_labels.append(label)
-            # Cannot find counterfactual examples
-            if len(cf_texts) == 0:
-                explanations.add(
-                    query=pd.DataFrame([[text, original_label]], columns=["text", "label"]),
-                    cfs=None
-                )
-            else:
-                examples = []
-                original_tokens = Text(text).to_tokens()[0]
-                original_token_counts = Counter(original_tokens)
-
-                for t, p, label in zip(cf_texts, cf_predictions, cf_labels):
-                    perturb_tokens = Text(t).to_tokens()[0]
-                    perturb_token_counts = Counter(perturb_tokens)
-
-                    a, b = 0, 0
-                    for key, value in original_token_counts.items():
-                        a += max(0, value - perturb_token_counts.get(key, 0))
-                    for key, value in perturb_token_counts.items():
-                        b += max(0, value - original_token_counts.get(key, 0))
-                    distance = max(a, b)
-
-                    score = p[original_label] + (distance / len(original_tokens))
-                    examples.append((t, score, label))
-                examples = sorted(examples, key=lambda x: x[1])[:max_number_examples]
-                explanations.add(
-                    query=pd.DataFrame([[text, original_label]], columns=["text", "label"]),
-                    cfs=pd.DataFrame([(e[0], e[2]) for e in examples], columns=["text", "label"])
-                )
-        return explanations
+        if self.mode == "classification":
+            return self._explain_classification(X=X, max_number_examples=max_number_examples, **kwargs)
+        else:
+            return self._explain_question_answering(X=X, max_number_examples=max_number_examples, **kwargs)

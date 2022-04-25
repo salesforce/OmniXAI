@@ -124,7 +124,7 @@ class ShapImage(ExplainerBase):
         r = (max_a - min_a) / (max_b - min_b + 1e-8)
         return Image(data=(r * x + min_a - r * min_b).astype(int), batched=False, channel_last=True)
 
-    def explain(self, X: Image, y=None, **kwargs):
+    def explain(self, X: Image, y=None, **kwargs) -> PixelImportance:
         """
         Generates the pixel-importance explanations for the input instances.
 
@@ -135,7 +135,6 @@ class ShapImage(ExplainerBase):
         :param kwargs: Additional parameters, e.g., ``nsamples`` -- the maximum number of images
             sampled for the background.
         :return: The explanations for all the input instances, e.g., pixel importance scores.
-        :rtype: PixelImportance
         """
         assert min(X.shape[1:3]) > 4, f"The image size ({X.shape[1]}, {X.shape[2]}) is too small."
         explanations = PixelImportance(self.mode)

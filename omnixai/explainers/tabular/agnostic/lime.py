@@ -50,7 +50,7 @@ class LimeTabular(TabularExplainer):
             **kwargs,
         )
 
-    def explain(self, X, y=None, **kwargs):
+    def explain(self, X, y=None, **kwargs) -> FeatureImportance:
         """
         Generates the feature-importance explanations for the input instances.
 
@@ -63,7 +63,6 @@ class LimeTabular(TabularExplainer):
             e.g., ``num_features``. Please refer to the doc of
             `LimeTabularExplainer.explain_instance`.
         :return: The feature-importance explanations for all the input instances.
-        :rtype: FeatureImportance
         """
         if "labels" in kwargs:
             warnings.warn(

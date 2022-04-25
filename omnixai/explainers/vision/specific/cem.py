@@ -453,7 +453,7 @@ class ContrastiveExplainer(ExplainerBase):
         y = np.argmax(scores, axis=1).astype(int)
         return y
 
-    def explain(self, X: Image, **kwargs):
+    def explain(self, X: Image, **kwargs) -> ContrastiveExplanation:
         """
         Generates the explanations corresponding to the input images.
         Note that the returned results including the original input images,
@@ -464,7 +464,6 @@ class ContrastiveExplainer(ExplainerBase):
         :param X: A batch of the input images.
         :param kwargs: Not used here.
         :return: The explanations for all the images, e.g., pertinent negatives and pertinent positives.
-        :rtype: ContrastiveExplanation
         """
         assert min(X.shape[1:3]) > 4, f"The image size ({X.shape[1]}, {X.shape[2]}) is too small."
         verbose = kwargs.get("kwargs", True)

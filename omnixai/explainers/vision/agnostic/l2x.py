@@ -245,7 +245,7 @@ class L2XImage(ExplainerBase):
                     f"The L2X prediction model accuracy is too low, " "please tuning the training parameters."
                 )
 
-    def explain(self, X: Image, **kwargs):
+    def explain(self, X: Image, **kwargs) -> PixelImportance:
         """
         Generates the explanations for the input instances. For classification,
         it explains the top predicted label for each input instance.
@@ -253,7 +253,6 @@ class L2XImage(ExplainerBase):
         :param X: A batch of input instances.
         :param kwargs: Additional parameters, not used here.
         :return: The explanations for all the input instances.
-        :rtype: PixelImportance
         """
         explanations = PixelImportance(self.mode)
         inputs = X.to_numpy(hwc=False, keepdim=True)

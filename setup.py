@@ -24,7 +24,7 @@ setup(
     keywords="XAI Explainable AI Explanation",
     url="https://github.com/salesforce/omnixai",
     license="3-Clause BSD",
-    packages=find_namespace_packages(include="omnixai.*", exclude=["omnixai.tests"]),
+    packages=find_namespace_packages(include="omnixai.*"),
     package_dir={"omnixai": "omnixai"},
     package_data={"omnixai": ["visualization/assets/*"]},
     install_requires=[
