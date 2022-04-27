@@ -170,18 +170,7 @@ class TreeRegressor(TreeBase):
 
     def _fit(self, X: np.ndarray, y: np.ndarray, **kwargs) -> None:
         from sklearn.tree import DecisionTreeRegressor
-
-        self.model = DecisionTreeRegressor(
-            criterion=kwargs.get("criterion", "mse"),
-            splitter=kwargs.get("splitter", "best"),
-            max_depth=kwargs.get("max_depth", None),
-            min_samples_split=kwargs.get("min_samples_split", 2),
-            min_samples_leaf=kwargs.get("min_samples_leaf", 1),
-            min_weight_fraction_leaf=kwargs.get("min_weight_fraction_leaf", 0.0),
-            max_features=kwargs.get("max_features", None),
-            random_state=kwargs.get("random_state", None),
-            max_leaf_nodes=kwargs.get("max_leaf_nodes", None),
-        )
+        self.model = DecisionTreeRegressor(**kwargs)
         self.model.fit(X, y, kwargs.get("sample_weight", None))
 
 
@@ -218,16 +207,5 @@ class TreeClassifier(TreeBase):
     def _fit(self, X: np.ndarray, y: np.ndarray, **kwargs) -> None:
         from sklearn.tree import DecisionTreeClassifier
 
-        self.model = DecisionTreeClassifier(
-            criterion=kwargs.get("criterion", "gini"),
-            splitter=kwargs.get("splitter", "best"),
-            max_depth=kwargs.get("max_depth", None),
-            min_samples_split=kwargs.get("min_samples_split", 2),
-            min_samples_leaf=kwargs.get("min_samples_leaf", 1),
-            min_weight_fraction_leaf=kwargs.get("min_weight_fraction_leaf", 0.0),
-            max_features=kwargs.get("max_features", None),
-            random_state=kwargs.get("random_state", None),
-            max_leaf_nodes=kwargs.get("max_leaf_nodes", None),
-            class_weight=kwargs.get("class_weight", None),
-        )
+        self.model = DecisionTreeClassifier(**kwargs)
         self.model.fit(X, y, kwargs.get("sample_weight", None))

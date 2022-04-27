@@ -30,11 +30,11 @@ setup(
     install_requires=[
         "numpy>=1.17",
         "pandas>=1.1.0",
-        "scikit-learn>=0.22",
+        "scikit-learn>=0.22,<1.2",
         "scipy>=1.5.0",
         "scikit-image>=0.17.2",
         "matplotlib",
-        "pillow",
+        "pillow<10.0",
         "lime",
         "shap>=0.40.0",
         "SALib",

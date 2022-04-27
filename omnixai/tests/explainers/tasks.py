@@ -9,7 +9,6 @@ import dill
 import sklearn
 import sklearn.datasets
 import sklearn.ensemble
-from sklearn.datasets import load_boston, fetch_california_housing
 
 import xgboost
 import numpy as np
@@ -182,6 +181,8 @@ class TabularRegression:
         self.tasks = [self.train_boston, self.train_boston_continuous]
 
     def train_boston(self):
+        from sklearn.datasets import load_boston
+
         set_random_seed()
         boston = load_boston()
         tabular_data = Tabular(
@@ -213,6 +214,8 @@ class TabularRegression:
         )
 
     def train_boston_continuous(self):
+        from sklearn.datasets import load_boston
+
         set_random_seed()
         boston = load_boston()
         df = pd.DataFrame(
@@ -246,6 +249,8 @@ class TabularRegression:
         )
 
     def train_california_housing(self):
+        from sklearn.datasets import fetch_california_housing
+
         set_random_seed()
         housing = fetch_california_housing()
         df = pd.DataFrame(

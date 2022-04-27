@@ -26,10 +26,14 @@ class KBins(TransformBase):
         self.encoder = preprocessing.KBinsDiscretizer(n_bins=n_bins, encode="ordinal")
 
     def fit(self, x):
+        if isinstance(x, pd.DataFrame):
+            x = x.values
         self.encoder.fit(x)
         return self
 
     def transform(self, x):
+        if isinstance(x, pd.DataFrame):
+            x = x.values
         return self.encoder.transform(x)
 
     def invert(self, x):
@@ -49,10 +53,14 @@ class OneHot(TransformBase):
             self.encoder = preprocessing.OneHotEncoder(drop=drop)
 
     def fit(self, x):
+        if isinstance(x, pd.DataFrame):
+            x = x.values
         self.encoder.fit(x)
         return self
 
     def transform(self, x):
+        if isinstance(x, pd.DataFrame):
+            x = x.values
         return self.encoder.transform(x).toarray()
 
     def invert(self, x):
@@ -82,10 +90,14 @@ class Ordinal(TransformBase):
         self.encoder = preprocessing.OrdinalEncoder(handle_unknown="use_encoded_value", unknown_value=-1)
 
     def fit(self, x):
+        if isinstance(x, pd.DataFrame):
+            x = x.values
         self.encoder.fit(x)
         return self
 
     def transform(self, x):
+        if isinstance(x, pd.DataFrame):
+            x = x.values
         return self.encoder.transform(x)
 
     def invert(self, x):

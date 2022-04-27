@@ -9,7 +9,7 @@ import pprint
 import xgboost
 import numpy as np
 import pandas as pd
-from sklearn.datasets import load_boston
+from sklearn.datasets import fetch_california_housing
 
 from omnixai.data.tabular import Tabular
 from omnixai.explainers.tabular import ShapTreeTabular
@@ -20,14 +20,12 @@ pd.set_option("display.max_columns", None)
 class TestShapTreeTabular(unittest.TestCase):
     def test_explain(self):
         np.random.seed(1)
-        boston = load_boston()
-        tabular_data = Tabular(
-            np.concatenate([boston.data, boston.target.reshape((-1, 1))], axis=1),
-            feature_columns=list(boston.feature_names) + ["target"],
-            categorical_columns=[boston.feature_names[i] for i in [3, 8]],
-            target_column="target",
+        housing = fetch_california_housing()
+        df = pd.DataFrame(
+            np.concatenate([housing.data, housing.target.reshape((-1, 1))], axis=1),
+            columns=list(housing.feature_names) + ["target"],
         )
-
+        tabular_data = Tabular(df, target_column="target")
         model = ShapTreeTabular(mode="regression", model=xgboost.XGBRegressor())
         model.fit(tabular_data)
 

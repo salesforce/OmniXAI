@@ -31,8 +31,8 @@ class InputData(Dataset):
 
     @staticmethod
     def collate_func(samples):
-        x = torch.FloatTensor([sample[0] for sample in samples])
-        y = torch.FloatTensor([sample[1] for sample in samples])
+        x = torch.FloatTensor(np.array([sample[0] for sample in samples]))
+        y = torch.FloatTensor(np.array([sample[1] for sample in samples]))
         return x, y
 
 
