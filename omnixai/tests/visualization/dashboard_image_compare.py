@@ -41,7 +41,7 @@ class TestDashboard(unittest.TestCase):
 
     def test(self):
         explainer = VisionExplainer(
-            explainers=["gradcam#0", "gradcam#1", "gradcam#2", "gradcam#3"],
+            explainers=["lime", "ig", "gradcam#0", "gradcam#1", "gradcam#2", "gradcam#3"],
             mode="classification",
             model=self.model,
             preprocess=self.preprocess,

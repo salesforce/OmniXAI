@@ -37,7 +37,7 @@ class CounterfactualOptimizer:
             learning_rate=1e-2,
             num_iterations=1000,
             grad_clip=1e3,
-            grid_size=1e4,
+            grid_size=1e3,
             **kwargs
     ):
         """

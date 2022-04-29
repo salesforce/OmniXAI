@@ -2,13 +2,13 @@ import os
 import unittest
 import numpy as np
 import pandas as pd
+from omnixai.utils.misc import set_random_seed
 from omnixai.data.timeseries import Timeseries
-from omnixai.explainers.timeseries import TimeseriesExplainer
-from omnixai.visualization.dashboard import Dashboard
+from omnixai.explainers.timeseries.counterfactual.mace import MACEExplainer
 
 
 def load_timeseries():
-    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../datasets")
+    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets")
     df = pd.read_csv(os.path.join(data_dir, "timeseries.csv"))
     df["timestamp"] = pd.to_datetime(df["timestamp"], unit='s')
     df = df.rename(columns={"horizontal": "values"})
@@ -30,7 +30,7 @@ def train_detector(train_df):
     return _detector
 
 
-class TestDashboard(unittest.TestCase):
+class TestMACETimeseries(unittest.TestCase):
 
     def setUp(self) -> None:
         df = load_timeseries()
@@ -40,20 +40,14 @@ class TestDashboard(unittest.TestCase):
         print(self.detector(Timeseries.from_pd(self.test_df)))
 
     def test(self):
-        explainers = TimeseriesExplainer(
-            explainers=["shap", "mace"],
-            mode="anomaly_detection",
-            data=Timeseries.from_pd(self.train_df),
-            model=self.detector,
-            preprocess=None,
-            postprocess=None,
-            params={"mace": {"threshold": 0.001}}
+        set_random_seed()
+        explainer = MACEExplainer(
+            training_data=Timeseries.from_pd(self.train_df),
+            predict_function=self.detector,
+            threshold=0.001
         )
-        test_instance = Timeseries.from_pd(self.test_df)
-        local_explanations = explainers.explain(test_instance)
-        print(local_explanations)
-        dashboard = Dashboard(instances=test_instance, local_explanations=local_explanations)
-        dashboard.show()
+        explanations = explainer.explain(Timeseries.from_pd(self.test_df))
+        explanations.plotly_plot()
 
 
 if __name__ == "__main__":

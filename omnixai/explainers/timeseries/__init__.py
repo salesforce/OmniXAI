@@ -7,9 +7,11 @@
 from .auto import TimeseriesExplainer
 from .agnostic.shap import ShapTimeseries
 from .counterfactual.ce import CounterfactualExplainer
+from .counterfactual.mace import MACEExplainer
 
 __all__ = [
     "TimeseriesExplainer",
     "ShapTimeseries",
     "CounterfactualExplainer",
+    "MACEExplainer"
 ]
