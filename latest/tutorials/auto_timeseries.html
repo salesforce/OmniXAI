@@ -364,7 +364,7 @@ div.rendered_html tbody tr:hover {
 </style>
 <section id="TimeseriesExplainer-for-time-series-anomaly-detection">
 <h1>TimeseriesExplainer for time series anomaly detection<a class="headerlink" href="#TimeseriesExplainer-for-time-series-anomaly-detection" title="Permalink to this headline"></a></h1>
-<p>The class <code class="docutils literal notranslate"><span class="pre">TimeseriesExplainer</span></code> is derived from <code class="docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code> for time series data, acting as a factory of the supported tabular explainers such as SHAP and CE. <code class="docutils literal notranslate"><span class="pre">TimeseriesExplainer</span></code> provides a unified easy-to-use interface for all the supported explainers. In practice, we recommend applying <code class="docutils literal notranslate"><span class="pre">TimeseriesExplainer</span></code> to generate explanations instead of using a specific explainer in the package <code class="docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries</span></code>.</p>
+<p>The class <code class="docutils literal notranslate"><span class="pre">TimeseriesExplainer</span></code> is derived from <code class="docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code> for time series data, acting as a factory of the supported tabular explainers such as SHAP and MACE. <code class="docutils literal notranslate"><span class="pre">TimeseriesExplainer</span></code> provides a unified easy-to-use interface for all the supported explainers. In practice, we recommend applying <code class="docutils literal notranslate"><span class="pre">TimeseriesExplainer</span></code> to generate explanations instead of using a specific explainer in the package <code class="docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -445,7 +445,7 @@ timestamp
 <span class="k">def</span> <span class="nf">detector</span><span class="p">(</span><span class="n">ts</span><span class="p">:</span> <span class="n">Timeseries</span><span class="p">):</span>
     <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
-        <span class="n">anomaly_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">threshold</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">anomaly_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
         <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">anomaly_scores</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
 </pre></div>
@@ -453,13 +453,13 @@ timestamp
 </div>
 <p>To initialize <code class="docutils literal notranslate"><span class="pre">TimeseriesExplainer</span></code>, we need to set the following parameters:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">explainers</span></code>: The names of the explainers to apply, e.g., [“shap”, “ce”].</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">explainers</span></code>: The names of the explainers to apply, e.g., [“shap”, “mace”].</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: The data used to initialize explainers. <code class="docutils literal notranslate"><span class="pre">data</span></code> is the training dataset for training the machine learning model.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The ML model to explain, e.g., a black-box anomaly detector.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">preprocess</span></code>: The preprocessing function converting the raw data into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">postprocess</span></code> (optional): The postprocessing function transforming the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code> to a user-specific form, e.g., the predicted probability for each class.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: The task type, e.g., “anomaly_detection” or “forecasting”.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code>: Additional parameters for each explainer, e.g., CE requires a threshold to determine anomaly labels.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code>: Additional parameters for each explainer, e.g., MACE requires a threshold to determine anomaly labels.</p></li>
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -467,13 +467,13 @@ timestamp
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize a TimeseriesExplainer</span>
 <span class="n">explainers</span> <span class="o">=</span> <span class="n">TimeseriesExplainer</span><span class="p">(</span>
-    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;ce&quot;</span><span class="p">],</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">],</span>
     <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;anomaly_detection&quot;</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">(</span><span class="n">train_df</span><span class="p">),</span>
     <span class="n">model</span><span class="o">=</span><span class="n">detector</span><span class="p">,</span>
     <span class="n">preprocess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">postprocess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ce&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}}</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;mace&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">}}</span>
 <span class="p">)</span>
 <span class="c1"># Generate explanations</span>
 <span class="n">test_instances</span> <span class="o">=</span> <span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">(</span><span class="n">test_df</span><span class="p">)</span>
@@ -485,14 +485,14 @@ timestamp
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8c33e8936fba4555b52b12fdf570f784", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ee2f9af705df43d0bc84c43e776ec30a", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Binary step: 5 |███████████████████████████████████████-| 99.9%
+ |███████████████████████████████████████-| 98.0%
 </pre></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ipython_plot</span></code> plots the generated explanations in IPython. Parameter <code class="docutils literal notranslate"><span class="pre">index</span></code> indicates which instance to plot, e.g., <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code> means plotting the first instance in <code class="docutils literal notranslate"><span class="pre">test_instances</span></code>.</p>
@@ -503,8 +503,8 @@ Binary step: 5 |█████████████████████�
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">index</span><span class="o">=</span><span class="mi">0</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SHAP results:&quot;</span><span class="p">)</span>
 <span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;shap&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CE results:&quot;</span><span class="p">)</span>
-<span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;ce&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MACE results:&quot;</span><span class="p">)</span>
+<span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;mace&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -528,7 +528,7 @@ SHAP results:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-CE results:
+MACE results:
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
