@@ -104,10 +104,10 @@ The library provides a comprehensive family of interpretable
 machine learning algorithms. It includes high-quality implementations of various model-agnostic and
 model-specific explanation methods, e.g., feature-attribution explanation, counterfactual explanation,
 gradient-based explanation, and supports tabular data, image data, text data and time series data. It also provides an
-easy-to-use interface that allows users to obtain explanations by writing a few lines of codes,
+easy-to-use interface allowing users to generate explanations by writing a few lines of codes,
 which can be applied for multiple purposes in various applications:</p>
 <ol class="arabic simple">
-<li><p><strong>Data exploration</strong>: What are highly correlated features? Do there exist data imbalance issues?</p></li>
+<li><p><strong>Data exploration</strong>: What are highly correlated features? Does there exist data imbalance issues?</p></li>
 <li><p><strong>Feature engineering</strong>: Which features are important for the task? How to improve the model performance?</p></li>
 <li><p><strong>Model debugging</strong>: Does the model utilize wrong features? Why does the model make a mistake?</p></li>
 <li><p><strong>Decision support for business applications</strong>: How to understand the model’s decision and why to trust them?</p></li>
@@ -117,14 +117,13 @@ which can be applied for multiple purposes in various applications:</p>
 our library has a comprehensive list of XAI capabilities and unique features including the followings:</p>
 <ol class="arabic simple">
 <li><p><strong>Data analysis/exploration</strong>: Analyzing feature correlations, checking imbalance issues.</p></li>
-<li><p><strong>Support most popular explanation methods</strong>: Many explanation methods can be applied to analyze different aspects of a ML model.</p></li>
+<li><p><strong>Support most popular explanation methods</strong>: Analyzing different aspects of a ML model by various explanation methods.</p></li>
 <li><p><strong>Support counterfactual explanation</strong>: Providing the information about how to change the current prediction.</p></li>
-<li><p><strong>Support gradient-based explanation</strong>: Integrated-gradient, Grad-CAM and its variants are included.</p></li>
-<li><p><strong>Support image, text and timeseries data</strong>: Our library provides various explanations for image, text and timeseries models.</p></li>
-<li><p><strong>A much simpler interface</strong>: Users only need to write a few lines of code to generate various explanations.</p></li>
-<li><p><strong>A GUI dashboard</strong>: Providing an GUI dashboard for users to examine the generated explanations.</p></li>
-<li><p><strong>Easy to extend</strong>: Developers can add new explanation algorithms easily by implementing a single class derived from
-the explainer base class.</p></li>
+<li><p><strong>Support gradient-based explanation</strong>: Supporting integrated-gradient, Grad-CAM and its variants.</p></li>
+<li><p><strong>Support image, text and timeseries data</strong>: Providing various explanations for image, text and timeseries models.</p></li>
+<li><p><strong>A much simpler interface</strong>: Generating diverse explanations by writing a few lines of code only.</p></li>
+<li><p><strong>A GUI dashboard</strong>: Providing an GUI dashboard for users to examine and compare the generated explanations.</p></li>
+<li><p><strong>Easy to extend</strong>: Adding new explanation algorithms easily by implementing a single class derived from the explainer base class.</p></li>
 </ol>
 </section>
 <section id="capabilities-and-features">
@@ -275,7 +274,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 </tbody>
 </table>
 <p><em>SHAP</em> accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
-for text data. <em>Counterfactual</em> accepts black box models for tabular data and PyTorch/Tensorflow models for
+for text data. <em>Counterfactual</em> accepts black box models for tabular, text and time series data, and PyTorch/Tensorflow models for
 image data.</p>
 </section>
 <section id="comparison-with-competitors">
@@ -557,8 +556,8 @@ root directory of the repo.</p></li>
 <section id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p>To get started, we recommend the linked tutorials in <a class="reference internal" href="tutorials.html#tutorial"><span class="std std-ref">Tutorials &amp; Example Code</span></a>.
-In general, we recommend using <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.TabularExplainer" title="omnixai.explainers.tabular.TabularExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code></a>, <a class="reference internal" href="omnixai.explainers.vision.html#omnixai.explainers.vision.VisionExplainer" title="omnixai.explainers.vision.VisionExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code></a>,
-<a class="reference internal" href="omnixai.explainers.nlp.html#omnixai.explainers.nlp.NLPExplainer" title="omnixai.explainers.nlp.NLPExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code></a> and <a class="reference internal" href="omnixai.explainers.timeseries.html#omnixai.explainers.timeseries.TimeseriesExplainer" title="omnixai.explainers.timeseries.TimeseriesExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code></a> for tabular, vision, NLP and
+In general, we recommend using <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code>,
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code> and <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code> for tabular, vision, NLP and
 time series tasks, respectively. To generate explanations, one only needs to specify</p>
 <ul class="simple">
 <li><p><strong>The ML model to explain</strong>: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.</p></li>
@@ -674,7 +673,7 @@ directory of the repo. This will ensure all files are formatted correctly and co
 license headers whenever you make a commit. To add a new explanation method into the library,
 one may follow the steps below:</p>
 <ol class="arabic simple">
-<li><p>Choose the task type of the new explainer, e.g., “tabular”, “vision” or “nlp”.</p></li>
+<li><p>Choose the task type of the new explainer, e.g., “tabular”, “vision”, “nlp” or “timeseries”.</p></li>
 <li><p>Choose the explainer type, e.g., “model-agnostic”, “model-specific” or “counterfactual”.</p></li>
 <li><p>Create a new python script file for this explainer in the specified folder, e.g., it is put
 under the folder “explainers/tabular/agnostic” if it is a model-agnostic explainer for tabular data.</p></li>
@@ -697,14 +696,14 @@ which is used to convert the output logits into class probabilities. <code class
 <li><p>Add a class attribute <code class="docutils literal notranslate"><span class="pre">explanation_type</span></code> (string) with value “local”, “global” or “both”, indicating whether the method
 can generate local explanations, global explanations or both.</p></li>
 <li><p>Add a class attribute <code class="docutils literal notranslate"><span class="pre">alias</span></code> (list) specifying the explainer names.</p></li>
-<li><p>Implement the “explain” function, e.g., <code class="docutils literal notranslate"><span class="pre">explain(self,</span> <span class="pre">**kwargs)</span></code> for global explanations, or
-<code class="docutils literal notranslate"><span class="pre">explain(self,</span> <span class="pre">X,</span> <span class="pre">**kwargs)</span></code> for local explanations where the type of <code class="docutils literal notranslate"><span class="pre">X</span></code> is class <cite>Tabular</cite>, <cite>Image</cite> or <cite>Text</cite>.</p></li>
-<li><p>Import the explainer class in “__init__.py” of the packages <a class="reference internal" href="omnixai.explainers.tabular.html#module-omnixai.explainers.tabular" title="omnixai.explainers.tabular"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular</span></code></a>,
-<a class="reference internal" href="omnixai.explainers.vision.html#module-omnixai.explainers.vision" title="omnixai.explainers.vision"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision</span></code></a>, or <a class="reference internal" href="omnixai.explainers.nlp.html#module-omnixai.explainers.nlp" title="omnixai.explainers.nlp"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp</span></code></a>.</p></li>
+<li><p>Implement the “explain” function, e.g., <code class="docutils literal notranslate"><span class="pre">explain(self,</span> <span class="pre">**kwargs)</span></code> for local explanations, or
+<code class="docutils literal notranslate"><span class="pre">explain_global(self,</span> <span class="pre">X,</span> <span class="pre">**kwargs)</span></code> for global explanations where the type of <code class="docutils literal notranslate"><span class="pre">X</span></code> is class <cite>Tabular</cite>, <cite>Image</cite>, <cite>Text</cite> or <cite>Timeseries</cite>.</p></li>
+<li><p>Import the explainer class in “__init__.py” of the packages <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular</span></code>,
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp</span></code> or <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries</span></code>.</p></li>
 </ol>
-<p>The new explainer will be registered automatically, which can be called via <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.TabularExplainer" title="omnixai.explainers.tabular.TabularExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code></a>,
-<a class="reference internal" href="omnixai.explainers.vision.html#omnixai.explainers.vision.VisionExplainer" title="omnixai.explainers.vision.VisionExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code></a> or <a class="reference internal" href="omnixai.explainers.nlp.html#omnixai.explainers.nlp.NLPExplainer" title="omnixai.explainers.nlp.NLPExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code></a> by specifying one of the names
-defined in <code class="docutils literal notranslate"><span class="pre">alias</span></code>.</p>
+<p>The new explainer will be registered automatically, which can be called via <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code>,
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code> or <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code>
+by specifying one of the names defined in <code class="docutils literal notranslate"><span class="pre">alias</span></code>.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>

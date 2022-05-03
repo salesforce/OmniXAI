@@ -2,8 +2,9 @@ omnixai.explainers package
 ==========================
 
 This package contains all the supported explainers. In practice, we recommend using
-use :py:mod:`omnixai.explainers.tabular.TabularExplainer`, :py:mod:`omnixai.explainers.vision.VisionExplainer`, and
-:py:mod:`omnixai.explainers.nlp.NLPExplainer` for tabular, vision and NLP tasks, respectively. To generate explanations,
+use :py:mod:`omnixai.explainers.tabular.TabularExplainer`, :py:mod:`omnixai.explainers.vision.VisionExplainer`,
+:py:mod:`omnixai.explainers.nlp.NLPExplainer`, and :py:mod:`omnixai.explainers.timeseries.TimeseriesExplainer`
+for tabular, vision, NLP and time series tasks, respectively. To generate explanations,
 one only needs to specify the ML model, the pre-processing function (converting raw data into the model
 inputs), the post-processing function (e.g., converting the model outputs into class probabilities, optional),
 and the explainer names (e.g., lime, shap, gradcam):

@@ -1,11 +1,6 @@
 omnixai.explainers.tabular package
 ==================================
 
-.. automodule:: omnixai.explainers.tabular
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 omnixai.explainers.tabular.base module
 --------------------------------------
 .. automodule:: omnixai.explainers.tabular.base

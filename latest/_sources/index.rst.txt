@@ -14,10 +14,10 @@ The library provides a comprehensive family of interpretable
 machine learning algorithms. It includes high-quality implementations of various model-agnostic and
 model-specific explanation methods, e.g., feature-attribution explanation, counterfactual explanation,
 gradient-based explanation, and supports tabular data, image data, text data and time series data. It also provides an
-easy-to-use interface that allows users to obtain explanations by writing a few lines of codes,
+easy-to-use interface allowing users to generate explanations by writing a few lines of codes,
 which can be applied for multiple purposes in various applications:
 
-#. **Data exploration**: What are highly correlated features? Do there exist data imbalance issues?
+#. **Data exploration**: What are highly correlated features? Does there exist data imbalance issues?
 #. **Feature engineering**: Which features are important for the task? How to improve the model performance?
 #. **Model debugging**: Does the model utilize wrong features? Why does the model make a mistake?
 #. **Decision support for business applications**: How to understand the model’s decision and why to trust them?
@@ -27,14 +27,13 @@ Compared with other existing explanation libraries (such as IBM’s AIX360, Micr
 our library has a comprehensive list of XAI capabilities and unique features including the followings:
 
 #. **Data analysis/exploration**: Analyzing feature correlations, checking imbalance issues.
-#. **Support most popular explanation methods**: Many explanation methods can be applied to analyze different aspects of a ML model.
+#. **Support most popular explanation methods**: Analyzing different aspects of a ML model by various explanation methods.
 #. **Support counterfactual explanation**: Providing the information about how to change the current prediction.
-#. **Support gradient-based explanation**: Integrated-gradient, Grad-CAM and its variants are included.
-#. **Support image, text and timeseries data**: Our library provides various explanations for image, text and timeseries models.
-#. **A much simpler interface**: Users only need to write a few lines of code to generate various explanations.
-#. **A GUI dashboard**: Providing an GUI dashboard for users to examine the generated explanations.
-#. **Easy to extend**: Developers can add new explanation algorithms easily by implementing a single class derived from
-   the explainer base class.
+#. **Support gradient-based explanation**: Supporting integrated-gradient, Grad-CAM and its variants.
+#. **Support image, text and timeseries data**: Providing various explanations for image, text and timeseries models.
+#. **A much simpler interface**: Generating diverse explanations by writing a few lines of code only.
+#. **A GUI dashboard**: Providing an GUI dashboard for users to examine and compare the generated explanations.
+#. **Easy to extend**: Adding new explanation algorithms easily by implementing a single class derived from the explainer base class.
 
 Capabilities and Features
 #########################
@@ -62,7 +61,7 @@ Tree models              Tree models           Global and Local                 
 =======================  ====================  ================  =============  =======  =======  ======= ==========
 
 *SHAP* accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
-for text data. *Counterfactual* accepts black box models for tabular data and PyTorch/Tensorflow models for
+for text data. *Counterfactual* accepts black box models for tabular, text and time series data, and PyTorch/Tensorflow models for
 image data.
 
 Comparison with Competitors
@@ -247,7 +246,7 @@ directory of the repo. This will ensure all files are formatted correctly and co
 license headers whenever you make a commit. To add a new explanation method into the library,
 one may follow the steps below:
 
-#. Choose the task type of the new explainer, e.g., "tabular", "vision" or "nlp".
+#. Choose the task type of the new explainer, e.g., "tabular", "vision", "nlp" or "timeseries".
 #. Choose the explainer type, e.g., "model-agnostic", "model-specific" or "counterfactual".
 #. Create a new python script file for this explainer in the specified folder, e.g., it is put
    under the folder "explainers/tabular/agnostic" if it is a model-agnostic explainer for tabular data.
@@ -269,14 +268,14 @@ one may follow the steps below:
 #. Add a class attribute ``explanation_type`` (string) with value "local", "global" or "both", indicating whether the method
    can generate local explanations, global explanations or both.
 #. Add a class attribute ``alias`` (list) specifying the explainer names.
-#. Implement the "explain" function, e.g., ``explain(self, **kwargs)`` for global explanations, or
-   ``explain(self, X, **kwargs)`` for local explanations where the type of ``X`` is class `Tabular`, `Image` or `Text`.
+#. Implement the "explain" function, e.g., ``explain(self, **kwargs)`` for local explanations, or
+   ``explain_global(self, X, **kwargs)`` for global explanations where the type of ``X`` is class `Tabular`, `Image`, `Text` or `Timeseries`.
 #. Import the explainer class in "__init__.py" of the packages :py:mod:`omnixai.explainers.tabular`,
-   :py:mod:`omnixai.explainers.vision`, or :py:mod:`omnixai.explainers.nlp`.
+   :py:mod:`omnixai.explainers.vision`, :py:mod:`omnixai.explainers.nlp` or :py:mod:`omnixai.explainers.timeseries`.
 
 The new explainer will be registered automatically, which can be called via :py:mod:`omnixai.explainers.tabular.TabularExplainer`,
-:py:mod:`omnixai.explainers.vision.VisionExplainer` or :py:mod:`omnixai.explainers.nlp.NLPExplainer` by specifying one of the names
-defined in ``alias``.
+:py:mod:`omnixai.explainers.vision.VisionExplainer`, :py:mod:`omnixai.explainers.nlp.NLPExplainer` or :py:mod:`omnixai.explainers.timeseries.TimeseriesExplainer`
+by specifying one of the names defined in ``alias``.
 
 .. toctree::
    :maxdepth: 4

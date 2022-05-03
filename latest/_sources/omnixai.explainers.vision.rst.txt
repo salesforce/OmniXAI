@@ -1,11 +1,6 @@
 omnixai.explainers.vision package
 =================================
 
-.. automodule:: omnixai.explainers.vision
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 omnixai.explainers.vision.auto module
 -------------------------------------
 .. automodule:: omnixai.explainers.vision.auto

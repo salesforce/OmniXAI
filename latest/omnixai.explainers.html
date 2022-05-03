@@ -125,8 +125,9 @@
 <section id="omnixai-explainers-package">
 <h1>omnixai.explainers package<a class="headerlink" href="#omnixai-explainers-package" title="Permalink to this headline"></a></h1>
 <p>This package contains all the supported explainers. In practice, we recommend using
-use <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.TabularExplainer" title="omnixai.explainers.tabular.TabularExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code></a>, <a class="reference internal" href="omnixai.explainers.vision.html#omnixai.explainers.vision.VisionExplainer" title="omnixai.explainers.vision.VisionExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code></a>, and
-<a class="reference internal" href="omnixai.explainers.nlp.html#omnixai.explainers.nlp.NLPExplainer" title="omnixai.explainers.nlp.NLPExplainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code></a> for tabular, vision and NLP tasks, respectively. To generate explanations,
+use <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code>,
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code>, and <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code>
+for tabular, vision, NLP and time series tasks, respectively. To generate explanations,
 one only needs to specify the ML model, the pre-processing function (converting raw data into the model
 inputs), the post-processing function (e.g., converting the model outputs into class probabilities, optional),
 and the explainer names (e.g., lime, shap, gradcam):</p>

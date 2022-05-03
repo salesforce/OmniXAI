@@ -13,8 +13,9 @@ omnixai.data package
    text
    timeseries
 
-This package provides classes for representing tabular data, image data and text data,
-i.e., :py:mod:`omnixai.data.tabular`, :py:mod:`omnixai.data.image` and :py:mod:`omnixai.data.text`, respectively.
+This package provides classes for representing tabular data, image data, text and time series data,
+i.e., :py:mod:`omnixai.data.tabular`, :py:mod:`omnixai.data.image`, :py:mod:`omnixai.data.text` and
+:py:mod:`omnixai.data.timeseries`, respectively.
 
 Given a pandas dataframe ``df`` with a set of categorical column names ``categorical_columns`` and
 a target column ``target_column`` (e.g., class labels), we can create a ``Tabular`` object as follows:

@@ -65,6 +65,7 @@
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.timeseries.agnostic.html">omnixai.explainers.timeseries.agnostic package</a></li>
 <li class="toctree-l7 current"><a class="current reference internal" href="#">omnixai.explainers.timeseries.counterfactual package</a><ul>
 <li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.timeseries.counterfactual.ce">omnixai.explainers.timeseries.counterfactual.ce module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.timeseries.counterfactual.mace">omnixai.explainers.timeseries.counterfactual.mace module</a></li>
 </ul>
 </li>
 </ul>
@@ -137,6 +138,20 @@
 </style>
 <section id="module-omnixai.explainers.timeseries.counterfactual">
 <span id="omnixai-explainers-timeseries-counterfactual-package"></span><h1>omnixai.explainers.timeseries.counterfactual package<a class="headerlink" href="#module-omnixai.explainers.timeseries.counterfactual" title="Permalink to this headline"></a></h1>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.timeseries.counterfactual.ce" title="omnixai.explainers.timeseries.counterfactual.ce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ce</span></code></a></p></td>
+<td><p>The basic counterfactual explainer for time series data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#module-omnixai.explainers.timeseries.counterfactual.mace" title="omnixai.explainers.timeseries.counterfactual.mace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mace</span></code></a></p></td>
+<td><p>The Model-Agnostic Counterfactual Explanation (MACE) designed from time series.</p></td>
+</tr>
+</tbody>
+</table>
 <section id="module-omnixai.explainers.timeseries.counterfactual.ce">
 <span id="omnixai-explainers-timeseries-counterfactual-ce-module"></span><h2>omnixai.explainers.timeseries.counterfactual.ce module<a class="headerlink" href="#module-omnixai.explainers.timeseries.counterfactual.ce" title="Permalink to this headline"></a></h2>
 <p>The basic counterfactual explainer for time series data.</p>
@@ -223,6 +238,66 @@ e.g., anomaly score &gt; threshold.</p></li>
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timeseries</span></code></a>) – An instance of <cite>Timeseries</cite> representing one input instance or
 a batch of input instances.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters for <cite>CounterfactualOptimizer</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.counterfactual.CFExplanation" title="omnixai.explanations.timeseries.counterfactual.CFExplanation"><code class="xref py py-class docutils literal notranslate"><span class="pre">CFExplanation</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The counterfactual explanations for all the input instances.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-omnixai.explainers.timeseries.counterfactual.mace">
+<span id="omnixai-explainers-timeseries-counterfactual-mace-module"></span><h2>omnixai.explainers.timeseries.counterfactual.mace module<a class="headerlink" href="#module-omnixai.explainers.timeseries.counterfactual.mace" title="Permalink to this headline"></a></h2>
+<p>The Model-Agnostic Counterfactual Explanation (MACE) designed from time series.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explainers.timeseries.counterfactual.mace.MACEExplainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.timeseries.counterfactual.mace.</span></span><span class="sig-name descname"><span class="pre">MACEExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'anomaly_detection'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.timeseries.counterfactual.mace.MACEExplainer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
+<p>The Model-Agnostic Counterfactual Explanation (MACE) developed by Yang et al. Please
+cite the paper <cite>MACE: An Efficient Model-Agnostic Framework for Counterfactual Explanation</cite>.
+This is a special version designed from time series anomaly detection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timeseries</span></code></a>) – The data used to initialize the explainer.</p></li>
+<li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the model to explain.
+The inputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> should be a batch (list) of Timeseries instances.
+The outputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are anomaly scores (higher scores imply more anomalous)
+for anomaly detection or predicted values for forecasting.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>anomaly_detection</cite> or <cite>forecasting</cite>.</p></li>
+<li><p><strong>threshold</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – The threshold to determine whether an instance is anomalous,
+e.g., anomaly score &gt; threshold.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="omnixai.explainers.timeseries.counterfactual.mace.MACEExplainer.explanation_type">
+<span class="sig-name descname"><span class="pre">explanation_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'local'</span></em><a class="headerlink" href="#omnixai.explainers.timeseries.counterfactual.mace.MACEExplainer.explanation_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="omnixai.explainers.timeseries.counterfactual.mace.MACEExplainer.alias">
+<span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['mace']</span></em><a class="headerlink" href="#omnixai.explainers.timeseries.counterfactual.mace.MACEExplainer.alias" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explainers.timeseries.counterfactual.mace.MACEExplainer.explain">
+<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.timeseries.counterfactual.mace.MACEExplainer.explain" title="Permalink to this definition"></a></dt>
+<dd><p>Generates the counterfactual examples for the input instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timeseries</span></code></a>) – An instance of <cite>Timeseries</cite> representing one input instance or
+a batch of input instances.</p></li>
+<li><p><strong>kwargs</strong> – Additional parameters for MACE, e.g., “learning_rate” - the learning rate
+for RL, “batch_size” - the number of samples for RL,
+“num_iterations” - the number of optimization steps.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
