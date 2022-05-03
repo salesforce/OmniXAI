@@ -218,8 +218,8 @@ class CounterfactualExplainer(ExplainerBase):
         super().__init__()
         assert isinstance(training_data, Timeseries), \
             "`training_data` should be an instance of Timeseries."
-        assert mode == "anomaly_detection", \
-            "`mode` can only be `anomaly_detection`."
+        assert mode in ["anomaly_detection", "forecasting"], \
+            "`mode` can either be `anomaly_detection` or `forecasting`"
         assert threshold is not None, \
             "Please set the detection threshold, e.g., a data point is an anomaly " \
             "if its anomaly score is greater than `threshold`."

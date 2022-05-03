@@ -41,7 +41,6 @@ class ShapTimeseries(ExplainerBase):
             an `Timeseries` instance. The outputs of ``predict_function`` are anomaly scores (higher scores
             imply more anomalous) for anomaly detection or predicted values for forecasting.
         :param mode: The task type, e.g., `anomaly_detection` or `forecasting`.
-        :param kwargs: Additional parameters.
         """
         super().__init__()
         assert isinstance(training_data, Timeseries), \

@@ -32,7 +32,7 @@ class Polyjuice(ExplainerBase):
         :param predict_function: The prediction function corresponding to the machine learning
             model to explain. When the task is `classification`, the outputs of the ``predict_function``
             are the class probabilities.
-        :param mode: The task type which can be `classification` only.
+        :param mode: The task type, e.g., `classification` pr `qa` (question-answering).
         :param kwargs: Additional parameters, e.g., `model_path` and `cuda`.
         """
         super().__init__()
@@ -162,7 +162,8 @@ class Polyjuice(ExplainerBase):
         :param X: A batch of input instances.
         :param max_number_examples: The maximum number of the generated counterfactual
             examples for each input instance.
-        :param kwargs: Additional parameters for `polyjuice.Polyjuice`.
+        :param kwargs: Additional parameters for `polyjuice.Polyjuice`, e.g., "ce_type" - the perturb type
+            ("perturb" or "blank").
         :return: The explanations for all the input instances.
         """
         if self.mode == "classification":

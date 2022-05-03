@@ -4,6 +4,9 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+"""
+The Model-Agnostic Counterfactual Explanation (MACE) designed from time series.
+"""
 import numpy as np
 from typing import Callable
 from scipy.optimize import approx_fprime
@@ -121,15 +124,14 @@ class MACEExplainer(ExplainerBase):
         :param mode: The task type, e.g., `anomaly_detection` or `forecasting`.
         :param threshold: The threshold to determine whether an instance is anomalous,
             e.g., anomaly score > threshold.
-        :param kwargs: Additional parameters for `CounterfactualOptimizer`.
         """
         super().__init__()
         assert is_torch_available(), \
             "MACEExplainer for time series requires the installation of PyTorch."
         assert isinstance(training_data, Timeseries), \
             "`training_data` should be an instance of Timeseries."
-        assert mode == "anomaly_detection", \
-            "`mode` can only be `anomaly_detection`."
+        assert mode in ["anomaly_detection", "forecasting"], \
+            "`mode` can either be `anomaly_detection` or `forecasting`"
         assert threshold is not None, \
             "Please set the detection threshold, e.g., a data point is an anomaly " \
             "if its anomaly score is greater than `threshold`."
@@ -296,6 +298,9 @@ class MACEExplainer(ExplainerBase):
 
         :param X: An instance of `Timeseries` representing one input instance or
             a batch of input instances.
+        :param kwargs: Additional parameters for MACE, e.g., "learning_rate" - the learning rate
+            for RL, "batch_size" - the number of samples for RL,
+            "num_iterations" - the number of optimization steps.
         :return: The counterfactual explanations for all the input instances.
         """
         self._build_explainer(X.ts_len)

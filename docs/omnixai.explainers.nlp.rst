@@ -1,11 +1,6 @@
 omnixai.explainers.nlp package
 ==============================
 
-.. automodule:: omnixai.explainers.nlp
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 omnixai.explainers.nlp.auto module
 ----------------------------------
 .. automodule:: omnixai.explainers.nlp.auto

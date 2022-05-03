@@ -32,19 +32,19 @@ tabular data, image data and text data. It has five key subpackages:
   The explainers are categorized into four groups:
 
   - :py:mod:`omnixai.explainers.data`: It is for data exploration/analysis, including feature correlation analysis,
-    feature imbalance analysis, etc.
+    feature imbalance analysis, feature selection, etc.
   - :py:mod:`omnixai.explainers.tabular`: It contains the explainers for tabular data, e.g., global explanations
     such as PDP, local explanations such as LIME, SHAP, MACE.
   - :py:mod:`omnixai.explainers.vision`: It contains the explainers for vision tasks, e.g., integrated-gradient,
-    Grad-CAM, contrastive explanation, counterfactuals.
+    Grad-CAM, contrastive explanation, counterfactual explanation.
   - :py:mod:`omnixai.explainers.nlp`: It contains the explainers for NLP tasks, e.g., LIME, integrated-gradient.
-  - :py:mod:`omnixai.explainers.timeseries`: It contains the explainers for time series tasks, e.g., SHAP, counterfactual.
+  - :py:mod:`omnixai.explainers.timeseries`: It contains the explainers for time series tasks, e.g., SHAP, MACE.
 
 For each group, the explainers are further categorized into "model-agnostic", "model-specific" and "counterfactual".
 A "model-agnostic" explainer can handle black-box ML models, i.e., only requiring a prediction function without
 knowing model details. A "model-specific" explainer requires some information of ML models, e.g., whether the model is
 differentiable, whether the model is a linear model or a tree-based model. "counterfactual" is a special group for counterfactual
-explanation methods.
+explanation methods which may be either "model-agnostic" or "model-specific".
 
 - :py:mod:`omnixai.explanations`: This package contains the classes for explanation results. For example,
   :py:mod:`omnixai.explanations.tabular.feature_importance` is used for storing feature-importance/attribution explanations.
@@ -207,7 +207,7 @@ directory of the repo. This will ensure all files are formatted correctly and co
 license headers whenever you make a commit. To add a new explanation method into the library,
 one may follow the steps below:
 
-#. Choose the task type of the new explainer, e.g., "tabular", "vision" or "nlp".
+#. Choose the task type of the new explainer, e.g., "tabular", "vision", "nlp" or "timeseries".
 #. Choose the explainer type, e.g., "model-agnostic", "model-specific" or "counterfactual".
 #. Create a new python script file for this explainer in the specified folder, e.g., it is put
    under the folder "explainers/tabular/agnostic" if it is a model-agnostic explainer for tabular data.
@@ -229,14 +229,14 @@ one may follow the steps below:
 #. Add a class attribute ``explanation_type`` (string) with value "local", "global" or "both", indicating whether the method
    can generate local explanations, global explanations or both.
 #. Add a class attribute ``alias`` (list) specifying the explainer names.
-#. Implement the "explain" function, e.g., ``explain(self, **kwargs)`` for global explanations, or
-   ``explain(self, X, **kwargs)`` for local explanations where the type of ``X`` is class `Tabular`, `Image` or `Text`.
+#. Implement the "explain" function, e.g., ``explain(self, **kwargs)`` for local explanations, or
+   ``explain_global(self, X, **kwargs)`` for global explanations where the type of ``X`` is class `Tabular`, `Image`, `Text` or `Timeseries`.
 #. Import the explainer class in "__init__.py" of the packages :py:mod:`omnixai.explainers.tabular`,
-   :py:mod:`omnixai.explainers.vision`, or :py:mod:`omnixai.explainers.nlp`.
+   :py:mod:`omnixai.explainers.vision`, :py:mod:`omnixai.explainers.nlp` or :py:mod:`omnixai.explainers.timeseries`.
 
 The new explainer will be registered automatically, which can be called via :py:mod:`omnixai.explainers.tabular.TabularExplainer`,
-:py:mod:`omnixai.explainers.vision.VisionExplainer` or :py:mod:`omnixai.explainers.nlp.NLPExplainer` by specifying one of the names
-defined in ``alias``.
+:py:mod:`omnixai.explainers.vision.VisionExplainer`, :py:mod:`omnixai.explainers.nlp.NLPExplainer` or :py:mod:`omnixai.explainers.timeseries.TimeseriesExplainer`
+by specifying one of the names defined in ``alias``.
 
 .. automodule:: omnixai
    :members:
