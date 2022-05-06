@@ -1,4 +1,8 @@
-# OmniXAI: A Library for Explainable AI
+<p align="center">
+    <br>
+    <img src="https://github.com/salesforce/OmniXAI/tree/main/docs/_static/logo_small.png" width="400"/>
+    <br>
+<p>
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -15,7 +19,7 @@ The library provides a comprehensive family of interpretable
 machine learning algorithms. It includes high-quality implementations of various model-agnostic and
 model-specific explanation methods, e.g., feature-attribution explanation, counterfactual explanation,
 gradient-based explanation, and supports tabular data, image data, text data and time series data. It also provides an
-easy-to-use interface that allows users to obtain explanations by writing few lines of codes,
+easy-to-use interface allowing users to generate explanations by writing a few lines of codes,
 which can be applied for multiple purposes in various applications:
 
 - **Data exploration**: What are highly correlated features? Does there exist data imbalance issues?
@@ -28,13 +32,13 @@ Compared with other existing explanation libraries (such as IBM’s AIX360, Micr
 our library has a comprehensive list of XAI capabilities and unique features including the followings:
 
 - **Data analysis/exploration**: Analyzing feature correlations, checking imbalance issues.
-- **Support most popular explanation methods**: Many explanation methods can be applied to analyze different aspects of a ML model.
+- **Support most popular explanation methods**: Analyzing different aspects of a ML model by various explanation methods.
 - **Support counterfactual explanation**: Providing the information about how to change the current prediction.
-- **Support gradient-based explanation**: Integrated-gradient, Grad-CAM and its variants are included.
-- **Support image, text and timeseries data**: Our library provides various explanations for image, text and timeseries models.
-- **A much simpler interface**: Users only need to write few lines of code to generate various explanations.
-- **A GUI dashboard**: Providing an GUI dashboard for users to examine the generated explanations.
-- **Easy to extend**: Developers can add new explanation algorithms easily by implementing a single class derived from
+- **Support gradient-based explanation**: Supporting integrated-gradient, Grad-CAM and its variants.
+- **Support image, text and timeseries data**: Providing various explanations for image, text and timeseries models.
+- **A much simpler interface**: Generating diverse explanations by writing a few lines of code only.
+- **A GUI dashboard**: Providing an GUI dashboard for users to examine and compare the generated explanations.
+- **Easy to extend**: Adding new explanation algorithms easily by implementing a single class derived from
    the explainer base class.
 
 The following table shows the supported explanation methods and features in our library.
@@ -58,7 +62,7 @@ explanation methods for vision, NLP and time series tasks.
 | Tree models             | Tree models   | Global and Local |               | ✅      |       |      |      |
 
 *SHAP* accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
-for text data. *Counterfactual* accepts black box models for tabular data and PyTorch/Tensorflow models for
+for text data. *Counterfactual* accepts black box models for tabular, text and time series data, and PyTorch/Tensorflow models for
 image data.
 
 The following table shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
@@ -122,7 +126,7 @@ one only needs to specify
 - **The explainers to apply**: e.g., SHAP, MACE, Grad-CAM.
 
 Let's take the income prediction task as an example.
-The dataset used in this example is for income prediction (https://archive.ics.uci.edu/ml/datasets/adult).
+The [dataset](https://archive.ics.uci.edu/ml/datasets/adult) used in this example is for income prediction.
 We recommend using data class `Tabular` to represent a tabular dataset. To create a `Tabular` instance given a pandas
 dataframe, one needs to specify the dataframe, the categorical feature names (if exists) and the target/label
 column name (if exists).
@@ -228,7 +232,7 @@ dashboard.show()                                     # Launch the dashboard
 ```
 
 After opening the Dash app in the browser, we will see a dashboard showing the explanations:
-![alt text](https://github.com/yangwenz/OmniXAI/blob/main/docs/_static/demo.png)
+![alt text](https://github.com/salesforce/OmniXAI/tree/main/docs/_static/demo.png)
 
 ## How to Contribute
 
@@ -238,7 +242,7 @@ directory of the repo. This will ensure all files are formatted correctly and co
 license headers whenever you make a commit. To add a new explanation method into the library, 
 one may follow the steps below:
 
-1. Choose the task type of the new explainer, e.g., "tabular", "vision" or "nlp".
+1. Choose the task type of the new explainer, e.g., "tabular", "vision", "nlp" or "timeseries".
 1. Choose the explainer type, e.g., "model-agnostic", "model-specific" or "counterfactual".
 1. Create a new python script file for this explainer in the specified folder, e.g., it is put
    under the folder "explainers/tabular/agnostic" if it is a model-agnostic explainer for tabular data.
@@ -259,11 +263,28 @@ one may follow the steps below:
 1. Add a class attribute ``explanation_type`` (string) with value "local", "global" or "both", indicating whether the method
    can generate local explanations, global explanations or both.
 1. Add a class attribute ``alias`` (list) specifying the explainer names.
-1. Implement the "explain" function, e.g., ``explain(self, **kwargs)`` for global explanations, or
-   ``explain(self, X, **kwargs)`` for local explanations where the type of ``X`` is class `Tabular`, `Image` or `Text`.
+1. Implement the "explain" function, e.g., ``explain(self, **kwargs)`` for local explanations, or
+   ``explain_global(self, X, **kwargs)`` for global explanations where the type of ``X`` is class `Tabular`, `Image`, `Text` or `Timeseries`.
 1. Import the explainer class in "\_\_init\_\_.py" of the packages `omnixai.explainers.tabular`,
-   `omnixai.explainers.vision`, or `omnixai.explainers.nlp`.
+   `omnixai.explainers.vision`, `omnixai.explainers.nlp` or `omnixai.explainers.timeseries`.
 
 The new explainer will be registered automatically, which can be called via `omnixai.explainers.tabular.TabularExplainer`,
-`omnixai.explainers.vision.VisionExplainer` or `omnixai.explainers.nlp.NLPExplainer` by specifying one of the names
-defined in ``alias``.
+`omnixai.explainers.vision.VisionExplainer`,  `omnixai.explainers.nlp.NLPExplainer` or `omnixai.explainers.timeseries.TimeseriesExplainer` 
+by specifying one of the names defined in ``alias``.
+
+## Technical Report and Citing OmniXAI
+You can find more details in our technical report: TODO
+
+If you're using OmniXAI in your research or applications, please cite using this BibTeX:
+```
+@article{bhatnagar2021merlion,
+  author    =  {Wenzhuo Yang and Hung Le and Steven Hoi and Silvio Savarese},
+  title     = {TODO},
+  journal   = {CoRR},
+  volume    = {TODO},
+  year      = {2022},
+  url       = {TODO},
+  archivePrefix = {arXiv},
+  eprint    = {TODO},
+}
+```
