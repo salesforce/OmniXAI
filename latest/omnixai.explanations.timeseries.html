@@ -135,21 +135,21 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explanations.timeseries.feature_importance" title="omnixai.explanations.timeseries.feature_importance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_importance</span></code></a></p></td>
-<td><p>Feature importance explanations for time series data.</p></td>
+<td><p>Feature importance explanations for time series tasks.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#module-omnixai.explanations.timeseries.counterfactual" title="omnixai.explanations.timeseries.counterfactual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">counterfactual</span></code></a></p></td>
-<td><p>Counterfactual explanations for time series data.</p></td>
+<td><p>Counterfactual explanations for time series tasks.</p></td>
 </tr>
 </tbody>
 </table>
 <section id="module-omnixai.explanations.timeseries.feature_importance">
 <span id="omnixai-explanations-timeseries-feature-importance-module"></span><h2>omnixai.explanations.timeseries.feature_importance module<a class="headerlink" href="#module-omnixai.explanations.timeseries.feature_importance" title="Permalink to this headline"></a></h2>
-<p>Feature importance explanations for time series data.</p>
+<p>Feature importance explanations for time series tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.timeseries.feature_importance.FeatureImportance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.timeseries.feature_importance.</span></span><span class="sig-name descname"><span class="pre">FeatureImportance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explanations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
-<p>The class for feature importance explanations for time series. It uses a list to store
+<p>The class for feature importance explanations for time series tasks. It uses a list to store
 the feature importance explanations of the input instances. Each item in the list
 is a dict with the following format <cite>{“instance”: the input instance, “scores”: feature importance scores}</cite>,
 where both “instance” and “scores” are pandas dataframes.</p>
@@ -252,12 +252,12 @@ when <code class="docutils literal notranslate"><span class="pre">index</span> <
 </section>
 <section id="module-omnixai.explanations.timeseries.counterfactual">
 <span id="omnixai-explanations-timeseries-counterfactual-module"></span><h2>omnixai.explanations.timeseries.counterfactual module<a class="headerlink" href="#module-omnixai.explanations.timeseries.counterfactual" title="Permalink to this headline"></a></h2>
-<p>Counterfactual explanations for time series data.</p>
+<p>Counterfactual explanations for time series tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.timeseries.counterfactual.CFExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.timeseries.counterfactual.</span></span><span class="sig-name descname"><span class="pre">CFExplanation</span></span><a class="headerlink" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
-<p>The class for counterfactual explanations for time series. It uses a list to store
+<p>The class for counterfactual explanations for time series tasks. It uses a list to store
 the counterfactual examples of the input instances. Each item in the list
 is a dict with the following format <cite>{“query”: the input instance, “counterfactual”:
 the generated counterfactual example}</cite>. Both “query” and “counterfactual” are

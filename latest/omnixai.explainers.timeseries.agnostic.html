@@ -144,25 +144,25 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.timeseries.agnostic.shap" title="omnixai.explainers.timeseries.agnostic.shap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shap</span></code></a></p></td>
-<td><p>The SHAP explainer for time series data.</p></td>
+<td><p>The SHAP explainer for time series tasks.</p></td>
 </tr>
 </tbody>
 </table>
 <section id="module-omnixai.explainers.timeseries.agnostic.shap">
 <span id="omnixai-explainers-timeseries-agnostic-shap-module"></span><h2>omnixai.explainers.timeseries.agnostic.shap module<a class="headerlink" href="#module-omnixai.explainers.timeseries.agnostic.shap" title="Permalink to this headline"></a></h2>
-<p>The SHAP explainer for time series data.</p>
+<p>The SHAP explainer for time series tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.timeseries.agnostic.shap.ShapTimeseries">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.timeseries.agnostic.shap.</span></span><span class="sig-name descname"><span class="pre">ShapTimeseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'anomaly_detection'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.timeseries.agnostic.shap.ShapTimeseries" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The SHAP explainer for time series data.
+<p>The SHAP explainer for time series forecasting and anomaly detection.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/slundberg/shap">https://github.com/slundberg/shap</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timeseries</span></code></a>) – The data used to initialize the explainer.</p></li>
 <li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the model to explain.
-The inputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> should be a batch (list) of Timeseries instances, e.g.,
+The inputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> should be a batch (list) of time series, e.g.,
 an <cite>Timeseries</cite> instance. The outputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are anomaly scores (higher scores
 imply more anomalous) for anomaly detection or predicted values for forecasting.</p></li>
 <li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>anomaly_detection</cite> or <cite>forecasting</cite>.</p></li>

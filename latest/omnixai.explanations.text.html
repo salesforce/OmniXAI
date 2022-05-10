@@ -148,8 +148,8 @@
 <p>The class for word/token importance explanations. It uses a list to store
 the word/token importance scores of the input instances. Each item in the list
 is a dict with the following format <cite>{“instance”: the input instance, “tokens”:
-a list of tokens, “values”: a list of feature values, “scores”: a list of feature
-importance scores}</cite>. If the task is <cite>classification</cite>, the dict has an additional entry
+a list of tokens, “scores”: a list of feature importance scores}</cite>.
+If the task is <cite>classification</cite>, the dict has an additional entry
 <cite>{“target_label”: the predicted label of the input instance}</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -190,8 +190,8 @@ When <code class="docutils literal notranslate"><span class="pre">index</span></
 <dd class="field-even"><p>The explanation for one specific instance (a dict)
 or the explanations for all the instances (a list of dicts).
 Each dict has the following format: <cite>{“instance”: the input instance, “tokens”:
-a list of tokens, “values”: a list of feature values, “scores”: a list of feature
-importance scores}</cite>. If the task is <cite>classification</cite>, the dict has an additional entry
+a list of tokens, “scores”: a list of feature importance scores}</cite>.
+If the task is <cite>classification</cite>, the dict has an additional entry
 <cite>{“target_label”: the predicted label of the input instance}</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
