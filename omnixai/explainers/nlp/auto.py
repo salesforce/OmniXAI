@@ -12,14 +12,14 @@ from ..base import AutoExplainerBase
 
 class NLPExplainer(AutoExplainerBase):
     """
-    The class derived from `AutoExplainerBase` for text data,
+    The class derived from `AutoExplainerBase` for NLP tasks,
     allowing users to choose multiple explainers and generate
     different explanations at the same time.
 
     .. code-block:: python
 
         explainer = NLPExplainer(
-            explainers=["shap"],
+            explainers=["ig", "lime"],
             mode="classification",
             model=model,
             preprocess=preprocess_function,
@@ -42,13 +42,13 @@ class NLPExplainer(AutoExplainerBase):
     ):
         """
         :param explainers: The names or alias of the explainers to use.
-        :param mode: The task type, e.g. classification or regression.
-        :param model: The machine learning model which can be a scikit-learn model,
-            a tensorflow model, a torch model, or a prediction function.
+        :param mode: The task type, e.g. `classification`, `regression` or `qa`.
+        :param model: The machine learning model to explain, which can be a scikit-learn model,
+            a tensorflow model, a torch model, or a black-box prediction function.
         :param data: The training data used to initialize explainers.
             It can be empty, e.g., `data = Text()`, for those explainers such as
             `LIME` and `SHAP` that don't require training data.
-        :param preprocess: The preprocessing function that converts the raw data
+        :param preprocess: The preprocessing function that converts the raw inputs
             into the inputs of ``model``.
         :param postprocess: The postprocessing function that transforms the outputs of ``model``
             to a user-specific form, e.g., the predicted probability for each class.

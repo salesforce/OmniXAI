@@ -12,14 +12,14 @@ from ..base import AutoExplainerBase
 
 class TimeseriesExplainer(AutoExplainerBase):
     """
-    The class derived from `AutoExplainerBase` for time series data,
+    The class derived from `AutoExplainerBase` for time series tasks,
     allowing users to choose multiple explainers and generate
     different explanations at the same time.
 
     .. code-block:: python
 
         explainers = TimeseriesExplainer(
-            explainers=["shap", "ce"],
+            explainers=["shap", "mace"],
             mode="anomaly_detection",
             data=data,
             model=model,
@@ -43,15 +43,15 @@ class TimeseriesExplainer(AutoExplainerBase):
     ):
         """
         :param explainers: The names or alias of the explainers to use.
-        :param mode: The task type, e.g. classification or regression.
+        :param mode: The task type, e.g., `anomaly_detection` or `forecasting`.
         :param data: The training time series data used to initialize explainers. ``data``
             can be the training dataset for training the machine learning model.
-        :param model: The machine learning model which can be a scikit-learn model,
-            a tensorflow model, a torch model, or a prediction function.
-        :param preprocess: The preprocessing function that converts the raw data
+        :param model: The machine learning model to explain, which can be a scikit-learn model,
+            a tensorflow model, a torch model, or a black=box prediction function.
+        :param preprocess: The preprocessing function that converts the raw features
             into the inputs of ``model``.
         :param postprocess: The postprocessing function that transforms the outputs of ``model``
-            to a user-specific form, e.g., the predicted probability for each class.
+            to a user-specific form.
         :param params: A dict containing the additional parameters for initializing each explainer,
             e.g., `params["shap"] = {"param_1": param_1, ...}`.
         """

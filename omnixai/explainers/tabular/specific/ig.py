@@ -117,9 +117,9 @@ class IntegratedGradientTabular(TabularExplainer, IntegratedGradient):
         """
         :param training_data: The data used to construct baselines. ``training_data``
             can be the training dataset for training the machine learning model. If the training
-            dataset is large, ``training_data`` can be a subset of it by applying
+            dataset is large, ``training_data`` can be its subset by applying
             `omnixai.sampler.tabular.Sampler.subsample`.
-        :param model: The ML model to explain whose type can be `tf.keras.Model` or `torch.nn.Module`.
+        :param model: The ML model to explain, whose type can be `tf.keras.Model` or `torch.nn.Module`.
             When the model is for classification, the outputs of the ``model``
             are the class probabilities or logits. When the model is for regression, the outputs of
             the ``model`` are the estimated values.

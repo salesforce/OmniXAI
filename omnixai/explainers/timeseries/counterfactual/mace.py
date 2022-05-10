@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The Model-Agnostic Counterfactual Explanation (MACE) designed from time series.
+The Model-Agnostic Counterfactual Explanation (MACE) designed for time series tasks.
 """
 import numpy as np
 from typing import Callable
@@ -102,7 +102,7 @@ class MACEExplainer(ExplainerBase):
     """
     The Model-Agnostic Counterfactual Explanation (MACE) developed by Yang et al. Please
     cite the paper `MACE: An Efficient Model-Agnostic Framework for Counterfactual Explanation`.
-    This is a special version designed from time series anomaly detection.
+    This is a special version designed for time series anomaly detection and forecasting.
     """
     explanation_type = "local"
     alias = ["mace"]
@@ -118,8 +118,8 @@ class MACEExplainer(ExplainerBase):
         """
         :param training_data: The data used to initialize the explainer.
         :param predict_function: The prediction function corresponding to the model to explain.
-            The inputs of ``predict_function`` should be a batch (list) of Timeseries instances.
-            The outputs of ``predict_function`` are anomaly scores (higher scores imply more anomalous)
+            The inputs of ``predict_function`` should be a batch (list) of time series, i.e., a `Timeseries`
+            instance. The outputs of ``predict_function`` are anomaly scores (higher scores imply more anomalous)
             for anomaly detection or predicted values for forecasting.
         :param mode: The task type, e.g., `anomaly_detection` or `forecasting`.
         :param threshold: The threshold to determine whether an instance is anomalous,

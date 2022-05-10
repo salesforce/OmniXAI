@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The basic counterfactual explainer for time series data.
+The basic counterfactual explainer for time series tasks.
 """
 import numpy as np
 from typing import Callable
@@ -19,7 +19,7 @@ from omnixai.utils.misc import ProgressBar
 
 class CounterfactualOptimizer:
     """
-    The optimizer for counterfactual explanation for time series anomaly detection.
+    The optimizer for the counterfactual explainer for time series anomaly detection.
     """
 
     def __init__(
@@ -43,9 +43,9 @@ class CounterfactualOptimizer:
         """
         :param x0: The input time series reshaped in one dimension.
         :param ts_len: The length of the time series.
-        :param bounds: The upper and lower bounds of each value in `x0`.
+        :param bounds: The upper and lower bounds of each value in ``x0``.
         :param threshold: The threshold to determine whether an instance is anomalous,
-            e.g., anomaly score > threshold.
+            e.g., `anomaly score > threshold`.
         :param predict_function: The prediction function for computing anomaly scores.
         :param gamma: The denominator of the regularization term, e.g., `|x - x0| / gamma`.
             ``gamma`` will be set to 1 if it is None.
@@ -56,7 +56,7 @@ class CounterfactualOptimizer:
         :param learning_rate: The learning rate.
         :param num_iterations: The maximum number of iterations during optimization.
         :param grad_clip: The value for clipping gradients.
-        :param grid_size: The number of bins in each dimension in `x0` for computing numerical gradients.
+        :param grid_size: The number of bins in each dimension in ``x0`` for computing numerical gradients.
         """
         assert x0.ndim == 1
         assert x0.shape[0] == bounds.shape[1]
@@ -149,7 +149,7 @@ class CounterfactualOptimizer:
         """
         Generates counterfactual examples.
 
-        :return: The counterfactual example.
+        :return: The counterfactual example or None if no counterfactual example is found.
         :rtype: np.ndarray or None
         """
         bar = ProgressBar(self.num_iterations) if verbose else None
@@ -190,7 +190,7 @@ class CounterfactualOptimizer:
 
 class CounterfactualExplainer(ExplainerBase):
     """
-    The basic counterfactual explainer for time series. It only supports anomaly detection tasks.
+    The basic counterfactual explainer for time series anomaly detection or forecasting.
     """
 
     explanation_type = "local"
@@ -207,8 +207,8 @@ class CounterfactualExplainer(ExplainerBase):
         """
         :param training_data: The data used to initialize the explainer.
         :param predict_function: The prediction function corresponding to the model to explain.
-            The inputs of ``predict_function`` should be a batch (list) of Timeseries instances.
-            The outputs of ``predict_function`` are anomaly scores (higher scores imply more anomalous)
+            The inputs of ``predict_function`` should be a batch (list) of time series, i.e., a `Timeseries`
+            instance. The outputs of ``predict_function`` are anomaly scores (higher scores imply more anomalous)
             for anomaly detection or predicted values for forecasting.
         :param mode: The task type, e.g., `anomaly_detection` or `forecasting`.
         :param threshold: The threshold to determine whether an instance is anomalous,

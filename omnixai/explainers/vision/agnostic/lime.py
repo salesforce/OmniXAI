@@ -18,7 +18,7 @@ from ....explanations.image.mask import MaskExplanation
 
 class LimeImage(ExplainerBase):
     """
-    The LIME explainer for image data.
+    The LIME explainer for image classification.
     If using this explainer, please cite the original work: https://github.com/marcotcr/lime.
     This explainer only supports image classification.
     """
@@ -31,8 +31,7 @@ class LimeImage(ExplainerBase):
         :param predict_function: The prediction function corresponding to the machine learning
             model to explain. For classification, the outputs of the ``predict_function``
             are the class probabilities.
-        :param mode: The task type which can be `classification` only.
-        :param kwargs: Not used here.
+        :param mode: The task type can be `classification` only.
         """
         super().__init__()
         assert mode == "classification", "Only supports classification tasks for image data."

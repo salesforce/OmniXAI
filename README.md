@@ -1,8 +1,10 @@
 <p align="center">
     <br>
-    <img src="https://github.com/salesforce/OmniXAI/raw/main/docs/_static/logo_small.png" width="400"/>
+    <img src="https://github.com/yangwenz/OmniXAI/raw/main/docs/_static/logo_small.png" width="400"/>
     <br>
 <p>
+
+# OmniXAI: Making Explainable AI Easy for Any Data, Any Models and Any Users
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -232,7 +234,7 @@ dashboard.show()                                     # Launch the dashboard
 ```
 
 After opening the Dash app in the browser, we will see a dashboard showing the explanations:
-![alt text](https://github.com/salesforce/OmniXAI/raw/main/docs/_static/demo.png)
+![alt text](https://github.com/yangwenz/OmniXAI/raw/main/docs/_static/demo.png)
 
 ## How to Contribute
 

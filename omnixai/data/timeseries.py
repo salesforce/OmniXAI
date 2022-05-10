@@ -15,9 +15,9 @@ from .base import Data
 
 class Timeseries(Data):
     """
-    The class represents a univariate/multivariate time series dataset, e.g. a batch of time series.
+    This class represents a univariate/multivariate time series dataset, e.g. a batch of time series.
     The dataset may contain a batch of time series whose metric values are stored in a numpy array
-    with shape (batch_size, timestamps, num_variables). If there is only one time series, `batch_size`
+    with shape `(batch_size, timestamps, num_variables)`. If there is only one time series, `batch_size`
     is 1.
     """
 
@@ -36,7 +36,7 @@ class Timeseries(Data):
         :param timestamps: If ``data`` has one time series, ``timestamps`` is a list of the corresponding
             timestamps. If ``data`` has a batch of time series, ``timestamps`` is a batch of lists of the
             timestamps.
-        :param variable_names: A list of variable names in time series data.
+        :param variable_names: A list of metric/variable names in time series data.
         """
         super().__init__()
         assert len(data.shape) in [2, 3], \
@@ -97,7 +97,7 @@ class Timeseries(Data):
     @property
     def ts_len(self):
         """
-        Returns the length of the time series data.
+        Returns the length of the time series.
         """
         return self.data.shape[1]
 
@@ -111,10 +111,10 @@ class Timeseries(Data):
     @property
     def shape(self) -> tuple:
         """
-        Returns the data shape, e.g., (batch_size, timestamps, num_variables).
+        Returns the raw data shape, e.g., (batch_size, timestamps, num_variables).
         If there is only one time series, `batch_size` is 1.
 
-        :return: A tuple for the data shape.
+        :return: A tuple for the raw data shape.
         :rtype: tuple
         """
         return self.data.shape
@@ -132,9 +132,9 @@ class Timeseries(Data):
     @property
     def columns(self) -> List:
         """
-        Gets the variable names.
+        Gets the metric/variable names.
 
-        :return: The list of the variable names.
+        :return: The list of the metric/variable names.
         :rtype: List
         """
         return self.variable_names
@@ -153,7 +153,7 @@ class Timeseries(Data):
         """
         Converts `Timeseries` to `pd.DataFrame`.
 
-        :return: A pandas dataframe or a batch of pandas dataframes representing the time series data.
+        :return: A pandas dataframe or a batch of pandas dataframes representing the time series.
         :rtype: pd.DataFrame
         """
         dfs = []
@@ -168,17 +168,17 @@ class Timeseries(Data):
         """
         Converts `Timeseries` to `np.ndarray`.
 
-        :param copy: `True` if it returns a data copy, and `False` otherwise.
-        :return: A numpy ndarray representing the time series data.
+        :param copy: `True` if it returns a data copy, or `False` otherwise.
+        :return: A numpy ndarray representing the time series.
         :rtype: np.ndarray
         """
         return self.data.copy() if copy else self.data
 
     def copy(self):
         """
-        Returns a copy of the time series data.
+        Returns a copy of the time series instance.
 
-        :return: The copied time series data.
+        :return: The copied time series instance.
         :rtype: Timeseries
         """
         return Timeseries(
@@ -191,7 +191,8 @@ class Timeseries(Data):
     def from_pd(cls, df):
         """
         Creates a `Timeseries` instance from one or multiple pandas dataframes.
-        The index of the dataframe should contain the timestamps.
+        `df` is either one pandas dataframe or a list of pandas dataframes.
+        The index of each dataframe should contain the timestamps.
 
         :return A `Timeseries` instance.
         :rtype: Timeseries

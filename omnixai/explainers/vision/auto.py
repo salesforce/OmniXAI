@@ -12,7 +12,7 @@ from ..base import AutoExplainerBase
 
 class VisionExplainer(AutoExplainerBase):
     """
-    The class derived from `AutoExplainerBase` for image data,
+    The class derived from `AutoExplainerBase` for vision tasks,
     allowing users to choose multiple explainers and generate
     different explanations at the same time.
 
@@ -43,18 +43,18 @@ class VisionExplainer(AutoExplainerBase):
     ):
         """
         :param explainers: The names or alias of the explainers to use.
-        :param mode: The task type, e.g. classification or regression.
-        :param model: The machine learning model which can be a scikit-learn model,
-            a tensorflow model, a torch model, or a prediction function.
+        :param mode: The task type, e.g. `classification` or `regression`.
+        :param model: The machine learning model to explain, which can be a scikit-learn model,
+            a tensorflow model, a torch model, or a black-box prediction function.
         :param data: The training data used to initialize explainers.
             It can be empty, e.g., `data = Image()`, for those explainers such as
             `IntegratedGradient` and `Grad-CAM` that don't require training data.
-        :param preprocess: The preprocessing function that converts the raw data
+        :param preprocess: The preprocessing function that converts the raw input features
             into the inputs of ``model``.
         :param postprocess: The postprocessing function that transforms the outputs of ``model``
             to a user-specific form, e.g., the predicted probability for each class.
         :param params: A dict containing the additional parameters for initializing each explainer,
-            e.g., `params["lime"] = {"param_1": param_1, ...}`.
+            e.g., `params["gradcam"] = {"param_1": param_1, ...}`.
         """
         super().__init__(
             explainers=explainers,

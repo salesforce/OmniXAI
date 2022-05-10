@@ -23,7 +23,7 @@ class Data(metaclass=AutodocABCMeta):
     @abstractmethod
     def data_type(self):
         """
-        :return: A string indicates the data type, e.g., tabular, image, text
+        :return: A string indicates the data type, e.g., tabular, image, text or time series
         """
         raise NotImplementedError
 

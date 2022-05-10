@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The contrastive explainer for image data.
+The contrastive explainer for image classification.
 """
 import numpy as np
 from typing import Callable
@@ -349,7 +349,7 @@ class CEMOptimizer:
 
 class ContrastiveExplainer(ExplainerBase):
     """
-    The contrastive explainer for image data.
+    The contrastive explainer for image classification.
     If using this explainer, please cite the original work: https://arxiv.org/abs/1802.07623.
     This explainer only supports classification tasks.
     """
@@ -375,8 +375,8 @@ class ContrastiveExplainer(ExplainerBase):
         **kwargs,
     ):
         """
-        :param model: The classification model whose type is `torch.nn.Module` or `tf.keras.Model`.
-        :param preprocess_function: The pre-processing function that converts the raw input data
+        :param model: The model to explain, whose type is `torch.nn.Module` or `tf.keras.Model`.
+        :param preprocess_function: The pre-processing function that converts the raw input features
             into the inputs of ``model``.
         :param mode: It can be `classification` only.
         :param background_data: Sampled images for estimating background values.
@@ -389,7 +389,6 @@ class ContrastiveExplainer(ExplainerBase):
         :param learning_rate: The learning rate.
         :param num_iterations: The maximum number of iterations during optimization.
         :param grad_clip: The value for clipping gradients.
-        :param kwargs: Not used.
         """
         super().__init__()
         assert mode == "classification", "CEM supports classification tasks only."
@@ -462,7 +461,6 @@ class ContrastiveExplainer(ExplainerBase):
         [0, 255] to [0, 1], the return results will have range [0, 1].
 
         :param X: A batch of the input images.
-        :param kwargs: Not used here.
         :return: The explanations for all the images, e.g., pertinent negatives and pertinent positives.
         """
         assert min(X.shape[1:3]) > 4, f"The image size ({X.shape[1]}, {X.shape[2]}) is too small."

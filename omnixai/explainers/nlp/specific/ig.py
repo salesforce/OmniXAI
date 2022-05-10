@@ -4,6 +4,9 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+"""
+The integrated-gradient explainer for NLP tasks.
+"""
 import numpy as np
 from typing import Callable, Dict
 
@@ -153,7 +156,7 @@ class _IntegratedGradientTf:
 
 class IntegratedGradientText(ExplainerBase):
     """
-    The integrated-gradient explainer for text data.
+    The integrated-gradient explainer for NLP tasks.
     If using this explainer, please cite the original work: https://github.com/ankurtaly/Integrated-Gradients.
     """
 
@@ -170,15 +173,14 @@ class IntegratedGradientText(ExplainerBase):
         **kwargs,
     ):
         """
-        :param model: The model whose type can be `tf.keras.Model` or `torch.nn.Module`.
+        :param model: The model to explain, whose type can be `tf.keras.Model` or `torch.nn.Module`.
         :param embedding_layer: The embedding layer in the model, which can be
             `tf.keras.layers.Layer` or `torch.nn.Module`.
-        :param preprocess_function: The pre-processing function that converts the raw input data
-            into the inputs of ``model``. The first output of ``preprocess_function`` should
+        :param preprocess_function: The pre-processing function that converts the raw inputs
+            into the inputs of ``model``. The first output of ``preprocess_function`` must
             be the token ids.
         :param mode: The task type, e.g., `classification` or `regression`.
         :param id2token: The mapping from token ids to tokens.
-        :param kwargs: Not used.
         """
         super().__init__()
         assert preprocess_function is not None, (
@@ -240,7 +242,7 @@ class IntegratedGradientText(ExplainerBase):
             when ``y = None``.
         :param kwargs: Additional parameters, e.g., ``steps`` for
             `IntegratedGradient.compute_integrated_gradients`.
-        :return: The explanations for all the instances, e.g., word.token importance scores.
+        :return: The explanations for all the instances, e.g., word/token importance scores.
         """
         steps = kwargs.get("steps", 50)
         explanations = WordImportance(mode=self.mode)

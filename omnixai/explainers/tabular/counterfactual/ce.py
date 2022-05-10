@@ -93,7 +93,7 @@ if is_tf_available():
 
 class CounterfactualOptimizer:
     """
-    The optimizer for counterfactual explanation. The module is implemented based
+    The optimizer for counterfactual explanation, which is implemented based
     on the paper `Counterfactual Explanations without Opening the Black Box: Automated Decisions
     and the GDPR, Sandra Wachter, Brent Mittelstadt, Chris Russell, https://arxiv.org/abs/1711.00399`.
     """
@@ -287,7 +287,7 @@ class CounterfactualExplainer(TabularExplainer):
         :param training_data: The data used to extract information such as medians of
             continuous-valued features. ``training_data`` can be the training dataset for training
             the machine learning model. If the training dataset is large, ``training_data`` can be
-            a subset of it by applying `omnixai.sampler.tabular.Sampler.subsample`.
+            its subset by applying `omnixai.sampler.tabular.Sampler.subsample`.
         :param predict_function: The prediction function corresponding to the model to explain.
             When the model is for classification, the outputs of the ``predict_function``
             are the class probabilities. When the model is for regression, the outputs of
@@ -299,7 +299,6 @@ class CounterfactualExplainer(TabularExplainer):
         :param learning_rate: The learning rate.
         :param num_iterations: The maximum number of iterations during optimization.
         :param grad_clip: The value for clipping gradients.
-        :param kwargs: Not used.
         """
         super().__init__(training_data=training_data, predict_function=predict_function, mode=mode, **kwargs)
         assert mode == "classification", "CE supports classification tasks only."
@@ -410,7 +409,6 @@ class CounterfactualExplainer(TabularExplainer):
 
         :param X: A batch of input instances. When ``X`` is `pd.DataFrame`
             or `np.ndarray`, ``X`` will be converted into `Tabular` automatically.
-        :param kwargs: Additional parameters, not used here.
         :return: The counterfactual explanations for all the input instances.
         """
         verbose = kwargs.get("kwargs", True)

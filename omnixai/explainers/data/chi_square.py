@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The class for computing chi-squared stats between each non-negative feature and class.
+The class for computing chi-squared stats between each non-negative feature and target.
 """
 import warnings
 import numpy as np
@@ -20,7 +20,7 @@ from ...explanations.tabular.feature_importance import GlobalFeatureImportance
 
 class ChiSquare(ExplainerBase):
     """
-    The class for computing chi-squared stats between each non-negative feature and class.
+    The class for computing chi-squared stats between each non-negative feature and target.
     """
 
     explanation_type = "global"
@@ -28,7 +28,7 @@ class ChiSquare(ExplainerBase):
 
     def __init__(self, training_data: Tabular, mode="classification", **kwargs):
         """
-        :param training_data: The data from training an ML model.
+        :param training_data: The dataset for training an ML model.
         :param mode: The task type, e.g., `classification` or `regression`.
         """
         super().__init__()
@@ -50,7 +50,7 @@ class ChiSquare(ExplainerBase):
 
     def explain(self, **kwargs):
         """
-        Computes computing chi-squared stats between each non-negative feature and class.
+        Computes chi-squared stats between each non-negative feature and target.
 
         :return: The chi-squared stats.
         :rtype: GlobalFeatureImportance

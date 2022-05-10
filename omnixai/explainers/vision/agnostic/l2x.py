@@ -113,7 +113,7 @@ class DefaultPredictionModel(_DefaultModelBase):
 
 class L2XImage(ExplainerBase):
     """
-    The LIME explainer for image data.
+    The LIME explainer for vision tasks.
     If using this explainer, please cite the original work:
     `Learning to Explain: An Information-Theoretic Perspective on Model Interpretation,
     Jianbo Chen, Le Song, Martin J. Wainwright, Michael I. Jordan, https://arxiv.org/abs/1802.07814`.
@@ -251,7 +251,6 @@ class L2XImage(ExplainerBase):
         it explains the top predicted label for each input instance.
 
         :param X: A batch of input instances.
-        :param kwargs: Additional parameters, not used here.
         :return: The explanations for all the input instances.
         """
         explanations = PixelImportance(self.mode)

@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The LIME explainer for text data.
+The LIME explainer for text classification.
 """
 import warnings
 import numpy as np
@@ -19,7 +19,7 @@ from ....explanations.text.word_importance import WordImportance
 
 class LimeText(ExplainerBase):
     """
-    The LIME explainer for text data.
+    The LIME explainer for text classification.
     If using this explainer, please cite the original work: https://github.com/marcotcr/lime.
     This explainer only supports text classification tasks.
     """
@@ -32,7 +32,7 @@ class LimeText(ExplainerBase):
         :param predict_function: The prediction function corresponding to the machine learning
             model to explain. When the task is `classification`, the outputs of the ``predict_function``
             are the class probabilities.
-        :param mode: The task type which can be `classification` only.
+        :param mode: The task type can be `classification` only.
         :param kwargs: Additional parameters for `lime_text.LimeTextExplainer`. Please refer to the doc of
             `lime_text.LimeTextExplainer`.
         """

@@ -20,8 +20,8 @@ from ...explanations.tabular.feature_importance import GlobalFeatureImportance
 
 class MutualInformation(ExplainerBase):
     """
-    The class for estimating mutual information. It computes the Information gain of each variable
-    with respect to the target variable.
+    The class for estimating mutual information. It computes the Information gain of each feature
+    with respect to the target.
     """
 
     explanation_type = "global"
@@ -29,10 +29,10 @@ class MutualInformation(ExplainerBase):
 
     def __init__(self, training_data: Tabular, mode="classification", discrete=False, **kwargs):
         """
-        :param training_data: The data from training an ML model.
+        :param training_data: The dataset for training an ML model.
         :param mode: The task type, e.g., `classification` or `regression`.
-        :param discrete: True if all the continuous-valued features are discretized or
-            False if all the categorical features are converted into continuous-valued features.
+        :param discrete: `True` if all the continuous-valued features are discretized or
+            `False` if all the categorical features are converted into continuous-valued features.
         """
         super().__init__()
         assert isinstance(training_data, Tabular), "training_data should be an instance of Tabular."

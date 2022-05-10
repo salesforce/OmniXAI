@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The Grad-CAM methods.
+The Grad-CAM methods for vision tasks.
 """
 from typing import Callable
 from omnixai.utils.misc import is_tf_available, is_torch_available
@@ -25,13 +25,12 @@ class GradCAM(ExplainerBase):
 
     def __init__(self, model, target_layer, preprocess_function: Callable, mode: str = "classification", **kwargs):
         """
-        :param model: The model whose type can be `tf.keras.Model` or `torch.nn.Module`.
+        :param model: The model to explain, whose type can be `tf.keras.Model` or `torch.nn.Module`.
         :param target_layer: The target layer for explanation, which can be
             `tf.keras.layers.Layer` or `torch.nn.Module`.
         :param preprocess_function: The preprocessing function that converts the raw data
             into the inputs of ``model``.
         :param mode: The task type, e.g., `classification` or `regression`.
-        :param kwargs: Not used.
         """
         super().__init__()
         if not is_tf_available() and not is_torch_available():
@@ -92,7 +91,6 @@ class GradCAMPlus(ExplainerBase):
         :param preprocess_function: The preprocessing function that converts the raw data
             into the inputs of ``model``.
         :param mode: The task type, e.g., `classification` or `regression`.
-        :param kwargs: Not used.
         """
         super().__init__()
         if not is_tf_available() and not is_torch_available():

@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The counterfactual explainer for image data.
+The counterfactual explainer for image classification.
 """
 import numpy as np
 from typing import Callable
@@ -26,7 +26,7 @@ if is_tf_available():
 
 class CounterfactualExplainer(ExplainerBase):
     """
-    The counterfactual explainer for image data.
+    The counterfactual explainer for image classification.
     If using this explainer, please cite the paper `Counterfactual Explanations without
     Opening the Black Box: Automated Decisions and the GDPR, Sandra Wachter, Brent Mittelstadt, Chris Russell,
     https://arxiv.org/abs/1711.00399`.
@@ -137,7 +137,6 @@ class CounterfactualExplainer(ExplainerBase):
         results will have range [0, 1].
 
         :param X: A batch of the input images.
-        :param kwargs: Not used here.
         :return: The counterfactual explanations for all the images, e.g., counterfactual images.
         """
         assert min(X.shape[1:3]) > 4, f"The image size ({X.shape[1]}, {X.shape[2]}) is too small."

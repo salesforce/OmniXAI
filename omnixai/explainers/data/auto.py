@@ -19,7 +19,7 @@ class DataAnalyzer(AutoExplainerBase):
     .. code-block:: python
 
         explainers = TabularExplainer(
-            explainers=["imbalance"],
+            explainers=["imbalance", "mutual"],
             data=data,
             params={"imbalance": {"n_bins": 10}}
         )
@@ -30,7 +30,8 @@ class DataAnalyzer(AutoExplainerBase):
 
     def __init__(self, explainers: Collection, data: Tabular, params: Dict = None):
         """
-        :param explainers: The names or alias of the analyzers to use.
+        :param explainers: The names or alias of the analyzers to use, e.g.,
+            "correlation" for feature correlation analysis, "mutual" for feature importance analysis.
         :param data: The training data used to initialize explainers.
         :param params: A dict containing the additional parameters for initializing each analyzer,
             e.g., `params["imbalance"] = {"param_1": param_1, ...}`.

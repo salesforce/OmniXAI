@@ -32,9 +32,8 @@ class ImbalanceAnalyzer(ExplainerBase):
 
     def __init__(self, training_data: Tabular, n_bins: int = 10, **kwargs):
         """
-        :param training_data: The data from training an ML model.
+        :param training_data: The dataset for training an ML model.
         :param n_bins: The number of bins for discretizing continuous-valued features.
-        :param kwargs: Not used here.
         """
         super().__init__()
         assert isinstance(training_data, Tabular), "training_data should be an instance of Tabular."

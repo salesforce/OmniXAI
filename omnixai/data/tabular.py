@@ -15,7 +15,7 @@ from .base import Data
 
 class Tabular(Data):
     """
-    The class represents a tabular dataset with categorical features,
+    The class represents a tabular dataset that may contain categorical features,
     continuous-valued features and targets/labels (optional).
     """
 
@@ -29,11 +29,13 @@ class Tabular(Data):
         target_column: Union[str, int] = None,
     ):
         """
-        :param data: A pandas DataFrame or a numpy array containing the raw data.
-        :param feature_columns: Feature column names. When ``feature_columns`` is None, the column names in the
-            pandas DataFrame or the indices in the numpy array will be taken as the feature column names.
-        :param categorical_columns: A list of categorical feature names. If ``data`` is a numpy array and
-            ``feature_columns = None``, ``categorical_columns`` should be the indices of categorical features.
+        :param data: A pandas dataframe or a numpy array containing the raw data. `data` should have the
+            shape `(num_samples, num_features)`.
+        :param feature_columns: The feature column names. When ``feature_columns`` is None, ``feature_columns``
+            will be the column names in the pandas dataframe or the indices in the numpy array.
+        :param categorical_columns: A list of categorical feature names, e.g., a subset of feature column names in
+            a pandas dataframe. If ``data`` is a numpy array and ``feature_columns = None``, ``categorical_columns``
+            should be the indices of categorical features.
         :param target_column: The target/label column name. Set ``target_column`` to None if there is no
             target column.
         """
@@ -129,7 +131,7 @@ class Tabular(Data):
         """
         Gets the categorical feature names.
 
-        :return: The list of the categorical column names.
+        :return: The list of the categorical feature names.
         :rtype: Union[List[str], List[int]]
         """
         return self.categorical_cols
@@ -139,7 +141,7 @@ class Tabular(Data):
         """
         Gets the continuous-valued feature names.
 
-        :return: The list of the continuous-valued column names.
+        :return: The list of the continuous-valued feature names.
         :rtype: Union[List[str], List[int]]
         """
         return [c for c in self.data.columns if c not in self.categorical_cols and c != self.target_column]
@@ -182,7 +184,7 @@ class Tabular(Data):
         """
         Converts `Tabular` to `pd.DataFrame`.
 
-        :param copy: `True` if it returns a data copy, and `False` otherwise.
+        :param copy: `True` if it returns a data copy, or `False` otherwise.
         :return: A pandas DataFrame representing the tabular data.
         :rtype: pd.DataFrame
         """
@@ -192,7 +194,7 @@ class Tabular(Data):
         """
         Converts `Tabular` to `np.ndarray`.
 
-        :param copy: `True` if it returns a data copy, and `False` otherwise.
+        :param copy: `True` if it returns a data copy, or `False` otherwise.
         :return: A numpy ndarray representing the tabular data.
         :rtype: np.ndarray
         """
@@ -227,7 +229,7 @@ class Tabular(Data):
         """
         Gets the absolute median values of the continuous-valued features.
 
-        :return: The absolute median values of the continuous-valued features.
+        :return: A dict storing the absolute median value for each continuous-valued feature.
         :rtype: Dict
         """
         return {c: np.median(np.abs(self.data[c].values.astype(float))) for c in self.continuous_columns}

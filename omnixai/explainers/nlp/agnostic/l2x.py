@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The L2X explainer for text data.
+The L2X explainer for NLP tasks.
 """
 import warnings
 import sklearn
@@ -273,7 +273,6 @@ class L2XText(ExplainerBase):
         it explains the top predicted label for each input instance.
 
         :param X: A batch of input instances.
-        :param kwargs: Additional parameters, not used here.
         :return: The explanations for all the input instances.
         """
         explanations = WordImportance(self.mode)

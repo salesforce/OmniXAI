@@ -32,9 +32,10 @@ class Text(Data):
 
     def __init__(self, data: Union[List, str] = None, tokenizer: Callable = None):
         """
-        :param data: The text data, which is either a string or a list of strings.
+        :param data: The text data, either a string or a list of strings.
         :param tokenizer: A tokenizer for splitting texts/sentences into tokens,
-            which should be `Callable` object.
+            which should be `Callable` object. If `tokenizer` is None, a default
+            `nltk` tokenizer will be applied.
         """
         super().__init__()
         if data is None:
@@ -67,7 +68,7 @@ class Text(Data):
     @property
     def values(self):
         """
-        Returns the raw data.
+        Returns the raw text data.
 
         :return: A list of the sentences/texts.
         :rtype: List
@@ -94,8 +95,8 @@ class Text(Data):
 
     def to_str(self, copy=True) -> Union[List, str]:
         """
-        Returns a string if it has only one text or
-        a list of strings if it contains multiple texts.
+        Returns a string if it has only one sentence or
+        a list of strings if it contains multiple sentences.
 
         :param copy: Whether to copy the data.
         :return: A single string or a list of strings.

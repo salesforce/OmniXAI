@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The partial dependence plots for image data.
+The partial dependence plots for vision tasks.
 """
 import numpy as np
 from collections import defaultdict
@@ -17,7 +17,7 @@ from ....explanations.image.pixel_importance import PixelImportance
 
 class PartialDependenceImage(ExplainerBase):
     """
-    The partial dependence plots for image data. The input image is segmented by a particular
+    The partial dependence plots for vision tasks. The input image is segmented by a particular
     segmentation method, e.g., "quickshift". For each segment, its importance score is measured
     by the average change of the predicted value when the segment is replaced by new segments constructed
     in the grid search.
@@ -33,7 +33,6 @@ class PartialDependenceImage(ExplainerBase):
             are the class probabilities. When the model is for regression, the outputs of
             the ``predict_function`` are the estimated values.
         :param mode: The task type, e.g., `classification` or `regression`.
-        :param kwargs: Not used here.
         """
         super().__init__()
         assert mode in [

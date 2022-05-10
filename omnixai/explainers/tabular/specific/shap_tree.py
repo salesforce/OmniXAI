@@ -37,7 +37,7 @@ class ShapTreeTabular(SklearnBase):
         **kwargs,
     ):
         """
-        :param mode: The task type, e.g. classification or regression.
+        :param mode: The task type, e.g. `classification` or `regression`.
         :param model: The tree-based models, e.g., scikit-learn decision trees, xgboost.
         :param cate_encoder: The encoder for categorical features, e.g.,
             `OneHot`, `Ordinal`.

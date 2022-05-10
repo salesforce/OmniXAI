@@ -49,14 +49,14 @@ class TabularExplainer(AutoExplainerBase):
     ):
         """
         :param explainers: The names or alias of the explainers to use.
-        :param mode: The task type, e.g. classification or regression.
+        :param mode: The task type, e.g. `classification` or `regression`.
         :param data: The training data used to initialize explainers. ``data``
             can be the training dataset for training the machine learning model. If the training
-            dataset is large, ``data`` can be a subset of it by applying
+            dataset is large, ``data`` can be its subset by applying
             `omnixai.sampler.tabular.Sampler.subsample`.
-        :param model: The machine learning model which can be a scikit-learn model,
-            a tensorflow model, a torch model, or a prediction function.
-        :param preprocess: The preprocessing function that converts the raw data
+        :param model: The machine learning model to explain, which can be a scikit-learn model,
+            a tensorflow model, a torch model, or a black-box prediction function.
+        :param preprocess: The preprocessing function that converts the raw input features
             into the inputs of ``model``.
         :param postprocess: The postprocessing function that transforms the outputs of ``model``
             to a user-specific form, e.g., the predicted probability for each class.

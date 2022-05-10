@@ -30,7 +30,7 @@ class ShapText(ExplainerBase):
     def __init__(self, model: Callable, mode: str = "classification", **kwargs):
         """
         :param model: The model with type `transformers.pipelines.text_classification.TextClassificationPipeline`.
-        :param mode: The task type (only supports `classification`).
+        :param mode: The task type can be `classification` only.
         :param kwargs: Additional parameters for `shap.Explainer`. Please refer to the doc of
             `shap.Explainer`.
         """

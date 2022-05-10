@@ -116,7 +116,6 @@ class TreeBase(SklearnBase):
         :param y: A batch of labels to explain. For regression, ``y`` is ignored.
             For classification, the top predicted label for each input instance will be explained
             when `y = None`.
-        :param kwargs: Not used.
         :rtype: TreeExplanation
         """
         explanations = TreeExplanation()
@@ -206,6 +205,5 @@ class TreeClassifier(TreeBase):
 
     def _fit(self, X: np.ndarray, y: np.ndarray, **kwargs) -> None:
         from sklearn.tree import DecisionTreeClassifier
-
         self.model = DecisionTreeClassifier(**kwargs)
         self.model.fit(X, y, kwargs.get("sample_weight", None))

@@ -16,7 +16,7 @@ from .base import Data
 
 class Image(Data):
     """
-    The class represents a batch of images. It supports grayscale and RGB images.
+    The class represents a batch of images. It supports both grayscale and RGB images.
     It will convert the input images into the `(batch_size, h, w, channel)` format. If
     there is only one input image, `batch_size` will be 1.
     """
@@ -27,12 +27,16 @@ class Image(Data):
         self, data: Union[np.ndarray, PilImage.Image] = None, batched: bool = False, channel_last: bool = True
     ):
         """
-        :param data: The image data, which is either np.ndarray or PIL.Image.
-            When the image is PIL.Image, ``batched`` and ``channel_last`` are ignored.
+        :param data: The image data, which is either np.ndarray or PIL.Image. If ``data``
+            is a numpy array, it should have the following format: `(h, w, channel)`, `(channel, h, w)`,
+            `(batch_size, h, w, channel)` or `(batch_size, channel, h, w)`.
+            If ``data`` is a PIL.Image, ``batched`` and ``channel_last`` are ignored.
+            The images contained in ``data`` will be automatically converted into a numpy array with
+            shape `(batch_size, h, w, channel)`. If there is only one image, `batch_size` will be 1.
         :param batched: `True` if the first dimension of ``data`` is the batch size.
             `False` if ``data`` has one image only.
         :param channel_last: `True` if the last dimension of ``data`` is the color channel
-            or `False` if the first dimension of ``data`` is the color channel. If ``data``
+            or `False` if the first or second dimension of ``data`` is the color channel. If ``data``
             has no color channel, e.g., grayscale images, this argument is ignored.
         """
         super().__init__()
@@ -117,9 +121,9 @@ class Image(Data):
     @property
     def shape(self) -> tuple:
         """
-        Returns data shape.
+        Returns the raw data shape.
 
-        :return: A tuple for the data shape, e.g., `(batch_size, h, w, channel)`.
+        :return: A tuple for the raw data shape, e.g., `(batch_size, h, w, channel)`.
         :rtype: tuple
         """
         return self.data.shape
@@ -139,7 +143,7 @@ class Image(Data):
         """
         Returns the raw values.
 
-        :return: A numpy array of the `Image` object.
+        :return: A numpy array of the stored images.
         :rtype: np.ndarray
         """
         return self.data
@@ -148,11 +152,11 @@ class Image(Data):
         """
         Converts `Image` into a numpy ndarray.
 
-        :param hwc: The output has format (batch_size, h, w, channel) if `hwc` is True
-            or (batch_size, channel, h, w) otherwise.
-        :param copy: `True` if it returns a data copy, and `False` otherwise.
-        :param keepdim: `True` if `ndim` is kept for grayscale images,
-            `False` if the channel dim is squeezed.
+        :param hwc: The output has format `(batch_size, h, w, channel)` if `hwc` is True
+            or `(batch_size, channel, h, w)` otherwise.
+        :param copy: `True` if it returns a data copy, or `False` otherwise.
+        :param keepdim: `True` if the number of dimensions is kept for grayscale images,
+            `False` if the channel dimension is squeezed.
         :return: A numpy ndarray representing the images.
         :rtype: np.ndarray
         """
@@ -169,8 +173,8 @@ class Image(Data):
         """
         Converts `Image` into a Pillow image or a list of Pillow images.
 
-        :return: A single Pillow image if ``batch_size = 1`` or a list of Pillow images
-            if ``batch_size > 1``.
+        :return: A single Pillow image if `batch_size = 1` or a list of Pillow images
+            if `batch_size > 1`.
         :rtype: Union[PilImage.Image, List]
         """
         x = self.data.squeeze(axis=-1) if self.shape[-1] == 1 else self.data

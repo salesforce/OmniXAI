@@ -31,8 +31,7 @@ class CorrelationAnalyzer(ExplainerBase):
 
     def __init__(self, training_data: Tabular, **kwargs):
         """
-        :param training_data: The data from training an ML model.
-        :param kwargs: Not used here.
+        :param training_data: The dataset for training an ML model.
         """
         super().__init__()
         assert isinstance(training_data, Tabular), "training_data should be an instance of Tabular."
@@ -46,7 +45,7 @@ class CorrelationAnalyzer(ExplainerBase):
         """
         Computes the correlation matrix via scipy.stats.spearmanr.
 
-        :param features: A list of feature to analyze. `None` if all the features are considered.
+        :param features: A list of feature to analyze or `None` if all the features are considered.
         :return: The feature correlation matrix.
         :rtype: CorrelationExplanation
         """

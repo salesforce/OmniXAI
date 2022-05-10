@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The integrated-gradient explainer for image data.
+The integrated-gradient explainer for vision tasks.
 """
 import warnings
 import numpy as np
@@ -19,7 +19,7 @@ from ....explanations.image.pixel_importance import PixelImportance
 
 class IntegratedGradientImage(ExplainerBase, IntegratedGradient):
     """
-    The integrated-gradient explainer for image data.
+    The integrated-gradient explainer for vision tasks.
     If using this explainer, please cite the original work: https://github.com/ankurtaly/Integrated-Gradients.
     """
 
@@ -35,8 +35,8 @@ class IntegratedGradientImage(ExplainerBase, IntegratedGradient):
         **kwargs,
     ):
         """
-        :param model: The model whose type can be `tf.keras.Model` or `torch.nn.Module`.
-        :param preprocess_function: The pre-processing function that converts the raw input data
+        :param model: The model to explain, whose type can be `tf.keras.Model` or `torch.nn.Module`.
+        :param preprocess_function: The pre-processing function that converts the raw input features
             into the inputs of ``model``.
         :param mode: The task type, e.g., `classification` or `regression`.
         :param background_data: The background images to compare with. When ``background_data``

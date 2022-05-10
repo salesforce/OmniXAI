@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The Model-Agnostic Counterfactual Explanation (MACE).
+The Model-Agnostic Counterfactual Explanation (MACE) for tabular data.
 """
 import numpy as np
 import pandas as pd
@@ -44,12 +44,12 @@ class MACEExplainer(ExplainerBase):
         """
         :param training_data: The data used to initialize a MACE explainer. ``training_data``
             can be the training dataset for training the machine learning model. If the training
-            dataset is large, ``training_data`` can be a subset of it by applying
+            dataset is large, ``training_data`` can be its subset by applying
             `omnixai.sampler.tabular.Sampler.subsample`.
         :param predict_function: The prediction function corresponding to the model to explain.
             The model should be a classifier, the outputs of the ``predict_function``
             are the class probabilities.
-        :param mode: The task type (only supports classification).
+        :param mode: The task type can be `classification` only.
         :param ignored_features: The features ignored in generating counterfactual examples.
         :param kwargs: Additional parameters used in `CFRetrieval` and `GLD`. For more information, please
             refer to the classes `mace.retrieval.CFRetrieval` and `mace.gld.GLD`.

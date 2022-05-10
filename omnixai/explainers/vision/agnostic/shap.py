@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The SHAP explainer for image data.
+The SHAP explainer for vision tasks.
 """
 import shap
 import warnings
@@ -18,7 +18,7 @@ from ....explanations.image.pixel_importance import PixelImportance
 
 class ShapImage(ExplainerBase):
     """
-    The SHAP explainer for image data.
+    The SHAP explainer for vision tasks.
     If using this explainer, please cite the original work: https://github.com/slundberg/shap.
     """
 
@@ -29,12 +29,11 @@ class ShapImage(ExplainerBase):
         self, model, preprocess_function, mode: str = "classification", background_data: Image = Image(), **kwargs
     ):
         """
-        :param model: The model whose type can be `tf.keras.Model` or `torch.nn.Module`.
-        :param preprocess_function: The preprocessing function that converts the raw data
+        :param model: The model to explain, whose type can be `tf.keras.Model` or `torch.nn.Module`.
+        :param preprocess_function: The preprocessing function that converts the raw input features
             into the inputs of ``model``.
         :param mode: The task type, e.g., `classification` or `regression`.
         :param background_data: The background images to compare with.
-        :param kwargs: Not used here.
         """
         super().__init__()
         self.mode = mode
