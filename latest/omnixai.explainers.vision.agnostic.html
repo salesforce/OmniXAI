@@ -151,10 +151,10 @@
 <td><p>The LIME explainer for image classification.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.shap" title="omnixai.explainers.vision.agnostic.shap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shap</span></code></a></p></td>
-<td><p>The SHAP explainer for image data.</p></td>
+<td><p>The SHAP explainer for vision tasks.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.pdp" title="omnixai.explainers.vision.agnostic.pdp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdp</span></code></a></p></td>
-<td><p>The partial dependence plots for image data.</p></td>
+<td><p>The partial dependence plots for vision tasks.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.l2x" title="omnixai.explainers.vision.agnostic.l2x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">l2x</span></code></a></p></td>
 <td><p>The L2X explainer for image data.</p></td>
@@ -168,7 +168,7 @@
 <dt class="sig sig-object py" id="omnixai.explainers.vision.agnostic.lime.LimeImage">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.vision.agnostic.lime.</span></span><span class="sig-name descname"><span class="pre">LimeImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.agnostic.lime.LimeImage" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The LIME explainer for image data.
+<p>The LIME explainer for image classification.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/marcotcr/lime">https://github.com/marcotcr/lime</a>.
 This explainer only supports image classification.</p>
 <dl class="field-list simple">
@@ -177,8 +177,7 @@ This explainer only supports image classification.</p>
 <li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the machine learning
 model to explain. For classification, the outputs of the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
 are the class probabilities.</p></li>
-<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type which can be <cite>classification</cite> only.</p></li>
-<li><p><strong>kwargs</strong> – Not used here.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type can be <cite>classification</cite> only.</p></li>
 </ul>
 </dd>
 </dl>
@@ -219,22 +218,21 @@ of the top labels to explain. Please refer to the doc of
 </section>
 <section id="module-omnixai.explainers.vision.agnostic.shap">
 <span id="omnixai-explainers-vision-agnostic-shap-module"></span><h2>omnixai.explainers.vision.agnostic.shap module<a class="headerlink" href="#module-omnixai.explainers.vision.agnostic.shap" title="Permalink to this headline"></a></h2>
-<p>The SHAP explainer for image data.</p>
+<p>The SHAP explainer for vision tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.vision.agnostic.shap.ShapImage">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.vision.agnostic.shap.</span></span><span class="sig-name descname"><span class="pre">ShapImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.agnostic.shap.ShapImage" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The SHAP explainer for image data.
+<p>The SHAP explainer for vision tasks.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/slundberg/shap">https://github.com/slundberg/shap</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> – The model whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
-<li><p><strong>preprocess_function</strong> – The preprocessing function that converts the raw data
+<li><p><strong>model</strong> – The model to explain, whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
+<li><p><strong>preprocess_function</strong> – The preprocessing function that converts the raw input features
 into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
 <li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
 <li><p><strong>background_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The background images to compare with.</p></li>
-<li><p><strong>kwargs</strong> – Not used here.</p></li>
 </ul>
 </dd>
 </dl>
@@ -277,12 +275,12 @@ sampled for the background.</p></li>
 </section>
 <section id="module-omnixai.explainers.vision.agnostic.pdp">
 <span id="omnixai-explainers-vision-agnostic-pdp-module"></span><h2>omnixai.explainers.vision.agnostic.pdp module<a class="headerlink" href="#module-omnixai.explainers.vision.agnostic.pdp" title="Permalink to this headline"></a></h2>
-<p>The partial dependence plots for image data.</p>
+<p>The partial dependence plots for vision tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.vision.agnostic.pdp.PartialDependenceImage">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.vision.agnostic.pdp.</span></span><span class="sig-name descname"><span class="pre">PartialDependenceImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.agnostic.pdp.PartialDependenceImage" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The partial dependence plots for image data. The input image is segmented by a particular
+<p>The partial dependence plots for vision tasks. The input image is segmented by a particular
 segmentation method, e.g., “quickshift”. For each segment, its importance score is measured
 by the average change of the predicted value when the segment is replaced by new segments constructed
 in the grid search.</p>
@@ -294,7 +292,6 @@ When the model is for classification, the outputs of the <code class="docutils l
 are the class probabilities. When the model is for regression, the outputs of
 the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are the estimated values.</p></li>
 <li><p><strong>mode</strong> – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
-<li><p><strong>kwargs</strong> – Not used here.</p></li>
 </ul>
 </dd>
 </dl>
@@ -417,7 +414,7 @@ by image segmentation methods.</p></li>
 <dt class="sig sig-object py" id="omnixai.explainers.vision.agnostic.l2x.L2XImage">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.vision.agnostic.l2x.</span></span><span class="sig-name descname"><span class="pre">L2XImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.agnostic.l2x.L2XImage" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The LIME explainer for image data.
+<p>The LIME explainer for vision tasks.
 If using this explainer, please cite the original work:
 <cite>Learning to Explain: An Information-Theoretic Perspective on Model Interpretation,
 Jianbo Chen, Le Song, Martin J. Wainwright, Michael I. Jordan, https://arxiv.org/abs/1802.07814</cite>.</p>
@@ -466,10 +463,7 @@ and <code class="docutils literal notranslate"><span class="pre">prediction_mode
 it explains the top predicted label for each input instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – A batch of input instances.</p></li>
-<li><p><strong>kwargs</strong> – Additional parameters, not used here.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – A batch of input instances.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.image.html#omnixai.explanations.image.pixel_importance.PixelImportance" title="omnixai.explanations.image.pixel_importance.PixelImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PixelImportance</span></code></a></p>

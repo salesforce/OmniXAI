@@ -142,7 +142,7 @@
 <span id="omnixai-explainers-tabular-counterfactual-package"></span><h1>omnixai.explainers.tabular.counterfactual package<a class="headerlink" href="#module-omnixai.explainers.tabular.counterfactual" title="Permalink to this headline"></a></h1>
 <section id="module-omnixai.explainers.tabular.counterfactual.mace.mace">
 <span id="omnixai-explainers-tabular-counterfactual-mace-mace-module"></span><h2>omnixai.explainers.tabular.counterfactual.mace.mace module<a class="headerlink" href="#module-omnixai.explainers.tabular.counterfactual.mace.mace" title="Permalink to this headline"></a></h2>
-<p>The Model-Agnostic Counterfactual Explanation (MACE).</p>
+<p>The Model-Agnostic Counterfactual Explanation (MACE) for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.counterfactual.mace.mace.</span></span><span class="sig-name descname"><span class="pre">MACEExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignored_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer" title="Permalink to this definition"></a></dt>
@@ -156,12 +156,12 @@ categorical or continuous-valued.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to initialize a MACE explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 can be the training dataset for training the machine learning model. If the training
-dataset is large, <code class="docutils literal notranslate"><span class="pre">training_data</span></code> can be a subset of it by applying
+dataset is large, <code class="docutils literal notranslate"><span class="pre">training_data</span></code> can be its subset by applying
 <cite>omnixai.sampler.tabular.Sampler.subsample</cite>.</p></li>
 <li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the model to explain.
 The model should be a classifier, the outputs of the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
 are the class probabilities.</p></li>
-<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type (only supports classification).</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type can be <cite>classification</cite> only.</p></li>
 <li><p><strong>ignored_features</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – The features ignored in generating counterfactual examples.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters used in <cite>CFRetrieval</cite> and <cite>GLD</cite>. For more information, please
 refer to the classes <cite>mace.retrieval.CFRetrieval</cite> and <cite>mace.gld.GLD</cite>.</p></li>
@@ -211,7 +211,7 @@ examples per class for each input instance.</p></li>
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.counterfactual.ce.CounterfactualOptimizer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.counterfactual.ce.</span></span><span class="sig-name descname"><span class="pre">CounterfactualOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kappa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_search_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.counterfactual.ce.CounterfactualOptimizer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The optimizer for counterfactual explanation. The module is implemented based
+<p>The optimizer for counterfactual explanation, which is implemented based
 on the paper <cite>Counterfactual Explanations without Opening the Black Box: Automated Decisions
 and the GDPR, Sandra Wachter, Brent Mittelstadt, Chris Russell, https://arxiv.org/abs/1711.00399</cite>.</p>
 <dl class="field-list simple">
@@ -263,7 +263,7 @@ https://arxiv.org/abs/1711.00399</cite>.</p>
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to extract information such as medians of
 continuous-valued features. <code class="docutils literal notranslate"><span class="pre">training_data</span></code> can be the training dataset for training
 the machine learning model. If the training dataset is large, <code class="docutils literal notranslate"><span class="pre">training_data</span></code> can be
-a subset of it by applying <cite>omnixai.sampler.tabular.Sampler.subsample</cite>.</p></li>
+its subset by applying <cite>omnixai.sampler.tabular.Sampler.subsample</cite>.</p></li>
 <li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the model to explain.
 When the model is for classification, the outputs of the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
 are the class probabilities. When the model is for regression, the outputs of
@@ -275,7 +275,6 @@ the <code class="docutils literal notranslate"><span class="pre">predict_functio
 <li><p><strong>learning_rate</strong> – The learning rate.</p></li>
 <li><p><strong>num_iterations</strong> – The maximum number of iterations during optimization.</p></li>
 <li><p><strong>grad_clip</strong> – The value for clipping gradients.</p></li>
-<li><p><strong>kwargs</strong> – Not used.</p></li>
 </ul>
 </dd>
 </dl>
@@ -295,11 +294,8 @@ the <code class="docutils literal notranslate"><span class="pre">predict_functio
 <dd><p>Generates the counterfactual explanations for the input instances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> – A batch of input instances. When <code class="docutils literal notranslate"><span class="pre">X</span></code> is <cite>pd.DataFrame</cite>
-or <cite>np.ndarray</cite>, <code class="docutils literal notranslate"><span class="pre">X</span></code> will be converted into <cite>Tabular</cite> automatically.</p></li>
-<li><p><strong>kwargs</strong> – Additional parameters, not used here.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>X</strong> – A batch of input instances. When <code class="docutils literal notranslate"><span class="pre">X</span></code> is <cite>pd.DataFrame</cite>
+or <cite>np.ndarray</cite>, <code class="docutils literal notranslate"><span class="pre">X</span></code> will be converted into <cite>Tabular</cite> automatically.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.counterfactual.CFExplanation" title="omnixai.explanations.tabular.counterfactual.CFExplanation"><code class="xref py py-class docutils literal notranslate"><span class="pre">CFExplanation</span></code></a></p>

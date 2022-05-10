@@ -164,7 +164,8 @@ please cite the work: <a class="reference external" href="https://github.com/ton
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the machine learning
 model to explain. When the task is <cite>classification</cite>, the outputs of the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
-are the class probabilities.</p></li>
+are the class probabilities. When the task is <cite>qa</cite> (question-answering), the outputs are
+the generated answers.</p></li>
 <li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>classification</cite> pr <cite>qa</cite> (question-answering).</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters, e.g., <cite>model_path</cite> and <cite>cuda</cite>.</p></li>
 </ul>
@@ -187,7 +188,9 @@ are the class probabilities.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – A batch of input instances.</p></li>
+<li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – A batch of input instances. For question-answering tasks, each instance in <code class="docutils literal notranslate"><span class="pre">X</span></code>
+has format <cite>[context] [SEP] [question]</cite>, i.e., concatenating the context and question
+with seperator <cite>[SEP]</cite>.</p></li>
 <li><p><strong>max_number_examples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The maximum number of the generated counterfactual
 examples for each input instance.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters for <cite>polyjuice.Polyjuice</cite>, e.g., “ce_type” - the perturb type

@@ -227,7 +227,7 @@ indicates the timestamps and the columns are the variables.</p>
 <em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data_type</span></span><a class="headerlink" href="#omnixai.data.base.Data.data_type" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A string indicates the data type, e.g., tabular, image, text</p>
+<dd class="field-odd"><p>A string indicates the data type, e.g., tabular, image, text or time series</p>
 </dd>
 </dl>
 </dd></dl>
@@ -252,16 +252,18 @@ indicates the timestamps and the columns are the variables.</p>
 <dt class="sig sig-object py" id="omnixai.data.tabular.Tabular">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.data.tabular.</span></span><span class="sig-name descname"><span class="pre">Tabular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categorical_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.data.base.Data</span></code></a></p>
-<p>The class represents a tabular dataset with categorical features,
+<p>The class represents a tabular dataset that may contain categorical features,
 continuous-valued features and targets/labels (optional).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]) – A pandas DataFrame or a numpy array containing the raw data.</p></li>
-<li><p><strong>feature_columns</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – Feature column names. When <code class="docutils literal notranslate"><span class="pre">feature_columns</span></code> is None, the column names in the
-pandas DataFrame or the indices in the numpy array will be taken as the feature column names.</p></li>
-<li><p><strong>categorical_columns</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of categorical feature names. If <code class="docutils literal notranslate"><span class="pre">data</span></code> is a numpy array and
-<code class="docutils literal notranslate"><span class="pre">feature_columns</span> <span class="pre">=</span> <span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">categorical_columns</span></code> should be the indices of categorical features.</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]) – A pandas dataframe or a numpy array containing the raw data. <cite>data</cite> should have the
+shape <cite>(num_samples, num_features)</cite>.</p></li>
+<li><p><strong>feature_columns</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – The feature column names. When <code class="docutils literal notranslate"><span class="pre">feature_columns</span></code> is None, <code class="docutils literal notranslate"><span class="pre">feature_columns</span></code>
+will be the column names in the pandas dataframe or the indices in the numpy array.</p></li>
+<li><p><strong>categorical_columns</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of categorical feature names, e.g., a subset of feature column names in
+a pandas dataframe. If <code class="docutils literal notranslate"><span class="pre">data</span></code> is a numpy array and <code class="docutils literal notranslate"><span class="pre">feature_columns</span> <span class="pre">=</span> <span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">categorical_columns</span></code>
+should be the indices of categorical features.</p></li>
 <li><p><strong>target_column</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The target/label column name. Set <code class="docutils literal notranslate"><span class="pre">target_column</span></code> to None if there is no
 target column.</p></li>
 </ul>
@@ -323,7 +325,7 @@ target column.</p></li>
 <dd><p>Gets the categorical feature names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The list of the categorical column names.</p>
+<dd class="field-odd"><p>The list of the categorical feature names.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Union[List[str], List[int]]</p>
@@ -337,7 +339,7 @@ target column.</p></li>
 <dd><p>Gets the continuous-valued feature names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The list of the continuous-valued column names.</p>
+<dd class="field-odd"><p>The list of the continuous-valued feature names.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Union[List[str], List[int]]</p>
@@ -394,7 +396,7 @@ target/label column.</p>
 <dd><p>Converts <cite>Tabular</cite> to <cite>pd.DataFrame</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, and <cite>False</cite> otherwise.</p>
+<dd class="field-odd"><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, or <cite>False</cite> otherwise.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A pandas DataFrame representing the tabular data.</p>
@@ -411,7 +413,7 @@ target/label column.</p>
 <dd><p>Converts <cite>Tabular</cite> to <cite>np.ndarray</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, and <cite>False</cite> otherwise.</p>
+<dd class="field-odd"><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, or <cite>False</cite> otherwise.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A numpy ndarray representing the tabular data.</p>
@@ -456,7 +458,7 @@ target/label column.</p>
 <dd><p>Gets the absolute median values of the continuous-valued features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The absolute median values of the continuous-valued features.</p>
+<dd class="field-odd"><p>A dict storing the absolute median value for each continuous-valued feature.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Dict</p>
@@ -488,18 +490,22 @@ target/label column.</p>
 <dt class="sig sig-object py" id="omnixai.data.image.Image">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.data.image.</span></span><span class="sig-name descname"><span class="pre">Image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batched</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.image.Image" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.data.base.Data</span></code></a></p>
-<p>The class represents a batch of images. It supports grayscale and RGB images.
+<p>The class represents a batch of images. It supports both grayscale and RGB images.
 It will convert the input images into the <cite>(batch_size, h, w, channel)</cite> format. If
 there is only one input image, <cite>batch_size</cite> will be 1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The image data, which is either np.ndarray or PIL.Image.
-When the image is PIL.Image, <code class="docutils literal notranslate"><span class="pre">batched</span></code> and <code class="docutils literal notranslate"><span class="pre">channel_last</span></code> are ignored.</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The image data, which is either np.ndarray or PIL.Image. If <code class="docutils literal notranslate"><span class="pre">data</span></code>
+is a numpy array, it should have the following format: <cite>(h, w, channel)</cite>, <cite>(channel, h, w)</cite>,
+<cite>(batch_size, h, w, channel)</cite> or <cite>(batch_size, channel, h, w)</cite>.
+If <code class="docutils literal notranslate"><span class="pre">data</span></code> is a PIL.Image, <code class="docutils literal notranslate"><span class="pre">batched</span></code> and <code class="docutils literal notranslate"><span class="pre">channel_last</span></code> are ignored.
+The images contained in <code class="docutils literal notranslate"><span class="pre">data</span></code> will be automatically converted into a numpy array with
+shape <cite>(batch_size, h, w, channel)</cite>. If there is only one image, <cite>batch_size</cite> will be 1.</p></li>
 <li><p><strong>batched</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – <cite>True</cite> if the first dimension of <code class="docutils literal notranslate"><span class="pre">data</span></code> is the batch size.
 <cite>False</cite> if <code class="docutils literal notranslate"><span class="pre">data</span></code> has one image only.</p></li>
 <li><p><strong>channel_last</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – <cite>True</cite> if the last dimension of <code class="docutils literal notranslate"><span class="pre">data</span></code> is the color channel
-or <cite>False</cite> if the first dimension of <code class="docutils literal notranslate"><span class="pre">data</span></code> is the color channel. If <code class="docutils literal notranslate"><span class="pre">data</span></code>
+or <cite>False</cite> if the first or second dimension of <code class="docutils literal notranslate"><span class="pre">data</span></code> is the color channel. If <code class="docutils literal notranslate"><span class="pre">data</span></code>
 has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 </ul>
 </dd>
@@ -512,10 +518,10 @@ has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.image.Image.shape">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#omnixai.data.image.Image.shape" title="Permalink to this definition"></a></dt>
-<dd><p>Returns data shape.</p>
+<dd><p>Returns the raw data shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A tuple for the data shape, e.g., <cite>(batch_size, h, w, channel)</cite>.</p>
+<dd class="field-odd"><p>A tuple for the raw data shape, e.g., <cite>(batch_size, h, w, channel)</cite>.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
@@ -543,7 +549,7 @@ has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 <dd><p>Returns the raw values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A numpy array of the <cite>Image</cite> object.</p>
+<dd class="field-odd"><p>A numpy array of the stored images.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>np.ndarray</p>
@@ -558,11 +564,11 @@ has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>hwc</strong> – The output has format (batch_size, h, w, channel) if <cite>hwc</cite> is True
-or (batch_size, channel, h, w) otherwise.</p></li>
-<li><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, and <cite>False</cite> otherwise.</p></li>
-<li><p><strong>keepdim</strong> – <cite>True</cite> if <cite>ndim</cite> is kept for grayscale images,
-<cite>False</cite> if the channel dim is squeezed.</p></li>
+<li><p><strong>hwc</strong> – The output has format <cite>(batch_size, h, w, channel)</cite> if <cite>hwc</cite> is True
+or <cite>(batch_size, channel, h, w)</cite> otherwise.</p></li>
+<li><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, or <cite>False</cite> otherwise.</p></li>
+<li><p><strong>keepdim</strong> – <cite>True</cite> if the number of dimensions is kept for grayscale images,
+<cite>False</cite> if the channel dimension is squeezed.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -580,8 +586,8 @@ or (batch_size, channel, h, w) otherwise.</p></li>
 <dd><p>Converts <cite>Image</cite> into a Pillow image or a list of Pillow images.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A single Pillow image if <code class="docutils literal notranslate"><span class="pre">batch_size</span> <span class="pre">=</span> <span class="pre">1</span></code> or a list of Pillow images
-if <code class="docutils literal notranslate"><span class="pre">batch_size</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>.</p>
+<dd class="field-odd"><p>A single Pillow image if <cite>batch_size = 1</cite> or a list of Pillow images
+if <cite>batch_size &gt; 1</cite>.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Union[PilImage.Image, List]</p>
@@ -618,9 +624,10 @@ The texts or sentences are stored in a list of strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The text data, which is either a string or a list of strings.</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The text data, either a string or a list of strings.</p></li>
 <li><p><strong>tokenizer</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – A tokenizer for splitting texts/sentences into tokens,
-which should be <cite>Callable</cite> object.</p></li>
+which should be <cite>Callable</cite> object. If <cite>tokenizer</cite> is None, a default
+<cite>nltk</cite> tokenizer will be applied.</p></li>
 </ul>
 </dd>
 </dl>
@@ -632,7 +639,7 @@ which should be <cite>Callable</cite> object.</p></li>
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.text.Text.values">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#omnixai.data.text.Text.values" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the raw data.</p>
+<dd><p>Returns the raw text data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A list of the sentences/texts.</p>
@@ -666,8 +673,8 @@ be split into <cite>[[“omnixai”, “library”], [“explainable”, “AI�
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.data.text.Text.to_str">
 <span class="sig-name descname"><span class="pre">to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.text.Text.to_str" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a string if it has only one text or
-a list of strings if it contains multiple texts.</p>
+<dd><p>Returns a string if it has only one sentence or
+a list of strings if it contains multiple sentences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>copy</strong> – Whether to copy the data.</p>
@@ -710,9 +717,9 @@ a list of strings if it contains multiple texts.</p>
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.data.timeseries.</span></span><span class="sig-name descname"><span class="pre">Timeseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.data.base.Data</span></code></a></p>
-<p>The class represents a univariate/multivariate time series dataset, e.g. a batch of time series.
+<p>This class represents a univariate/multivariate time series dataset, e.g. a batch of time series.
 The dataset may contain a batch of time series whose metric values are stored in a numpy array
-with shape (batch_size, timestamps, num_variables). If there is only one time series, <cite>batch_size</cite>
+with shape <cite>(batch_size, timestamps, num_variables)</cite>. If there is only one time series, <cite>batch_size</cite>
 is 1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -723,7 +730,7 @@ shape of <code class="docutils literal notranslate"><span class="pre">data</span
 <li><p><strong>timestamps</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – If <code class="docutils literal notranslate"><span class="pre">data</span></code> has one time series, <code class="docutils literal notranslate"><span class="pre">timestamps</span></code> is a list of the corresponding
 timestamps. If <code class="docutils literal notranslate"><span class="pre">data</span></code> has a batch of time series, <code class="docutils literal notranslate"><span class="pre">timestamps</span></code> is a batch of lists of the
 timestamps.</p></li>
-<li><p><strong>variable_names</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of variable names in time series data.</p></li>
+<li><p><strong>variable_names</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of metric/variable names in time series data.</p></li>
 </ul>
 </dd>
 </dl>
@@ -735,7 +742,7 @@ timestamps.</p></li>
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.ts_len">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ts_len</span></span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.ts_len" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the length of the time series data.</p>
+<dd><p>Returns the length of the time series.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -747,11 +754,11 @@ timestamps.</p></li>
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.shape">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.shape" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the data shape, e.g., (batch_size, timestamps, num_variables).
+<dd><p>Returns the raw data shape, e.g., (batch_size, timestamps, num_variables).
 If there is only one time series, <cite>batch_size</cite> is 1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A tuple for the data shape.</p>
+<dd class="field-odd"><p>A tuple for the raw data shape.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
@@ -776,10 +783,10 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.columns">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.columns" title="Permalink to this definition"></a></dt>
-<dd><p>Gets the variable names.</p>
+<dd><p>Gets the metric/variable names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The list of the variable names.</p>
+<dd class="field-odd"><p>The list of the metric/variable names.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>List</p>
@@ -807,7 +814,7 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 <dd><p>Converts <cite>Timeseries</cite> to <cite>pd.DataFrame</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A pandas dataframe or a batch of pandas dataframes representing the time series data.</p>
+<dd class="field-odd"><p>A pandas dataframe or a batch of pandas dataframes representing the time series.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>pd.DataFrame</p>
@@ -821,10 +828,10 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 <dd><p>Converts <cite>Timeseries</cite> to <cite>np.ndarray</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, and <cite>False</cite> otherwise.</p>
+<dd class="field-odd"><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, or <cite>False</cite> otherwise.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A numpy ndarray representing the time series data.</p>
+<dd class="field-even"><p>A numpy ndarray representing the time series.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>np.ndarray</p>
@@ -835,10 +842,10 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.copy" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a copy of the time series data.</p>
+<dd><p>Returns a copy of the time series instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The copied time series data.</p>
+<dd class="field-odd"><p>The copied time series instance.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries">Timeseries</a></p>
@@ -850,7 +857,8 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.from_pd">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_pd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.from_pd" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a <cite>Timeseries</cite> instance from one or multiple pandas dataframes.
-The index of the dataframe should contain the timestamps.</p>
+<cite>df</cite> is either one pandas dataframe or a list of pandas dataframes.
+The index of each dataframe should contain the timestamps.</p>
 <p>:return A <cite>Timeseries</cite> instance.
 :rtype: Timeseries</p>
 </dd></dl>

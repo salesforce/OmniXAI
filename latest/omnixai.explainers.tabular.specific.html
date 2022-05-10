@@ -208,9 +208,9 @@ If using this explainer, please cite the original work: <a class="reference exte
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to construct baselines. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 can be the training dataset for training the machine learning model. If the training
-dataset is large, <code class="docutils literal notranslate"><span class="pre">training_data</span></code> can be a subset of it by applying
+dataset is large, <code class="docutils literal notranslate"><span class="pre">training_data</span></code> can be its subset by applying
 <cite>omnixai.sampler.tabular.Sampler.subsample</cite>.</p></li>
-<li><p><strong>model</strong> – The ML model to explain whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.
+<li><p><strong>model</strong> – The ML model to explain, whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.
 When the model is for classification, the outputs of the <code class="docutils literal notranslate"><span class="pre">model</span></code>
 are the class probabilities or logits. When the model is for regression, the outputs of
 the <code class="docutils literal notranslate"><span class="pre">model</span></code> are the estimated values.</p></li>
@@ -438,7 +438,6 @@ are generated if <code class="docutils literal notranslate"><span class="pre">X<
 <li><p><strong>y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A batch of labels to explain. For regression, <code class="docutils literal notranslate"><span class="pre">y</span></code> is ignored.
 For classification, the top predicted label for each input instance will be explained
 when <cite>y = None</cite>.</p></li>
-<li><p><strong>kwargs</strong> – Not used.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -510,7 +509,7 @@ If using this explainer, please cite the original work: <a class="reference exte
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g. classification or regression.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g. <cite>classification</cite> or <cite>regression</cite>.</p></li>
 <li><p><strong>model</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – The tree-based models, e.g., scikit-learn decision trees, xgboost.</p></li>
 <li><p><strong>cate_encoder</strong> (<a class="reference internal" href="omnixai.preprocessing.html#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a>) – The encoder for categorical features, e.g.,
 <cite>OneHot</cite>, <cite>Ordinal</cite>.</p></li>

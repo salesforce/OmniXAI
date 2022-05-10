@@ -145,30 +145,30 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.nlp.specific.ig" title="omnixai.explainers.nlp.specific.ig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ig</span></code></a></p></td>
-<td><p></p></td>
+<td><p>The integrated-gradient explainer for NLP tasks.</p></td>
 </tr>
 </tbody>
 </table>
 <section id="module-omnixai.explainers.nlp.specific.ig">
 <span id="omnixai-explainers-nlp-specific-ig-module"></span><h2>omnixai.explainers.nlp.specific.ig module<a class="headerlink" href="#module-omnixai.explainers.nlp.specific.ig" title="Permalink to this headline"></a></h2>
+<p>The integrated-gradient explainer for NLP tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.nlp.specific.ig.IntegratedGradientText">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.nlp.specific.ig.</span></span><span class="sig-name descname"><span class="pre">IntegratedGradientText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id2token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.specific.ig.IntegratedGradientText" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The integrated-gradient explainer for text data.
+<p>The integrated-gradient explainer for NLP tasks.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/ankurtaly/Integrated-Gradients">https://github.com/ankurtaly/Integrated-Gradients</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> – The model whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
+<li><p><strong>model</strong> – The model to explain, whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
 <li><p><strong>embedding_layer</strong> – The embedding layer in the model, which can be
 <cite>tf.keras.layers.Layer</cite> or <cite>torch.nn.Module</cite>.</p></li>
-<li><p><strong>preprocess_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The pre-processing function that converts the raw input data
-into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>. The first output of <code class="docutils literal notranslate"><span class="pre">preprocess_function</span></code> should
+<li><p><strong>preprocess_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The pre-processing function that converts the raw inputs
+into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>. The first output of <code class="docutils literal notranslate"><span class="pre">preprocess_function</span></code> must
 be the token ids.</p></li>
 <li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
 <li><p><strong>id2token</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – The mapping from token ids to tokens.</p></li>
-<li><p><strong>kwargs</strong> – Not used.</p></li>
 </ul>
 </dd>
 </dl>
@@ -201,7 +201,7 @@ when <code class="docutils literal notranslate"><span class="pre">y</span> <span
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance" title="omnixai.explanations.text.word_importance.WordImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">WordImportance</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The explanations for all the instances, e.g., word.token importance scores.</p>
+<dd class="field-odd"><p>The explanations for all the instances, e.g., word/token importance scores.</p>
 </dd>
 </dl>
 </dd></dl>

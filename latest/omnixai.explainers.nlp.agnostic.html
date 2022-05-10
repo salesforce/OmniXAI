@@ -147,24 +147,24 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.nlp.agnostic.lime" title="omnixai.explainers.nlp.agnostic.lime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lime</span></code></a></p></td>
-<td><p>The LIME explainer for text data.</p></td>
+<td><p>The LIME explainer for text classification.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#module-omnixai.explainers.nlp.agnostic.shap" title="omnixai.explainers.nlp.agnostic.shap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shap</span></code></a></p></td>
 <td><p>The SHAP explainer for text classification.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.nlp.agnostic.l2x" title="omnixai.explainers.nlp.agnostic.l2x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">l2x</span></code></a></p></td>
-<td><p>The L2X explainer for text data.</p></td>
+<td><p>The L2X explainer for NLP tasks.</p></td>
 </tr>
 </tbody>
 </table>
 <section id="module-omnixai.explainers.nlp.agnostic.lime">
 <span id="omnixai-explainers-nlp-agnostic-lime-module"></span><h2>omnixai.explainers.nlp.agnostic.lime module<a class="headerlink" href="#module-omnixai.explainers.nlp.agnostic.lime" title="Permalink to this headline"></a></h2>
-<p>The LIME explainer for text data.</p>
+<p>The LIME explainer for text classification.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.nlp.agnostic.lime.LimeText">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.nlp.agnostic.lime.</span></span><span class="sig-name descname"><span class="pre">LimeText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.lime.LimeText" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The LIME explainer for text data.
+<p>The LIME explainer for text classification.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/marcotcr/lime">https://github.com/marcotcr/lime</a>.
 This explainer only supports text classification tasks.</p>
 <dl class="field-list simple">
@@ -173,7 +173,7 @@ This explainer only supports text classification tasks.</p>
 <li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the machine learning
 model to explain. When the task is <cite>classification</cite>, the outputs of the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
 are the class probabilities.</p></li>
-<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type which can be <cite>classification</cite> only.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type can be <cite>classification</cite> only.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters for <cite>lime_text.LimeTextExplainer</cite>. Please refer to the doc of
 <cite>lime_text.LimeTextExplainer</cite>.</p></li>
 </ul>
@@ -228,7 +228,7 @@ This explainer only supports <cite>TextClassificationPipeline</cite> in the <cit
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The model with type <cite>transformers.pipelines.text_classification.TextClassificationPipeline</cite>.</p></li>
-<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type (only supports <cite>classification</cite>).</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type can be <cite>classification</cite> only.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters for <cite>shap.Explainer</cite>. Please refer to the doc of
 <cite>shap.Explainer</cite>.</p></li>
 </ul>
@@ -271,7 +271,7 @@ of each input instance will be explained when <cite>y = None</cite>.</p></li>
 </section>
 <section id="module-omnixai.explainers.nlp.agnostic.l2x">
 <span id="omnixai-explainers-nlp-agnostic-l2x-module"></span><h2>omnixai.explainers.nlp.agnostic.l2x module<a class="headerlink" href="#module-omnixai.explainers.nlp.agnostic.l2x" title="Permalink to this headline"></a></h2>
-<p>The L2X explainer for text data.</p>
+<p>The L2X explainer for NLP tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.nlp.agnostic.l2x.DefaultSelectionModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.nlp.agnostic.l2x.</span></span><span class="sig-name descname"><span class="pre">DefaultSelectionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultSelectionModel" title="Permalink to this definition"></a></dt>
@@ -396,10 +396,7 @@ and <code class="docutils literal notranslate"><span class="pre">prediction_mode
 it explains the top predicted label for each input instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – A batch of input instances.</p></li>
-<li><p><strong>kwargs</strong> – Additional parameters, not used here.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – A batch of input instances.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance" title="omnixai.explanations.text.word_importance.WordImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">WordImportance</span></code></a></p>

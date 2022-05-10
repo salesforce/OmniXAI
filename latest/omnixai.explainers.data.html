@@ -140,7 +140,7 @@
 allowing users to choose multiple explainers and generate
 different explanations at the same time.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
-    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;imbalance&quot;</span><span class="p">],</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;imbalance&quot;</span><span class="p">,</span> <span class="s2">&quot;mutual&quot;</span><span class="p">],</span>
     <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
     <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;imbalance&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;n_bins&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}}</span>
 <span class="p">)</span>
@@ -150,7 +150,8 @@ different explanations at the same time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>) – The names or alias of the analyzers to use.</p></li>
+<li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>) – The names or alias of the analyzers to use, e.g.,
+“correlation” for feature correlation analysis, “mutual” for feature importance analysis.</p></li>
 <li><p><strong>data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The training data used to initialize explainers.</p></li>
 <li><p><strong>params</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A dict containing the additional parameters for initializing each analyzer,
 e.g., <cite>params[“imbalance”] = {“param_1”: param_1, …}</cite>.</p></li>
@@ -177,9 +178,8 @@ values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data from training an ML model.</p></li>
+<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The dataset for training an ML model.</p></li>
 <li><p><strong>n_bins</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of bins for discretizing continuous-valued features.</p></li>
-<li><p><strong>kwargs</strong> – Not used here.</p></li>
 </ul>
 </dd>
 </dl>
@@ -220,10 +220,7 @@ values.</p>
 given the input dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data from training an ML model.</p></li>
-<li><p><strong>kwargs</strong> – Not used here.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The dataset for training an ML model.</p>
 </dd>
 </dl>
 <dl class="py attribute">
@@ -242,7 +239,7 @@ given the input dataset.</p>
 <dd><p>Computes the correlation matrix via scipy.stats.spearmanr.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>features</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>]) – A list of feature to analyze. <cite>None</cite> if all the features are considered.</p>
+<dd class="field-odd"><p><strong>features</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>]) – A list of feature to analyze or <cite>None</cite> if all the features are considered.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The feature correlation matrix.</p>
@@ -259,15 +256,15 @@ given the input dataset.</p>
 <dt class="sig sig-object py" id="omnixai.explainers.data.MutualInformation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.</span></span><span class="sig-name descname"><span class="pre">MutualInformation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discrete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.MutualInformation" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The class for estimating mutual information. It computes the Information gain of each variable
-with respect to the target variable.</p>
+<p>The class for estimating mutual information. It computes the Information gain of each feature
+with respect to the target.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data from training an ML model.</p></li>
+<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The dataset for training an ML model.</p></li>
 <li><p><strong>mode</strong> – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
-<li><p><strong>discrete</strong> – True if all the continuous-valued features are discretized or
-False if all the categorical features are converted into continuous-valued features.</p></li>
+<li><p><strong>discrete</strong> – <cite>True</cite> if all the continuous-valued features are discretized or
+<cite>False</cite> if all the categorical features are converted into continuous-valued features.</p></li>
 </ul>
 </dd>
 </dl>
@@ -301,11 +298,11 @@ False if all the categorical features are converted into continuous-valued featu
 <dt class="sig sig-object py" id="omnixai.explainers.data.ChiSquare">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.</span></span><span class="sig-name descname"><span class="pre">ChiSquare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.ChiSquare" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The class for computing chi-squared stats between each non-negative feature and class.</p>
+<p>The class for computing chi-squared stats between each non-negative feature and target.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data from training an ML model.</p></li>
+<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The dataset for training an ML model.</p></li>
 <li><p><strong>mode</strong> – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
 </ul>
 </dd>
@@ -323,7 +320,7 @@ False if all the categorical features are converted into continuous-valued featu
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.data.ChiSquare.explain">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.ChiSquare.explain" title="Permalink to this definition"></a></dt>
-<dd><p>Computes computing chi-squared stats between each non-negative feature and class.</p>
+<dd><p>Computes chi-squared stats between each non-negative feature and target.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The chi-squared stats.</p>
@@ -346,7 +343,7 @@ False if all the categorical features are converted into continuous-valued featu
 allowing users to choose multiple explainers and generate
 different explanations at the same time.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
-    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;imbalance&quot;</span><span class="p">],</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;imbalance&quot;</span><span class="p">,</span> <span class="s2">&quot;mutual&quot;</span><span class="p">],</span>
     <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
     <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;imbalance&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;n_bins&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}}</span>
 <span class="p">)</span>
@@ -356,7 +353,8 @@ different explanations at the same time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>) – The names or alias of the analyzers to use.</p></li>
+<li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>) – The names or alias of the analyzers to use, e.g.,
+“correlation” for feature correlation analysis, “mutual” for feature importance analysis.</p></li>
 <li><p><strong>data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The training data used to initialize explainers.</p></li>
 <li><p><strong>params</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A dict containing the additional parameters for initializing each analyzer,
 e.g., <cite>params[“imbalance”] = {“param_1”: param_1, …}</cite>.</p></li>
@@ -383,10 +381,7 @@ e.g., <cite>params[“imbalance”] = {“param_1”: param_1, …}</cite>.</p><
 given the input dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data from training an ML model.</p></li>
-<li><p><strong>kwargs</strong> – Not used here.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The dataset for training an ML model.</p>
 </dd>
 </dl>
 <dl class="py attribute">
@@ -405,7 +400,7 @@ given the input dataset.</p>
 <dd><p>Computes the correlation matrix via scipy.stats.spearmanr.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>features</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>]) – A list of feature to analyze. <cite>None</cite> if all the features are considered.</p>
+<dd class="field-odd"><p><strong>features</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>]) – A list of feature to analyze or <cite>None</cite> if all the features are considered.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The feature correlation matrix.</p>
@@ -434,9 +429,8 @@ values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data from training an ML model.</p></li>
+<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The dataset for training an ML model.</p></li>
 <li><p><strong>n_bins</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of bins for discretizing continuous-valued features.</p></li>
-<li><p><strong>kwargs</strong> – Not used here.</p></li>
 </ul>
 </dd>
 </dl>
@@ -477,15 +471,15 @@ values.</p>
 <dt class="sig sig-object py" id="omnixai.explainers.data.mutual_info.MutualInformation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.mutual_info.</span></span><span class="sig-name descname"><span class="pre">MutualInformation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discrete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.mutual_info.MutualInformation" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The class for estimating mutual information. It computes the Information gain of each variable
-with respect to the target variable.</p>
+<p>The class for estimating mutual information. It computes the Information gain of each feature
+with respect to the target.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data from training an ML model.</p></li>
+<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The dataset for training an ML model.</p></li>
 <li><p><strong>mode</strong> – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
-<li><p><strong>discrete</strong> – True if all the continuous-valued features are discretized or
-False if all the categorical features are converted into continuous-valued features.</p></li>
+<li><p><strong>discrete</strong> – <cite>True</cite> if all the continuous-valued features are discretized or
+<cite>False</cite> if all the categorical features are converted into continuous-valued features.</p></li>
 </ul>
 </dd>
 </dl>
@@ -518,16 +512,16 @@ False if all the categorical features are converted into continuous-valued featu
 </section>
 <section id="module-omnixai.explainers.data.chi_square">
 <span id="omnixai-explainers-data-chi-square-module"></span><h2>omnixai.explainers.data.chi_square module<a class="headerlink" href="#module-omnixai.explainers.data.chi_square" title="Permalink to this headline"></a></h2>
-<p>The class for computing chi-squared stats between each non-negative feature and class.</p>
+<p>The class for computing chi-squared stats between each non-negative feature and target.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.data.chi_square.ChiSquare">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.chi_square.</span></span><span class="sig-name descname"><span class="pre">ChiSquare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.chi_square.ChiSquare" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The class for computing chi-squared stats between each non-negative feature and class.</p>
+<p>The class for computing chi-squared stats between each non-negative feature and target.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data from training an ML model.</p></li>
+<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The dataset for training an ML model.</p></li>
 <li><p><strong>mode</strong> – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
 </ul>
 </dd>
@@ -545,7 +539,7 @@ False if all the categorical features are converted into continuous-valued featu
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.data.chi_square.ChiSquare.explain">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.chi_square.ChiSquare.explain" title="Permalink to this definition"></a></dt>
-<dd><p>Computes computing chi-squared stats between each non-negative feature and class.</p>
+<dd><p>Computes chi-squared stats between each non-negative feature and target.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The chi-squared stats.</p>

@@ -140,7 +140,7 @@
 <dt class="sig sig-object py" id="omnixai.explainers.vision.auto.VisionExplainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.vision.auto.</span></span><span class="sig-name descname"><span class="pre">VisionExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.auto.VisionExplainer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.AutoExplainerBase" title="omnixai.explainers.base.AutoExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.AutoExplainerBase</span></code></a></p>
-<p>The class derived from <cite>AutoExplainerBase</cite> for image data,
+<p>The class derived from <cite>AutoExplainerBase</cite> for vision tasks,
 allowing users to choose multiple explainers and generate
 different explanations at the same time.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">explainer</span> <span class="o">=</span> <span class="n">VisionExplainer</span><span class="p">(</span>
@@ -158,18 +158,18 @@ different explanations at the same time.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>) – The names or alias of the explainers to use.</p></li>
-<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g. classification or regression.</p></li>
-<li><p><strong>model</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – The machine learning model which can be a scikit-learn model,
-a tensorflow model, a torch model, or a prediction function.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g. <cite>classification</cite> or <cite>regression</cite>.</p></li>
+<li><p><strong>model</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – The machine learning model to explain, which can be a scikit-learn model,
+a tensorflow model, a torch model, or a black-box prediction function.</p></li>
 <li><p><strong>data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The training data used to initialize explainers.
 It can be empty, e.g., <cite>data = Image()</cite>, for those explainers such as
 <cite>IntegratedGradient</cite> and <cite>Grad-CAM</cite> that don’t require training data.</p></li>
-<li><p><strong>preprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The preprocessing function that converts the raw data
+<li><p><strong>preprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The preprocessing function that converts the raw input features
 into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
 <li><p><strong>postprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The postprocessing function that transforms the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>
 to a user-specific form, e.g., the predicted probability for each class.</p></li>
 <li><p><strong>params</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A dict containing the additional parameters for initializing each explainer,
-e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
+e.g., <cite>params[“gradcam”] = {“param_1”: param_1, …}</cite>.</p></li>
 </ul>
 </dd>
 </dl>

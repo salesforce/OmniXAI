@@ -145,29 +145,29 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.timeseries.counterfactual.ce" title="omnixai.explainers.timeseries.counterfactual.ce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ce</span></code></a></p></td>
-<td><p>The basic counterfactual explainer for time series data.</p></td>
+<td><p>The basic counterfactual explainer for time series tasks.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#module-omnixai.explainers.timeseries.counterfactual.mace" title="omnixai.explainers.timeseries.counterfactual.mace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mace</span></code></a></p></td>
-<td><p>The Model-Agnostic Counterfactual Explanation (MACE) designed from time series.</p></td>
+<td><p>The Model-Agnostic Counterfactual Explanation (MACE) designed for time series tasks.</p></td>
 </tr>
 </tbody>
 </table>
 <section id="module-omnixai.explainers.timeseries.counterfactual.ce">
 <span id="omnixai-explainers-timeseries-counterfactual-ce-module"></span><h2>omnixai.explainers.timeseries.counterfactual.ce module<a class="headerlink" href="#module-omnixai.explainers.timeseries.counterfactual.ce" title="Permalink to this headline"></a></h2>
-<p>The basic counterfactual explainer for time series data.</p>
+<p>The basic counterfactual explainer for time series tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.timeseries.counterfactual.ce.CounterfactualOptimizer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.timeseries.counterfactual.ce.</span></span><span class="sig-name descname"><span class="pre">CounterfactualOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kappa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_search_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.timeseries.counterfactual.ce.CounterfactualOptimizer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The optimizer for counterfactual explanation for time series anomaly detection.</p>
+<p>The optimizer for the counterfactual explainer for time series anomaly detection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x0</strong> – The input time series reshaped in one dimension.</p></li>
 <li><p><strong>ts_len</strong> – The length of the time series.</p></li>
-<li><p><strong>bounds</strong> – The upper and lower bounds of each value in <cite>x0</cite>.</p></li>
+<li><p><strong>bounds</strong> – The upper and lower bounds of each value in <code class="docutils literal notranslate"><span class="pre">x0</span></code>.</p></li>
 <li><p><strong>threshold</strong> – The threshold to determine whether an instance is anomalous,
-e.g., anomaly score &gt; threshold.</p></li>
+e.g., <cite>anomaly score &gt; threshold</cite>.</p></li>
 <li><p><strong>predict_function</strong> – The prediction function for computing anomaly scores.</p></li>
 <li><p><strong>gamma</strong> – The denominator of the regularization term, e.g., <cite>|x - x0| / gamma</cite>.
 <code class="docutils literal notranslate"><span class="pre">gamma</span></code> will be set to 1 if it is None.</p></li>
@@ -178,7 +178,7 @@ e.g., anomaly score &gt; threshold.</p></li>
 <li><p><strong>learning_rate</strong> – The learning rate.</p></li>
 <li><p><strong>num_iterations</strong> – The maximum number of iterations during optimization.</p></li>
 <li><p><strong>grad_clip</strong> – The value for clipping gradients.</p></li>
-<li><p><strong>grid_size</strong> – The number of bins in each dimension in <cite>x0</cite> for computing numerical gradients.</p></li>
+<li><p><strong>grid_size</strong> – The number of bins in each dimension in <code class="docutils literal notranslate"><span class="pre">x0</span></code> for computing numerical gradients.</p></li>
 </ul>
 </dd>
 </dl>
@@ -188,7 +188,7 @@ e.g., anomaly score &gt; threshold.</p></li>
 <dd><p>Generates counterfactual examples.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The counterfactual example.</p>
+<dd class="field-odd"><p>The counterfactual example or None if no counterfactual example is found.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>np.ndarray or None</p>
@@ -202,14 +202,14 @@ e.g., anomaly score &gt; threshold.</p></li>
 <dt class="sig sig-object py" id="omnixai.explainers.timeseries.counterfactual.ce.CounterfactualExplainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.timeseries.counterfactual.ce.</span></span><span class="sig-name descname"><span class="pre">CounterfactualExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'anomaly_detection'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.timeseries.counterfactual.ce.CounterfactualExplainer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
-<p>The basic counterfactual explainer for time series. It only supports anomaly detection tasks.</p>
+<p>The basic counterfactual explainer for time series anomaly detection or forecasting.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timeseries</span></code></a>) – The data used to initialize the explainer.</p></li>
 <li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the model to explain.
-The inputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> should be a batch (list) of Timeseries instances.
-The outputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are anomaly scores (higher scores imply more anomalous)
+The inputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> should be a batch (list) of time series, i.e., a <cite>Timeseries</cite>
+instance. The outputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are anomaly scores (higher scores imply more anomalous)
 for anomaly detection or predicted values for forecasting.</p></li>
 <li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>anomaly_detection</cite> or <cite>forecasting</cite>.</p></li>
 <li><p><strong>threshold</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – The threshold to determine whether an instance is anomalous,
@@ -254,21 +254,21 @@ a batch of input instances.</p></li>
 </section>
 <section id="module-omnixai.explainers.timeseries.counterfactual.mace">
 <span id="omnixai-explainers-timeseries-counterfactual-mace-module"></span><h2>omnixai.explainers.timeseries.counterfactual.mace module<a class="headerlink" href="#module-omnixai.explainers.timeseries.counterfactual.mace" title="Permalink to this headline"></a></h2>
-<p>The Model-Agnostic Counterfactual Explanation (MACE) designed from time series.</p>
+<p>The Model-Agnostic Counterfactual Explanation (MACE) designed for time series tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.timeseries.counterfactual.mace.MACEExplainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.timeseries.counterfactual.mace.</span></span><span class="sig-name descname"><span class="pre">MACEExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'anomaly_detection'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.timeseries.counterfactual.mace.MACEExplainer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
 <p>The Model-Agnostic Counterfactual Explanation (MACE) developed by Yang et al. Please
 cite the paper <cite>MACE: An Efficient Model-Agnostic Framework for Counterfactual Explanation</cite>.
-This is a special version designed from time series anomaly detection.</p>
+This is a special version designed for time series anomaly detection and forecasting.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timeseries</span></code></a>) – The data used to initialize the explainer.</p></li>
 <li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the model to explain.
-The inputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> should be a batch (list) of Timeseries instances.
-The outputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are anomaly scores (higher scores imply more anomalous)
+The inputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> should be a batch (list) of time series, i.e., a <cite>Timeseries</cite>
+instance. The outputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are anomaly scores (higher scores imply more anomalous)
 for anomaly detection or predicted values for forecasting.</p></li>
 <li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>anomaly_detection</cite> or <cite>forecasting</cite>.</p></li>
 <li><p><strong>threshold</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – The threshold to determine whether an instance is anomalous,

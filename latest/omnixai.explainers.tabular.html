@@ -271,14 +271,14 @@ different explanations at the same time.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>) – The names or alias of the explainers to use.</p></li>
-<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g. classification or regression.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g. <cite>classification</cite> or <cite>regression</cite>.</p></li>
 <li><p><strong>data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The training data used to initialize explainers. <code class="docutils literal notranslate"><span class="pre">data</span></code>
 can be the training dataset for training the machine learning model. If the training
-dataset is large, <code class="docutils literal notranslate"><span class="pre">data</span></code> can be a subset of it by applying
+dataset is large, <code class="docutils literal notranslate"><span class="pre">data</span></code> can be its subset by applying
 <cite>omnixai.sampler.tabular.Sampler.subsample</cite>.</p></li>
-<li><p><strong>model</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – The machine learning model which can be a scikit-learn model,
-a tensorflow model, a torch model, or a prediction function.</p></li>
-<li><p><strong>preprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The preprocessing function that converts the raw data
+<li><p><strong>model</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – The machine learning model to explain, which can be a scikit-learn model,
+a tensorflow model, a torch model, or a black-box prediction function.</p></li>
+<li><p><strong>preprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The preprocessing function that converts the raw input features
 into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
 <li><p><strong>postprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The postprocessing function that transforms the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>
 to a user-specific form, e.g., the predicted probability for each class.</p></li>

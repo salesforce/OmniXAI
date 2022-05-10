@@ -233,7 +233,7 @@ in classification tasks.</p></li>
 <p>More detailed examples can be found in the tutorials.</p>
 <span class="target" id="module-omnixai.explainers"></span><section id="module-omnixai.explainers.base">
 <span id="omnixai-explainers-base-module"></span><h2>omnixai.explainers.base module<a class="headerlink" href="#module-omnixai.explainers.base" title="Permalink to this headline"></a></h2>
-<p>The base classes for various explainers.</p>
+<p>The base classes for the supported explainers.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.base.ExplainerABCMeta">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.base.</span></span><span class="sig-name descname"><span class="pre">ExplainerABCMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.base.ExplainerABCMeta" title="Permalink to this definition"></a></dt>
@@ -246,7 +246,7 @@ i.e., storing it in <code class="docutils literal notranslate"><span class="pre"
 <dt class="sig sig-object py" id="omnixai.explainers.base.ExplainerBase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.base.</span></span><span class="sig-name descname"><span class="pre">ExplainerBase</span></span><a class="headerlink" href="#omnixai.explainers.base.ExplainerBase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The abstract base class for an explainer. When an explainer inherits from this class,
+<p>The abstract base class for an explainer. If an explainer inherits from this class,
 it will be registered automatically.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.base.ExplainerBase.explain">
@@ -270,18 +270,18 @@ it will be registered automatically.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.base.</span></span><span class="sig-name descname"><span class="pre">AutoExplainerBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.base.AutoExplainerBase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The base class for task-specific explainers. The class derived from <cite>AutoExplainerBase</cite>
-acts as a explainer factory. It allows users to choose multiple explainers and generate
-different explanations at the same time, which simplifies the interface.</p>
+acts as a explainer factory and provides a unified interface to create explainers, e.g.,
+allowing users to choose multiple explainers and generate different explanations at the same time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>) – The names or alias of the explainers to use.</p></li>
+<li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The names or alias of the explainers to use.</p></li>
 <li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g. classification or regression.</p></li>
 <li><p><strong>data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a>) – The training data used to initialize explainers.
 For image or text explainers, it can be empty, e.g., <cite>data = Image()</cite> or <cite>data = Text()</cite>.</p></li>
-<li><p><strong>model</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – The machine learning model which can be a scikit-learn model,
-a tensorflow model, a torch model, or a prediction function.</p></li>
-<li><p><strong>preprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The preprocessing function that converts the raw data
+<li><p><strong>model</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – The machine learning model to explain, which can be a scikit-learn model,
+a tensorflow model, a torch model, or a black-box prediction function.</p></li>
+<li><p><strong>preprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The preprocessing function that converts the raw input features
 into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
 <li><p><strong>postprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The postprocessing function that transforms the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>
 to a user-specific form, e.g., the predicted probability for each class.</p></li>
@@ -293,7 +293,7 @@ e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.base.AutoExplainerBase.explain">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.base.AutoExplainerBase.explain" title="Permalink to this definition"></a></dt>
-<dd><p>Generates local explanations for specific instances.</p>
+<dd><p>Generates local explanations for the specific instances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -303,7 +303,8 @@ e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A dict of explanation results generated by the explainers that support local explanation.</p>
+<dd class="field-even"><p>A dict of explanation results generated by the explainers that support local explanation,
+e.g. <cite>{“lime”: lime_explanations, “shap”: shap_explanations, …}</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>OrderedDict</p>
@@ -318,10 +319,11 @@ e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>params</strong> – A dict containing the additional parameters for generating explanations,
-e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p>
+e.g., <cite>params[“pdp”] = {“param_1”: param_1, …}</cite>.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A dict of explanation results generated by the explainers that support global explanation.</p>
+<dd class="field-even"><p>A dict of explanation results generated by the explainers that support global explanation,
+e.g. <cite>{“pdp”: pdp_explanations, …}</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>OrderedDict</p>
