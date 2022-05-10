@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-Feature importance explanations for time series data.
+Feature importance explanations for time series tasks.
 """
 import warnings
 import numpy as np
@@ -14,7 +14,7 @@ from ..base import ExplanationBase, DashFigure
 
 class FeatureImportance(ExplanationBase):
     """
-    The class for feature importance explanations for time series. It uses a list to store
+    The class for feature importance explanations for time series tasks. It uses a list to store
     the feature importance explanations of the input instances. Each item in the list
     is a dict with the following format `{"instance": the input instance, "scores": feature importance scores}`,
     where both "instance" and "scores" are pandas dataframes.

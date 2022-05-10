@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-Counterfactual explanations for time series data.
+Counterfactual explanations for time series tasks.
 """
 import warnings
 import numpy as np
@@ -14,7 +14,7 @@ from ..base import ExplanationBase, DashFigure
 
 class CFExplanation(ExplanationBase):
     """
-    The class for counterfactual explanations for time series. It uses a list to store
+    The class for counterfactual explanations for time series tasks. It uses a list to store
     the counterfactual examples of the input instances. Each item in the list
     is a dict with the following format `{"query": the input instance, "counterfactual":
     the generated counterfactual example}`. Both "query" and "counterfactual" are

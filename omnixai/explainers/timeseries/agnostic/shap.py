@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The SHAP explainer for time series data.
+The SHAP explainer for time series tasks.
 """
 import shap
 import random
@@ -20,7 +20,7 @@ from ....explanations.timeseries.feature_importance import FeatureImportance
 
 class ShapTimeseries(ExplainerBase):
     """
-    The SHAP explainer for time series data.
+    The SHAP explainer for time series forecasting and anomaly detection.
     If using this explainer, please cite the original work: https://github.com/slundberg/shap.
     """
 
@@ -37,7 +37,7 @@ class ShapTimeseries(ExplainerBase):
         """
         :param training_data: The data used to initialize the explainer.
         :param predict_function: The prediction function corresponding to the model to explain.
-            The inputs of ``predict_function`` should be a batch (list) of Timeseries instances, e.g.,
+            The inputs of ``predict_function`` should be a batch (list) of time series, e.g.,
             an `Timeseries` instance. The outputs of ``predict_function`` are anomaly scores (higher scores
             imply more anomalous) for anomaly detection or predicted values for forecasting.
         :param mode: The task type, e.g., `anomaly_detection` or `forecasting`.

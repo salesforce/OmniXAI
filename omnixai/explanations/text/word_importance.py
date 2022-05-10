@@ -16,8 +16,8 @@ class WordImportance(ExplanationBase):
     The class for word/token importance explanations. It uses a list to store
     the word/token importance scores of the input instances. Each item in the list
     is a dict with the following format `{"instance": the input instance, "tokens":
-    a list of tokens, "values": a list of feature values, "scores": a list of feature
-    importance scores}`. If the task is `classification`, the dict has an additional entry
+    a list of tokens, "scores": a list of feature importance scores}`.
+    If the task is `classification`, the dict has an additional entry
     `{"target_label": the predicted label of the input instance}`.
     """
 
@@ -62,8 +62,8 @@ class WordImportance(ExplanationBase):
         :return: The explanation for one specific instance (a dict)
             or the explanations for all the instances (a list of dicts).
             Each dict has the following format: `{"instance": the input instance, "tokens":
-            a list of tokens, "values": a list of feature values, "scores": a list of feature
-            importance scores}`. If the task is `classification`, the dict has an additional entry
+            a list of tokens, "scores": a list of feature importance scores}`.
+            If the task is `classification`, the dict has an additional entry
             `{"target_label": the predicted label of the input instance}`.
         :rtype: Union[Dict, List]
         """

@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-Pixel importance explanations.
+Pixel importance explanations for vision tasks.
 """
 import warnings
 import numpy as np
