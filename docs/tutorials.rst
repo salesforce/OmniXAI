@@ -24,6 +24,7 @@ Auto-Explainers
    tutorials/auto_nlp.ipynb
    tutorials/auto_nlp_imdb.ipynb
    tutorials/auto_timeseries.ipynb
+   tutorials/omnixai_in_ml_workflow.ipynb
 
 Tabular Explainers
 ---------------------
