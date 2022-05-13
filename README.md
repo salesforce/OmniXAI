@@ -8,10 +8,11 @@
 
 ## Table of Contents
 1. [Introduction](#introduction)
-1. [Installation](#installation)
-1. [Documentation](#documentation)
-1. [Getting Started](#getting-started)
-1. [How to Contribute](#how-to-contribute)
+2. [Installation](#installation)
+3. [Documentation](#documentation)
+4. [Getting Started](#getting-started)
+5. [How to Contribute](#how-to-contribute)
+6. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
 
 
 ## Introduction
@@ -279,7 +280,7 @@ You can find more details in our technical report: TODO
 
 If you're using OmniXAI in your research or applications, please cite using this BibTeX:
 ```
-@article{bhatnagar2021merlion,
+@article{wenzhuo2022-omnixai,
   author    =  {Wenzhuo Yang and Hung Le and Steven Hoi and Silvio Savarese},
   title     = {TODO},
   journal   = {CoRR},

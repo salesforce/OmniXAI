@@ -25,9 +25,9 @@ class TestLimeTabular(unittest.TestCase):
             print(e["instance"])
             pprint.pprint(list(zip(e["features"], e["values"], e["scores"])))
             self.assertEqual(e["features"][0], "RM")
-            self.assertAlmostEqual(e["scores"][0], -2.9504, delta=1e-3)
             self.assertEqual(e["features"][1], "LSTAT")
-            self.assertAlmostEqual(e["scores"][1], -2.8991, delta=1e-3)
+            self.assertEqual(e["features"][2], "PTRATIO")
+            self.assertEqual(e["features"][3], "TAX")
 
 
 if __name__ == "__main__":
