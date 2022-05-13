@@ -57,6 +57,7 @@
 <li class="toctree-l3"><a class="reference internal" href="auto_nlp.html">NLPExplainer for sentiment analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_nlp_imdb.html">NLPExplainer on IMDB dataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="omnixai_in_ml_workflow.html">OmniXAI in a ML workflow</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#tabular-explainers">Tabular Explainers</a></li>
@@ -423,6 +424,7 @@ times with different parameters.</p>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize a `DataAnalyzer` explainer.</span>
 <span class="c1"># We can choose multiple explainers/analyzers by specifying analyzer names.</span>
 <span class="c1"># In this example, the first explainer is for feature correlation analysis and</span>
+<span class="c1"># the last two explainers are for feature selection and</span>
 <span class="c1"># the others are for feature imbalance analysis (the same explainer with different parameters).</span>
 <span class="n">explainer</span> <span class="o">=</span> <span class="n">DataAnalyzer</span><span class="p">(</span>
     <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;correlation&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#0&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#1&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#2&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#3&quot;</span><span class="p">,</span> <span class="s2">&quot;mutual&quot;</span><span class="p">,</span> <span class="s2">&quot;chi2&quot;</span><span class="p">],</span>
