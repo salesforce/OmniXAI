@@ -4,8 +4,6 @@ set -euo pipefail
 # Change to root directory of repo
 DIRNAME=$(cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
 cd "${DIRNAME}/.."
-echo ${DIRNAME}
-pwd
 
 # Set up virtual environment
 pip3 install setuptools wheel virtualenv
@@ -16,8 +14,7 @@ fi
 source venv/bin/activate
 
 # Get current git branch & stash unsaved changes
-# GIT_BRANCH=$(git branch --show-current)
-GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+GIT_BRANCH=$(git branch --show-current)
 if [ -z "${GIT_BRANCH}" ]; then
     GIT_BRANCH="main"
 fi
@@ -43,7 +40,6 @@ sphinx-build -M clean "${DIRNAME}" "${DIRNAME}/_build"
 
 # Build API docs for current head
 export current_version="latest"
-pip3 install "."
 pip3 install ".[all]"
 sphinx-build -b html "${DIRNAME}" "${DIRNAME}/_build/html/${current_version}" -W --keep-going
 rm -rf "${DIRNAME}/_build/html/${current_version}/.doctrees"
