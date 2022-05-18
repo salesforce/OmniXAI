@@ -359,10 +359,10 @@ license headers whenever you make a commit. To add a new explanation method into
 one may follow the steps below:
 
 1. Choose the task type of the new explainer, e.g., "tabular", "vision", "nlp" or "timeseries".
-1. Choose the explainer type, e.g., "model-agnostic", "model-specific" or "counterfactual".
-1. Create a new python script file for this explainer in the specified folder, e.g., it is put
+2. Choose the explainer type, e.g., "model-agnostic", "model-specific" or "counterfactual".
+3. Create a new python script file for this explainer in the specified folder, e.g., it is put
    under the folder "explainers/tabular/agnostic" if it is a model-agnostic explainer for tabular data.
-1. Create the explainer class that inherits from `omnixai.explainers.base.ExplainerBase`. The constructor for the new explainer class has two options:
+4. Create the explainer class that inherits from `omnixai.explainers.base.ExplainerBase`. The constructor for the new explainer class has two options:
 
    - **\_\_init\_\_(self, predict_function, mode, \*\*kwargs)**: This is for model-agnostic explainers. ``predict_function``
      is the prediction function of the black-box ML model to explain. The inputs of ``predict_function`` are the raw
@@ -376,12 +376,14 @@ one may follow the steps below:
      which is used to convert the output logits into class probabilities. ``postprocess_function`` is optional.
      ``mode`` is the task type, e.g., "classification", "regression".
 
-1. Add a class attribute ``explanation_type`` (string) with value "local", "global" or "both", indicating whether the method
+5. Add a class attribute ``explanation_type`` (string) with value "local", "global" or "both", indicating whether the method
    can generate local explanations, global explanations or both.
-1. Add a class attribute ``alias`` (list) specifying the explainer names.
-1. Implement the "explain" function, e.g., ``explain(self, **kwargs)`` for local explanations, or
+6. Add a class attribute ``alias`` (list) specifying the explainer names.
+7. Implement the "explain" function, e.g., ``explain(self, **kwargs)`` for local explanations, or
    ``explain_global(self, X, **kwargs)`` for global explanations where the type of ``X`` is class `Tabular`, `Image`, `Text` or `Timeseries`.
-1. Import the explainer class in "\_\_init\_\_.py" of the packages `omnixai.explainers.tabular`,
+8. Implement the explanation class inherited from `omnixai.explanations.base.ExplanationBase` if the available explanation classes 
+   in the library cannot fulfill the requirements. The "explain" function should return an instance of this explanation class.
+9. Import the explainer class in "\_\_init\_\_.py" of the packages `omnixai.explainers.tabular`,
    `omnixai.explainers.vision`, `omnixai.explainers.nlp` or `omnixai.explainers.timeseries`.
 
 The new explainer will be registered automatically, which can be called via `omnixai.explainers.tabular.TabularExplainer`,
