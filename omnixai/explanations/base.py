@@ -51,19 +51,8 @@ class ExplanationBase(metaclass=AutodocABCMeta):
 
 class DashFigure:
     def __init__(self, component):
-        import plotly
-        from dash import html, dcc, dash_table
-
-        if isinstance(component, (tuple, list)):
-            self.content = html.Div(children=list(component))
-        elif isinstance(component, html.Div):
-            self.content = component
-        elif isinstance(component, dash_table.DataTable):
-            self.content = html.Div([component])
-        elif isinstance(component, plotly.graph_objs.Figure):
-            self.content = html.Div([dcc.Graph(figure=component)])
-        else:
-            raise ValueError(f"The type of `component` ({type(component)}) " f"is not supported by DashFigure.")
+        self.component = component
+        self.content = self.to_html_div()
 
     def show(self, **kwargs):
         import dash
@@ -72,8 +61,22 @@ class DashFigure:
         app.layout = self.content
         app.run_server(**kwargs)
 
-    def to_html_div(self):
-        return self.content
+    def to_html_div(self, id=None):
+        import plotly
+        from dash import html, dcc, dash_table
+
+        id = str(id)
+        if isinstance(self.component, (tuple, list)):
+            return html.Div(children=list(self.component), id=id)
+        elif isinstance(self.component, html.Div):
+            return self.component
+        elif isinstance(self.component, dash_table.DataTable):
+            return html.Div([self.component], id=id)
+        elif isinstance(self.component, plotly.graph_objs.Figure):
+            return html.Div([dcc.Graph(figure=self.component, id=id)], id=f"div_{id}")
+        else:
+            raise ValueError(f"The type of `component` ({type(self.component)}) "
+                             f"" f"is not supported by DashFigure.")
 
     def to_html(self):
         import plotly
@@ -128,9 +131,9 @@ class PredictedResults(ExplanationBase):
         labels = self.results["labels"]
         values = self.results["values"]
         if index is not None:
-            values = values[index : index + 1]
+            values = values[index: index + 1]
             if labels is not None:
-                labels = labels[index : index + 1]
+                labels = labels[index: index + 1]
         if max_num_subplots is not None:
             values = values[:max_num_subplots]
             if labels is not None:

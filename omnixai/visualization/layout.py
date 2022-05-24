@@ -114,7 +114,7 @@ def create_explanation_layout(app, explanation_type: str) -> List:
                 assert isinstance(
                     figure, DashFigure
                 ), f"`plotly_plot` of {type(explanations[name])} should return a `DashFigure` object."
-                figure = figure.to_html_div()
+                figure = figure.to_html_div(id=f"{explanation_type}_{name}")
         except Exception as e:
             raise type(e)(f"Explanation {name} -- {str(e)}")
         title = (
@@ -133,12 +133,15 @@ def create_explanation_layout(app, explanation_type: str) -> List:
     return children
 
 
-def create_layout(app) -> html.Div:
+def create_figure_layout(app) -> html.Div:
     explanation_views = [create_instance_layout(app)]
     explanation_views += create_explanation_layout(app, explanation_type="predict")
     explanation_views += create_explanation_layout(app, explanation_type="local")
     explanation_views += create_explanation_layout(app, explanation_type="global")
+    return html.Div(id="explanation_views", children=explanation_views)
 
+
+def create_layout(app) -> html.Div:
     layout = html.Div(
         id="app-container",
         children=[
@@ -155,7 +158,9 @@ def create_layout(app) -> html.Div:
                 ],
             ),
             # Right column
-            html.Div(id="right-column", className="nine columns", children=explanation_views),
+            html.Div(id="right-column", className="nine columns", children=[
+                create_figure_layout(app)
+            ]),
         ],
     )
     return layout
