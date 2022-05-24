@@ -303,7 +303,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
+.prompt a.copybtn {
     display: none;
 }
 
@@ -370,7 +370,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
 <span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
 <span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
 </pre></div>
@@ -380,7 +381,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">import</span> <span class="nn">sklearn.ensemble</span>
@@ -400,7 +402,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">housing</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">housing</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">()</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">housing</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">housing</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
     <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">housing</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
@@ -452,7 +455,8 @@ column of the transformed numpy array will be the target/label.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transformer</span> <span class="o">=</span> <span class="n">TabularTransform</span><span class="p">(</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">transformer</span> <span class="o">=</span> <span class="n">TabularTransform</span><span class="p">(</span>
     <span class="n">target_transform</span><span class="o">=</span><span class="n">Identity</span><span class="p">()</span>
 <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
@@ -494,7 +498,8 @@ Random Forest MSError 0.24209091231809937
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preprocess</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">preprocess</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -504,7 +509,8 @@ Random Forest MSError 0.24209091231809937
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize a TabularExplainer</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Initialize a TabularExplainer</span>
 <span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
     <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;sensitivity&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">],</span>
     <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;regression&quot;</span><span class="p">,</span>
@@ -535,7 +541,8 @@ Random Forest MSError 0.24209091231809937
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">index</span><span class="o">=</span><span class="mi">0</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">index</span><span class="o">=</span><span class="mi">0</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LIME results:&quot;</span><span class="p">)</span>
 <span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SHAP results:&quot;</span><span class="p">)</span>
@@ -614,7 +621,8 @@ PDP results:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch a dashboard for visualization</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Launch a dashboard for visualization</span>
 <span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span>
     <span class="n">instances</span><span class="o">=</span><span class="n">test_instances</span><span class="p">,</span>
     <span class="n">local_explanations</span><span class="o">=</span><span class="n">local_explanations</span><span class="p">,</span>

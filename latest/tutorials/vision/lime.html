@@ -307,7 +307,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
+.prompt a.copybtn {
     display: none;
 }
 
@@ -374,7 +374,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
 <span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
 <span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
 </pre></div>
@@ -384,7 +385,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">unittest</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">models</span><span class="p">,</span> <span class="n">transforms</span>
@@ -399,7 +401,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the test image</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Load the test image</span>
 <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">PilImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;../data/images/dog_cat.png&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">))</span>
 <span class="c1"># Load the class names</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../data/images/imagenet_class_index.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">read_file</span><span class="p">:</span>
@@ -413,7 +416,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">inception_v3</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">inception_v3</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
     <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">((</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)),</span>
     <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
@@ -428,7 +432,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 <span class="n">input_img</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">to_pil</span><span class="p">())</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">probs_top_5</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">input_img</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">r</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">p</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">idx2label</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span>
@@ -453,7 +458,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">batch_predict</span><span class="p">(</span><span class="n">images</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">batch_predict</span><span class="p">(</span><span class="n">images</span><span class="p">):</span>
     <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
     <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
     <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>

@@ -303,7 +303,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
+.prompt a.copybtn {
     display: none;
 }
 
@@ -370,7 +370,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
 <span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
 <span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
 </pre></div>
@@ -381,7 +382,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -452,7 +454,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.data.tabular</span> <span class="kn">import</span> <span class="n">Tabular</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">omnixai.data.tabular</span> <span class="kn">import</span> <span class="n">Tabular</span>
 <span class="kn">from</span> <span class="nn">omnixai.explainers.data</span> <span class="kn">import</span> <span class="n">DataAnalyzer</span>
 
 <span class="n">tabular_data</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
@@ -553,7 +556,8 @@ Imbalance#1:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Relationship&quot;</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Relationship&quot;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -610,7 +614,8 @@ Imbalance#1:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tabular_data</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">tabular_data</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
     <span class="n">df</span><span class="p">,</span>
     <span class="n">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Workclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Education&#39;</span><span class="p">,</span> <span class="s1">&#39;Marital Status&#39;</span><span class="p">,</span> <span class="s1">&#39;Occupation&#39;</span><span class="p">,</span> <span class="s1">&#39;Country&#39;</span><span class="p">],</span>
     <span class="n">target_column</span><span class="o">=</span><span class="s1">&#39;label&#39;</span>
@@ -663,7 +668,8 @@ Chi square:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We drop these three features because they have relatively low importance scores.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># We drop these three features because they have relatively low importance scores.</span>
 <span class="n">tabular_data</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
     <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span> <span class="s2">&quot;Country&quot;</span><span class="p">]),</span>
     <span class="n">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Workclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Education&#39;</span><span class="p">,</span> <span class="s1">&#39;Marital Status&#39;</span><span class="p">,</span> <span class="s1">&#39;Occupation&#39;</span><span class="p">],</span>
@@ -712,7 +718,8 @@ Chi square:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">import</span> <span class="nn">xgboost</span>
 <span class="kn">from</span> <span class="nn">omnixai.preprocessing.tabular</span> <span class="kn">import</span> <span class="n">TabularTransform</span>
 
@@ -748,7 +755,8 @@ Test accuracy: 0.8593582066635959
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.explainers.tabular</span> <span class="kn">import</span> <span class="n">TabularExplainer</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">omnixai.explainers.tabular</span> <span class="kn">import</span> <span class="n">TabularExplainer</span>
 
 <span class="c1"># Initialize a TabularExplainer</span>
 <span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
@@ -770,7 +778,8 @@ Test accuracy: 0.8593582066635959
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate global explanations</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Generate global explanations</span>
 <span class="n">global_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain_global</span><span class="p">()</span>
 <span class="n">global_explanations</span><span class="p">[</span><span class="s2">&quot;pdp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span>
     <span class="n">features</span><span class="o">=</span><span class="n">tabular_data</span><span class="o">.</span><span class="n">feature_columns</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
@@ -791,7 +800,8 @@ income or a higher income is the cause of more working hours is unclear.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Apply an inverse transform, i.e., converting the numpy array back to `Tabular`</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Apply an inverse transform, i.e., converting the numpy array back to `Tabular`</span>
 <span class="n">test_instances</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="mi">1653</span><span class="p">:</span><span class="mi">1658</span><span class="p">])</span>
 <span class="c1"># Generate local explanations</span>
 <span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">test_instances</span><span class="p">)</span>
@@ -863,7 +873,8 @@ MACE results:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.visualization.dashboard</span> <span class="kn">import</span> <span class="n">Dashboard</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">omnixai.visualization.dashboard</span> <span class="kn">import</span> <span class="n">Dashboard</span>
 
 <span class="c1"># Launch a dashboard for visualization</span>
 <span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span>

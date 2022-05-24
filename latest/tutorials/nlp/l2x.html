@@ -302,7 +302,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
+.prompt a.copybtn {
     display: none;
 }
 
@@ -370,7 +370,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sklearn.ensemble</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_20newsgroups</span>
 
@@ -385,7 +386,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the training and text datasets</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Load the training and text datasets</span>
 <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;alt.atheism&#39;</span><span class="p">,</span> <span class="s1">&#39;soc.religion.christian&#39;</span><span class="p">]</span>
 <span class="n">newsgroups_train</span> <span class="o">=</span> <span class="n">fetch_20newsgroups</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span>
 <span class="n">newsgroups_test</span> <span class="o">=</span> <span class="n">fetch_20newsgroups</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span>
@@ -405,7 +407,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_vectors</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">train_vectors</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
 <span class="n">test_vectors</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">ensemble</span><span class="o">.</span><span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_vectors</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -437,7 +440,8 @@ Test accuracy: 0.925233644859813
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="mi">83</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">idx</span> <span class="o">=</span> <span class="mi">83</span>
 <span class="n">explainer</span> <span class="o">=</span> <span class="n">L2XText</span><span class="p">(</span>
     <span class="n">training_data</span><span class="o">=</span><span class="n">x_train</span><span class="p">,</span>
     <span class="n">predict_function</span><span class="o">=</span><span class="n">predict_function</span>

@@ -304,7 +304,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
+.prompt a.copybtn {
     display: none;
 }
 
@@ -371,7 +371,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -385,7 +386,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Workclass&quot;</span><span class="p">,</span> <span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
@@ -406,7 +408,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">TreeClassifier</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
@@ -425,7 +428,8 @@ Validation accuracy: 0.8446184553968985
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">1653</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">1653</span>
 <span class="n">test_x</span> <span class="o">=</span> <span class="n">tabular_data</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">5</span><span class="p">]</span>
 <span class="n">explanations</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">test_x</span><span class="p">)</span>
 <span class="n">explanations</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>

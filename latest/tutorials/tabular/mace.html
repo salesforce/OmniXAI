@@ -304,7 +304,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
+.prompt a.copybtn {
     display: none;
 }
 
@@ -371,7 +371,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
 <span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
 <span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
 </pre></div>
@@ -381,7 +382,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">import</span> <span class="nn">xgboost</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -397,7 +399,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Workclass&quot;</span><span class="p">,</span> <span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
@@ -469,7 +472,8 @@ column of the transformed numpy array will be the target/label.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">transformer</span> <span class="o">=</span> <span class="n">TabularTransform</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
 <span class="n">class_names</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">class_names</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
@@ -500,7 +504,8 @@ Test accuracy: 0.8668816213726394
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">gbtree</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">predict_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">gbtree</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -515,7 +520,8 @@ Test accuracy: 0.8668816213726394
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">explainer</span> <span class="o">=</span> <span class="n">MACEExplainer</span><span class="p">(</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">explainer</span> <span class="o">=</span> <span class="n">MACEExplainer</span><span class="p">(</span>
     <span class="n">training_data</span><span class="o">=</span><span class="n">tabular_data</span><span class="p">,</span>
     <span class="n">predict_function</span><span class="o">=</span><span class="n">predict_function</span><span class="p">,</span>
     <span class="n">ignored_features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Loss&quot;</span><span class="p">]</span>
@@ -529,7 +535,8 @@ Test accuracy: 0.8668816213726394
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">explanations</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">test_instances</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">explanations</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">test_instances</span><span class="p">)</span>
 <span class="n">explanations</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
 </pre></div>
 </div>

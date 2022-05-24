@@ -303,7 +303,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
+.prompt a.copybtn {
     display: none;
 }
 
@@ -374,7 +374,8 @@ how to use these data objects.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">]],</span>
@@ -388,7 +389,8 @@ how to use these data objects.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.data.tabular</span> <span class="kn">import</span> <span class="n">Tabular</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">omnixai.data.tabular</span> <span class="kn">import</span> <span class="n">Tabular</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
@@ -413,7 +415,8 @@ how to use these data objects.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
     <span class="n">feature_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">],</span>
     <span class="n">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span>
@@ -437,7 +440,8 @@ how to use these data objects.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the data shape</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Get the data shape</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="c1"># Get the raw data values</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raw values:</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -469,7 +473,8 @@ All feature columns: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_pd</span><span class="p">())</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_pd</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -491,7 +496,8 @@ All feature columns: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">]],</span>
     <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">]</span>
 <span class="p">)</span>
@@ -503,7 +509,8 @@ All feature columns: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
     <span class="n">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">],</span>
     <span class="n">target_column</span><span class="o">=</span><span class="s1">&#39;label&#39;</span>
@@ -529,7 +536,8 @@ Target column: label
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The first row:&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The first row:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The second row:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -563,7 +571,8 @@ Swap the two rows:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torchvision</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torchvision</span>
 
 <span class="n">test_data</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;../data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">imgs</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
@@ -584,7 +593,8 @@ Swap the two rows:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.data.image</span> <span class="kn">import</span> <span class="n">Image</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">omnixai.data.image</span> <span class="kn">import</span> <span class="n">Image</span>
 
 <span class="c1"># `batched = True` means `data` contains a batch of images with</span>
 <span class="c1"># shape `(batch_size, height, width)` or `(batch_size, height, width, channel)`.</span>
@@ -597,7 +607,8 @@ Swap the two rows:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data shape: </span><span class="si">{</span><span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data shape: </span><span class="si">{</span><span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image shape: </span><span class="si">{</span><span class="n">images</span><span class="o">.</span><span class="n">image_shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The first image (Pillow):&quot;</span><span class="p">)</span>
@@ -661,7 +672,8 @@ Loop:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy array shape: </span><span class="si">{</span><span class="n">images</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy array shape: </span><span class="si">{</span><span class="n">images</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy array shape: </span><span class="si">{</span><span class="n">images</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy array shape: </span><span class="si">{</span><span class="n">images</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">hwc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -682,7 +694,8 @@ Numpy array shape: (10000, 1, 28, 28)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PilImage</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PilImage</span>
 
 <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">PilImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;../data/images/camera.jpg&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data shape: </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -714,7 +727,8 @@ The image (Pillow):
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy array shape: </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy array shape: </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy array shape: </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy array shape: </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">hwc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -738,7 +752,8 @@ Numpy array shape: (1, 3, 224, 224)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.data.text</span> <span class="kn">import</span> <span class="n">Text</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">omnixai.data.text</span> <span class="kn">import</span> <span class="n">Text</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">Text</span><span class="p">([</span>
     <span class="s2">&quot;What a great movie! if you have no taste.&quot;</span><span class="p">,</span>
@@ -756,7 +771,8 @@ Numpy array shape: (1, 3, 224, 224)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of sentences: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of sentences: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The first sentence: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raw strings: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -777,7 +793,8 @@ Raw strings: [&#39;What a great movie! if you have no taste.&#39;, &#39;it was a
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_tokens</span><span class="p">())</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_tokens</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -797,7 +814,8 @@ Raw strings: [&#39;What a great movie! if you have no taste.&#39;, &#39;it was a
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.data.timeseries</span> <span class="kn">import</span> <span class="n">Timeseries</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">omnixai.data.timeseries</span> <span class="kn">import</span> <span class="n">Timeseries</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
    <span class="p">[[</span><span class="s1">&#39;2017-12-27&#39;</span><span class="p">,</span> <span class="mf">1263.94091</span><span class="p">,</span> <span class="mf">394.507</span><span class="p">,</span> <span class="mf">16.530</span><span class="p">],</span>
     <span class="p">[</span><span class="s1">&#39;2017-12-28&#39;</span><span class="p">,</span> <span class="mf">1299.86398</span><span class="p">,</span> <span class="mf">506.424</span><span class="p">,</span> <span class="mf">14.162</span><span class="p">],</span>
@@ -814,7 +832,8 @@ Raw strings: [&#39;What a great movie! if you have no taste.&#39;, &#39;it was a
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_a</span> <span class="o">=</span> <span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ts_a</span> <span class="o">=</span> <span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 <span class="n">ts_b</span> <span class="o">=</span> <span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">df</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -824,7 +843,8 @@ Raw strings: [&#39;What a great movie! if you have no taste.&#39;, &#39;it was a
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch size of ts_a: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch size of ts_a: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch size of ts_b: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_b</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Length of ts_a: </span><span class="si">{</span><span class="n">ts_a</span><span class="o">.</span><span class="n">ts_len</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To pandas dataframe:&quot;</span><span class="p">)</span>

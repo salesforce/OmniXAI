@@ -302,7 +302,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
+.prompt a.copybtn {
     display: none;
 }
 
@@ -369,7 +369,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">transformers</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">transformers</span>
 <span class="kn">from</span> <span class="nn">omnixai.data.text</span> <span class="kn">import</span> <span class="n">Text</span>
 <span class="kn">from</span> <span class="nn">omnixai.explainers.nlp</span> <span class="kn">import</span> <span class="n">ShapText</span>
 </pre></div>
@@ -379,7 +380,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A transformer model for sentiment analysis</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># A transformer model for sentiment analysis</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">transformers</span><span class="o">.</span><span class="n">pipeline</span><span class="p">(</span>
     <span class="s1">&#39;sentiment-analysis&#39;</span><span class="p">,</span>
     <span class="n">model</span><span class="o">=</span><span class="s1">&#39;distilbert-base-uncased-finetuned-sst-2-english&#39;</span><span class="p">,</span>
@@ -392,7 +394,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Text</span><span class="p">([</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Text</span><span class="p">([</span>
     <span class="s2">&quot;What a great movie! if you have no taste.&quot;</span><span class="p">,</span>
     <span class="s2">&quot;it was a fantastic performance!&quot;</span><span class="p">,</span>
     <span class="s2">&quot;best film ever&quot;</span><span class="p">,</span>

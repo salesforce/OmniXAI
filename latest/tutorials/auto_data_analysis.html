@@ -303,7 +303,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
+.prompt a.copybtn {
     display: none;
 }
 
@@ -370,7 +370,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
 <span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
 <span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
 </pre></div>
@@ -380,7 +381,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">omnixai.data.tabular</span> <span class="kn">import</span> <span class="n">Tabular</span>
 <span class="kn">from</span> <span class="nn">omnixai.explainers.data</span> <span class="kn">import</span> <span class="n">DataAnalyzer</span>
@@ -394,7 +396,8 @@ two parameters to None.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the dataset to analyze</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Load the dataset to analyze</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;adult.data&#39;</span><span class="p">),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
 <span class="c1"># The feature column names for this dataset</span>
 <span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span>
@@ -421,7 +424,8 @@ times with different parameters.</p>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize a `DataAnalyzer` explainer.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Initialize a `DataAnalyzer` explainer.</span>
 <span class="c1"># We can choose multiple explainers/analyzers by specifying analyzer names.</span>
 <span class="c1"># In this example, the first explainer is for feature correlation analysis and</span>
 <span class="c1"># the last two explainers are for feature selection and</span>
@@ -514,7 +518,8 @@ Chi square:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch a dashboard for visualization.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Launch a dashboard for visualization.</span>
 <span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span><span class="n">global_explanations</span><span class="o">=</span><span class="n">explanations</span><span class="p">)</span>
 <span class="n">dashboard</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
