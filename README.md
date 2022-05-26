@@ -4,7 +4,7 @@
     <br>
 <p>
 
-# OmniXAI: Making Explainable AI Easy for Any Data, Any Models and Any Users
+# OmniXAI: A Library for Explainable AI
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -396,7 +396,7 @@ You can find more details in our technical report: TODO
 If you're using OmniXAI in your research or applications, please cite using this BibTeX:
 ```
 @article{wenzhuo2022-omnixai,
-  author    =  {Wenzhuo Yang and Hung Le and Steven Hoi and Silvio Savarese},
+  author    =  {Wenzhuo Yang and Hung Le and Silvio Savarese and Steven Hoi},
   title     = {TODO},
   journal   = {CoRR},
   volume    = {TODO},
