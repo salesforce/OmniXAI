@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="TabularExplainer for house-price prediction (regression)" href="auto_tabular_regression.html" />
-    <link rel="prev" title="DataAnalyzer for feature analysis" href="auto_data_analysis.html" /> 
+    <link rel="next" title="TabularExplainer for house-price prediction (regression)" href="tabular_regression.html" />
+    <link rel="prev" title="DataAnalyzer for feature analysis" href="data_analysis.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,14 +49,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials &amp; Example Code</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#basics">Basics</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#auto-explainers">Auto-Explainers</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="auto_data_analysis.html">DataAnalyzer for feature analysis</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#applications">Applications</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="data_analysis.html">DataAnalyzer for feature analysis</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">TabularExplainer for income prediction (classification)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_tabular_regression.html">TabularExplainer for house-price prediction (regression)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_vision.html">VisionExplainer for image classification</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_nlp.html">NLPExplainer for sentiment analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_nlp_imdb.html">NLPExplainer on IMDB dataset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tabular_regression.html">TabularExplainer for house-price prediction (regression)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vision.html">VisionExplainer for image classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nlp.html">NLPExplainer for sentiment analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nlp_imdb.html">NLPExplainer on IMDB dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="omnixai_in_ml_workflow.html">OmniXAI in a ML workflow</a></li>
 </ul>
 </li>
@@ -85,7 +85,7 @@
           <li><a href="../tutorials.html">Tutorials &amp; Example Code</a> &raquo;</li>
       <li>TabularExplainer for income prediction (classification)</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/tutorials/auto_tabular_classification.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/tutorials/tabular_classification.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -365,7 +365,7 @@ div.rendered_html tbody tr:hover {
 </style>
 <section id="TabularExplainer-for-income-prediction-(classification)">
 <h1>TabularExplainer for income prediction (classification)<a class="headerlink" href="#TabularExplainer-for-income-prediction-(classification)" title="Permalink to this headline"></a></h1>
-<p>The class <code class="docutils literal notranslate"><span class="pre">TabularExplainer</span></code> is derived from <code class="docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code> for tabular data, acting as a factory of the supported tabular explainers such as LIME, SHAP and MACE. <code class="docutils literal notranslate"><span class="pre">TabularExplainer</span></code> provides a unified easy-to-use interface for all the supported explainers. In practice, we recommend applying <code class="docutils literal notranslate"><span class="pre">TabularExplainer</span></code> to generate explanations instead of using a specific explainer in the package <code class="docutils literal notranslate"><span class="pre">omnixai.explainers.tabular</span></code>.</p>
+<p>The class <code class="docutils literal notranslate"><span class="pre">TabularExplainer</span></code> is designed for tabular data, acting as a factory of the supported tabular explainers such as LIME, SHAP and MACE. <code class="docutils literal notranslate"><span class="pre">TabularExplainer</span></code> provides a unified easy-to-use interface for all the supported explainers. In practice, we recommend applying <code class="docutils literal notranslate"><span class="pre">TabularExplainer</span></code> to generate explanations instead of using a specific explainer in the package <code class="docutils literal notranslate"><span class="pre">omnixai.explainers.tabular</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -511,8 +511,8 @@ Test accuracy: 0.8668816213726394
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">explainers</span></code>: The names of the explainers to apply, e.g., [“lime”, “shap”, “mace”, “pdp”].</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: The data used to initialize explainers. <code class="docutils literal notranslate"><span class="pre">data</span></code> is the training dataset for training the machine learning model. If the training dataset is too large, <code class="docutils literal notranslate"><span class="pre">data</span></code> can be a subset of it by applying <code class="docutils literal notranslate"><span class="pre">omnixai.sampler.tabular.Sampler.subsample</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The ML model to explain, e.g., a scikit-learn model, a tensorflow model or a pytorch model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">preprocess</span></code>: The preprocessing function converting the raw data into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The ML model to explain, e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preprocess</span></code>: The preprocessing function converting the raw data (a <code class="docutils literal notranslate"><span class="pre">Tabular</span></code> instance) into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">postprocess</span></code> (optional): The postprocessing function transforming the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code> to a user-specific form, e.g., the predicted probability for each class.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: The task type, e.g., “classification” or “regression”.</p></li>
 </ul>
@@ -592,7 +592,7 @@ LIME results:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_tabular_classification_14_1.png" src="../_images/tutorials_auto_tabular_classification_14_1.png" />
+<img alt="../_images/tutorials_tabular_classification_14_1.png" src="../_images/tutorials_tabular_classification_14_1.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -607,7 +607,7 @@ SHAP results:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_tabular_classification_14_3.png" src="../_images/tutorials_auto_tabular_classification_14_3.png" />
+<img alt="../_images/tutorials_tabular_classification_14_3.png" src="../_images/tutorials_tabular_classification_14_3.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -622,7 +622,7 @@ MACE results:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_tabular_classification_14_5.png" src="../_images/tutorials_auto_tabular_classification_14_5.png" />
+<img alt="../_images/tutorials_tabular_classification_14_5.png" src="../_images/tutorials_tabular_classification_14_5.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -637,7 +637,7 @@ PDP results:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_tabular_classification_14_7.png" src="../_images/tutorials_auto_tabular_classification_14_7.png" />
+<img alt="../_images/tutorials_tabular_classification_14_7.png" src="../_images/tutorials_tabular_classification_14_7.png" />
 </div>
 </div>
 <p>Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test instance, the generated local explanations, the generated global explanations, the class names, and additional parameters for visualization (e.g., only plotting the selected features in PDP).</p>
@@ -688,8 +688,8 @@ Dash is running on http://127.0.0.1:8050/
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="auto_data_analysis.html" class="btn btn-neutral float-left" title="DataAnalyzer for feature analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="auto_tabular_regression.html" class="btn btn-neutral float-right" title="TabularExplainer for house-price prediction (regression)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="data_analysis.html" class="btn btn-neutral float-left" title="DataAnalyzer for feature analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tabular_regression.html" class="btn btn-neutral float-right" title="TabularExplainer for house-price prediction (regression)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

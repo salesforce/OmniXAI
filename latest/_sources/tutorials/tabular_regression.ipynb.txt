@@ -11,7 +11,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The class `TabularExplainer` is derived from `AutoExplainerBase` for tabular data, acting as a factory of the supported tabular explainers such as LIME, SHAP and MACE. `TabularExplainer` provides a unified easy-to-use interface for all the supported explainers. In practice, we recommend applying `TabularExplainer` to generate explanations instead of using a specific explainer in the package `omnixai.explainers.tabular`."
+    "The class `TabularExplainer` is designed for tabular data, acting as a factory of the supported tabular explainers such as LIME, SHAP and MACE. `TabularExplainer` provides a unified easy-to-use interface for all the supported explainers. In practice, we recommend applying `TabularExplainer` to generate explanations instead of using a specific explainer in the package `omnixai.explainers.tabular`."
    ]
   },
   {
@@ -154,8 +154,8 @@
     "\n",
     "  - `explainers`: The names of the explainers to apply, e.g., [\"lime\", \"shap\", \"sensitivity\", \"pdp\"].\n",
     "  - `data`: The data used to initialize explainers. ``data`` is the training dataset for training the machine learning model. If the training dataset is too large, ``data`` can be a subset of it by applying `omnixai.sampler.tabular.Sampler.subsample`.\n",
-    "  - `model`: The ML model to explain, e.g., a scikit-learn model, a tensorflow model or a pytorch model.\n",
-    "  - `preprocess`: The preprocessing function converting the raw data into the inputs of `model`.\n",
+    "  - `model`: The ML model to explain, e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.\n",
+    "  - `preprocess`: The preprocessing function converting the raw data (a `Tabular` instance) into the inputs of `model`.\n",
     "  - `postprocess` (optional): The postprocessing function transforming the outputs of ``model`` to a user-specific form, e.g., the predicted probability for each class.\n",
     "  - `mode`: The task type, e.g., \"classification\" or \"regression\".\n",
     "  \n",

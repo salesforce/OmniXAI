@@ -124,7 +124,7 @@
     "To initialize a MACEExplainer explainer, we need to set:\n",
     "  \n",
     "  - `training_data`: The data used to initialize a MACEExplainer explainer. ``training_data`` can be the training dataset for training the machine learning model.\n",
-    "  - `predict_function`: The prediction function corresponding to the model to explain. The inputs of ``predict_function`` should be an `Timeseries` instance. The outputs of ``predict_function`` are anomaly scores (higher scores imply more anomalous) for anomaly detection.\n",
+    "  - `predict_function`: The prediction function corresponding to the model to explain. The input of ``predict_function`` should be an `Timeseries` instance. The outputs of ``predict_function`` are anomaly scores (higher scores imply more anomalous) for anomaly detection.\n",
     "  - `threshold`: The threshold to determine whether an instance is anomalous, e.g., anomaly score > threshold."
    ]
   },

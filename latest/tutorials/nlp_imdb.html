@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="TimeseriesExplainer for time series anomaly detection" href="auto_timeseries.html" />
-    <link rel="prev" title="NLPExplainer for sentiment analysis" href="auto_nlp.html" /> 
+    <link rel="next" title="TimeseriesExplainer for time series anomaly detection" href="timeseries.html" />
+    <link rel="prev" title="NLPExplainer for sentiment analysis" href="nlp.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,14 +49,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials &amp; Example Code</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#basics">Basics</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#auto-explainers">Auto-Explainers</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="auto_data_analysis.html">DataAnalyzer for feature analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_tabular_classification.html">TabularExplainer for income prediction (classification)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_tabular_regression.html">TabularExplainer for house-price prediction (regression)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_vision.html">VisionExplainer for image classification</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_nlp.html">NLPExplainer for sentiment analysis</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#applications">Applications</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="data_analysis.html">DataAnalyzer for feature analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tabular_classification.html">TabularExplainer for income prediction (classification)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tabular_regression.html">TabularExplainer for house-price prediction (regression)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vision.html">VisionExplainer for image classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nlp.html">NLPExplainer for sentiment analysis</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">NLPExplainer on IMDB dataset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="omnixai_in_ml_workflow.html">OmniXAI in a ML workflow</a></li>
 </ul>
 </li>
@@ -85,7 +85,7 @@
           <li><a href="../tutorials.html">Tutorials &amp; Example Code</a> &raquo;</li>
       <li>NLPExplainer on IMDB dataset</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/tutorials/auto_nlp_imdb.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/tutorials/nlp_imdb.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -365,7 +365,7 @@ div.rendered_html tbody tr:hover {
 </style>
 <section id="NLPExplainer-on-IMDB-dataset">
 <h1>NLPExplainer on IMDB dataset<a class="headerlink" href="#NLPExplainer-on-IMDB-dataset" title="Permalink to this headline"></a></h1>
-<p>The class <code class="docutils literal notranslate"><span class="pre">NLPExplainer</span></code> is derived from <code class="docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code> for NLP tasks, acting as a factory of the supported NLP explainers such as integrated-gradient and LIME. <code class="docutils literal notranslate"><span class="pre">NLPExplainer</span></code> provides a unified easy-to-use interface for all the supported explainers. Because the supported NLP explainers in the current version are limited, one can either use <code class="docutils literal notranslate"><span class="pre">NLPExplainer</span></code> or a specific explainer in the package <code class="docutils literal notranslate"><span class="pre">omnixai.explainers.nlp</span></code> to generate explanations.</p>
+<p>The class <code class="docutils literal notranslate"><span class="pre">NLPExplainer</span></code> is designed for NLP tasks, acting as a factory of the supported NLP explainers such as integrated-gradient and LIME. <code class="docutils literal notranslate"><span class="pre">NLPExplainer</span></code> provides a unified easy-to-use interface for all the supported explainers. Because the supported NLP explainers in the current version are limited, one can either use <code class="docutils literal notranslate"><span class="pre">NLPExplainer</span></code> or a specific explainer in the package <code class="docutils literal notranslate"><span class="pre">omnixai.explainers.nlp</span></code> to generate explanations.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -397,7 +397,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>We apply a simple CNN model for this text classification task. Note that the method <code class="docutils literal notranslate"><span class="pre">forward</span></code> has two inputs <code class="docutils literal notranslate"><span class="pre">inputs</span></code> (token ids) and <code class="docutils literal notranslate"><span class="pre">masks</span></code> (the sentence masks). The first input of the model must be the token ids.</p>
+<p>We apply a simple CNN model for this text classification task. Note that the method <code class="docutils literal notranslate"><span class="pre">forward</span></code> has two inputs <code class="docutils literal notranslate"><span class="pre">inputs</span></code> (token ids) and <code class="docutils literal notranslate"><span class="pre">masks</span></code> (the sentence masks). Note that the first input of the model must be the token ids.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -435,7 +435,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>We use a <code class="docutils literal notranslate"><span class="pre">Text</span></code> object to represent a batch of texts/sentences. The package <code class="docutils literal notranslate"><span class="pre">omnixai.preprocessing.text</span></code> provides some transforms related to text data such as <code class="docutils literal notranslate"><span class="pre">Tfidf</span></code> and <code class="docutils literal notranslate"><span class="pre">Word2Id</span></code>.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Text</span></code> object is used to represent a batch of texts/sentences. The package <code class="docutils literal notranslate"><span class="pre">omnixai.preprocessing.text</span></code> provides some transforms related to text data such as <code class="docutils literal notranslate"><span class="pre">Tfidf</span></code> and <code class="docutils literal notranslate"><span class="pre">Word2Id</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -552,7 +552,7 @@ Test accuracy: 0.8492442322991249
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">explainers</span></code>: The names of the explainers to apply, e.g., [“ig”, “lime”].</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The ML model to explain, e.g., a scikit-learn model, a tensorflow model or a pytorch model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">preprocess</span></code>: The preprocessing function converting the raw data into the inputs of model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preprocess</span></code>: The preprocessing function converting the raw data (a <code class="docutils literal notranslate"><span class="pre">Text</span></code> instance) into the inputs of model.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">postprocess</span></code>: The postprocessing function transforming the outputs of model to a user-specific form, e.g., the predicted probability for each class.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: The task type, e.g., “classification” or “regression”.</p></li>
 </ul>
@@ -674,7 +674,7 @@ Counterfactual results:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_nlp_imdb_16_6.png" src="../_images/tutorials_auto_nlp_imdb_16_6.png" />
+<img alt="../_images/tutorials_nlp_imdb_16_6.png" src="../_images/tutorials_nlp_imdb_16_6.png" />
 </div>
 </div>
 <p>Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test instances and the generated local explanations.</p>
@@ -737,8 +737,8 @@ INFO:werkzeug: * Running on http://127.0.0.1:8050/ (Press CTRL+C to quit)
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="auto_nlp.html" class="btn btn-neutral float-left" title="NLPExplainer for sentiment analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="auto_timeseries.html" class="btn btn-neutral float-right" title="TimeseriesExplainer for time series anomaly detection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="nlp.html" class="btn btn-neutral float-left" title="NLPExplainer for sentiment analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="timeseries.html" class="btn btn-neutral float-right" title="TimeseriesExplainer for time series anomaly detection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

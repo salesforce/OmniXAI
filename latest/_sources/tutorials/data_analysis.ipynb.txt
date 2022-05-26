@@ -5,7 +5,7 @@
    "metadata": {},
    "source": [
     "### DataAnalyzer for feature analysis\n",
-    "The class `DataAnalyzer` is derived from `AutoExplainerBase` for data analysis, e.g., feature correlation analysis and feature imbalance analysis, allowing users to choose multiple explainers and generate different explanations at the same time."
+    "The class `DataAnalyzer` is derived from `AutoExplainerBase` for data analysis and exploration, e.g., feature correlation analysis, feature imbalance analysis and feature selection."
    ]
   },
   {
@@ -38,7 +38,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The dataset to analyze should be an instance of `Tabular` constructed from a pandas dataframe or a numpy array. The dataset used in this example is for income prediction (https://archive.ics.uci.edu/ml/datasets/adult). We load the raw data from a dumped numpy array and then construct an instance of `Tabular` by specifying the raw data, the feature names, the categorical feature names and the target/label column. If there are no categorical features or target/label column, one can set these two parameters to None."
+    "The dataset to analyze should be an instance of `Tabular` constructed from a pandas dataframe or a numpy array. The dataset used in this example is for income prediction (https://archive.ics.uci.edu/ml/datasets/adult). We load the raw data from a dumped numpy array and then construct an instance of `Tabular` by specifying the raw data, the feature names, the categorical feature names and the target/label column. If there are no categorical features or target/label column, these two parameters are set to None."
    ]
   },
   {
@@ -49,14 +49,14 @@
    "source": [
     "# Load the dataset to analyze\n",
     "data = np.genfromtxt(os.path.join('data', 'adult.data'), delimiter=', ', dtype=str)\n",
-    "# The feature column names for this dataset\n",
+    "# The column names for this dataset\n",
     "feature_names = [\n",
     "    \"Age\", \"Workclass\", \"fnlwgt\", \"Education\",\n",
     "    \"Education-Num\", \"Marital Status\", \"Occupation\",\n",
     "    \"Relationship\", \"Race\", \"Sex\", \"Capital Gain\",\n",
     "    \"Capital Loss\", \"Hours per week\", \"Country\", \"label\"\n",
     "]\n",
-    "# Construct a `Tabular` instance representing a tabular dataset, \n",
+    "# Construct a `Tabular` instance for this tabular dataset, \n",
     "# e.g., specifying feature columns, categorical feature names and target column name.\n",
     "tabular_data = Tabular(\n",
     "    data,\n",
@@ -70,9 +70,9 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "We now create an explainer called `DataAnalyzer` for data analysis. In this example, we do feature correlation analysis and feature imbalance analysis. The parameter `explainers` in `DataAnalyzer` indicates the names of the analyzers we want to apply, e.g., \"correlation\" is for feature correlation analysis, \"imbalance\" is for feature imbalance analysis. If one analyzer is applied more than once, one can append \"#n\" (n is an integer) to the analyzer name, e.g., \"imbalance\" is applied four times with different parameters.\n",
+    "We now create an explainer called `DataAnalyzer` for data analysis. The parameter `explainers` in `DataAnalyzer` indicates the names of the analyzers we want to apply, e.g., \"correlation\" is for feature correlation analysis, \"imbalance\" is for feature imbalance analysis. If an analyzer is applied more than once, \"#n\" (n is an integer) is appended to the analyzer name, e.g., \"imbalance\" is applied four times with different parameters.\n",
     "\n",
-    "Data analysis is categorized as \"global explanation\" in the library. To generate explanations, one calls `explain_global` with the parameters for the selected analyzers. For example, \"imbalance#0\" analyzes the feature \"Sex\", \"imbalance#3\" analyzes the cross-feature \"Marital Status, Age\"."
+    "Data analysis is categorized as \"global explanation\" in the library. To generate explanations, `explain_global` is called with the additional parameters for the selected analyzers. For example, \"imbalance#0\" analyzes the feature \"Sex\", \"imbalance#3\" analyzes the cross-feature \"Marital Status, Age\"."
    ]
   },
   {

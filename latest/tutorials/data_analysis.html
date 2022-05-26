@@ -22,7 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="TabularExplainer for income prediction (classification)" href="auto_tabular_classification.html" />
+    <link rel="next" title="TabularExplainer for income prediction (classification)" href="tabular_classification.html" />
     <link rel="prev" title="Examples of data preprocessing" href="misc/preprocessing.html" /> 
 </head>
 
@@ -49,14 +49,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials &amp; Example Code</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#basics">Basics</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#auto-explainers">Auto-Explainers</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#applications">Applications</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">DataAnalyzer for feature analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_tabular_classification.html">TabularExplainer for income prediction (classification)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_tabular_regression.html">TabularExplainer for house-price prediction (regression)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_vision.html">VisionExplainer for image classification</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_nlp.html">NLPExplainer for sentiment analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_nlp_imdb.html">NLPExplainer on IMDB dataset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tabular_classification.html">TabularExplainer for income prediction (classification)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tabular_regression.html">TabularExplainer for house-price prediction (regression)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vision.html">VisionExplainer for image classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nlp.html">NLPExplainer for sentiment analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nlp_imdb.html">NLPExplainer on IMDB dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="omnixai_in_ml_workflow.html">OmniXAI in a ML workflow</a></li>
 </ul>
 </li>
@@ -85,7 +85,7 @@
           <li><a href="../tutorials.html">Tutorials &amp; Example Code</a> &raquo;</li>
       <li>DataAnalyzer for feature analysis</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/tutorials/auto_data_analysis.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/tutorials/data_analysis.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -365,7 +365,7 @@ div.rendered_html tbody tr:hover {
 </style>
 <section id="DataAnalyzer-for-feature-analysis">
 <h1>DataAnalyzer for feature analysis<a class="headerlink" href="#DataAnalyzer-for-feature-analysis" title="Permalink to this headline"></a></h1>
-<p>The class <code class="docutils literal notranslate"><span class="pre">DataAnalyzer</span></code> is derived from <code class="docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code> for data analysis, e.g., feature correlation analysis and feature imbalance analysis, allowing users to choose multiple explainers and generate different explanations at the same time.</p>
+<p>The class <code class="docutils literal notranslate"><span class="pre">DataAnalyzer</span></code> is derived from <code class="docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code> for data analysis and exploration, e.g., feature correlation analysis, feature imbalance analysis and feature selection.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -390,8 +390,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>The dataset to analyze should be an instance of <code class="docutils literal notranslate"><span class="pre">Tabular</span></code> constructed from a pandas dataframe or a numpy array. The dataset used in this example is for income prediction (<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/adult">https://archive.ics.uci.edu/ml/datasets/adult</a>). We load the raw data from a dumped numpy array and then construct an instance of <code class="docutils literal notranslate"><span class="pre">Tabular</span></code> by specifying the raw data, the feature names, the categorical feature names and the target/label column. If there are no categorical features or target/label column, one can set these
-two parameters to None.</p>
+<p>The dataset to analyze should be an instance of <code class="docutils literal notranslate"><span class="pre">Tabular</span></code> constructed from a pandas dataframe or a numpy array. The dataset used in this example is for income prediction (<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/adult">https://archive.ics.uci.edu/ml/datasets/adult</a>). We load the raw data from a dumped numpy array and then construct an instance of <code class="docutils literal notranslate"><span class="pre">Tabular</span></code> by specifying the raw data, the feature names, the categorical feature names and the target/label column. If there are no categorical features or target/label column, these two
+parameters are set to None.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -399,14 +399,14 @@ two parameters to None.</p>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Load the dataset to analyze</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;adult.data&#39;</span><span class="p">),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
-<span class="c1"># The feature column names for this dataset</span>
+<span class="c1"># The column names for this dataset</span>
 <span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Workclass&quot;</span><span class="p">,</span> <span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Country&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span>
 <span class="p">]</span>
-<span class="c1"># Construct a `Tabular` instance representing a tabular dataset,</span>
+<span class="c1"># Construct a `Tabular` instance for this tabular dataset,</span>
 <span class="c1"># e.g., specifying feature columns, categorical feature names and target column name.</span>
 <span class="n">tabular_data</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
@@ -417,9 +417,8 @@ two parameters to None.</p>
 </pre></div>
 </div>
 </div>
-<p>We now create an explainer called <code class="docutils literal notranslate"><span class="pre">DataAnalyzer</span></code> for data analysis. In this example, we do feature correlation analysis and feature imbalance analysis. The parameter <code class="docutils literal notranslate"><span class="pre">explainers</span></code> in <code class="docutils literal notranslate"><span class="pre">DataAnalyzer</span></code> indicates the names of the analyzers we want to apply, e.g., “correlation” is for feature correlation analysis, “imbalance” is for feature imbalance analysis. If one analyzer is applied more than once, one can append “#n” (n is an integer) to the analyzer name, e.g., “imbalance” is applied four
-times with different parameters.</p>
-<p>Data analysis is categorized as “global explanation” in the library. To generate explanations, one calls <code class="docutils literal notranslate"><span class="pre">explain_global</span></code> with the parameters for the selected analyzers. For example, “imbalance#0” analyzes the feature “Sex”, “imbalance#3” analyzes the cross-feature “Marital Status, Age”.</p>
+<p>We now create an explainer called <code class="docutils literal notranslate"><span class="pre">DataAnalyzer</span></code> for data analysis. The parameter <code class="docutils literal notranslate"><span class="pre">explainers</span></code> in <code class="docutils literal notranslate"><span class="pre">DataAnalyzer</span></code> indicates the names of the analyzers we want to apply, e.g., “correlation” is for feature correlation analysis, “imbalance” is for feature imbalance analysis. If an analyzer is applied more than once, “#n” (n is an integer) is appended to the analyzer name, e.g., “imbalance” is applied four times with different parameters.</p>
+<p>Data analysis is categorized as “global explanation” in the library. To generate explanations, <code class="docutils literal notranslate"><span class="pre">explain_global</span></code> is called with the additional parameters for the selected analyzers. For example, “imbalance#0” analyzes the feature “Sex”, “imbalance#3” analyzes the cross-feature “Marital Status, Age”.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -465,7 +464,7 @@ Correlation:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_data_analysis_6_1.png" src="../_images/tutorials_auto_data_analysis_6_1.png" />
+<img alt="../_images/tutorials_data_analysis_6_1.png" src="../_images/tutorials_data_analysis_6_1.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -480,7 +479,7 @@ Imbalance#0:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_data_analysis_6_3.png" src="../_images/tutorials_auto_data_analysis_6_3.png" />
+<img alt="../_images/tutorials_data_analysis_6_3.png" src="../_images/tutorials_data_analysis_6_3.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -495,7 +494,7 @@ Mutual information:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_data_analysis_6_5.png" src="../_images/tutorials_auto_data_analysis_6_5.png" />
+<img alt="../_images/tutorials_data_analysis_6_5.png" src="../_images/tutorials_data_analysis_6_5.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -510,7 +509,7 @@ Chi square:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_auto_data_analysis_6_7.png" src="../_images/tutorials_auto_data_analysis_6_7.png" />
+<img alt="../_images/tutorials_data_analysis_6_7.png" src="../_images/tutorials_data_analysis_6_7.png" />
 </div>
 </div>
 <p>Given the generated explanations, we can launch a dashboard (a Dash app) for visualization. Because the explanations in this example are “global explanations”, <code class="docutils literal notranslate"><span class="pre">global_explanations</span></code> is set for <code class="docutils literal notranslate"><span class="pre">Dashboard</span></code>.</p>
@@ -554,7 +553,7 @@ Dash is running on http://127.0.0.1:8050/
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="misc/preprocessing.html" class="btn btn-neutral float-left" title="Examples of data preprocessing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="auto_tabular_classification.html" class="btn btn-neutral float-right" title="TabularExplainer for income prediction (classification)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tabular_classification.html" class="btn btn-neutral float-right" title="TabularExplainer for income prediction (classification)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

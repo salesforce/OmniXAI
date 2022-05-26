@@ -49,7 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../tutorials.html">Tutorials &amp; Example Code</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#basics">Basics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#auto-explainers">Auto-Explainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#applications">Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#tabular-explainers">Tabular Explainers</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../tutorials.html#vision-explainers">Vision Explainers</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="ce_imagenet.html">Counterfactual explanation on ImageNet</a></li>
@@ -509,7 +509,7 @@ Test accuracy: 0.989799976348877
 <p>To initialize <code class="docutils literal notranslate"><span class="pre">ContrastiveExplainer</span></code>, we need to set the following parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The ML model to explain, e.g., <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code> or <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">preprocess_function</span></code>: The preprocessing function that converts the raw data into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preprocess_function</span></code>: The preprocessing function that converts the raw data (a <code class="docutils literal notranslate"><span class="pre">Image</span></code> instance) into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
 <li><p>“optimization parameters”: e.g., <code class="docutils literal notranslate"><span class="pre">binary_search_steps</span></code>, <code class="docutils literal notranslate"><span class="pre">num_iterations</span></code>. Please refer to the docs for more details.</p></li>
 </ul>
 <div class="nbinput nblast docutils container">

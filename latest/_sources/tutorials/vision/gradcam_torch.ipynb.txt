@@ -93,7 +93,7 @@
     "To initialize `GradCAM`, we need to set the following parameters:\n",
     "\n",
     "  - `model`: The ML model to explain, e.g., `tf.keras.Model` or `torch.nn.Module`.\n",
-    "  - `preprocess`: The preprocessing function converting the raw data into the inputs of `model`.\n",
+    "  - `preprocess`: The preprocessing function converting the raw data (a `Image` instance) into the inputs of `model`.\n",
     "  - `target_layer`: The target convolutional layer for explanation, which can be `tf.keras.layers.Layer` or `torch.nn.Module`.\n",
     "  - `mode`: The task type, e.g., \"classification\" or \"regression\"."
    ]

@@ -11,19 +11,19 @@ Basics
 
 .. _tutorial:
 
-Auto-Explainers
+Applications
 ---------------------
 .. toctree::
    :maxdepth: 2
    :glob:
 
-   tutorials/auto_data_analysis.ipynb
-   tutorials/auto_tabular_classification.ipynb
-   tutorials/auto_tabular_regression.ipynb
-   tutorials/auto_vision.ipynb
-   tutorials/auto_nlp.ipynb
-   tutorials/auto_nlp_imdb.ipynb
-   tutorials/auto_timeseries.ipynb
+   tutorials/data_analysis.ipynb
+   tutorials/tabular_classification.ipynb
+   tutorials/tabular_regression.ipynb
+   tutorials/vision.ipynb
+   tutorials/nlp.ipynb
+   tutorials/nlp_imdb.ipynb
+   tutorials/timeseries.ipynb
    tutorials/omnixai_in_ml_workflow.ipynb
 
 Tabular Explainers

@@ -77,7 +77,7 @@
     "To initialize `CounterfactualExplainer`, we need to set the following parameters:\n",
     "  \n",
     "  - `model`: The ML model to explain, e.g., `torch.nn.Module` or `tf.keras.Model`.\n",
-    "  - `preprocess_function`: The preprocessing function that converts the raw data into the inputs of `model`.\n",
+    "  - `preprocess_function`: The preprocessing function that converts the raw data (a `image` instance) into the inputs of `model`.\n",
     "  - \"optimization parameters\": e.g., `binary_search_steps`, `num_iterations`. Please refer to the docs for more details.\n",
     "  \n",
     "The model considered here is a ResNet model pretrained on ImageNet. The preprocessing function takes an `Image` instance as its input and outputs the processed features that the ML model consumes. In this example, the `Image` object is converted into a torch tensor via the defined `transform`."

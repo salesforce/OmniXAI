@@ -11,7 +11,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The class `TimeseriesExplainer` is derived from `AutoExplainerBase` for time series data, acting as a factory of the supported tabular explainers such as SHAP and MACE. `TimeseriesExplainer` provides a unified easy-to-use interface for all the supported explainers. In practice, we recommend applying `TimeseriesExplainer` to generate explanations instead of using a specific explainer in the package `omnixai.explainers.timeseries`."
+    "The class `TimeseriesExplainer` is designed for time series data, acting as a factory of the supported tabular explainers such as SHAP and MACE. `TimeseriesExplainer` provides a unified easy-to-use interface for all the supported explainers. In practice, we recommend applying `TimeseriesExplainer` to generate explanations instead of using a specific explainer in the package `omnixai.explainers.timeseries`."
    ]
   },
   {
@@ -42,7 +42,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The time series data used here is a sythentic univariate time series dataset. We recommend using `Timeseries` to represent a time series dataset. `Timeseries` contains a batch of time series, i.e., each instance in `Timeseries` is a univariate/multivariate time series, which can be constructed from one or a list of pandas dataframes (the index in the dataframe indicates the timestamps and the columns are the variables)."
+    "The time series data used here is a sythentic univariate time series dataset. We recommend using `Timeseries` to represent a time series dataset. `Timeseries` contains a batch of time series, i.e., each instance in `Timeseries` is a univariate/multivariate time series, which can be constructed from one or a list of pandas dataframes (the index in the dataframe represents the timestamps and the columns are the variables)."
    ]
   },
   {
@@ -99,7 +99,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The outputs of the detector are anomaly scores instead of anomaly labels (0 or 1). A data point is more anomalous if it has a higher anomaly score. "
+    "The outputs of the detector are anomaly scores instead of anomaly labels (0 or 1). A test instance is more anomalous if it has a higher anomaly score. "
    ]
   },
   {
@@ -126,8 +126,8 @@
     "  - `explainers`: The names of the explainers to apply, e.g., [\"shap\", \"mace\"].\n",
     "  - `data`: The data used to initialize explainers. ``data`` is the training dataset for training the machine learning model.\n",
     "  - `model`: The ML model to explain, e.g., a black-box anomaly detector.\n",
-    "  - `preprocess`: The preprocessing function converting the raw data into the inputs of `model`.\n",
-    "  - `postprocess` (optional): The postprocessing function transforming the outputs of ``model`` to a user-specific form, e.g., the predicted probability for each class.\n",
+    "  - `preprocess`: The preprocessing function converting the raw data (a `Timeseries` instance) into the inputs of `model`.\n",
+    "  - `postprocess` (optional): The postprocessing function transforming the outputs of ``model`` to a user-specific form, e.g., the anomaly labels.\n",
     "  - `mode`: The task type, e.g., \"anomaly_detection\" or \"forecasting\".\n",
     "  - `params`: Additional parameters for each explainer, e.g., MACE requires a threshold to determine anomaly labels."
    ]
@@ -230,6 +230,8 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "The dash lines show the importance scores and the counterfactual example, respectively. SHAP shows the most important timestamps make this test instance detected as an anomaly. MACE provides a counterfactual example showing that it will not be detected as an anomaly if the metric values from 20:00 to 00:00 are around 2.0.\n",
+    "\n",
     "Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test instance and the generated local explanations."
    ]
   },
