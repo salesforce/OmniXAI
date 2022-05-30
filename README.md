@@ -115,7 +115,7 @@ cloning the OmniXAI repo, navigating to the root directory, and calling
 
 For example code and an introduction to the library, see the Jupyter notebooks in
 [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials), and the guided walkthrough
-[here](https://fluffy-spork-48665281.pages.github.io/). A dashboard demo can be found [here](https://omnixai-demo.herokuapp.com/).
+[here](https://salesforce.github.io/OmniXAI/index.html). A dashboard demo can be found [here](https://omnixai-demo.herokuapp.com/).
 
 ## Getting Started
 
