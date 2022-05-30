@@ -11,9 +11,8 @@
 2. [Installation](#installation)
 3. [Documentation](#documentation)
 4. [Getting Started](#getting-started)
-5. [More Examples](#more-examples)
-6. [How to Contribute](#how-to-contribute)
-7. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
+5. [How to Contribute](#how-to-contribute)
+6. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
 
 
 ## Introduction
