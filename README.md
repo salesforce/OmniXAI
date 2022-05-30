@@ -5,6 +5,14 @@
 <p>
 
 # OmniXAI: A Library for Explainable AI
+<div align="center">
+  <a href="https://pypi.python.org/pypi/omnixai">
+  <img alt="PyPI Version" src="https://img.shields.io/pypi/v/omnixai.svg"/>
+  </a>
+  <a href="https://salesforce.github.io/OmniXAI">
+  <img alt="docs" src="https://github.com/salesforce/OmniXAI/actions/workflows/docs.yml/badge.svg"/>
+  </a>
+</div>
 
 ## Table of Contents
 1. [Introduction](#introduction)
