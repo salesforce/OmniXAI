@@ -8,41 +8,31 @@
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Documentation](#documentation)
-4. [Getting Started](#getting-started)
-5. [How to Contribute](#how-to-contribute)
-6. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
+1. [Installation](#installation)
+1. [Getting Started](#getting-started)
+1. [Tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials)
+1. [Documentation](https://salesforce.github.io/OmniXAI/index.html)
+1. [Dashboard Demo](https://omnixai-demo.herokuapp.com/)
+1. [How to Contribute](#how-to-contribute)
+1. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
 
 
 ## Introduction
 
-OmniXAI is a Python library for explainable AI and interpretable machine learning.
-The library provides a comprehensive family of interpretable
-machine learning algorithms. It includes high-quality implementations of various model-agnostic and
-model-specific explanation methods, e.g., feature-attribution explanation, counterfactual explanation,
-gradient-based explanation, and supports tabular data, image data, text data and time series data. It also provides an
-easy-to-use interface allowing users to generate explanations by writing a few lines of codes,
-which can be applied for multiple purposes in various applications:
+OmniXAI is a Python library for explainable AI (XAI), offering omni-way explainable AI and interpretable 
+machine learning capabilities to address many pain points in explaining decisions made by machine learning 
+models in practice. OmniXAI aims to be a one-stop comprehensive library that makes explainable AI easy for any users, e.g., 
+data scientists, ML researchers and practitioners, who need explanation for any type of data, any type of models, 
+and any type of explanation methods at different stages of ML process:
+![alt text](https://github.com/salesforce/OmniXAI/raw/main/docs/_static/ml_pipeline.png)
 
-- **Data exploration**: What are highly correlated features? Does there exist data imbalance issues?
-- **Feature engineering**: Which features are important for the task? How to improve the model performance?
-- **Model debugging**: Does the model utilize wrong features? Why does the model make a mistake?
-- **Decision support for business applications**: How to understand the model’s decision and why to trust them?
-- **Transparency for healthcare and finance**: Why does the model make such judgement? Is the judgement reasonable?
-
-Compared with other existing explanation libraries (such as IBM’s AIX360, Microsoft’s InterpretML, Alibi and explainX),
-our library has a comprehensive list of XAI capabilities and unique features including the followings:
-
-- **Data analysis/exploration**: Analyzing feature correlations, checking imbalance issues.
-- **Support most popular explanation methods**: Analyzing different aspects of a ML model by various explanation methods.
-- **Support counterfactual explanation**: Providing the information about how to change the current prediction.
-- **Support gradient-based explanation**: Supporting integrated-gradient, Grad-CAM and its variants.
-- **Support image, text and timeseries data**: Providing various explanations for image, text and timeseries models.
-- **A much simpler interface**: Generating diverse explanations by writing a few lines of code only.
-- **A GUI dashboard**: Providing an GUI dashboard for users to examine and compare the generated explanations.
-- **Easy to extend**: Adding new explanation algorithms easily by implementing a single class derived from
-   the explainer base class.
+OmniXAI includes a rich family of explanation methods integrated in a unified interface, which 
+supports multiple data types (tabular data, images, texts, time-series), multiple types of ML models 
+(traditional ML in Scikit-learn and deep learning models in PyTorch/TensorFlow), and a range of diverse explaination 
+methods including "model-specific" and "model-agnostic" methods (such as feature-attribution explanation, 
+counterfactual explanation, gradient-based explanation, etc). For practitioners, OmniXAI provides an easy-to-use 
+unified interface to generate the explanations for their applications by only writing a few lines of 
+codes, and also a GUI dashboard for visualization for obtaining more insights about decisions.
 
 The following table shows the supported explanation methods and features in our library.
 We will continue improving this library to make it more comprehensive in the future, e.g., supporting more
@@ -110,13 +100,11 @@ cloning the OmniXAI repo, navigating to the root directory, and calling
 - **For plotting & visualization**: Calling ``pip install omnixai[plot]``, or ``pip install .[plot]`` from the
   root directory of the repo.
 
-## Documentation
+## Getting Started
 
 For example code and an introduction to the library, see the Jupyter notebooks in
 [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials), and the guided walkthrough
 [here](https://salesforce.github.io/OmniXAI/index.html). A dashboard demo can be found [here](https://omnixai-demo.herokuapp.com/).
-
-## Getting Started
 
 To get started, we recommend the linked tutorials in [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
