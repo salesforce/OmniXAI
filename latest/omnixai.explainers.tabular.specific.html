@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -141,7 +142,7 @@
 }
 </style>
 <section id="module-omnixai.explainers.tabular.specific">
-<span id="omnixai-explainers-tabular-specific-package"></span><h1>omnixai.explainers.tabular.specific package<a class="headerlink" href="#module-omnixai.explainers.tabular.specific" title="Permalink to this headline"></a></h1>
+<span id="omnixai-explainers-tabular-specific-package"></span><h1>omnixai.explainers.tabular.specific package<a class="headerlink" href="#module-omnixai.explainers.tabular.specific" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -163,7 +164,7 @@
 </tbody>
 </table>
 <section id="module-omnixai.explainers.tabular.specific.ig">
-<span id="omnixai-explainers-tabular-specific-ig-module"></span><h2>omnixai.explainers.tabular.specific.ig module<a class="headerlink" href="#module-omnixai.explainers.tabular.specific.ig" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-specific-ig-module"></span><h2>omnixai.explainers.tabular.specific.ig module<a class="headerlink" href="#module-omnixai.explainers.tabular.specific.ig" title="Permalink to this heading"></a></h2>
 <p>The integrated-gradient explainer for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.specific.ig.IntegratedGradient">
@@ -200,7 +201,7 @@ tabular and image data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.specific.ig.IntegratedGradientTabular">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.specific.ig.</span></span><span class="sig-name descname"><span class="pre">IntegratedGradientTabular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.specific.ig.IntegratedGradientTabular" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.base.TabularExplainer</span></code></a>, <a class="reference internal" href="#omnixai.explainers.tabular.specific.ig.IntegratedGradient" title="omnixai.explainers.tabular.specific.ig.IntegratedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.specific.ig.IntegratedGradient</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularExplainer</span></code></a>, <a class="reference internal" href="#omnixai.explainers.tabular.specific.ig.IntegratedGradient" title="omnixai.explainers.tabular.specific.ig.IntegratedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegratedGradient</span></code></a></p>
 <p>The integrated-gradient explainer for tabular data. It only supports continuous-valued features.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/ankurtaly/Integrated-Gradients">https://github.com/ankurtaly/Integrated-Gradients</a>.</p>
 <dl class="field-list simple">
@@ -264,12 +265,12 @@ the baselines will be automatically generated by <cite>IntegratedGradientTabular
 
 </section>
 <section id="module-omnixai.explainers.tabular.specific.linear">
-<span id="omnixai-explainers-tabular-specific-linear-module"></span><h2>omnixai.explainers.tabular.specific.linear module<a class="headerlink" href="#module-omnixai.explainers.tabular.specific.linear" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-specific-linear-module"></span><h2>omnixai.explainers.tabular.specific.linear module<a class="headerlink" href="#module-omnixai.explainers.tabular.specific.linear" title="Permalink to this heading"></a></h2>
 <p>The explainable linear models.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.specific.linear.LinearBase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.specific.linear.</span></span><span class="sig-name descname"><span class="pre">LinearBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode='classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cate_encoder=&lt;omnixai.preprocessing.encode.OneHot</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cont_encoder=&lt;omnixai.preprocessing.normalize.Standard</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_encoder=&lt;omnixai.preprocessing.encode.LabelEncoder</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.specific.linear.LinearBase" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.SklearnBase" title="omnixai.explainers.tabular.base.SklearnBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.base.SklearnBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.SklearnBase" title="omnixai.explainers.tabular.base.SklearnBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">SklearnBase</span></code></a></p>
 <p>The base class for explainable linear models, e.g., linear regression and
 linear classification (logistic regression).</p>
 <dl class="field-list simple">
@@ -335,7 +336,7 @@ when <cite>y = None</cite>.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.specific.linear.LinearRegression">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.specific.linear.</span></span><span class="sig-name descname"><span class="pre">LinearRegression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cate_encoder=&lt;omnixai.preprocessing.encode.OneHot</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cont_encoder=&lt;omnixai.preprocessing.normalize.Standard</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_encoder=&lt;omnixai.preprocessing.base.Identity</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.specific.linear.LinearRegression" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LinearBase" title="omnixai.explainers.tabular.specific.linear.LinearBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.specific.linear.LinearBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LinearBase" title="omnixai.explainers.tabular.specific.linear.LinearBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearBase</span></code></a></p>
 <p>The linear regression model based on <cite>Lasso</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -359,7 +360,7 @@ e.g., <cite>Identity</cite>, <cite>Standard</cite>, <cite>MinMax</cite>, <cite>S
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.specific.linear.LogisticRegression">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.specific.linear.</span></span><span class="sig-name descname"><span class="pre">LogisticRegression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cate_encoder=&lt;omnixai.preprocessing.encode.OneHot</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cont_encoder=&lt;omnixai.preprocessing.normalize.Standard</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_encoder=&lt;omnixai.preprocessing.encode.LabelEncoder</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.specific.linear.LogisticRegression" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LinearBase" title="omnixai.explainers.tabular.specific.linear.LinearBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.specific.linear.LinearBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LinearBase" title="omnixai.explainers.tabular.specific.linear.LinearBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearBase</span></code></a></p>
 <p>The logistic regression model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -382,12 +383,12 @@ e.g., <cite>Identity</cite>, <cite>Standard</cite>, <cite>MinMax</cite>, <cite>S
 
 </section>
 <section id="module-omnixai.explainers.tabular.specific.decision_tree">
-<span id="omnixai-explainers-tabular-specific-decision-tree-module"></span><h2>omnixai.explainers.tabular.specific.decision_tree module<a class="headerlink" href="#module-omnixai.explainers.tabular.specific.decision_tree" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-specific-decision-tree-module"></span><h2>omnixai.explainers.tabular.specific.decision_tree module<a class="headerlink" href="#module-omnixai.explainers.tabular.specific.decision_tree" title="Permalink to this heading"></a></h2>
 <p>The explainable tree-based models.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.specific.decision_tree.TreeBase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.specific.decision_tree.</span></span><span class="sig-name descname"><span class="pre">TreeBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode='classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cate_encoder=&lt;omnixai.preprocessing.encode.OneHot</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cont_encoder=&lt;omnixai.preprocessing.base.Identity</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_encoder=&lt;omnixai.preprocessing.encode.LabelEncoder</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.specific.decision_tree.TreeBase" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.SklearnBase" title="omnixai.explainers.tabular.base.SklearnBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.base.SklearnBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.SklearnBase" title="omnixai.explainers.tabular.base.SklearnBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">SklearnBase</span></code></a></p>
 <p>The base class for explainable tree models, e.g., decision trees, random forests, xgboost.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -451,7 +452,7 @@ when <cite>y = None</cite>.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.specific.decision_tree.TreeRegressor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.specific.decision_tree.</span></span><span class="sig-name descname"><span class="pre">TreeRegressor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cate_encoder=&lt;omnixai.preprocessing.encode.OneHot</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cont_encoder=&lt;omnixai.preprocessing.base.Identity</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_encoder=&lt;omnixai.preprocessing.base.Identity</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.specific.decision_tree.TreeRegressor" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeBase" title="omnixai.explainers.tabular.specific.decision_tree.TreeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.specific.decision_tree.TreeBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeBase" title="omnixai.explainers.tabular.specific.decision_tree.TreeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeBase</span></code></a></p>
 <p>The tree regressor based on <cite>sklearn.tree.DecisionTreeRegressor</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -475,7 +476,7 @@ e.g., <cite>Identity</cite>, <cite>Standard</cite>, <cite>MinMax</cite>, <cite>S
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.specific.decision_tree.TreeClassifier">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.specific.decision_tree.</span></span><span class="sig-name descname"><span class="pre">TreeClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cate_encoder=&lt;omnixai.preprocessing.encode.OneHot</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cont_encoder=&lt;omnixai.preprocessing.base.Identity</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_encoder=&lt;omnixai.preprocessing.encode.LabelEncoder</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.specific.decision_tree.TreeClassifier" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeBase" title="omnixai.explainers.tabular.specific.decision_tree.TreeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.specific.decision_tree.TreeBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeBase" title="omnixai.explainers.tabular.specific.decision_tree.TreeBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeBase</span></code></a></p>
 <p>The tree classifier based on <cite>sklearn.tree.DecisionTreeClassifier</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -498,12 +499,12 @@ e.g., <cite>Identity</cite>, <cite>Standard</cite>, <cite>MinMax</cite>, <cite>S
 
 </section>
 <section id="module-omnixai.explainers.tabular.specific.shap_tree">
-<span id="omnixai-explainers-tabular-specific-shap-tree-module"></span><h2>omnixai.explainers.tabular.specific.shap_tree module<a class="headerlink" href="#module-omnixai.explainers.tabular.specific.shap_tree" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-specific-shap-tree-module"></span><h2>omnixai.explainers.tabular.specific.shap_tree module<a class="headerlink" href="#module-omnixai.explainers.tabular.specific.shap_tree" title="Permalink to this heading"></a></h2>
 <p>The tree-specific SHAP explainer for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.specific.shap_tree.</span></span><span class="sig-name descname"><span class="pre">ShapTreeTabular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode='classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cate_encoder=&lt;omnixai.preprocessing.encode.OneHot</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cont_encoder=&lt;omnixai.preprocessing.base.Identity</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_encoder=&lt;omnixai.preprocessing.encode.LabelEncoder</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.SklearnBase" title="omnixai.explainers.tabular.base.SklearnBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.base.SklearnBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.SklearnBase" title="omnixai.explainers.tabular.base.SklearnBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">SklearnBase</span></code></a></p>
 <p>The tree-specific SHAP explainer for tabular data.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/slundberg/shap">https://github.com/slundberg/shap</a>.</p>
 <dl class="field-list simple">

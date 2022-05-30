@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -133,7 +134,7 @@
 }
 </style>
 <section id="module-omnixai.explanations.tabular">
-<span id="omnixai-explanations-tabular-package"></span><h1>omnixai.explanations.tabular package<a class="headerlink" href="#module-omnixai.explanations.tabular" title="Permalink to this headline"></a></h1>
+<span id="omnixai-explanations-tabular-package"></span><h1>omnixai.explanations.tabular package<a class="headerlink" href="#module-omnixai.explanations.tabular" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -164,12 +165,12 @@
 </tbody>
 </table>
 <section id="module-omnixai.explanations.tabular.feature_importance">
-<span id="omnixai-explanations-tabular-feature-importance-module"></span><h2>omnixai.explanations.tabular.feature_importance module<a class="headerlink" href="#module-omnixai.explanations.tabular.feature_importance" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-tabular-feature-importance-module"></span><h2>omnixai.explanations.tabular.feature_importance module<a class="headerlink" href="#module-omnixai.explanations.tabular.feature_importance" title="Permalink to this heading"></a></h2>
 <p>Feature importance explanations.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.FeatureImportance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.feature_importance.</span></span><span class="sig-name descname"><span class="pre">FeatureImportance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explanations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for feature importance explanations. It uses a list to store
 the feature importance explanations of the input instances. Each item in the list
 is a dict with the following format <cite>{“instance”: the input instance, “features”: a list of feature names,
@@ -297,7 +298,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.feature_importance.</span></span><span class="sig-name descname"><span class="pre">GlobalFeatureImportance</span></span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for global feature importance scores. It uses a dict to store
 the feature importance scores with the following format <cite>{“features”: a list of feature names,
 “scores”: a list of feature importance scores}</cite>.</p>
@@ -375,12 +376,12 @@ The returned dict has the following format: <cite>{“features”: a list of fea
 
 </section>
 <section id="module-omnixai.explanations.tabular.counterfactual">
-<span id="omnixai-explanations-tabular-counterfactual-module"></span><h2>omnixai.explanations.tabular.counterfactual module<a class="headerlink" href="#module-omnixai.explanations.tabular.counterfactual" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-tabular-counterfactual-module"></span><h2>omnixai.explanations.tabular.counterfactual module<a class="headerlink" href="#module-omnixai.explanations.tabular.counterfactual" title="Permalink to this heading"></a></h2>
 <p>Counterfactual explanations.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.counterfactual.CFExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.counterfactual.</span></span><span class="sig-name descname"><span class="pre">CFExplanation</span></span><a class="headerlink" href="#omnixai.explanations.tabular.counterfactual.CFExplanation" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for counterfactual explanation results. It uses a list to store
 the generated counterfactual examples. Each item in the list is a dict with
 the following format: <cite>{“query”: the original input instance, “counterfactual”:
@@ -491,12 +492,12 @@ label 1 corresponds to ‘cat’.</p></li>
 
 </section>
 <section id="module-omnixai.explanations.tabular.pdp">
-<span id="omnixai-explanations-tabular-pdp-module"></span><h2>omnixai.explanations.tabular.pdp module<a class="headerlink" href="#module-omnixai.explanations.tabular.pdp" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-tabular-pdp-module"></span><h2>omnixai.explanations.tabular.pdp module<a class="headerlink" href="#module-omnixai.explanations.tabular.pdp" title="Permalink to this heading"></a></h2>
 <p>Partial dependence plots.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.pdp.PDPExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.pdp.</span></span><span class="sig-name descname"><span class="pre">PDPExplanation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for PDP explanation results. The PDP explanation results are stored in a dict.
 The key in the dict is “global” indicating PDP is a global explanation method.
 The value in the dict is another dict with the following format:
@@ -598,12 +599,12 @@ label 1 corresponds to ‘cat’.</p></li>
 
 </section>
 <section id="module-omnixai.explanations.tabular.sensitivity">
-<span id="omnixai-explanations-tabular-sensitivity-module"></span><h2>omnixai.explanations.tabular.sensitivity module<a class="headerlink" href="#module-omnixai.explanations.tabular.sensitivity" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-tabular-sensitivity-module"></span><h2>omnixai.explanations.tabular.sensitivity module<a class="headerlink" href="#module-omnixai.explanations.tabular.sensitivity" title="Permalink to this heading"></a></h2>
 <p>Morris sensitivity analysis.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.sensitivity.SensitivityExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.sensitivity.</span></span><span class="sig-name descname"><span class="pre">SensitivityExplanation</span></span><a class="headerlink" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for sensitivity analysis results. The results are stored in
 a dict with the following format: <cite>{feature_name: {“mu”: Morris mu,
 “mu_star”: Morris mu_star, “sigma”: Morris sigma, “mu_star_conf”:
@@ -670,12 +671,12 @@ Morris mu_star_conf}}</cite>.</p>
 
 </section>
 <section id="module-omnixai.explanations.tabular.linear">
-<span id="omnixai-explanations-tabular-linear-module"></span><h2>omnixai.explanations.tabular.linear module<a class="headerlink" href="#module-omnixai.explanations.tabular.linear" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-tabular-linear-module"></span><h2>omnixai.explanations.tabular.linear module<a class="headerlink" href="#module-omnixai.explanations.tabular.linear" title="Permalink to this heading"></a></h2>
 <p>Explanations for linear models.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.linear.LinearExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.linear.</span></span><span class="sig-name descname"><span class="pre">LinearExplanation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.linear.LinearExplanation" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for explanation results for linear models. The results are stored
 in a dict with the following format: <cite>{“coefficients”: the linear coefficients,
 “scores”: the feature importance scores of a batch of instances, “outputs”: the
@@ -781,12 +782,12 @@ label 1 corresponds to ‘cat’.</p></li>
 
 </section>
 <section id="module-omnixai.explanations.tabular.tree">
-<span id="omnixai-explanations-tabular-tree-module"></span><h2>omnixai.explanations.tabular.tree module<a class="headerlink" href="#module-omnixai.explanations.tabular.tree" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-tabular-tree-module"></span><h2>omnixai.explanations.tabular.tree module<a class="headerlink" href="#module-omnixai.explanations.tabular.tree" title="Permalink to this heading"></a></h2>
 <p>Explanations for tree-based models.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.tree.TreeExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.tree.</span></span><span class="sig-name descname"><span class="pre">TreeExplanation</span></span><a class="headerlink" href="#omnixai.explanations.tabular.tree.TreeExplanation" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for explanation results for tree-based models. The results are
 stored in a dict with the following format: <cite>{“model”: the trained tree model,
 “tree”: the binary tree extracted from the model, “feature_names”: A list of
@@ -896,12 +897,12 @@ it will plot the first explanation result when <code class="docutils literal not
 
 </section>
 <section id="module-omnixai.explanations.tabular.correlation">
-<span id="omnixai-explanations-tabular-correlation-module"></span><h2>omnixai.explanations.tabular.correlation module<a class="headerlink" href="#module-omnixai.explanations.tabular.correlation" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-tabular-correlation-module"></span><h2>omnixai.explanations.tabular.correlation module<a class="headerlink" href="#module-omnixai.explanations.tabular.correlation" title="Permalink to this heading"></a></h2>
 <p>Feature correlation analysis.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.correlation.CorrelationExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.correlation.</span></span><span class="sig-name descname"><span class="pre">CorrelationExplanation</span></span><a class="headerlink" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for correlation analysis results. The results are stored in a Dict, i.e.,
 <cite>{“features”: a list of feature names, “correlation”: the correlation matrix}</cite>.</p>
 <dl class="py method">
@@ -962,12 +963,12 @@ it will plot the first explanation result when <code class="docutils literal not
 
 </section>
 <section id="module-omnixai.explanations.tabular.imbalance">
-<span id="omnixai-explanations-tabular-imbalance-module"></span><h2>omnixai.explanations.tabular.imbalance module<a class="headerlink" href="#module-omnixai.explanations.tabular.imbalance" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-tabular-imbalance-module"></span><h2>omnixai.explanations.tabular.imbalance module<a class="headerlink" href="#module-omnixai.explanations.tabular.imbalance" title="Permalink to this heading"></a></h2>
 <p>Feature imbalance plots.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.imbalance.ImbalanceExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.imbalance.</span></span><span class="sig-name descname"><span class="pre">ImbalanceExplanation</span></span><a class="headerlink" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for feature imbalance plots. It uses a list to store the feature values
 and their counts (numbers of appearances) in each class. Each item in the list
 is a dict, i.e., <cite>{“feature”: feature value, “count”: {class label 1: count 1,

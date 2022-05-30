@@ -45,7 +45,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The dataset considered here is the Diabetes dataset. We convert all the features into continuous-valued features."
+    "The dataset considered here is the Diabetes dataset (https://archive.ics.uci.edu/ml/datasets/diabetes). We convert all the features into continuous-valued features."
    ]
   },
   {

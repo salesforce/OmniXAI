@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -123,7 +124,7 @@
 }
 </style>
 <section id="omnixai-explainers-package">
-<h1>omnixai.explainers package<a class="headerlink" href="#omnixai-explainers-package" title="Permalink to this headline"></a></h1>
+<h1>omnixai.explainers package<a class="headerlink" href="#omnixai-explainers-package" title="Permalink to this heading"></a></h1>
 <p>This package contains all the supported explainers. In practice, we recommend using
 use <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code>,
 <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code>, and <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code>
@@ -232,12 +233,12 @@ in classification tasks.</p></li>
 </div>
 <p>More detailed examples can be found in the tutorials.</p>
 <span class="target" id="module-omnixai.explainers"></span><section id="module-omnixai.explainers.base">
-<span id="omnixai-explainers-base-module"></span><h2>omnixai.explainers.base module<a class="headerlink" href="#module-omnixai.explainers.base" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-base-module"></span><h2>omnixai.explainers.base module<a class="headerlink" href="#module-omnixai.explainers.base" title="Permalink to this heading"></a></h2>
 <p>The base classes for the supported explainers.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.base.ExplainerABCMeta">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.base.</span></span><span class="sig-name descname"><span class="pre">ExplainerABCMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.base.ExplainerABCMeta" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.utils.misc.AutodocABCMeta</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AutodocABCMeta</span></code></p>
 <p>The meta class for an explainer. It will automatically register an explainer class,
 i.e., storing it in <code class="docutils literal notranslate"><span class="pre">_EXPLAINERS</span></code>.</p>
 </dd></dl>
@@ -355,7 +356,7 @@ e.g. <cite>{“pdp”: pdp_explanations, …}</cite>.</p>
 
 </section>
 <section id="explainers-for-different-tasks">
-<h2>Explainers for different tasks<a class="headerlink" href="#explainers-for-different-tasks" title="Permalink to this headline"></a></h2>
+<h2>Explainers for different tasks<a class="headerlink" href="#explainers-for-different-tasks" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.data.html">omnixai.explainers.data package</a><ul>

@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -123,7 +124,7 @@
 }
 </style>
 <section id="module-omnixai.preprocessing">
-<span id="omnixai-preprocessing-package"></span><h1>omnixai.preprocessing package<a class="headerlink" href="#module-omnixai.preprocessing" title="Permalink to this headline"></a></h1>
+<span id="omnixai-preprocessing-package"></span><h1>omnixai.preprocessing package<a class="headerlink" href="#module-omnixai.preprocessing" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -213,7 +214,7 @@ that may not recover the original data.</p>
 </pre></div>
 </div>
 <section id="module-omnixai.preprocessing.base">
-<span id="omnixai-preprocessing-base-module"></span><h2>omnixai.preprocessing.base module<a class="headerlink" href="#module-omnixai.preprocessing.base" title="Permalink to this headline"></a></h2>
+<span id="omnixai-preprocessing-base-module"></span><h2>omnixai.preprocessing.base module<a class="headerlink" href="#module-omnixai.preprocessing.base" title="Permalink to this heading"></a></h2>
 <p>The base class for all the transforms.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.base.TransformBase">
@@ -267,7 +268,7 @@ that may not recover the original data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.base.Identity">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.base.</span></span><span class="sig-name descname"><span class="pre">Identity</span></span><a class="headerlink" href="#omnixai.preprocessing.base.Identity" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Identity transformation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.base.Identity.fit">
@@ -315,12 +316,12 @@ that may not recover the original data.</p>
 
 </section>
 <section id="module-omnixai.preprocessing.encode">
-<span id="omnixai-preprocessing-encode-module"></span><h2>omnixai.preprocessing.encode module<a class="headerlink" href="#module-omnixai.preprocessing.encode" title="Permalink to this headline"></a></h2>
+<span id="omnixai-preprocessing-encode-module"></span><h2>omnixai.preprocessing.encode module<a class="headerlink" href="#module-omnixai.preprocessing.encode" title="Permalink to this heading"></a></h2>
 <p>The pre-processing functions for categorical and continuous-valued features.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.encode.KBins">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.encode.</span></span><span class="sig-name descname"><span class="pre">KBins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_bins</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.KBins" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Discretizes continuous values into bins.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.encode.KBins.fit">
@@ -369,7 +370,7 @@ that may not recover the original data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.encode.OneHot">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.encode.</span></span><span class="sig-name descname"><span class="pre">OneHot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.OneHot" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>One-hot encoding for categorical values.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.encode.OneHot.fit">
@@ -430,7 +431,7 @@ that may not recover the original data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.encode.Ordinal">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.encode.</span></span><span class="sig-name descname"><span class="pre">Ordinal</span></span><a class="headerlink" href="#omnixai.preprocessing.encode.Ordinal" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Ordinal encoding for categorical values.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.encode.Ordinal.fit">
@@ -485,7 +486,7 @@ that may not recover the original data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.encode.LabelEncoder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.encode.</span></span><span class="sig-name descname"><span class="pre">LabelEncoder</span></span><a class="headerlink" href="#omnixai.preprocessing.encode.LabelEncoder" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Ordinal encoding for targets/labels.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.encode.LabelEncoder.fit">
@@ -539,12 +540,12 @@ that may not recover the original data.</p>
 
 </section>
 <section id="module-omnixai.preprocessing.normalize">
-<span id="omnixai-preprocessing-normalize-module"></span><h2>omnixai.preprocessing.normalize module<a class="headerlink" href="#module-omnixai.preprocessing.normalize" title="Permalink to this headline"></a></h2>
+<span id="omnixai-preprocessing-normalize-module"></span><h2>omnixai.preprocessing.normalize module<a class="headerlink" href="#module-omnixai.preprocessing.normalize" title="Permalink to this heading"></a></h2>
 <p>The pre-processing functions for continuous-valued features.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.normalize.Standard">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.normalize.</span></span><span class="sig-name descname"><span class="pre">Standard</span></span><a class="headerlink" href="#omnixai.preprocessing.normalize.Standard" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Standard normalization, i.e., zero mean and unit variance.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.normalize.Standard.fit">
@@ -593,7 +594,7 @@ that may not recover the original data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.normalize.MinMax">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.normalize.</span></span><span class="sig-name descname"><span class="pre">MinMax</span></span><a class="headerlink" href="#omnixai.preprocessing.normalize.MinMax" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Rescales the values to the range [0, 1].</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.normalize.MinMax.fit">
@@ -642,7 +643,7 @@ that may not recover the original data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.normalize.Scale">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.normalize.</span></span><span class="sig-name descname"><span class="pre">Scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.normalize.Scale" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Rescales the values to values * ratio.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.normalize.Scale.fit">
@@ -690,12 +691,12 @@ that may not recover the original data.</p>
 
 </section>
 <section id="module-omnixai.preprocessing.fill">
-<span id="omnixai-preprocessing-fill-module"></span><h2>omnixai.preprocessing.fill module<a class="headerlink" href="#module-omnixai.preprocessing.fill" title="Permalink to this headline"></a></h2>
+<span id="omnixai-preprocessing-fill-module"></span><h2>omnixai.preprocessing.fill module<a class="headerlink" href="#module-omnixai.preprocessing.fill" title="Permalink to this heading"></a></h2>
 <p>The pre-processing functions for filling NaNs and missing values.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.fill.FillNaN">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.fill.</span></span><span class="sig-name descname"><span class="pre">FillNaN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.fill.FillNaN" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Fill NaNs in a pandas dataframe or a numpy array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -759,7 +760,7 @@ the NANs in the original data are not stored.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.fill.FillNaNTabular">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.fill.</span></span><span class="sig-name descname"><span class="pre">FillNaNTabular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.fill.FillNaNTabular" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Fill NaNs in a Tabular object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -822,7 +823,7 @@ the NANs in the original data are not stored.</p>
 
 </section>
 <section id="module-omnixai.preprocessing.pipeline">
-<span id="omnixai-preprocessing-pipeline-module"></span><h2>omnixai.preprocessing.pipeline module<a class="headerlink" href="#module-omnixai.preprocessing.pipeline" title="Permalink to this headline"></a></h2>
+<span id="omnixai-preprocessing-pipeline-module"></span><h2>omnixai.preprocessing.pipeline module<a class="headerlink" href="#module-omnixai.preprocessing.pipeline" title="Permalink to this heading"></a></h2>
 <p>The pipeline for multiple pre-processing transforms.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.pipeline.Pipeline">
@@ -916,12 +917,12 @@ the NANs in the original data are not stored.</p>
 
 </section>
 <section id="module-omnixai.preprocessing.tabular">
-<span id="omnixai-preprocessing-tabular-module"></span><h2>omnixai.preprocessing.tabular module<a class="headerlink" href="#module-omnixai.preprocessing.tabular" title="Permalink to this headline"></a></h2>
+<span id="omnixai-preprocessing-tabular-module"></span><h2>omnixai.preprocessing.tabular module<a class="headerlink" href="#module-omnixai.preprocessing.tabular" title="Permalink to this heading"></a></h2>
 <p>The pre-processing function for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.tabular.TabularTransform">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.tabular.</span></span><span class="sig-name descname"><span class="pre">TabularTransform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cate_transform=&lt;omnixai.preprocessing.encode.OneHot</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cont_transform=&lt;omnixai.preprocessing.base.Identity</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_transform=&lt;omnixai.preprocessing.encode.LabelEncoder</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.tabular.TabularTransform" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Transforms for a <code class="docutils literal notranslate"><span class="pre">data.tabular.Tabular</span></code> instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1037,12 +1038,12 @@ the categories expected in the ith column, or None.</p>
 
 </section>
 <section id="module-omnixai.preprocessing.image">
-<span id="omnixai-preprocessing-image-module"></span><h2>omnixai.preprocessing.image module<a class="headerlink" href="#module-omnixai.preprocessing.image" title="Permalink to this headline"></a></h2>
+<span id="omnixai-preprocessing-image-module"></span><h2>omnixai.preprocessing.image module<a class="headerlink" href="#module-omnixai.preprocessing.image" title="Permalink to this heading"></a></h2>
 <p>The transformations for image data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.image.Scale">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.image.</span></span><span class="sig-name descname"><span class="pre">Scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.00392156862745098</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Scale" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Rescales image pixel values to values * ratio.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.image.Scale.fit">
@@ -1100,7 +1101,7 @@ the categories expected in the ith column, or None.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.image.Round2Int">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.image.</span></span><span class="sig-name descname"><span class="pre">Round2Int</span></span><a class="headerlink" href="#omnixai.preprocessing.image.Round2Int" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Rounds float values to integer values.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.image.Round2Int.fit">
@@ -1158,7 +1159,7 @@ the categories expected in the ith column, or None.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.image.Normalize">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.image.</span></span><span class="sig-name descname"><span class="pre">Normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Normalize" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Normalizes an image with mean and standard deviation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1224,7 +1225,7 @@ the categories expected in the ith column, or None.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.image.Resize">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.image.</span></span><span class="sig-name descname"><span class="pre">Resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Resampling.BILINEAR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Resize" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Resizes the input image to a given size.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1291,12 +1292,12 @@ will match this number.</p></li>
 
 </section>
 <section id="module-omnixai.preprocessing.text">
-<span id="omnixai-preprocessing-text-module"></span><h2>omnixai.preprocessing.text module<a class="headerlink" href="#module-omnixai.preprocessing.text" title="Permalink to this headline"></a></h2>
+<span id="omnixai-preprocessing-text-module"></span><h2>omnixai.preprocessing.text module<a class="headerlink" href="#module-omnixai.preprocessing.text" title="Permalink to this heading"></a></h2>
 <p>The pre-processing functions for text data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.text.Tfidf">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.text.</span></span><span class="sig-name descname"><span class="pre">Tfidf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.text.Tfidf" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>The TF-IDF transformation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.preprocessing.text.Tfidf.fit">
@@ -1351,7 +1352,7 @@ will match this number.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.preprocessing.text.Word2Id">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.preprocessing.text.</span></span><span class="sig-name descname"><span class="pre">Word2Id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">remove_punctuation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.text.Word2Id" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.preprocessing.base.TransformBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>The class for converting words into IDs.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="omnixai.preprocessing.text.Word2Id.PAD">
@@ -1419,7 +1420,7 @@ will match this number.</p></li>
 
 </section>
 <section id="module-omnixai.sampler.tabular">
-<span id="omnixai-sampler-tabular-module"></span><h2>omnixai.sampler.tabular module<a class="headerlink" href="#module-omnixai.sampler.tabular" title="Permalink to this headline"></a></h2>
+<span id="omnixai-sampler-tabular-module"></span><h2>omnixai.sampler.tabular module<a class="headerlink" href="#module-omnixai.sampler.tabular" title="Permalink to this heading"></a></h2>
 <p>The class for re-sampling training data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.sampler.tabular.Sampler">

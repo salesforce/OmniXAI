@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -139,7 +140,7 @@
 }
 </style>
 <section id="module-omnixai.explainers.vision.specific">
-<span id="omnixai-explainers-vision-specific-package"></span><h1>omnixai.explainers.vision.specific package<a class="headerlink" href="#module-omnixai.explainers.vision.specific" title="Permalink to this headline"></a></h1>
+<span id="omnixai-explainers-vision-specific-package"></span><h1>omnixai.explainers.vision.specific package<a class="headerlink" href="#module-omnixai.explainers.vision.specific" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -158,12 +159,12 @@
 </tbody>
 </table>
 <section id="module-omnixai.explainers.vision.specific.ig">
-<span id="omnixai-explainers-vision-specific-ig-module"></span><h2>omnixai.explainers.vision.specific.ig module<a class="headerlink" href="#module-omnixai.explainers.vision.specific.ig" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-vision-specific-ig-module"></span><h2>omnixai.explainers.vision.specific.ig module<a class="headerlink" href="#module-omnixai.explainers.vision.specific.ig" title="Permalink to this heading"></a></h2>
 <p>The integrated-gradient explainer for vision tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.vision.specific.ig.IntegratedGradientImage">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.vision.specific.ig.</span></span><span class="sig-name descname"><span class="pre">IntegratedGradientImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.ig.IntegratedGradientImage" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a>, <a class="reference internal" href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.ig.IntegratedGradient" title="omnixai.explainers.tabular.specific.ig.IntegratedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.specific.ig.IntegratedGradient</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a>, <a class="reference internal" href="omnixai.explainers.tabular.specific.html#omnixai.explainers.tabular.specific.ig.IntegratedGradient" title="omnixai.explainers.tabular.specific.ig.IntegratedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegratedGradient</span></code></a></p>
 <p>The integrated-gradient explainer for vision tasks.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/ankurtaly/Integrated-Gradients">https://github.com/ankurtaly/Integrated-Gradients</a>.</p>
 <dl class="field-list simple">
@@ -220,12 +221,12 @@ the baselines will be sampled randomly.</p></li>
 
 </section>
 <section id="module-omnixai.explainers.vision.specific.gradcam.gradcam">
-<span id="omnixai-explainers-vision-specific-gradcam-gradcam-module"></span><h2>omnixai.explainers.vision.specific.gradcam.gradcam module<a class="headerlink" href="#module-omnixai.explainers.vision.specific.gradcam.gradcam" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-vision-specific-gradcam-gradcam-module"></span><h2>omnixai.explainers.vision.specific.gradcam.gradcam module<a class="headerlink" href="#module-omnixai.explainers.vision.specific.gradcam.gradcam" title="Permalink to this heading"></a></h2>
 <p>The Grad-CAM methods for vision tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.vision.specific.gradcam.gradcam.GradCAM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.vision.specific.gradcam.gradcam.</span></span><span class="sig-name descname"><span class="pre">GradCAM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAM" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
 <p>The Grad-CAM method for generating visual explanations.
 If using this explainer, please cite <cite>Grad-CAM: Visual Explanations from Deep Networks
 via Gradient-based Localization, Selvaraju et al., https://arxiv.org/abs/1610.02391</cite>.</p>
@@ -279,7 +280,7 @@ when <cite>y = None</cite>.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.vision.specific.gradcam.gradcam.GradCAMPlus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.vision.specific.gradcam.gradcam.</span></span><span class="sig-name descname"><span class="pre">GradCAMPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAMPlus" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
 <p>The Grad-CAM++ method for generating visual explanations.
 If using this explainer, please cite <cite>Grad-CAM++: Improved Visual Explanations for
 Deep Convolutional Networks, Chattopadhyay et al., https://arxiv.org/pdf/1710.11063</cite>.</p>
@@ -332,7 +333,7 @@ when <cite>y = None</cite>.</p></li>
 
 </section>
 <section id="module-omnixai.explainers.vision.specific.cem">
-<span id="omnixai-explainers-vision-specific-cem-module"></span><h2>omnixai.explainers.vision.specific.cem module<a class="headerlink" href="#module-omnixai.explainers.vision.specific.cem" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-vision-specific-cem-module"></span><h2>omnixai.explainers.vision.specific.cem module<a class="headerlink" href="#module-omnixai.explainers.vision.specific.cem" title="Permalink to this heading"></a></h2>
 <p>The contrastive explainer for image classification.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.vision.specific.cem.CEMOptimizer">
@@ -392,7 +393,7 @@ on the paper: <a class="reference external" href="https://arxiv.org/abs/1802.076
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.vision.specific.cem.ContrastiveExplainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.vision.specific.cem.</span></span><span class="sig-name descname"><span class="pre">ContrastiveExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kappa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ae_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_search_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.cem.ContrastiveExplainer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
 <p>The contrastive explainer for image classification.
 If using this explainer, please cite the original work: <a class="reference external" href="https://arxiv.org/abs/1802.07623">https://arxiv.org/abs/1802.07623</a>.
 This explainer only supports classification tasks.</p>

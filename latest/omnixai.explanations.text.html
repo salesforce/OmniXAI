@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -126,7 +127,7 @@
 }
 </style>
 <section id="module-omnixai.explanations.text">
-<span id="omnixai-explanations-text-package"></span><h1>omnixai.explanations.text package<a class="headerlink" href="#module-omnixai.explanations.text" title="Permalink to this headline"></a></h1>
+<span id="omnixai-explanations-text-package"></span><h1>omnixai.explanations.text package<a class="headerlink" href="#module-omnixai.explanations.text" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -139,12 +140,12 @@
 </tbody>
 </table>
 <section id="module-omnixai.explanations.text.word_importance">
-<span id="omnixai-explanations-text-word-importance-module"></span><h2>omnixai.explanations.text.word_importance module<a class="headerlink" href="#module-omnixai.explanations.text.word_importance" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-text-word-importance-module"></span><h2>omnixai.explanations.text.word_importance module<a class="headerlink" href="#module-omnixai.explanations.text.word_importance" title="Permalink to this heading"></a></h2>
 <p>Word/token importance explanations for NLP tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.text.word_importance.WordImportance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.text.word_importance.</span></span><span class="sig-name descname"><span class="pre">WordImportance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explanations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.text.word_importance.WordImportance" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for word/token importance explanations. It uses a list to store
 the word/token importance scores of the input instances. Each item in the list
 is a dict with the following format <cite>{“instance”: the input instance, “tokens”:

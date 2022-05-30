@@ -15,6 +15,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -365,9 +366,9 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <section id="L2X-(learning-to-explain)-for-income-prediction">
-<h1>L2X (learning to explain) for income prediction<a class="headerlink" href="#L2X-(learning-to-explain)-for-income-prediction" title="Permalink to this headline"></a></h1>
-<p>This is an example of the L2X explainer. Different from LIME, SHAP or MACE, L2X trains a separate model for explanation. The advantage of L2X is that it generates explanations fast after the explanation model is trained. The disadvantage is that the quality of the explanations highly depend on the trained explanation model, which can be affected by multiple factors, e.g., the network structure of the explanation model, the training parameters.</p>
-<p>For tabular data, we implement the default explanation model in <code class="docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.agnostic.L2X.l2x</span></code>. One may implement other models by following the same interface. Please refer to the docs for more details. If using this explainer, please cite the original work: “Learning to Explain: An Information-Theoretic Perspective on Model Interpretation, Jianbo Chen, Le Song, Martin J. Wainwright, Michael I. Jordan, <a class="reference external" href="https://arxiv.org/abs/1802.07814">https://arxiv.org/abs/1802.07814</a>”.</p>
+<h1>L2X (learning to explain) for income prediction<a class="headerlink" href="#L2X-(learning-to-explain)-for-income-prediction" title="Permalink to this heading"></a></h1>
+<p>This is an example of the L2X explainer. Different from LIME, SHAP or MACE, L2X trains a separate model for explanation. The advantage of L2X is that it generates explanations fast after the explanation model is trained. The disadvantage is that the quality of the explanations highly depend on the trained explanation model, which can be affected by multiple factors, e.g., the network structure of the explanation model, the training hyperparameters.</p>
+<p>For tabular data, we implement the default explanation model in <code class="docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.agnostic.L2X.l2x</span></code>. One may implement other models by following the same interface (please refer to the docs for more details). If using this explainer, please cite the original work: “Learning to Explain: An Information-Theoretic Perspective on Model Interpretation, Jianbo Chen, Le Song, Martin J. Wainwright, Michael I. Jordan, <a class="reference external" href="https://arxiv.org/abs/1802.07814">https://arxiv.org/abs/1802.07814</a>”.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>

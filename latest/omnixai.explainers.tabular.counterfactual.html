@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -139,14 +140,14 @@
 }
 </style>
 <section id="module-omnixai.explainers.tabular.counterfactual">
-<span id="omnixai-explainers-tabular-counterfactual-package"></span><h1>omnixai.explainers.tabular.counterfactual package<a class="headerlink" href="#module-omnixai.explainers.tabular.counterfactual" title="Permalink to this headline"></a></h1>
+<span id="omnixai-explainers-tabular-counterfactual-package"></span><h1>omnixai.explainers.tabular.counterfactual package<a class="headerlink" href="#module-omnixai.explainers.tabular.counterfactual" title="Permalink to this heading"></a></h1>
 <section id="module-omnixai.explainers.tabular.counterfactual.mace.mace">
-<span id="omnixai-explainers-tabular-counterfactual-mace-mace-module"></span><h2>omnixai.explainers.tabular.counterfactual.mace.mace module<a class="headerlink" href="#module-omnixai.explainers.tabular.counterfactual.mace.mace" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-counterfactual-mace-mace-module"></span><h2>omnixai.explainers.tabular.counterfactual.mace.mace module<a class="headerlink" href="#module-omnixai.explainers.tabular.counterfactual.mace.mace" title="Permalink to this heading"></a></h2>
 <p>The Model-Agnostic Counterfactual Explanation (MACE) for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.counterfactual.mace.mace.</span></span><span class="sig-name descname"><span class="pre">MACEExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignored_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
 <p>The Model-Agnostic Counterfactual Explanation (MACE) developed by Yang et al. Please
 cite the paper <cite>MACE: An Efficient Model-Agnostic Framework for Counterfactual Explanation</cite>.
 It supports most black-box models for classification whose input features can either be
@@ -205,7 +206,7 @@ examples per class for each input instance.</p></li>
 
 </section>
 <section id="module-omnixai.explainers.tabular.counterfactual.ce">
-<span id="omnixai-explainers-tabular-counterfactual-ce-module"></span><h2>omnixai.explainers.tabular.counterfactual.ce module<a class="headerlink" href="#module-omnixai.explainers.tabular.counterfactual.ce" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-counterfactual-ce-module"></span><h2>omnixai.explainers.tabular.counterfactual.ce module<a class="headerlink" href="#module-omnixai.explainers.tabular.counterfactual.ce" title="Permalink to this heading"></a></h2>
 <p>The basic counterfactual explainer for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.counterfactual.ce.CounterfactualOptimizer">
@@ -252,7 +253,7 @@ bounds <cite>(min(x0), max(x0))</cite> is used.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.counterfactual.ce.</span></span><span class="sig-name descname"><span class="pre">CounterfactualExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kappa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_search_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.base.TabularExplainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularExplainer</span></code></a></p>
 <p>The basic counterfactual explainer for tabular data. It only supports continuous-valued features.
 If using this explainer, please cite the paper <cite>Counterfactual Explanations without
 Opening the Black Box: Automated Decisions and the GDPR, Sandra Wachter, Brent Mittelstadt, Chris Russell,

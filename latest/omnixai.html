@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -123,9 +124,9 @@
 }
 </style>
 <section id="omnixai-an-explanation-toolbox">
-<h1>OmniXAI: An Explanation Toolbox<a class="headerlink" href="#omnixai-an-explanation-toolbox" title="Permalink to this headline"></a></h1>
+<h1>OmniXAI: An Explanation Toolbox<a class="headerlink" href="#omnixai-an-explanation-toolbox" title="Permalink to this heading"></a></h1>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
 <p><a class="reference internal" href="#module-omnixai" title="omnixai"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai</span></code></a> is a Python library for explainable AI (XAI). The library provides
 a comprehensive family of explainable AI capabilities and interpretable machine learning algorithms,
 including high-quality implementations of various model-agnostic and model-specific explanation methods,
@@ -186,7 +187,7 @@ dashboard supports both global explanations and local explanations.</p></li>
 </ul>
 </section>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
 <p>You can install <a class="reference internal" href="#module-omnixai" title="omnixai"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai</span></code></a> from PyPI by calling <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">omnixai</span></code>. You may install from source by
 cloning the OmniXAI repo, navigating to the root directory, and calling
 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code>, or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> to install in editable mode. You may install additional dependencies:</p>
@@ -200,7 +201,7 @@ root directory of the repo.</p></li>
 </ul>
 </section>
 <section id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h2>
 <p>To get started, we recommend the linked tutorials in <a class="reference internal" href="tutorials.html#tutorial"><span class="std std-ref">Tutorials &amp; Example Code</span></a>.
 In general, we recommend using <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code>,
 <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code> and <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code> for tabular, vision, NLP and
@@ -312,7 +313,7 @@ parameters for visualization (e.g., only plotting the selected features in PDP).
 <img alt="_images/demo.png" src="_images/demo.png" />
 </section>
 <section id="how-to-contribute">
-<h2>How to Contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this headline"></a></h2>
+<h2>How to Contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this heading"></a></h2>
 <p>Thank you for your interest in contributing to the library!
 Before you get started, clone this repo, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pre-commit</span></code>, and run <code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">install</span></code> from the root
 directory of the repo. This will ensure all files are formatted correctly and contain the appropriate
@@ -352,7 +353,7 @@ can generate local explanations, global explanations or both.</p></li>
 by specifying one of the names defined in <code class="docutils literal notranslate"><span class="pre">alias</span></code>.</p>
 <span class="target" id="module-omnixai"></span></section>
 <section id="modules-for-different-data-types">
-<h2>Modules for Different Data Types<a class="headerlink" href="#modules-for-different-data-types" title="Permalink to this headline"></a></h2>
+<h2>Modules for Different Data Types<a class="headerlink" href="#modules-for-different-data-types" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.data.html">omnixai.data package</a><ul>
@@ -367,7 +368,7 @@ by specifying one of the names defined in <code class="docutils literal notransl
 </div>
 </section>
 <section id="preprocessing-functions">
-<h2>Preprocessing Functions<a class="headerlink" href="#preprocessing-functions" title="Permalink to this headline"></a></h2>
+<h2>Preprocessing Functions<a class="headerlink" href="#preprocessing-functions" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.preprocessing.html">omnixai.preprocessing package</a><ul>
@@ -386,7 +387,7 @@ by specifying one of the names defined in <code class="docutils literal notransl
 </div>
 </section>
 <section id="supported-explanation-methods">
-<h2>Supported Explanation Methods<a class="headerlink" href="#supported-explanation-methods" title="Permalink to this headline"></a></h2>
+<h2>Supported Explanation Methods<a class="headerlink" href="#supported-explanation-methods" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.html">omnixai.explainers package</a><ul>
@@ -429,7 +430,7 @@ by specifying one of the names defined in <code class="docutils literal notransl
 </div>
 </section>
 <section id="modules-for-explanation-results">
-<h2>Modules for Explanation Results<a class="headerlink" href="#modules-for-explanation-results" title="Permalink to this headline"></a></h2>
+<h2>Modules for Explanation Results<a class="headerlink" href="#modules-for-explanation-results" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.explanations.html">omnixai.explanations package</a><ul>
@@ -470,7 +471,7 @@ by specifying one of the names defined in <code class="docutils literal notransl
 </div>
 </section>
 <section id="dashboard-for-visualization">
-<h2>Dashboard for Visualization<a class="headerlink" href="#dashboard-for-visualization" title="Permalink to this headline"></a></h2>
+<h2>Dashboard for Visualization<a class="headerlink" href="#dashboard-for-visualization" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.visualization.html">omnixai.visualization package</a><ul>

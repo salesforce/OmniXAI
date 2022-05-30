@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -119,7 +120,7 @@
 }
 </style>
 <section id="module-omnixai.data">
-<span id="omnixai-data-package"></span><h1>omnixai.data package<a class="headerlink" href="#module-omnixai.data" title="Permalink to this headline"></a></h1>
+<span id="omnixai-data-package"></span><h1>omnixai.data package<a class="headerlink" href="#module-omnixai.data" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -215,7 +216,7 @@ indicates the timestamps and the columns are the variables.</p>
 </pre></div>
 </div>
 <section id="module-omnixai.data.base">
-<span id="omnixai-data-base-module"></span><h2>omnixai.data.base module<a class="headerlink" href="#module-omnixai.data.base" title="Permalink to this headline"></a></h2>
+<span id="omnixai-data-base-module"></span><h2>omnixai.data.base module<a class="headerlink" href="#module-omnixai.data.base" title="Permalink to this heading"></a></h2>
 <p>The base class for all data types.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.data.base.Data">
@@ -246,12 +247,12 @@ indicates the timestamps and the columns are the variables.</p>
 
 </section>
 <section id="module-omnixai.data.tabular">
-<span id="omnixai-data-tabular-module"></span><h2>omnixai.data.tabular module<a class="headerlink" href="#module-omnixai.data.tabular" title="Permalink to this headline"></a></h2>
+<span id="omnixai-data-tabular-module"></span><h2>omnixai.data.tabular module<a class="headerlink" href="#module-omnixai.data.tabular" title="Permalink to this heading"></a></h2>
 <p>The class for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.data.tabular.Tabular">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.data.tabular.</span></span><span class="sig-name descname"><span class="pre">Tabular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categorical_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.data.base.Data</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a></p>
 <p>The class represents a tabular dataset that may contain categorical features,
 continuous-valued features and targets/labels (optional).</p>
 <dl class="field-list simple">
@@ -307,7 +308,7 @@ target column.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.tabular.Tabular.values">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.values" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.values" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the raw values of the data object (without feature column names).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -484,12 +485,12 @@ target/label column.</p>
 
 </section>
 <section id="module-omnixai.data.image">
-<span id="omnixai-data-image-module"></span><h2>omnixai.data.image module<a class="headerlink" href="#module-omnixai.data.image" title="Permalink to this headline"></a></h2>
+<span id="omnixai-data-image-module"></span><h2>omnixai.data.image module<a class="headerlink" href="#module-omnixai.data.image" title="Permalink to this heading"></a></h2>
 <p>The class for image data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.data.image.Image">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.data.image.</span></span><span class="sig-name descname"><span class="pre">Image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batched</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.image.Image" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.data.base.Data</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a></p>
 <p>The class represents a batch of images. It supports both grayscale and RGB images.
 It will convert the input images into the <cite>(batch_size, h, w, channel)</cite> format. If
 there is only one input image, <cite>batch_size</cite> will be 1.</p>
@@ -545,7 +546,7 @@ has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.image.Image.values">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#omnixai.data.image.Image.values" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.image.Image.values" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the raw values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -613,12 +614,12 @@ if <cite>batch_size &gt; 1</cite>.</p>
 
 </section>
 <section id="module-omnixai.data.text">
-<span id="omnixai-data-text-module"></span><h2>omnixai.data.text module<a class="headerlink" href="#module-omnixai.data.text" title="Permalink to this headline"></a></h2>
+<span id="omnixai-data-text-module"></span><h2>omnixai.data.text module<a class="headerlink" href="#module-omnixai.data.text" title="Permalink to this heading"></a></h2>
 <p>The class for text data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.data.text.Text">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.data.text.</span></span><span class="sig-name descname"><span class="pre">Text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.text.Text" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.data.base.Data</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a></p>
 <p>The class represents a batch of texts or sentences.
 The texts or sentences are stored in a list of strings.</p>
 <dl class="field-list simple">
@@ -711,12 +712,12 @@ a list of strings if it contains multiple sentences.</p>
 
 </section>
 <section id="module-omnixai.data.timeseries">
-<span id="omnixai-data-timeseries-module"></span><h2>omnixai.data.timeseries module<a class="headerlink" href="#module-omnixai.data.timeseries" title="Permalink to this headline"></a></h2>
+<span id="omnixai-data-timeseries-module"></span><h2>omnixai.data.timeseries module<a class="headerlink" href="#module-omnixai.data.timeseries" title="Permalink to this heading"></a></h2>
 <p>The class for time series data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.data.timeseries.</span></span><span class="sig-name descname"><span class="pre">Timeseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.data.base.Data</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a></p>
 <p>This class represents a univariate/multivariate time series dataset, e.g. a batch of time series.
 The dataset may contain a batch of time series whose metric values are stored in a numpy array
 with shape <cite>(batch_size, timestamps, num_variables)</cite>. If there is only one time series, <cite>batch_size</cite>
@@ -768,7 +769,7 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.values">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.values" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.values" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the raw values of the data object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>

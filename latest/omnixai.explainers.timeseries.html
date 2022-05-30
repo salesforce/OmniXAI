@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -132,13 +133,13 @@
 }
 </style>
 <section id="omnixai-explainers-timeseries-package">
-<h1>omnixai.explainers.timeseries package<a class="headerlink" href="#omnixai-explainers-timeseries-package" title="Permalink to this headline"></a></h1>
+<h1>omnixai.explainers.timeseries package<a class="headerlink" href="#omnixai-explainers-timeseries-package" title="Permalink to this heading"></a></h1>
 <section id="module-omnixai.explainers.timeseries.auto">
-<span id="omnixai-explainers-timeseries-auto-module"></span><h2>omnixai.explainers.timeseries.auto module<a class="headerlink" href="#module-omnixai.explainers.timeseries.auto" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-timeseries-auto-module"></span><h2>omnixai.explainers.timeseries.auto module<a class="headerlink" href="#module-omnixai.explainers.timeseries.auto" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.timeseries.auto.TimeseriesExplainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.timeseries.auto.</span></span><span class="sig-name descname"><span class="pre">TimeseriesExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.timeseries.auto.TimeseriesExplainer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.AutoExplainerBase" title="omnixai.explainers.base.AutoExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.base.AutoExplainerBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.AutoExplainerBase" title="omnixai.explainers.base.AutoExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code></a></p>
 <p>The class derived from <cite>AutoExplainerBase</cite> for time series tasks,
 allowing users to choose multiple explainers and generate
 different explanations at the same time.</p>
@@ -181,7 +182,7 @@ e.g., <cite>params[“shap”] = {“param_1”: param_1, …}</cite>.</p></li>
 
 </section>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline"></a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.timeseries.agnostic.html">omnixai.explainers.timeseries.agnostic package</a><ul>

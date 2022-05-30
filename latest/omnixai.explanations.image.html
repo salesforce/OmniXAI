@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -129,7 +130,7 @@
 }
 </style>
 <section id="module-omnixai.explanations.image">
-<span id="omnixai-explanations-image-package"></span><h1>omnixai.explanations.image package<a class="headerlink" href="#module-omnixai.explanations.image" title="Permalink to this headline"></a></h1>
+<span id="omnixai-explanations-image-package"></span><h1>omnixai.explanations.image package<a class="headerlink" href="#module-omnixai.explanations.image" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -151,12 +152,12 @@
 </tbody>
 </table>
 <section id="module-omnixai.explanations.image.pixel_importance">
-<span id="omnixai-explanations-image-pixel-importance-module"></span><h2>omnixai.explanations.image.pixel_importance module<a class="headerlink" href="#module-omnixai.explanations.image.pixel_importance" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-image-pixel-importance-module"></span><h2>omnixai.explanations.image.pixel_importance module<a class="headerlink" href="#module-omnixai.explanations.image.pixel_importance" title="Permalink to this heading"></a></h2>
 <p>Pixel importance explanations for vision tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.image.pixel_importance.PixelImportance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.image.pixel_importance.</span></span><span class="sig-name descname"><span class="pre">PixelImportance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explanations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_heatmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for pixel importance explanations. The pixel importance scores
 of the input instances are stored in a list. Each item in the list is a dict with
 the following format: <cite>{“image”: the input image, “scores”: the pixel importance scores}</cite>.
@@ -271,12 +272,12 @@ label 1 corresponds to ‘cat’.</p></li>
 
 </section>
 <section id="module-omnixai.explanations.image.mask">
-<span id="omnixai-explanations-image-mask-module"></span><h2>omnixai.explanations.image.mask module<a class="headerlink" href="#module-omnixai.explanations.image.mask" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-image-mask-module"></span><h2>omnixai.explanations.image.mask module<a class="headerlink" href="#module-omnixai.explanations.image.mask" title="Permalink to this heading"></a></h2>
 <p>Image mask explanations for vision tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.image.mask.MaskExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.image.mask.</span></span><span class="sig-name descname"><span class="pre">MaskExplanation</span></span><a class="headerlink" href="#omnixai.explanations.image.mask.MaskExplanation" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for image mask explanations used by LIME. It uses a list to store image mask
 explanations of the input instances. Each item in the list is a dict with the following format:
 <cite>{“images”: the input images, “labels”: the predicted labels, “masks”: the masks returned by
@@ -377,12 +378,12 @@ label 1 corresponds to ‘cat’.</p></li>
 
 </section>
 <section id="module-omnixai.explanations.image.contrast">
-<span id="omnixai-explanations-image-contrast-module"></span><h2>omnixai.explanations.image.contrast module<a class="headerlink" href="#module-omnixai.explanations.image.contrast" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-image-contrast-module"></span><h2>omnixai.explanations.image.contrast module<a class="headerlink" href="#module-omnixai.explanations.image.contrast" title="Permalink to this heading"></a></h2>
 <p>Contrastive explanations for vision tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.image.contrast.ContrastiveExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.image.contrast.</span></span><span class="sig-name descname"><span class="pre">ContrastiveExplanation</span></span><a class="headerlink" href="#omnixai.explanations.image.contrast.ContrastiveExplanation" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for image contrastive explanations. It uses a list to store
 the contrastive explanations of the input instances. Each item in the list
 is a dict with the following format: <cite>{“image”: the input image, “label”: the
@@ -492,12 +493,12 @@ label 1 corresponds to ‘cat’.</p></li>
 
 </section>
 <section id="module-omnixai.explanations.image.counterfactual">
-<span id="omnixai-explanations-image-counterfactual-module"></span><h2>omnixai.explanations.image.counterfactual module<a class="headerlink" href="#module-omnixai.explanations.image.counterfactual" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explanations-image-counterfactual-module"></span><h2>omnixai.explanations.image.counterfactual module<a class="headerlink" href="#module-omnixai.explanations.image.counterfactual" title="Permalink to this heading"></a></h2>
 <p>Counterfactual explanations for vision tasks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explanations.image.counterfactual.CFExplanation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.image.counterfactual.</span></span><span class="sig-name descname"><span class="pre">CFExplanation</span></span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
 <p>The class for image counterfactual explanations. The counterfactual examples of the input
 instances are stored in a list. Each item in the list is a dict with the following format:
 <cite>{“image”: the input image, “label”: the predicted label of the input image, “cf”:

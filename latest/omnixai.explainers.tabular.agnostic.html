@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -142,7 +143,7 @@
 }
 </style>
 <section id="module-omnixai.explainers.tabular.agnostic">
-<span id="omnixai-explainers-tabular-agnostic-package"></span><h1>omnixai.explainers.tabular.agnostic package<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic" title="Permalink to this headline"></a></h1>
+<span id="omnixai-explainers-tabular-agnostic-package"></span><h1>omnixai.explainers.tabular.agnostic package<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -167,12 +168,12 @@
 </tbody>
 </table>
 <section id="module-omnixai.explainers.tabular.agnostic.lime">
-<span id="omnixai-explainers-tabular-agnostic-lime-module"></span><h2>omnixai.explainers.tabular.agnostic.lime module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.lime" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-agnostic-lime-module"></span><h2>omnixai.explainers.tabular.agnostic.lime module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.lime" title="Permalink to this heading"></a></h2>
 <p>The LIME explainer for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.lime.LimeTabular">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.agnostic.lime.</span></span><span class="sig-name descname"><span class="pre">LimeTabular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.lime.LimeTabular" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.base.TabularExplainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularExplainer</span></code></a></p>
 <p>The LIME explainer for tabular data.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/marcotcr/lime">https://github.com/marcotcr/lime</a>.</p>
 <dl class="field-list simple">
@@ -233,12 +234,12 @@ e.g., <code class="docutils literal notranslate"><span class="pre">num_features<
 
 </section>
 <section id="module-omnixai.explainers.tabular.agnostic.shap">
-<span id="omnixai-explainers-tabular-agnostic-shap-module"></span><h2>omnixai.explainers.tabular.agnostic.shap module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.shap" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-agnostic-shap-module"></span><h2>omnixai.explainers.tabular.agnostic.shap module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.shap" title="Permalink to this heading"></a></h2>
 <p>The SHAP explainer for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.shap.ShapTabular">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.agnostic.shap.</span></span><span class="sig-name descname"><span class="pre">ShapTabular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.shap.ShapTabular" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.base.TabularExplainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularExplainer</span></code></a></p>
 <p>The SHAP explainer for tabular data.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/slundberg/shap">https://github.com/slundberg/shap</a>.</p>
 <dl class="field-list simple">
@@ -295,12 +296,12 @@ when <code class="docutils literal notranslate"><span class="pre">y</span> <span
 
 </section>
 <section id="module-omnixai.explainers.tabular.agnostic.pdp">
-<span id="omnixai-explainers-tabular-agnostic-pdp-module"></span><h2>omnixai.explainers.tabular.agnostic.pdp module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.pdp" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-agnostic-pdp-module"></span><h2>omnixai.explainers.tabular.agnostic.pdp module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.pdp" title="Permalink to this heading"></a></h2>
 <p>The partial dependence plots for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.agnostic.pdp.</span></span><span class="sig-name descname"><span class="pre">PartialDependenceTabular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.base.TabularExplainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularExplainer</span></code></a></p>
 <p>The partial dependence plots for tabular data. For more information, please refer to
 <a class="reference external" href="https://scikit-learn.org/stable/modules/partial_dependence.html">https://scikit-learn.org/stable/modules/partial_dependence.html</a>.</p>
 <dl class="field-list simple">
@@ -348,12 +349,12 @@ candidates for each feature during generating partial dependence plots.</p></li>
 
 </section>
 <section id="module-omnixai.explainers.tabular.agnostic.sensitivity">
-<span id="omnixai-explainers-tabular-agnostic-sensitivity-module"></span><h2>omnixai.explainers.tabular.agnostic.sensitivity module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.sensitivity" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-agnostic-sensitivity-module"></span><h2>omnixai.explainers.tabular.agnostic.sensitivity module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.sensitivity" title="Permalink to this heading"></a></h2>
 <p>Morris sensitivity analysis for tabular data</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.sensitivity.SensitivityAnalysisTabular">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.agnostic.sensitivity.</span></span><span class="sig-name descname"><span class="pre">SensitivityAnalysisTabular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.sensitivity.SensitivityAnalysisTabular" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.base.TabularExplainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularExplainer</span></code></a></p>
 <p>Morris sensitivity analysis for tabular data based on the SALib.
 If using this explainer, please cite the package: <a class="reference external" href="https://github.com/SALib/SALib">https://github.com/SALib/SALib</a>.
 This explainer only supports continuous-valued features.</p>
@@ -402,12 +403,12 @@ the number of samples in Morris sampling.</p>
 
 </section>
 <section id="module-omnixai.explainers.tabular.agnostic.L2X.l2x">
-<span id="omnixai-explainers-tabular-agnostic-l2x-l2x-module"></span><h2>omnixai.explainers.tabular.agnostic.L2X.l2x module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.L2X.l2x" title="Permalink to this headline"></a></h2>
+<span id="omnixai-explainers-tabular-agnostic-l2x-l2x-module"></span><h2>omnixai.explainers.tabular.agnostic.L2X.l2x module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.L2X.l2x" title="Permalink to this heading"></a></h2>
 <p>The L2X explainer for tabular data.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultSelectionModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.agnostic.L2X.l2x.</span></span><span class="sig-name descname"><span class="pre">DefaultSelectionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultSelectionModel" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.agnostic.L2X.l2x._DefaultModelBase</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_DefaultModelBase</span></code></p>
 <p>The default selection model in L2X for tabular data. It is a simple feedforward
 neural network with three linear layers. The categorical features are mapped to
 embeddings.</p>
@@ -440,7 +441,7 @@ the hidden layer size.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultPredictionModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.agnostic.L2X.l2x.</span></span><span class="sig-name descname"><span class="pre">DefaultPredictionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultPredictionModel" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.agnostic.L2X.l2x._DefaultModelBase</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_DefaultModelBase</span></code></p>
 <p>The default prediction model in L2X for tabular data. It is a simple feedforward
 neural network with three linear layers. The categorical features are mapped to
 embeddings.</p>
@@ -476,7 +477,7 @@ the hidden layer size.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.L2X.l2x.L2XTabular">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.agnostic.L2X.l2x.</span></span><span class="sig-name descname"><span class="pre">L2XTabular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.L2XTabular" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.base.TabularExplainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainer" title="omnixai.explainers.tabular.base.TabularExplainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularExplainer</span></code></a></p>
 <p>The L2X explainer for tabular data.
 If using this explainer, please cite the original work:
 <cite>Learning to Explain: An Information-Theoretic Perspective on Model Interpretation,
