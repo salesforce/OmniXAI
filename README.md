@@ -181,7 +181,8 @@ To initialize `TabularExplainer`, we need to set the following parameters:
 - ``mode``: The task type, e.g., "classification" or "regression".
 
 The preprocessing function takes a `Tabular` instance as its input and outputs the processed features that
-the ML model consumes. In this example, we simply call ``transformer.transform``.
+the ML model consumes. In this example, we simply call ``transformer.transform``. If one uses some special transforms 
+on pandas dataframes, the preprocess function has format: `lambda z: some_transform(z.to_pd())`.
 
 ```python
 from omnixai.explainers.tabular import TabularExplainer
