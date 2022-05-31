@@ -49,6 +49,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-examples">More Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-contribute">How to Contribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#modules-for-different-data-types">Modules for Different Data Types</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="omnixai.data.html">omnixai.data package</a></li>
@@ -312,6 +313,109 @@ parameters for visualization (e.g., only plotting the selected features in PDP).
 <p>After opening the Dash app in the browser, we will see a dashboard showing the explanations:</p>
 <img alt="_images/demo.png" src="_images/demo.png" />
 </section>
+<section id="more-examples">
+<h2>More Examples<a class="headerlink" href="#more-examples" title="Permalink to this heading"></a></h2>
+<p>The next example is an image classification task. We choose a ResNet (<a class="reference external" href="https://arxiv.org/abs/1512.03385">https://arxiv.org/abs/1512.03385</a>)
+pretrained on ImageNet (<a class="reference external" href="https://www.image-net.org/">https://www.image-net.org/</a>) for demonstration. Here is the sample code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.explainers.vision</span> <span class="kn">import</span> <span class="n">VisionExplainer</span>
+<span class="kn">from</span> <span class="nn">omnixai.visualization.dashboard</span> <span class="kn">import</span> <span class="n">Dashboard</span>
+
+<span class="n">explainer</span> <span class="o">=</span> <span class="n">VisionExplainer</span><span class="p">(</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;ig&quot;</span><span class="p">,</span> <span class="s2">&quot;gradcam#0&quot;</span><span class="p">,</span> <span class="s2">&quot;gradcam#1&quot;</span><span class="p">,</span> <span class="s2">&quot;gradcam#2&quot;</span><span class="p">,</span> <span class="s2">&quot;gradcam#3&quot;</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>               <span class="c1"># A PyTorch ResNet50 model</span>
+    <span class="n">preprocess</span><span class="o">=</span><span class="n">preprocess</span><span class="p">,</span>     <span class="c1"># The preprocessing function</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+        <span class="c1"># Set the target layer</span>
+        <span class="s2">&quot;gradcam#0&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;target_layer&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">layer4</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]},</span>
+        <span class="s2">&quot;gradcam#1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;target_layer&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">layer4</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]},</span>
+        <span class="s2">&quot;gradcam#2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;target_layer&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">layer4</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]},</span>
+        <span class="s2">&quot;gradcam#3&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;target_layer&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">layer4</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]},</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span>
+    <span class="n">test_img</span><span class="p">,</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+        <span class="c1"># Explain a different label, e.g., &quot;y=281&quot; corresponds to &quot;tiger_cat&quot;</span>
+        <span class="s2">&quot;gradcam#2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">281</span><span class="p">]},</span>
+        <span class="s2">&quot;gradcam#3&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">281</span><span class="p">]},</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span><span class="n">instances</span><span class="o">=</span><span class="n">test_img</span><span class="p">,</span> <span class="n">local_explanations</span><span class="o">=</span><span class="n">local_explanations</span><span class="p">)</span>
+<span class="n">dashboard</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The following figure shows the explanations generated by multiple explainers, e.g., Grad-CAM, Integrated-gradient, LIME.
+The top one predicted label of this test instance is “bull_mastiff”. These explainers explain the top predicted label
+by default (one can also set other labels to explain), e.g., integrated-gradient highlights the regions corresponding
+to “bull_mastiff”. Note that besides generating explanations with different explainers, OmniXAI can also generate
+explanations with the same explainer but different parameters. In this example, we apply Grad-CAM with different
+parameters, e.g., the target layer of <cite>gradcam0</cite> is <code class="docutils literal notranslate"><span class="pre">layer4[-1]</span></code> while the target layer of <cite>gradcam3</cite> is <code class="docutils literal notranslate"><span class="pre">layer4[-3]</span></code>,
+and the label to explain for the first two Grad-CAM explainers is “bull_mastiff” (the top label) while the label
+for the second Grad-CAM explainers is “tiger_cat” (label = 281).</p>
+<img alt="_images/demo_vision.png" src="_images/demo_vision.png" />
+<p>OmniXAI also supports NLP tasks. Let’s consider a sentiment classification task on the IMDB dataset where the goal is
+to predict whether a user review is positive or negative. We train a text CNN model for this classification task using
+PyTorch, and then apply OmniXAI to generate explanations for each prediction given test instances. Suppose the
+processing function that converts the raw texts into the inputs of the model is <code class="docutils literal notranslate"><span class="pre">preprocess</span></code>, and we want to
+analyze word/token importance and generate counterfactual examples. The following code shows how to do this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize a NLPExplainer</span>
+<span class="n">explainer</span> <span class="o">=</span> <span class="n">NLPExplainer</span><span class="p">(</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ig&quot;</span><span class="p">,</span> <span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;polyjuice&quot;</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">preprocess</span><span class="o">=</span><span class="n">preprocess</span><span class="p">,</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ig&quot;</span><span class="p">:</span>
+        <span class="c1"># The embedding layer in the model</span>
+        <span class="p">{</span><span class="s2">&quot;embedding_layer&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">embedding</span><span class="p">,</span>
+        <span class="c1"># For converting token ids into tokens</span>
+         <span class="s2">&quot;id2token&quot;</span><span class="p">:</span> <span class="n">id_to_token</span><span class="p">}}</span>
+<span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="s2">&quot;it was a fantastic performance!&quot;</span><span class="p">)</span>
+<span class="c1"># Generates explanations</span>
+<span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1"># Launch a dashboard for visualization</span>
+<span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span><span class="n">instances</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">local_explanations</span><span class="o">=</span><span class="n">local_explanations</span><span class="p">)</span>
+<span class="n">dashboard</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The following figure shows the explanation results generated by LIME, Integrated gradient (IG) and counterfactual.</p>
+<img alt="_images/demo_nlp.png" src="_images/demo_nlp.png" />
+<p>Clearly, LIME and integrated-gradient show that word “fantastic” has the largest word/token importance score,
+which implies that the sentence  is classified as “positive” because it contains word “fantastic”.
+The counterfactual method generates several counterfactual examples for this test sentence, e.g.,
+“it was a horrible performance!”, helping us understand more about the model behavior.</p>
+<p>In the next example, we consider a univariate time series anomaly detection task. We use a simple statistics-based
+detector for demonstration, e.g., a window of time series is detected as an anomaly according to some threshold
+estimated from the training data. Suppose we have detector <code class="docutils literal notranslate"><span class="pre">detector</span></code>, training data <code class="docutils literal notranslate"><span class="pre">train_df</span></code> and a test instance
+<code class="docutils literal notranslate"><span class="pre">test_df</span></code>. The following code shows how to apply OmniXAI in anomaly detection:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize a TimeseriesExplainer</span>
+<span class="n">explainers</span> <span class="o">=</span> <span class="n">TimeseriesExplainer</span><span class="p">(</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">],</span>        <span class="c1"># Apply SHAP and MACE explainers</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;anomaly_detection&quot;</span><span class="p">,</span>           <span class="c1"># An anomaly detection task</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">(</span><span class="n">train_df</span><span class="p">),</span>  <span class="c1"># Set data for initializing the explainers</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">detector</span><span class="p">,</span>                     <span class="c1"># Set the black-box anomaly detector</span>
+    <span class="n">preprocess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">postprocess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;mace&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">}}</span>   <span class="c1"># Additional parameters for MACE</span>
+<span class="p">)</span>
+<span class="c1"># Generate local explanations</span>
+<span class="n">test_instance</span> <span class="o">=</span> <span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">(</span><span class="n">test_df</span><span class="p">)</span>
+<span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">test_instance</span><span class="p">)</span>
+<span class="c1"># Launch a dashboard for visualization</span>
+<span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span><span class="n">instances</span><span class="o">=</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">local_explanations</span><span class="o">=</span><span class="n">local_explanations</span><span class="p">)</span>
+<span class="n">dashboard</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This figure shows the explanation results generated by SHAP and MACE:</p>
+<img alt="_images/demo_ts.png" src="_images/demo_ts.png" />
+<p>The dash lines demonstrate the importance scores and the counterfactual examples, respectively.
+SHAP shows the most important timestamps make this test instance detected as an anomaly.
+MACE provides a counterfactual example showing that it will not be detected as an anomaly if the metric values
+from 20:00 to 00:00 are around 2.0. From these two explanations, one can clearly understand the reason
+why the model considers it as an anomaly.</p>
+</section>
 <section id="how-to-contribute">
 <h2>How to Contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this heading"></a></h2>
 <p>Thank you for your interest in contributing to the library!
@@ -345,6 +449,8 @@ can generate local explanations, global explanations or both.</p></li>
 <li><p>Add a class attribute <code class="docutils literal notranslate"><span class="pre">alias</span></code> (list) specifying the explainer names.</p></li>
 <li><p>Implement the “explain” function, e.g., <code class="docutils literal notranslate"><span class="pre">explain(self,</span> <span class="pre">**kwargs)</span></code> for local explanations, or
 <code class="docutils literal notranslate"><span class="pre">explain_global(self,</span> <span class="pre">X,</span> <span class="pre">**kwargs)</span></code> for global explanations where the type of <code class="docutils literal notranslate"><span class="pre">X</span></code> is class <cite>Tabular</cite>, <cite>Image</cite>, <cite>Text</cite> or <cite>Timeseries</cite>.</p></li>
+<li><p>Implement the explanation class inherited from <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explanations.base.ExplanationBase</span></code></a> if the available explanation classes
+in the library cannot fulfill the requirements. The “explain” function should return an instance of this explanation class.</p></li>
 <li><p>Import the explainer class in “__init__.py” of the packages <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular</span></code>,
 <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp</span></code> or <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries</span></code>.</p></li>
 </ol>
