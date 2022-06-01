@@ -1,14 +1,29 @@
 OmniXAI: An Explanation Toolbox
 ===============================
 
-Overview
---------
+Introduction
+------------
 
-:py:mod:`omnixai` is a Python library for explainable AI (XAI). The library provides
-a comprehensive family of explainable AI capabilities and interpretable machine learning algorithms,
-including high-quality implementations of various model-agnostic and model-specific explanation methods,
-e.g., feature-importance explanation, counterfactual explanation, gradient-based explanation, which supports
-tabular data, image data and text data. It has five key subpackages:
+OmniXAI is a Python library for explainable AI (XAI), offering omni-way explainable AI and interpretable
+machine learning capabilities to address many pain points in explaining decisions made by machine learning
+models in practice. OmniXAI aims to be a one-stop comprehensive library that makes explainable AI easy for
+data scientists, ML researchers and practitioners who need explanation for various types of data, models and
+explanation methods at different stages of ML process:
+
+.. image:: _static/ml_pipeline.png
+
+OmniXAI includes a rich family of explanation methods integrated in a unified interface, which
+supports multiple data types (tabular data, images, texts, time-series), multiple types of ML models
+(traditional ML in Scikit-learn and deep learning models in PyTorch/TensorFlow), and a range of diverse explaination
+methods including "model-specific" and "model-agnostic" methods (such as feature-attribution explanation,
+counterfactual explanation, gradient-based explanation, etc). For practitioners, OmniXAI provides an easy-to-use
+unified interface to generate the explanations for their applications by only writing a few lines of
+codes, and also a GUI dashboard for visualization for obtaining more insights about decisions.
+
+Library Design
+--------------
+
+OmniXAI has five key subpackages:
 
 - :py:mod:`omnixai.data`: This package contains the classes for representing tabular, image, text, and time series data,
   i.e., :py:mod:`omnixai.data.tabular`, :py:mod:`omnixai.data.image`, :py:mod:`omnixai.data.text` and :py:mod:`omnixai.data.timeseries`,
@@ -58,6 +73,14 @@ explanation methods which may be either "model-agnostic" or "model-specific".
 
 - :py:mod:`omnixai.visualization`: This package provides a dashboard for visualization implemented using Plotly Dash. The
   dashboard supports both global explanations and local explanations.
+
+The following figure demonstrates the main architecture of the library.
+The package :py:mod:`omnixai.explainers` contains four special explainers, namely, :py:mod:`omnixai.explainers.tabular.TabularExplainer`,
+:py:mod:`omnixai.explainers.vision.VisionExplainer`, :py:mod:`omnixai.explainers.nlp.NLPExplainer`
+and :py:mod:`omnixai.explainers.timeseries.TimeseriesExplainer`, inherited from :py:mod:`omnixai.explainers.base.AutoExplainerBase`
+acting as the factories of the supported explainers.
+
+.. image:: _static/class.png
 
 Installation
 ------------

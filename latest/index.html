@@ -100,21 +100,20 @@
 <h1>Welcome to OmniXAI’s documentation!<a class="headerlink" href="#welcome-to-omnixai-s-documentation" title="Permalink to this heading"></a></h1>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
-<p>OmniXAI is a Python library for explainable AI and interpretable machine learning.
-The library provides a comprehensive family of interpretable
-machine learning algorithms. It includes high-quality implementations of various model-agnostic and
-model-specific explanation methods, e.g., feature-attribution explanation, counterfactual explanation,
-gradient-based explanation, and supports tabular data, image data, text data and time series data. It also provides an
-easy-to-use interface allowing users to generate explanations by writing a few lines of codes,
-which can be applied for multiple purposes in various applications:</p>
-<ol class="arabic simple">
-<li><p><strong>Data exploration</strong>: What are highly correlated features? Does there exist data imbalance issues?</p></li>
-<li><p><strong>Feature engineering</strong>: Which features are important for the task? How to improve the model performance?</p></li>
-<li><p><strong>Model debugging</strong>: Does the model utilize wrong features? Why does the model make a mistake?</p></li>
-<li><p><strong>Decision support for business applications</strong>: How to understand the model’s decision and why to trust them?</p></li>
-<li><p><strong>Transparency for healthcare and finance</strong>: Why does the model make such judgement? Is the judgement reasonable?</p></li>
-</ol>
-<p>Compared with other existing explanation libraries (such as IBM’s AIX360, Microsoft’s InterpretML, Alibi and explainX),
+<p>OmniXAI is a Python library for explainable AI (XAI), offering omni-way explainable AI and interpretable
+machine learning capabilities to address many pain points in explaining decisions made by machine learning
+models in practice. OmniXAI aims to be a one-stop comprehensive library that makes explainable AI easy for
+data scientists, ML researchers and practitioners who need explanation for various types of data, models and
+explanation methods at different stages of ML process:</p>
+<img alt="_images/ml_pipeline.png" src="_images/ml_pipeline.png" />
+<p>OmniXAI includes a rich family of explanation methods integrated in a unified interface, which
+supports multiple data types (tabular data, images, texts, time-series), multiple types of ML models
+(traditional ML in Scikit-learn and deep learning models in PyTorch/TensorFlow), and a range of diverse explaination
+methods including “model-specific” and “model-agnostic” methods (such as feature-attribution explanation,
+counterfactual explanation, gradient-based explanation, etc). For practitioners, OmniXAI provides an easy-to-use
+unified interface to generate the explanations for their applications by only writing a few lines of
+codes, and also a GUI dashboard for visualization for obtaining more insights about decisions.
+Compared with other existing explanation libraries (such as IBM’s AIX360, Microsoft’s InterpretML, Alibi and explainX),
 our library has a comprehensive list of XAI capabilities and unique features including the followings:</p>
 <ol class="arabic simple">
 <li><p><strong>Data analysis/exploration</strong>: Analyzing feature correlations, checking imbalance issues.</p></li>
@@ -147,7 +146,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
 <th class="head"><p>Model Type</p></th>
 <th class="head"><p>Explanation Type</p></th>
-<th class="head"><p>Data Analysis</p></th>
+<th class="head"><p>EDA</p></th>
 <th class="head"><p>Tabular</p></th>
 <th class="head"><p>Image</p></th>
 <th class="head"><p>Text</p></th>
@@ -709,7 +708,8 @@ by specifying one of the names defined in <code class="docutils literal notransl
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.html">OmniXAI: An Explanation Toolbox</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="omnixai.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#library-design">Library Design</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#getting-started">Getting Started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#more-examples">More Examples</a></li>
