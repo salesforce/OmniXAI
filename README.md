@@ -46,21 +46,21 @@ The following table shows the supported explanation methods and features in our 
 We will continue improving this library to make it more comprehensive in the future, e.g., supporting more
 explanation methods for vision, NLP and time series tasks.
 
-| Method                  | Model Type    | Explanation Type | Data Analysis | Tabular | Image | Text | Timeseries | 
-:---:                     | :---:         | :---:            | :---:         | :---:   | :---: | :---: | :---:
-| Feature analysis        | NA            | Global           | ✅            |         |       |      |      |
-| Feature selection       | NA            | Global           | ✅            |         |       |      |      |
-| Partial dependence      | Black box     | Global           |               | ✅      |       |      |      |
-| Sensitivity analysis    | Black box     | Global           |               | ✅      |       |      |      |
-| LIME                    | Black box     | Local            |               | ✅      | ✅     | ✅   |      |
-| SHAP                    | Black box*    | Local            |               | ✅      | ✅     | ✅   |  ✅  |
-| Integrated gradient     | Torch or TF   | Local            |               | ✅      | ✅     | ✅   |      |
-| Counterfactual          | Black box*    | Local            |               | ✅      | ✅     | ✅   |  ✅  |
-| Contrastive explanation | Torch or TF   | Local            |               |         | ✅    |      |      |
-| Grad-CAM, Grad-CAM++    | Torch or TF   | Local            |               |         | ✅    |      |      |
-| Learning to explain     | Black box     | Local            |               | ✅      | ✅     | ✅   |      |
-| Linear models           | Linear models | Global and Local |               | ✅      |       |      |      |
-| Tree models             | Tree models   | Global and Local |               | ✅      |       |      |      |
+| Method                  | Model Type    | Explanation Type | EDA | Tabular | Image | Text | Timeseries | 
+:---:                     | :---:         | :---:            |:---:| :---:   | :---: | :---: | :---:
+| Feature analysis        | NA            | Global           |  ✅  |         |       |      |      |
+| Feature selection       | NA            | Global           |  ✅  |         |       |      |      |
+| Partial dependence      | Black box     | Global           |     | ✅      |       |      |      |
+| Sensitivity analysis    | Black box     | Global           |     | ✅      |       |      |      |
+| LIME                    | Black box     | Local            |     | ✅      | ✅     | ✅   |      |
+| SHAP                    | Black box*    | Local            |     | ✅      | ✅     | ✅   |  ✅  |
+| Integrated gradient     | Torch or TF   | Local            |     | ✅      | ✅     | ✅   |      |
+| Counterfactual          | Black box*    | Local            |     | ✅      | ✅     | ✅   |  ✅  |
+| Contrastive explanation | Torch or TF   | Local            |     |         | ✅    |      |      |
+| Grad-CAM, Grad-CAM++    | Torch or TF   | Local            |     |         | ✅    |      |      |
+| Learning to explain     | Black box     | Local            |     | ✅      | ✅     | ✅   |      |
+| Linear models           | Linear models | Global and Local |     | ✅      |       |      |      |
+| Tree models             | Tree models   | Global and Local |     | ✅      |       |      |      |
 
 *SHAP* accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
 for text data. *Counterfactual* accepts black box models for tabular, text and time series data, and PyTorch/Tensorflow models for
