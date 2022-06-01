@@ -20,7 +20,7 @@
 1. [Getting Started](#getting-started)
 1. [Tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials)
 1. [Documentation](https://salesforce.github.io/OmniXAI/index.html)
-1. [Dashboard Demo](https://omnixai-demo.herokuapp.com/)
+1. [Dashboard Demo](https://sfr-omnixai-demo.herokuapp.com/)
 1. [How to Contribute](#how-to-contribute)
 1. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
 
@@ -112,7 +112,7 @@ cloning the OmniXAI repo, navigating to the root directory, and calling
 
 For example code and an introduction to the library, see the Jupyter notebooks in
 [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials), and the guided walkthrough
-[here](https://salesforce.github.io/OmniXAI/index.html). A dashboard demo can be found [here](https://omnixai-demo.herokuapp.com/).
+[here](https://salesforce.github.io/OmniXAI/index.html). A dashboard demo can be found [here](https://sfr-omnixai-demo.herokuapp.com/).
 
 To get started, we recommend the linked tutorials in [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
