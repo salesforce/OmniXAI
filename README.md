@@ -7,10 +7,16 @@
 # OmniXAI: A Library for Explainable AI
 <div align="center">
   <a href="https://pypi.python.org/pypi/omnixai">
+  <img alt="Python Version" src="https://img.shields.io/pypi/pyversions/omnixai.svg?style=plastic"/>
+  </a>
+  <a href="https://pypi.python.org/pypi/omnixai">
   <img alt="PyPI Version" src="https://img.shields.io/pypi/v/omnixai.svg"/>
   </a>
   <a href="https://salesforce.github.io/OmniXAI">
-  <img alt="docs" src="https://github.com/salesforce/OmniXAI/actions/workflows/docs.yml/badge.svg"/>
+  <img alt="Documentation" src="https://github.com/salesforce/OmniXAI/actions/workflows/docs.yml/badge.svg"/>
+  </a>
+  <a href="https://xxx">
+  <img alt="DOI" src="https://zenodo.org/badge/DOI/00.0000/zenodo.0000000.svg"/>
   </a>
 </div>
 
