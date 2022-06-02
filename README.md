@@ -120,7 +120,7 @@ In general, we recommend using `TabularExplainer`, `VisionExplainer`,
 one only needs to specify
 
 - **The ML model to explain**: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.
-- **The pre-processing function**: i.e., converting raw data into the model inputs.
+- **The pre-processing function**: i.e., converting raw input features into the model inputs.
 - **The post-processing function (optional)**: e.g., converting the model outputs into class probabilities.
 - **The explainers to apply**: e.g., SHAP, MACE, Grad-CAM.
 
@@ -175,7 +175,7 @@ To initialize `TabularExplainer`, we need to set the following parameters:
   machine learning model. If the training dataset is too large, ``data`` can be a subset of it by applying
   `omnixai.sampler.tabular.Sampler.subsample`.
 - ``model``: The ML model to explain, e.g., a scikit-learn model, a tensorflow model or a pytorch model.
-- ``preprocess``: The preprocessing function converting the raw data into the inputs of ``model``.
+- ``preprocess``: The preprocessing function converting the raw inputs (A `Tabular` instance) into the inputs of ``model``.
 - ``postprocess`` (optional): The postprocessing function transforming the outputs of ``model`` to a
   user-specific form, e.g., the predicted probability for each class.
 - ``mode``: The task type, e.g., "classification" or "regression".
