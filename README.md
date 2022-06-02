@@ -97,7 +97,7 @@ in literature:
 
 ## Installation
 
-You can install :py:mod:`omnixai` from PyPI by calling ``pip install omnixai``. You may install from source by
+You can install ``omnixai`` from PyPI by calling ``pip install omnixai``. You may install from source by
 cloning the OmniXAI repo, navigating to the root directory, and calling
 ``pip install .``, or ``pip install -e .`` to install in editable mode. You may install additional dependencies:
 
