@@ -44,7 +44,7 @@ codes, and also a GUI dashboard for visualization for obtaining more insights ab
 
 The following table shows the supported explanation methods and features in our library.
 We will continue improving this library to make it more comprehensive in the future, e.g., supporting more
-explanation methods for vision, NLP and time series tasks.
+explanation methods for vision, NLP and time-series tasks.
 
 | Method                  | Model Type    | Explanation Type | EDA | Tabular | Image | Text | Timeseries | 
 :---:                     | :---:         | :---:            |:---:| :---:   | :---: | :---: | :---:
@@ -63,7 +63,7 @@ explanation methods for vision, NLP and time series tasks.
 | Tree models             | Tree models   | Global and Local |     | ✅      |       |      |      |
 
 *SHAP* accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
-for text data. *Counterfactual* accepts black box models for tabular, text and time series data, and PyTorch/Tensorflow models for
+for text data. *Counterfactual* accepts black box models for tabular, text and time-series data, and PyTorch/Tensorflow models for
 image data.
 
 The following table shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
@@ -116,7 +116,7 @@ For example code and an introduction to the library, see the Jupyter notebooks i
 
 To get started, we recommend the linked tutorials in [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
-`NLPExplainer` and `TimeseriesExplainer` for tabular, vision, NLP and time series tasks, respectively. To generate explanations,
+`NLPExplainer` and `TimeseriesExplainer` for tabular, vision, NLP and time-series tasks, respectively. To generate explanations,
 one only needs to specify
 
 - **The ML model to explain**: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.
