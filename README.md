@@ -290,3 +290,9 @@ If you're using OmniXAI in your research or applications, please cite using this
   eprint    = {TODO},
 }
 ```
+
+## Contact Us
+If you have any questions, comments or suggestions, please do not hesitate to contact us at omnixai@salesforce.com.
+
+## License
+[BSD 3-Clause License](LICENSE)
