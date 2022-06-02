@@ -7,7 +7,7 @@
 # OmniXAI: A Library for Explainable AI
 <div align="center">
   <a href="https://pypi.python.org/pypi/omnixai">
-  <img alt="Python Version" src="https://img.shields.io/pypi/pyversions/omnixai.svg?style=plastic"/>
+  <img alt="Python Version" src="https://img.shields.io/pypi/pyversions/omnixai.svg"/>
   </a>
   <a href="https://pypi.python.org/pypi/omnixai">
   <img alt="PyPI Version" src="https://img.shields.io/pypi/v/omnixai.svg"/>
