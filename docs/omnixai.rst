@@ -4,7 +4,7 @@ OmniXAI: An Explanation Toolbox
 Introduction
 ------------
 
-OmniXAI is a Python library for explainable AI (XAI), offering omni-way explainable AI and interpretable
+OmniXAI (short for Omni eXplainable AI) is a Python library for explainable AI (XAI), offering omni-way explainable AI and interpretable
 machine learning capabilities to address many pain points in explaining decisions made by machine learning
 models in practice. OmniXAI aims to be a one-stop comprehensive library that makes explainable AI easy for
 data scientists, ML researchers and practitioners who need explanation for various types of data, models and
