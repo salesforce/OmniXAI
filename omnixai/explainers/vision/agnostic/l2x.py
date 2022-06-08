@@ -14,101 +14,99 @@ from typing import Callable
 
 from ...base import ExplainerBase
 from ....data.image import Image
-from ...tabular.agnostic.L2X.utils import L2XModel, Trainer
 from ....explanations.image.pixel_importance import PixelImportance
 from ....utils.misc import is_torch_available
 
-if not is_torch_available():
-    raise EnvironmentError("Torch cannot be found.")
-else:
+if is_torch_available():
     import torch
     import torch.nn as nn
+    from ...tabular.agnostic.L2X.utils import L2XModel, Trainer
 
 
-class _DefaultModelBase(nn.Module):
-    def __init__(self, explainer, **kwargs):
-        super().__init__()
-        self.image_shape = explainer.data.shape[1:]
-        self.output_dim = np.max(explainer.predictions) + 1 if explainer.mode == "classification" else 1
-        self.scale = 255.0 if np.max(explainer.data) > 1 else 1.0
+    class _DefaultModelBase(nn.Module):
+        def __init__(self, explainer, **kwargs):
+            super().__init__()
+            self.image_shape = explainer.data.shape[1:]
+            self.output_dim = np.max(explainer.predictions) + 1 if explainer.mode == "classification" else 1
+            self.scale = 255.0 if np.max(explainer.data) > 1 else 1.0
 
 
-class DefaultSelectionModel(_DefaultModelBase):
-    """
-    The default selection model in L2X, which is designed for MNIST.
-    """
-
-    def __init__(self, explainer, **kwargs):
+    class DefaultSelectionModel(_DefaultModelBase):
         """
-        :param explainer: A `L2XImage` explainer.
-        :param kwargs: Additional parameters.
+        The default selection model in L2X, which is designed for MNIST.
         """
-        super().__init__(explainer, **kwargs)
-        self.conv_layers = nn.Sequential(
-            nn.Conv2d(self.image_shape[0], 10, kernel_size=3),
-            nn.MaxPool2d(2),
-            nn.ReLU(),
-            nn.Conv2d(10, 20, kernel_size=3),
-            nn.ReLU(),
-            nn.Conv2d(20, 1, kernel_size=1),
-        )
-        self.out_size = self.conv_layers(torch.tensor(explainer.data[0:1], dtype=torch.get_default_dtype())).shape[1:]
-        self.upsampling_layer = nn.Upsample(size=self.image_shape[1:], mode="bilinear")
 
-    def forward(self, inputs):
-        """
-        :param inputs: The model inputs.
-        """
-        inputs = inputs / self.scale
-        outputs = self.conv_layers(inputs)
-        return outputs.view((inputs.shape[0], -1))
+        def __init__(self, explainer, **kwargs):
+            """
+            :param explainer: A `L2XImage` explainer.
+            :param kwargs: Additional parameters.
+            """
+            super().__init__(explainer, **kwargs)
+            self.conv_layers = nn.Sequential(
+                nn.Conv2d(self.image_shape[0], 10, kernel_size=3),
+                nn.MaxPool2d(2),
+                nn.ReLU(),
+                nn.Conv2d(10, 20, kernel_size=3),
+                nn.ReLU(),
+                nn.Conv2d(20, 1, kernel_size=1),
+            )
+            self.out_size = self.conv_layers(torch.tensor(explainer.data[0:1], dtype=torch.get_default_dtype())).shape[1:]
+            self.upsampling_layer = nn.Upsample(size=self.image_shape[1:], mode="bilinear")
 
-    def postprocess(self, inputs):
-        """
-        Upsamples to the original image size.
+        def forward(self, inputs):
+            """
+            :param inputs: The model inputs.
+            """
+            inputs = inputs / self.scale
+            outputs = self.conv_layers(inputs)
+            return outputs.view((inputs.shape[0], -1))
 
-        :param inputs: The outputs of ``forward``.
-        """
-        inputs = inputs.view((-1, self.out_size[0], self.out_size[1], self.out_size[2]))
-        return self.upsampling_layer(inputs)
+        def postprocess(self, inputs):
+            """
+            Upsamples to the original image size.
+
+            :param inputs: The outputs of ``forward``.
+            """
+            inputs = inputs.view((-1, self.out_size[0], self.out_size[1], self.out_size[2]))
+            return self.upsampling_layer(inputs)
 
 
-class DefaultPredictionModel(_DefaultModelBase):
-    """
-    The default prediction model in L2X, which is designed for MNIST.
-    """
+    class DefaultPredictionModel(_DefaultModelBase):
+        """
+        The default prediction model in L2X, which is designed for MNIST.
+        """
 
-    def __init__(self, explainer, **kwargs):
-        """
-        :param explainer: A `L2XImage` explainer.
-        :param kwargs: Additional parameters.
-        """
-        super().__init__(explainer, **kwargs)
-        self.conv_layers = nn.Sequential(
-            nn.Conv2d(self.image_shape[0], 10, kernel_size=5),
-            nn.MaxPool2d(2),
-            nn.ReLU(),
-            nn.Conv2d(10, 20, kernel_size=5),
-            nn.Dropout(),
-            nn.MaxPool2d(2),
-            nn.ReLU(),
-        )
-        conv_out_size = self.conv_layers(torch.tensor(explainer.data[0:1], dtype=torch.get_default_dtype())).shape[1:]
-        self.fc_layers = nn.Sequential(
-            nn.Linear(int(np.prod(conv_out_size)), 50), nn.ReLU(), nn.Dropout(), nn.Linear(50, self.output_dim)
-        )
+        def __init__(self, explainer, **kwargs):
+            """
+            :param explainer: A `L2XImage` explainer.
+            :param kwargs: Additional parameters.
+            """
+            super().__init__(explainer, **kwargs)
+            self.conv_layers = nn.Sequential(
+                nn.Conv2d(self.image_shape[0], 10, kernel_size=5),
+                nn.MaxPool2d(2),
+                nn.ReLU(),
+                nn.Conv2d(10, 20, kernel_size=5),
+                nn.Dropout(),
+                nn.MaxPool2d(2),
+                nn.ReLU(),
+            )
+            conv_out_size = self.conv_layers(torch.tensor(explainer.data[0:1], dtype=torch.get_default_dtype())).shape[1:]
+            self.fc_layers = nn.Sequential(
+                nn.Linear(int(np.prod(conv_out_size)), 50), nn.ReLU(), nn.Dropout(), nn.Linear(50, self.output_dim)
+            )
 
-    def forward(self, inputs, weights):
-        """
-        :param inputs: The model inputs.
-        :param weights: The weights generated via Gumbel-Softmax sampling.
-        """
-        inputs = inputs / self.scale
-        outputs = self.conv_layers(inputs * weights)
-        outputs = self.fc_layers(torch.flatten(outputs, 1))
-        if outputs.shape[1] == 1:
-            outputs = outputs.squeeze(dim=1)
-        return outputs
+        def forward(self, inputs, weights):
+            """
+            :param inputs: The model inputs.
+            :param weights: The weights generated via Gumbel-Softmax sampling.
+            """
+            inputs = inputs / self.scale
+            outputs = self.conv_layers(inputs * weights)
+            outputs = self.fc_layers(torch.flatten(outputs, 1))
+            if outputs.shape[1] == 1:
+                outputs = outputs.squeeze(dim=1)
+            return outputs
 
 
 class L2XImage(ExplainerBase):
@@ -163,6 +161,8 @@ class L2XImage(ExplainerBase):
             and ``prediction_model``.
         """
         super().__init__()
+        assert is_torch_available(), \
+            "PyTorch is not installed. L2XImage requires the installation of PyTorch."
         assert training_data.values is not None, "`training_data` cannot be empty."
         assert mode in [
             "classification",
