@@ -21,7 +21,7 @@
 1. [Introduction](#introduction)
 1. [Installation](#installation)
 1. [Getting Started](#getting-started)
-1. [Tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials)
+1. [Tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html)
 1. [Documentation](https://opensource.salesforce.com/OmniXAI/latest/index.html)
 1. [Dashboard Demo](https://sfr-omnixai-demo.herokuapp.com/)
 1. [How to Contribute](#how-to-contribute)
@@ -116,10 +116,10 @@ cloning the OmniXAI repo, navigating to the root directory, and calling
 ## Getting Started
 
 For example code and an introduction to the library, see the Jupyter notebooks in
-[tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials), and the guided walkthrough
+[tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html), and the guided walkthrough
 [here](https://opensource.salesforce.com/OmniXAI/latest/index.html). A dashboard demo can be found [here](https://sfr-omnixai-demo.herokuapp.com/).
 
-To get started, we recommend the linked tutorials in [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials).
+To get started, we recommend the linked tutorials in [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
 `NLPExplainer` and `TimeseriesExplainer` for tabular, vision, NLP and time-series tasks, respectively. To generate explanations,
 one only needs to specify
