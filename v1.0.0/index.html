@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to OmniXAI’s documentation! &mdash; OmniXAI  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="OmniXAI: An Explanation Toolbox" href="omnixai.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> OmniXAI
+          </a>
+              <div class="version">
+                v1.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">OmniXAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to OmniXAI’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="welcome-to-omnixai-s-documentation">
+<h1>Welcome to OmniXAI’s documentation!<a class="headerlink" href="#welcome-to-omnixai-s-documentation" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>OmniXAI (short for Omni eXplainable AI) is a Python library for explainable AI (XAI), offering omni-way explainable AI and interpretable
+machine learning capabilities to address many pain points in explaining decisions made by machine learning
+models in practice. OmniXAI aims to be a one-stop comprehensive library that makes explainable AI easy for
+data scientists, ML researchers and practitioners who need explanation for various types of data, models and
+explanation methods at different stages of ML process:</p>
+<img alt="_images/ml_pipeline.png" src="_images/ml_pipeline.png" />
+<p>OmniXAI includes a rich family of explanation methods integrated in a unified interface, which
+supports multiple data types (tabular data, images, texts, time-series), multiple types of ML models
+(traditional ML in Scikit-learn and deep learning models in PyTorch/TensorFlow), and a range of diverse explaination
+methods including “model-specific” and “model-agnostic” methods (such as feature-attribution explanation,
+counterfactual explanation, gradient-based explanation, etc). For practitioners, OmniXAI provides an easy-to-use
+unified interface to generate the explanations for their applications by only writing a few lines of
+codes, and also a GUI dashboard for visualization for obtaining more insights about decisions.
+Compared with other existing explanation libraries (such as IBM’s AIX360, Microsoft’s InterpretML, Alibi and explainX),
+our library has a comprehensive list of XAI capabilities and unique features including the followings:</p>
+<ol class="arabic simple">
+<li><p><strong>Data analysis/exploration</strong>: Analyzing feature correlations, checking imbalance issues.</p></li>
+<li><p><strong>Support most popular explanation methods</strong>: Analyzing different aspects of a ML model by various explanation methods.</p></li>
+<li><p><strong>Support counterfactual explanation</strong>: Providing the information about how to change the current prediction.</p></li>
+<li><p><strong>Support gradient-based explanation</strong>: Supporting integrated-gradient, Grad-CAM and its variants.</p></li>
+<li><p><strong>Support image, text and timeseries data</strong>: Providing various explanations for image, text and timeseries models.</p></li>
+<li><p><strong>A much simpler interface</strong>: Generating diverse explanations by writing a few lines of code only.</p></li>
+<li><p><strong>A GUI dashboard</strong>: Providing an GUI dashboard for users to examine and compare the generated explanations.</p></li>
+<li><p><strong>Easy to extend</strong>: Adding new explanation algorithms easily by implementing a single class derived from the explainer base class.</p></li>
+</ol>
+</section>
+<section id="capabilities-and-features">
+<h2>Capabilities and Features<a class="headerlink" href="#capabilities-and-features" title="Permalink to this heading"></a></h2>
+<p>The following table shows the supported explanation methods and features in our library.
+We will continue improving this library to make it more comprehensive in the future, e.g., supporting more
+explanation methods for vision, NLP and time series tasks.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Model Type</p></th>
+<th class="head"><p>Explanation Type</p></th>
+<th class="head"><p>EDA</p></th>
+<th class="head"><p>Tabular</p></th>
+<th class="head"><p>Image</p></th>
+<th class="head"><p>Text</p></th>
+<th class="head"><p>Timeseries</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Feature analysis</p></td>
+<td><p>NA</p></td>
+<td><p>Global</p></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Feature selection</p></td>
+<td><p>NA</p></td>
+<td><p>Global</p></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Partial dependence</p></td>
+<td><p>Black box</p></td>
+<td><p>Global</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Sensitivity analysis</p></td>
+<td><p>Black box</p></td>
+<td><p>Global</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LIME</p></td>
+<td><p>Black box</p></td>
+<td><p>Local</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SHAP</p></td>
+<td><p>Black box*</p></td>
+<td><p>Local</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>Integrated gradient</p></td>
+<td><p>Torch or TF</p></td>
+<td><p>Local</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Counterfactual</p></td>
+<td><p>Black box*</p></td>
+<td><p>Local</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>Contrastive explanation</p></td>
+<td><p>Torch or TF</p></td>
+<td><p>Local</p></td>
+<td></td>
+<td></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Grad-CAM, Grad-CAM++</p></td>
+<td><p>Torch or TF</p></td>
+<td><p>Local</p></td>
+<td></td>
+<td></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Learning to explain</p></td>
+<td><p>Black box</p></td>
+<td><p>Local</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Linear models</p></td>
+<td><p>Linear models</p></td>
+<td><p>Global and Local</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Tree models</p></td>
+<td><p>Tree models</p></td>
+<td><p>Global and Local</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>SHAP</em> accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
+for text data. <em>Counterfactual</em> accepts black box models for tabular, text and time series data, and PyTorch/Tensorflow models for
+image data.</p>
+</section>
+<section id="comparison-with-competitors">
+<h2>Comparison with Competitors<a class="headerlink" href="#comparison-with-competitors" title="Permalink to this heading"></a></h2>
+<p>The following table shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
+in literature:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 26%" />
+<col style="width: 9%" />
+<col style="width: 14%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data Type</p></th>
+<th class="head"><p>Method</p></th>
+<th class="head"><p>OmniXAI</p></th>
+<th class="head"><p>InterpretML</p></th>
+<th class="head"><p>AIX360</p></th>
+<th class="head"><p>Eli5</p></th>
+<th class="head"><p>Captum</p></th>
+<th class="head"><p>Alibi</p></th>
+<th class="head"><p>explainX</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tabular</p></td>
+<td><p>LIME</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>SHAP</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Partial dependence</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Sensitivity</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Integrated gradient</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Counterfactual</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Linear models</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Tree models</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>L2X</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-odd"><td><p>Image</p></td>
+<td><p>LIME</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>SHAP</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Integrated gradient</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Grad-CAM, Grad-CAM++</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Contrastive</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Counterfactual</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>L2X</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p>Text</p></td>
+<td><p>LIME</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>SHAP</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Integrated gradient</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>L2X</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Counterfactual</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-odd"><td><p>Timeseries</p></td>
+<td><p>SHAP</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Counterfactual</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<p>You can install <a class="reference internal" href="omnixai.html#module-omnixai" title="omnixai"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai</span></code></a> from PyPI by calling <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">omnixai</span></code>. You may install from source by
+cloning the OmniXAI repo, navigating to the root directory, and calling
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code>, or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> to install in editable mode. You may install additional dependencies:</p>
+<ul class="simple">
+<li><p><strong>For vision tasks</strong>: Calling <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">omnixai[vision]</span></code>, or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.[vision]</span></code> from the
+root directory of the repo.</p></li>
+<li><p><strong>For NLP tasks</strong>: Calling <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">omnixai[nlp]</span></code>, or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.[nlp]</span></code> from the
+root directory of the repo.</p></li>
+<li><p><strong>For plotting &amp; visualization</strong>: Calling <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">omnixai[plot]</span></code>, or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.[plot]</span></code> from the
+root directory of the repo.</p></li>
+</ul>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h2>
+<p>To get started, we recommend the linked tutorials in <a class="reference internal" href="tutorials.html#tutorial"><span class="std std-ref">Tutorials &amp; Example Code</span></a>.
+In general, we recommend using <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code>,
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code> and <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code> for tabular, vision, NLP and
+time series tasks, respectively. To generate explanations, one only needs to specify</p>
+<ul class="simple">
+<li><p><strong>The ML model to explain</strong>: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.</p></li>
+<li><p><strong>The pre-processing function</strong>: i.e., converting raw data into the model inputs.</p></li>
+<li><p><strong>The post-processing function (optional)</strong>: e.g., converting the model outputs into class probabilities.</p></li>
+<li><p><strong>The explainers to apply</strong>: e.g., SHAP, MACE, Grad-CAM.</p></li>
+</ul>
+<p>Let’s take the income prediction task as an example.
+The dataset used in this example is for income prediction (<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/adult">https://archive.ics.uci.edu/ml/datasets/adult</a>).
+We recommend using data class <cite>Tabular</cite> to represent a tabular dataset. To create a <cite>Tabular</cite> instance given a pandas
+dataframe, one needs to specify the dataframe, the categorical feature names (if exists) and the target/label
+column name (if exists).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.data.tabular</span> <span class="kn">import</span> <span class="n">Tabular</span>
+<span class="c1"># Load the dataset</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Workclass&quot;</span><span class="p">,</span> <span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Country&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span>
+<span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+   <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s1">&#39;adult.data&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">),</span>
+   <span class="n">columns</span><span class="o">=</span><span class="n">feature_names</span>
+<span class="p">)</span>
+<span class="n">tabular_data</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">13</span><span class="p">]],</span>
+    <span class="n">target_column</span><span class="o">=</span><span class="s1">&#39;label&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The package <a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.preprocessing" title="omnixai.preprocessing"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.preprocessing</span></code></a> provides several useful preprocessing functions
+for a <cite>Tabular</cite> instance. <cite>TabularTransform</cite> is a special transform designed for processing tabular data.
+By default, it converts categorical features into one-hot encoding, and keeps continuous-valued features.
+The  method <code class="docutils literal notranslate"><span class="pre">transform</span></code> of <cite>TabularTransform</cite> transforms a <cite>Tabular</cite> instance to a numpy array.
+If the <cite>Tabular</cite> instance has a target/label column, the last column of the numpy array
+will be the target/label. After data preprocessing, we can train a XGBoost classifier for this task.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.preprocessing.tabular</span> <span class="kn">import</span> <span class="n">TabularTransform</span>
+<span class="c1"># Data preprocessing</span>
+<span class="n">transformer</span> <span class="o">=</span> <span class="n">TabularTransform</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
+<span class="n">class_names</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">class_names</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
+<span class="c1"># Train an XGBoost model (the last column of `x` is the label column after transformation)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">xgboost</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>To initialize <cite>TabularExplainer</cite>, we need to set the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">explainers</span></code>: The names of the explainers to apply, e.g., [“lime”, “shap”, “mace”, “pdp”].</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: The data used to initialize explainers. <code class="docutils literal notranslate"><span class="pre">data</span></code> is the training dataset for training the
+machine learning model. If the training dataset is too large, <code class="docutils literal notranslate"><span class="pre">data</span></code> can be a subset of it by applying
+<a class="reference internal" href="omnixai.preprocessing.html#omnixai.sampler.tabular.Sampler.subsample" title="omnixai.sampler.tabular.Sampler.subsample"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.sampler.tabular.Sampler.subsample</span></code></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The ML model to explain, e.g., a scikit-learn model, a tensorflow model or a pytorch model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preprocess</span></code>: The preprocessing function converting the raw data into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">postprocess</span></code> (optional): The postprocessing function transforming the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code> to a
+user-specific form, e.g., the predicted probability for each class.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: The task type, e.g., “classification” or “regression”.</p></li>
+</ul>
+<p>The preprocessing function takes a <cite>Tabular</cite> instance as its input and outputs the processed features that
+the ML model consumes. In this example, we simply call <code class="docutils literal notranslate"><span class="pre">transformer.transform</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.explainers.tabular</span> <span class="kn">import</span> <span class="n">TabularExplainer</span>
+<span class="kn">from</span> <span class="nn">omnixai.visualization.dashboard</span> <span class="kn">import</span> <span class="n">Dashboard</span>
+
+<span class="c1"># Initialize a TabularExplainer</span>
+<span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
+   <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">],</span>       <span class="c1"># The explainers to apply</span>
+   <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>                            <span class="c1"># The task type</span>
+   <span class="n">data</span><span class="o">=</span><span class="n">tabular_data</span><span class="p">,</span>                                <span class="c1"># The data for initializing the explainers</span>
+   <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>                                      <span class="c1"># The ML model to explain</span>
+   <span class="n">preprocess</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">),</span>    <span class="c1"># Converts raw features into the model inputs</span>
+   <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+      <span class="s2">&quot;mace&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;ignored_features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Loss&quot;</span><span class="p">]}</span>
+   <span class="p">}</span>                                                 <span class="c1"># Additional parameters</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, LIME, SHAP and MACE generate local explanations while PDP (partial dependence plot)
+generates global explanations. <code class="docutils literal notranslate"><span class="pre">explainers.explain</span></code> returns the local explanations generated by the
+three methods given the test instances, and <code class="docutils literal notranslate"><span class="pre">explainers.explain_global</span></code> returns the global explanations
+generated by PDP. <cite>TabularExplainer</cite> hides all the details behind the explainers, so we can simply call
+these two methods to generate explanations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate explanations</span>
+<span class="n">test_instances</span> <span class="o">=</span> <span class="n">tabular_data</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">test_instances</span><span class="p">)</span>
+<span class="n">global_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain_global</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test
+instance, the generated local explanations, the generated global explanations, the class names, and additional
+parameters for visualization (e.g., only plotting the selected features in PDP).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch a dashboard for visualization</span>
+<span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span>
+    <span class="n">instances</span><span class="o">=</span><span class="n">test_instances</span><span class="p">,</span>                        <span class="c1"># The instances to explain</span>
+    <span class="n">local_explanations</span><span class="o">=</span><span class="n">local_explanations</span><span class="p">,</span>           <span class="c1"># Set the generated local explanations</span>
+    <span class="n">global_explanations</span><span class="o">=</span><span class="n">global_explanations</span><span class="p">,</span>         <span class="c1"># Set the generated global explanations</span>
+    <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span>                         <span class="c1"># Set class names</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pdp&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">]}}</span>
+<span class="p">)</span>
+<span class="n">dashboard</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>                                     <span class="c1"># Launch the dashboard</span>
+</pre></div>
+</div>
+<p>After opening the Dash app in the browser, we will see a dashboard showing the explanations:</p>
+<img alt="_images/demo.png" src="_images/demo.png" />
+</section>
+<section id="how-to-contribute">
+<h2>How to Contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this heading"></a></h2>
+<p>Thank you for your interest in contributing to the library!
+Before you get started, clone this repo, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pre-commit</span></code>, and run <code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">install</span></code> from the root
+directory of the repo. This will ensure all files are formatted correctly and contain the appropriate
+license headers whenever you make a commit. To add a new explanation method into the library,
+one may follow the steps below:</p>
+<ol class="arabic simple">
+<li><p>Choose the task type of the new explainer, e.g., “tabular”, “vision”, “nlp” or “timeseries”.</p></li>
+<li><p>Choose the explainer type, e.g., “model-agnostic”, “model-specific” or “counterfactual”.</p></li>
+<li><p>Create a new python script file for this explainer in the specified folder, e.g., it is put
+under the folder “explainers/tabular/agnostic” if it is a model-agnostic explainer for tabular data.</p></li>
+<li><p>Create the explainer class that inherits from <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.base.ExplainerBase</span></code></a>.
+The constructor for the new explainer class has two options:</p>
+<ul class="simple">
+<li><p><strong>__init__(self, predict_function, mode, **kwargs)</strong>: This is for model-agnostic explainers. <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
+is the prediction function of the black-box ML model to explain. The inputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are the raw
+input features, and the outputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are the model outputs. <code class="docutils literal notranslate"><span class="pre">mode</span></code> is the task type, e.g.,
+“classification”, “regression”.</p></li>
+<li><p><strong>__init__(self, model, preprocess_function, postprocess_function, mode, **kwargs)</strong>: This is for model-specific explainers.
+<code class="docutils literal notranslate"><span class="pre">model</span></code> is the ML model to explain. The model-specific explainers require
+some information about <code class="docutils literal notranslate"><span class="pre">model</span></code>, e.g., whether <code class="docutils literal notranslate"><span class="pre">model</span></code> is differentiable (PyTorch or Tensorflow). <code class="docutils literal notranslate"><span class="pre">preprocess_function</span></code>
+is the pre-processing function for <code class="docutils literal notranslate"><span class="pre">model</span></code>, converting the raw features into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>, e.g., resizing
+images to (224, 224) and normalizing pixel values. <code class="docutils literal notranslate"><span class="pre">postprocess_function</span></code> is the post-processing function for <code class="docutils literal notranslate"><span class="pre">model</span></code>,
+which is used to convert the output logits into class probabilities. <code class="docutils literal notranslate"><span class="pre">postprocess_function</span></code> is optional.
+<code class="docutils literal notranslate"><span class="pre">mode</span></code> is the task type, e.g., “classification”, “regression”.</p></li>
+</ul>
+</li>
+<li><p>Add a class attribute <code class="docutils literal notranslate"><span class="pre">explanation_type</span></code> (string) with value “local”, “global” or “both”, indicating whether the method
+can generate local explanations, global explanations or both.</p></li>
+<li><p>Add a class attribute <code class="docutils literal notranslate"><span class="pre">alias</span></code> (list) specifying the explainer names.</p></li>
+<li><p>Implement the “explain” function, e.g., <code class="docutils literal notranslate"><span class="pre">explain(self,</span> <span class="pre">**kwargs)</span></code> for local explanations, or
+<code class="docutils literal notranslate"><span class="pre">explain_global(self,</span> <span class="pre">X,</span> <span class="pre">**kwargs)</span></code> for global explanations where the type of <code class="docutils literal notranslate"><span class="pre">X</span></code> is class <cite>Tabular</cite>, <cite>Image</cite>, <cite>Text</cite> or <cite>Timeseries</cite>.</p></li>
+<li><p>Import the explainer class in “__init__.py” of the packages <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular</span></code>,
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp</span></code> or <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries</span></code>.</p></li>
+</ol>
+<p>The new explainer will be registered automatically, which can be called via <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code>,
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code> or <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code>
+by specifying one of the names defined in <code class="docutils literal notranslate"><span class="pre">alias</span></code>.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="omnixai.html">OmniXAI: An Explanation Toolbox</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#library-design">Library Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#more-examples">More Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#how-to-contribute">How to Contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-different-data-types">Modules for Different Data Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="omnixai.data.html">omnixai.data package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.base">omnixai.data.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.tabular">omnixai.data.tabular module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.image">omnixai.data.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.text">omnixai.data.text module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.data.html#module-omnixai.data.timeseries">omnixai.data.timeseries module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#preprocessing-functions">Preprocessing Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="omnixai.preprocessing.html">omnixai.preprocessing package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.preprocessing.base">omnixai.preprocessing.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.preprocessing.encode">omnixai.preprocessing.encode module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.preprocessing.normalize">omnixai.preprocessing.normalize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.preprocessing.fill">omnixai.preprocessing.fill module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.preprocessing.pipeline">omnixai.preprocessing.pipeline module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.preprocessing.tabular">omnixai.preprocessing.tabular module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.preprocessing.image">omnixai.preprocessing.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.preprocessing.text">omnixai.preprocessing.text module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.preprocessing.html#module-omnixai.sampler.tabular">omnixai.sampler.tabular module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#supported-explanation-methods">Supported Explanation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="omnixai.explainers.html">omnixai.explainers package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.html#module-omnixai.explainers.base">omnixai.explainers.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.html#explainers-for-different-tasks">Explainers for different tasks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-explanation-results">Modules for Explanation Results</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="omnixai.explanations.html">omnixai.explanations package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.explanations.html#three-categories-of-explanation-results">Three categories of explanation results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.explanations.html#module-omnixai.explanations.base">omnixai.explanations.base module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#dashboard-for-visualization">Dashboard for Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="omnixai.visualization.html">omnixai.visualization package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="omnixai.visualization.html#module-omnixai.visualization.dashboard">omnixai.visualization.dashboard module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#basics">Basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/misc/data_objects.html">Examples of data objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/misc/data_objects.html#Tabular-data">Tabular data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/misc/data_objects.html#Image-data">Image data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/misc/data_objects.html#Text-data">Text data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/misc/data_objects.html#Time-series-data">Time series data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/misc/preprocessing.html">Examples of data preprocessing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/misc/preprocessing.html#Tabular-data">Tabular data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/misc/preprocessing.html#Image-data">Image data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/misc/preprocessing.html#Text-data">Text data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#applications">Applications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/data_analysis.html">DataAnalyzer for feature analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular_classification.html">TabularExplainer for income prediction (classification)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular_regression.html">TabularExplainer for house-price prediction (regression)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision.html">VisionExplainer for image classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp.html">NLPExplainer for sentiment analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp_imdb.html">NLPExplainer on IMDB dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/omnixai_in_ml_workflow.html">OmniXAI in a ML workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tabular-explainers">Tabular Explainers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/ce.html">Counterfactual explanation on Diabetes dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/l2x.html">L2X (learning to explain) for income prediction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/lime.html">LIME for income prediction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/linear.html">Logistic regression for income prediction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/mace.html">MACE counterfactual explanation for income prediction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/pdp.html">Paritial dependence plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/sensitivity.html">Morris sensitivity analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/shap.html">SHAP for income prediction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/tree.html">Decision tree for income prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#vision-explainers">Vision Explainers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/ce_imagenet.html">Counterfactual explanation on ImageNet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/ce_tf.html">Counterfactual explanation on MNIST (Tensorflow)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/ce_torch.html">Counterfactual explanation on MNIST (PyTorch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/cem_tf.html">Contrastive explanation on MNIST (Tensorflow)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/cem_torch.html">Contrastive explanation on MNIST (PyTorch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/gradcam_tf.html">Grad-CAM for image classification (Tensorflow)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/gradcam_torch.html">Grad-CAM for image classification (PyTorch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/ig_tf.html">Integrated-gradient for image classification (Tensorflow)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/ig_torch.html">Integrated-gradient for image classification (PyTorch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/l2x.html">L2X (learning to explain) on MNIST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/lime.html">LIME for image classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/shap.html">SHAP on MNIST</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#nlp-explainers">NLP Explainers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/ce_classification.html">Counterfactual explanation for text classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/ce_qa.html">Counterfactual explanation for question answering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/ig_tf.html">Integrated-gradient on IMDB dataset (Tensorflow)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/ig_torch.html">Integrated-gradient on IMDB dataset (PyTorch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/l2x.html">L2X (learning to explain) for text classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/lime.html">LIME for text classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp/shap.html">SHAP for sentiment analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#timeseries-explainers">Timeseries Explainers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/timeseries/mace.html">Counterfactual explanation on time series anomaly detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/timeseries/shap.html">SHAP for time series anomaly detection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="omnixai.html" class="btn btn-neutral float-right" title="OmniXAI: An Explanation Toolbox" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, salesforce.com, inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Versions</span>
+      v1.0.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Versions</dt>
+        
+          
+          <dd><a href="">latest</a></dd>
+          
+        
+           <strong> 
+          <dd><a href="">v1.0.0</a></dd>
+           </strong> 
+        
+      </dl>
+      
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
