@@ -242,7 +242,7 @@ After opening the Dash app in the browser, we will see a dashboard showing the e
 
 ## How to Contribute
 
-We welcome your contribution to improve the library!
+We welcome the contribution from the open-source community to improve the library!
 To add a new explanation method/feature into the library, please follow the template and steps demonstrated in this 
 [documentation](https://opensource.salesforce.com/OmniXAI/latest/omnixai.html#how-to-contribute).
 
