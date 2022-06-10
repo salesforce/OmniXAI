@@ -19,13 +19,13 @@
 
 ## Table of Contents
 1. [Introduction](#introduction)
-1. [Installation](#installation)
-1. [Getting Started](#getting-started)
-1. [Tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html)
-1. [Documentation](https://opensource.salesforce.com/OmniXAI/latest/index.html)
-1. [Dashboard Demo](https://sfr-omnixai-demo.herokuapp.com/)
-1. [How to Contribute](#how-to-contribute)
-1. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
+2. [Installation](#installation)
+3. [Getting Started](#getting-started)
+4. [Documentation](https://opensource.salesforce.com/OmniXAI/latest/index.html)
+5. [Tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html)
+6. [Dashboard Demo](https://sfr-omnixai-demo.herokuapp.com/)
+7. [How to Contribute](https://opensource.salesforce.com/OmniXAI/latest/omnixai.html#how-to-contribute)
+8. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
 
 
 ## Introduction
@@ -243,42 +243,8 @@ After opening the Dash app in the browser, we will see a dashboard showing the e
 ## How to Contribute
 
 Thank you for your interest in contributing to the library!
-Before you get started, clone this repo, run ``pip install pre-commit``, and run ``pre-commit install`` from the root
-directory of the repo. This will ensure all files are formatted correctly and contain the appropriate
-license headers whenever you make a commit. To add a new explanation method into the library, 
-one may follow the steps below:
-
-1. Choose the task type of the new explainer, e.g., "tabular", "vision", "nlp" or "timeseries".
-2. Choose the explainer type, e.g., "model-agnostic", "model-specific" or "counterfactual".
-3. Create a new python script file for this explainer in the specified folder, e.g., it is put
-   under the folder "explainers/tabular/agnostic" if it is a model-agnostic explainer for tabular data.
-4. Create the explainer class that inherits from `omnixai.explainers.base.ExplainerBase`. The constructor for the new explainer class has two options:
-
-   - **\_\_init\_\_(self, predict_function, mode, \*\*kwargs)**: This is for model-agnostic explainers. ``predict_function``
-     is the prediction function of the black-box ML model to explain. The inputs of ``predict_function`` are the raw
-     input features, and the outputs of ``predict_function`` are the model outputs. ``mode`` is the task type, e.g.,
-     "classification", "regression".
-   - **\_\_init\_\_(self, model, preprocess_function, postprocess_function, mode, \*\*kwargs)**: This is for model-specific explainers.
-     ``model`` is the ML model to explain. The model-specific explainers require
-     some information about ``model``, e.g., whether ``model`` is differentiable (PyTorch or Tensorflow). ``preprocess_function``
-     is the pre-processing function for ``model``, converting the raw features into the inputs of ``model``, e.g., resizing
-     images to (224, 224) and normalizing pixel values. ``postprocess_function`` is the post-processing function for ``model``,
-     which is used to convert the output logits into class probabilities. ``postprocess_function`` is optional.
-     ``mode`` is the task type, e.g., "classification", "regression".
-
-5. Add a class attribute ``explanation_type`` (string) with value "local", "global" or "both", indicating whether the method
-   can generate local explanations, global explanations or both.
-6. Add a class attribute ``alias`` (list) specifying the explainer names.
-7. Implement the "explain" function, e.g., ``explain(self, **kwargs)`` for local explanations, or
-   ``explain_global(self, X, **kwargs)`` for global explanations where the type of ``X`` is class `Tabular`, `Image`, `Text` or `Timeseries`.
-8. Implement the explanation class inherited from `omnixai.explanations.base.ExplanationBase` if the available explanation classes 
-   in the library cannot fulfill the requirements. The "explain" function should return an instance of this explanation class.
-9. Import the explainer class in "\_\_init\_\_.py" of the packages `omnixai.explainers.tabular`,
-   `omnixai.explainers.vision`, `omnixai.explainers.nlp` or `omnixai.explainers.timeseries`.
-
-The new explainer will be registered automatically, which can be called via `omnixai.explainers.tabular.TabularExplainer`,
-`omnixai.explainers.vision.VisionExplainer`,  `omnixai.explainers.nlp.NLPExplainer` or `omnixai.explainers.timeseries.TimeseriesExplainer` 
-by specifying one of the names defined in ``alias``.
+To add a new explanation method into the library, please follow the steps demonstrated in the 
+[documentation](https://opensource.salesforce.com/OmniXAI/latest/omnixai.html#how-to-contribute).
 
 ## Technical Report and Citing OmniXAI
 You can find more details in our technical report: [https://arxiv.org/abs/2206.01612](https://arxiv.org/abs/2206.01612)
