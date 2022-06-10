@@ -161,7 +161,8 @@ for a `Tabular` instance. `TabularTransform` is a special transform designed for
 By default, it converts categorical features into one-hot encoding, and keeps continuous-valued features.
 The  method ``transform`` of `TabularTransform` transforms a `Tabular` instance to a numpy array.
 If the `Tabular` instance has a target/label column, the last column of the numpy array
-will be the target/label. After data preprocessing, we can train a XGBoost classifier for this task.
+will be the target/label. One can also apply any customized preprocessing functions instead of using `TabularTransform`. 
+After data preprocessing, we train a XGBoost classifier for this task.
 
 ```python
 from omnixai.preprocessing.tabular import TabularTransform
@@ -187,7 +188,7 @@ To initialize `TabularExplainer`, we need to set the following parameters:
 - ``mode``: The task type, e.g., "classification" or "regression".
 
 The preprocessing function takes a `Tabular` instance as its input and outputs the processed features that
-the ML model consumes. In this example, we simply call ``transformer.transform``. If one uses some special transforms 
+the ML model consumes. In this example, we simply call ``transformer.transform``. If one uses some customized transforms 
 on pandas dataframes, the preprocess function has format: `lambda z: some_transform(z.to_pd())`.
 
 ```python
