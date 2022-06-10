@@ -12,11 +12,11 @@
   <a href="https://pypi.python.org/pypi/omnixai">
   <img alt="PyPI Version" src="https://img.shields.io/pypi/v/omnixai.svg"/>
   </a>
-  <a href="https://salesforce.github.io/OmniXAI">
+  <a href="https://opensource.salesforce.com/OmniXAI">
   <img alt="Documentation" src="https://github.com/salesforce/OmniXAI/actions/workflows/docs.yml/badge.svg"/>
   </a>
-  <a href="https://xxx">
-  <img alt="DOI" src="https://zenodo.org/badge/DOI/00.0000/zenodo.0000000.svg"/>
+  <a href="hhttps://arxiv.org/abs/2206.01612">
+  <img alt="DOI" src="https://zenodo.org/badge/DOI/10.48550/ARXIV.2206.01612.svg"/>
   </a>
 </div>
 
@@ -25,7 +25,7 @@
 1. [Installation](#installation)
 1. [Getting Started](#getting-started)
 1. [Tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials)
-1. [Documentation](https://salesforce.github.io/OmniXAI/index.html)
+1. [Documentation](https://opensource.salesforce.com/OmniXAI/latest/index.html)
 1. [Dashboard Demo](https://sfr-omnixai-demo.herokuapp.com/)
 1. [How to Contribute](#how-to-contribute)
 1. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
@@ -118,7 +118,7 @@ cloning the OmniXAI repo, navigating to the root directory, and calling
 
 For example code and an introduction to the library, see the Jupyter notebooks in
 [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials), and the guided walkthrough
-[here](https://salesforce.github.io/OmniXAI/index.html). A dashboard demo can be found [here](https://sfr-omnixai-demo.herokuapp.com/).
+[here](https://opensource.salesforce.com/OmniXAI/latest/index.html). A dashboard demo can be found [here](https://sfr-omnixai-demo.herokuapp.com/).
 
 To get started, we recommend the linked tutorials in [tutorials](https://github.com/salesforce/OmniXAI/tree/main/tutorials).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
@@ -287,13 +287,12 @@ If you're using OmniXAI in your research or applications, please cite using this
 ```
 @article{wenzhuo2022-omnixai,
   author    =  {Wenzhuo Yang and Hung Le and Silvio Savarese and Steven Hoi},
-  title     = {TODO},
-  journal   = {CoRR},
-  volume    = {TODO},
+  title     = {OmniXAI: A Library for Explainable AI},
   year      = {2022},
-  url       = {TODO},
+  doi = {10.48550/ARXIV.2206.01612},
+  url       = {https://arxiv.org/abs/2206.01612},
   archivePrefix = {arXiv},
-  eprint    = {TODO},
+  eprint    = {206.01612},
 }
 ```
 
