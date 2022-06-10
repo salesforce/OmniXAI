@@ -15,7 +15,7 @@
   <a href="https://opensource.salesforce.com/OmniXAI">
   <img alt="Documentation" src="https://github.com/salesforce/OmniXAI/actions/workflows/docs.yml/badge.svg"/>
   </a>
-  <a href="hhttps://arxiv.org/abs/2206.01612">
+  <a href="https://arxiv.org/abs/2206.01612">
   <img alt="DOI" src="https://zenodo.org/badge/DOI/10.48550/ARXIV.2206.01612.svg"/>
   </a>
 </div>
@@ -281,7 +281,7 @@ The new explainer will be registered automatically, which can be called via `omn
 by specifying one of the names defined in ``alias``.
 
 ## Technical Report and Citing OmniXAI
-You can find more details in our technical report: TODO
+You can find more details in our technical report: [https://arxiv.org/abs/2206.01612](https://arxiv.org/abs/2206.01612)
 
 If you're using OmniXAI in your research or applications, please cite using this BibTeX:
 ```
