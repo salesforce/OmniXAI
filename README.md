@@ -107,11 +107,13 @@ You can install ``omnixai`` from PyPI by calling ``pip install omnixai``. You ma
 cloning the OmniXAI repo, navigating to the root directory, and calling
 ``pip install .``, or ``pip install -e .`` to install in editable mode. You may install additional dependencies:
 
+- **For plotting & visualization**: Calling ``pip install omnixai[plot]``, or ``pip install .[plot]`` from the
+  root directory of the repo.
 - **For vision tasks**: Calling ``pip install omnixai[vision]``, or ``pip install .[vision]`` from the
   root directory of the repo.
 - **For NLP tasks**: Calling ``pip install omnixai[nlp]``, or ``pip install .[nlp]`` from the
   root directory of the repo.
-- **For plotting & visualization**: Calling ``pip install omnixai[plot]``, or ``pip install .[plot]`` from the
+- **Install all the dependencies**: Calling ``pip install omnixai[all]``, or ``pip install .[all]`` from the
   root directory of the repo.
 
 ## Getting Started
