@@ -253,7 +253,7 @@ You can find more details in our technical report: [https://arxiv.org/abs/2206.0
 If you're using OmniXAI in your research or applications, please cite using this BibTeX:
 ```
 @article{wenzhuo2022-omnixai,
-  author    =  {Wenzhuo Yang and Hung Le and Silvio Savarese and Steven Hoi},
+  author    = {Wenzhuo Yang and Hung Le and Silvio Savarese and Steven Hoi},
   title     = {OmniXAI: A Library for Explainable AI},
   year      = {2022},
   doi       = {10.48550/ARXIV.2206.01612},
