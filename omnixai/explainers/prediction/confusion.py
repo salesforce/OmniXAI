@@ -42,7 +42,7 @@ class ConfusionMatrix(ExplainerBase):
         :param mode: The task type can be `classification` only.
         """
         super().__init__()
-        assert mode == "classification", "ROC only supports classification models."
+        assert mode == "classification", "`ConfusionMatrix` only supports classification models."
         assert test_labels is not None, "Please set the test labels."
         assert len(test_labels) == len(test_data), \
             f"The length of `test_labels` is not equal to the number of examples in `test_data`, " \
