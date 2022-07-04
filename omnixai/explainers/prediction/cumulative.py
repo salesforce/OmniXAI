@@ -27,16 +27,16 @@ class CumulativeGain(ExplainerBase):
             mode: str = "classification"
     ):
         """
-                :param predict_function: The prediction function corresponding to a classification model.
-                    The outputs of the ``predict_function`` are the class probabilities.
-                :param test_data: The test data. ``test_data`` contains the raw features of the test instances.
-                    If ``test_data`` is a ``Tabular`` with a target/label column, this column is ignored
-                    (because the labels in this column are raw labels which are not processed by a LabelEncoder).
-                :param test_labels: The test labels. The specified labels by ``test_labels`` will be used to
-                    compute ROC and AUC. Note that the labels in ``test_labels`` should be integers (processed
-                    by a LabelEncoder) and match the prediction probabilities computed by ``predict_function``.
-                :param mode: The task type can be `classification` only.
-                """
+        :param predict_function: The prediction function corresponding to a classification model.
+            The outputs of the ``predict_function`` are the class probabilities.
+        :param test_data: The test data. ``test_data`` contains the raw features of the test instances.
+            If ``test_data`` is a ``Tabular`` with a target/label column, this column is ignored
+            (because the labels in this column are raw labels which are not processed by a LabelEncoder).
+        :param test_labels: The test labels. The specified labels by ``test_labels`` will be used to
+            compute ROC and AUC. Note that the labels in ``test_labels`` should be integers (processed
+            by a LabelEncoder) and match the prediction probabilities computed by ``predict_function``.
+        :param mode: The task type can be `classification` only.
+        """
         super().__init__()
         assert mode == "classification", "`CumulativeGain` only supports classification models."
         assert test_labels is not None, "Please set the test labels."
