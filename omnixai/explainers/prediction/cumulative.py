@@ -9,7 +9,9 @@ The cumulative gain for classification
 """
 import numpy as np
 from typing import Callable, List
+
 from ..base import ExplainerBase
+from ...explanations.prediction.cumulative import CumulativeGainExplanation
 
 
 class CumulativeGain(ExplainerBase):
@@ -49,11 +51,30 @@ class CumulativeGain(ExplainerBase):
         self.y_test = test_labels
         self.num_classes = self.y_prob.shape[1]
 
-    def explain(self, **kwargs):
+    def explain(self, **kwargs) -> CumulativeGainExplanation:
         """
-        Computes the lift curve.
+        Computes the cumulative gain.
 
-        :return: The lift curve.
+        :return: The cumulative gain.
         """
-        pass
+        explanations = CumulativeGainExplanation()
+        y_true = np.zeros(self.y_prob.shape)
+        for i, label in enumerate(self.y_test):
+            y_true[i, label] = 1
 
+        percentages = np.arange(start=1, stop=y_true.shape[0] + 1)
+        percentages = percentages / y_true.shape[0]
+        percentages = np.insert(percentages, 0, [0])
+
+        class_gains, class_trues = {}, {}
+        for i in range(self.num_classes):
+            true, score = y_true[:, i], self.y_prob[:, i]
+            true = true[np.argsort(score)[::-1]]
+            gains = np.cumsum(true)
+            gains = gains / (np.sum(true) + 1e-8)
+            gains = np.insert(gains, 0, [0])
+            class_gains[i] = gains
+            class_trues[i] = np.sum(true)
+
+        explanations.add(class_gains, percentages, class_trues)
+        return explanations

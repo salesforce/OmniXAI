@@ -92,6 +92,7 @@ class ROCExplanation(ExplanationBase):
         plt.ylabel("True Positive Rate")
         plt.title("ROC Curves")
         plt.legend(loc="lower right")
+        plt.grid()
         return fig
 
     def _plotly_figure(self, class_names=None, linewidth=2, **kwargs):
@@ -129,6 +130,10 @@ class ROCExplanation(ExplanationBase):
             line=dict(color="black", dash="dash", width=linewidth),
             name="Baseline"
         ))
+        fig.update_layout(
+            xaxis_title="False Positive Rate",
+            yaxis_title="True Positive Rate"
+        )
         return fig
 
     def plotly_plot(self, class_names=None, **kwargs):
