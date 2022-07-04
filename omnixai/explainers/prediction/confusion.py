@@ -37,7 +37,7 @@ class ConfusionMatrix(ExplainerBase):
             If ``test_data`` is a ``Tabular`` with a target/label column, this column is ignored
             (because the labels in this column are raw labels which are not processed by a LabelEncoder).
         :param test_labels: The test labels. The specified labels by ``test_labels`` will be used to
-            compute ROC and AUC. Note that the labels in ``test_labels`` should be integers (processed
+            compute the confusion matrix. Note that the labels in ``test_labels`` should be integers (processed
             by a LabelEncoder) and match the prediction probabilities computed by ``predict_function``.
         :param mode: The task type can be `classification` only.
         """
