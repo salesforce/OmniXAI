@@ -9,6 +9,12 @@ from ..base import ExplanationBase, DashFigure
 
 
 class ROCExplanation(ExplanationBase):
+    """
+    The class for plotting ROC curves. It stores the false positive rates, true positive rates and AUCs
+    in a dict, i.e., `{"fpr": the false positive rates, "tpr": the true positive rates, "auc": the ROC areas}`.
+    Each of "fpr", "tpr" and "auc" is a dict with the following format `{"micro": micro-average roc,
+    "macro": macro-average roc, 0: roc for label 0, ...}`.
+    """
 
     def __init__(self):
         super().__init__()
