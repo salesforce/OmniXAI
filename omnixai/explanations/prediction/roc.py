@@ -47,7 +47,7 @@ class ROCExplanation(ExplanationBase):
         """
         return self.explanations
 
-    def plot(self, linewidth=2, **kwargs):
+    def plot(self, class_names=None, linewidth=2, **kwargs):
         """
         Plots the ROC curves.
 
@@ -64,24 +64,25 @@ class ROCExplanation(ExplanationBase):
         fig = plt.figure()
         plt.plot(
             fpr["micro"], tpr["micro"],
-            label="Micro-average ROC curve (area = {0:0.2f})".format(auc["micro"]),
+            label="Micro-average ROC curve (area = {:0.2f})".format(auc["micro"]),
             color="deeppink",
             linestyle=":",
             linewidth=linewidth
         )
         plt.plot(
             fpr["macro"], tpr["macro"],
-            label="Macro-average ROC curve (area = {0:0.2f})".format(auc["macro"]),
+            label="Macro-average ROC curve (area = {:0.2f})".format(auc["macro"]),
             color="navy",
             linestyle=":",
             linewidth=linewidth
         )
         for i in range(len(fpr) - 2):
+            label = class_names[i] if class_names is not None else i
             plt.plot(
                 fpr[i], tpr[i],
                 color=colors[i % len(colors)],
                 linewidth=linewidth,
-                label="ROC curve of class {0} (area = {1:0.2f})".format(i, auc[i]),
+                label="ROC curve of class {} (area = {:0.2f})".format(label, auc[i]),
             )
 
         plt.plot([0, 1], [0, 1], "k--", linewidth=linewidth)
@@ -93,7 +94,7 @@ class ROCExplanation(ExplanationBase):
         plt.legend(loc="lower right")
         return fig
 
-    def _plotly_figure(self, linewidth=2, **kwargs):
+    def _plotly_figure(self, class_names=None, linewidth=2, **kwargs):
         import plotly.graph_objects as go
 
         fpr = self.explanations["fpr"]
@@ -104,20 +105,21 @@ class ROCExplanation(ExplanationBase):
         fig.add_trace(go.Scatter(
             x=fpr["micro"],
             y=tpr["micro"],
-            name="Micro-average ROC curve (area = {0:0.2f})".format(auc["micro"]),
+            name="Micro-average ROC curve (area = {:0.2f})".format(auc["micro"]),
             line=dict(width=linewidth),
         ))
         fig.add_trace(go.Scatter(
             x=fpr["macro"],
             y=tpr["macro"],
-            name="Macro-average ROC curve (area = {0:0.2f})".format(auc["macro"]),
+            name="Macro-average ROC curve (area = {:0.2f})".format(auc["macro"]),
             line=dict(width=linewidth),
         ))
         for i in range(len(fpr) - 2):
+            label = class_names[i] if class_names is not None else i
             fig.add_trace(go.Scatter(
                 x=fpr[i],
                 y=tpr[i],
-                name="ROC curve of class {0} (area = {1:0.2f})".format(i, auc[i]),
+                name="ROC curve of class {} (area = {:0.2f})".format(label, auc[i]),
                 line=dict(width=linewidth),
             ))
 
@@ -129,18 +131,18 @@ class ROCExplanation(ExplanationBase):
         ))
         return fig
 
-    def plotly_plot(self, **kwargs):
+    def plotly_plot(self, class_names=None, **kwargs):
         """
         Plots the ROC curves using Dash.
 
         :return: A plotly dash figure plotting the ROC curves.
         """
-        return DashFigure(self._plotly_figure(**kwargs))
+        return DashFigure(self._plotly_figure(class_names, **kwargs))
 
-    def ipython_plot(self, **kwargs):
+    def ipython_plot(self, class_names=None, **kwargs):
         """
         Plots the ROC curves in IPython.
         """
         import plotly
 
-        plotly.offline.iplot(self._plotly_figure(**kwargs))
+        plotly.offline.iplot(self._plotly_figure(class_names, **kwargs))
