@@ -11,8 +11,8 @@ import numpy as np
 from typing import Callable, List
 from sklearn.metrics import roc_curve, auc
 
-from ...data.tabular import Tabular
 from ..base import ExplainerBase
+from ...data.tabular import Tabular
 from ...explanations.prediction.roc import ROCExplanation
 
 
@@ -20,7 +20,7 @@ class ROC(ExplainerBase):
     """
     The ROC curve for a classification model.
     """
-    explanation_type = "global"
+    explanation_type = "prediction"
     alias = ["roc"]
 
     def __init__(
