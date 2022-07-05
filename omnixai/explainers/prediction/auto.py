@@ -192,5 +192,11 @@ class PredictionAnalyzer(ExplainerBase):
             metrics["r-square"] = r2_score(self.y_test, self.y_prob)
         return MetricExplanation(metrics, self.mode)
 
+    def _regression_predict(self):
+        pass
+
+    def _regression_residual(self):
+        pass
+
     def explain(self, **kwargs) -> Dict:
         pass
