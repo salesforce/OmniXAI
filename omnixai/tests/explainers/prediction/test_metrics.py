@@ -45,6 +45,8 @@ class TestMetrics(unittest.TestCase):
         )
         explanations = explainer._metric()
         print(explanations.get_explanations())
+        explanations.plotly_plot()
+        explanations.plot()
 
 
 if __name__ == "__main__":

@@ -55,9 +55,8 @@ class MetricExplanation(ExplanationBase):
                 index = [class_names[i] for i in range(len(self.metrics) - 2)] + ["Macro", "Micro"]
             df = pd.DataFrame(values, columns=columns, index=index)
         else:
-            columns = ["Mean squared error (MSE)", "Mean absolute error (MAE)",
-                       "Mean absolute percentage error (MAPE)", "R-squared"]
-            values = ["{:.4f}".format(self.metrics[m]) for m in ["mse", "mae", "mape", "r-square"]]
+            columns = ["MSE", "MAE", "MAPE", "R-squared"]
+            values = [["{:.4f}".format(self.metrics[m]) for m in ["mse", "mae", "mape", "r-square"]]]
             df = pd.DataFrame(values, columns=columns)
         return df
 
@@ -73,8 +72,10 @@ class MetricExplanation(ExplanationBase):
 
         df = self._metrics_to_df(class_names)
         fig, ax = plt.subplots()
-        fig.patch.set_visible(False)
-        ax.table(cellText=df.values, colLabels=df.columns, rowLabels=df.index.values, loc="center")
+        if self.mode == "classification":
+            ax.table(cellText=df.values, colLabels=df.columns, rowLabels=df.index.values, loc="center")
+        else:
+            ax.table(cellText=df.values, colLabels=df.columns, loc="center")
         ax.axis("off")
         ax.axis("tight")
         return fig
@@ -83,7 +84,8 @@ class MetricExplanation(ExplanationBase):
         import plotly.graph_objects as go
 
         df = self._metrics_to_df(class_names)
-        df = df.reset_index().rename(columns={"index": "Class"})
+        if self.mode == "classification":
+            df = df.reset_index().rename(columns={"index": "Class"})
         fig = go.Figure(data=[go.Table(
             header=dict(values=list(df.columns), align="center"),
             cells=dict(values=df.values.T, align="center"))
