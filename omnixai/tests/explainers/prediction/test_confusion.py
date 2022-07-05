@@ -34,6 +34,7 @@ class TestConfusionMatrix(unittest.TestCase):
         )
         explanations = explainer._confusion_matrix()
         fig = explanations.plotly_plot(class_names=["a", "b", "c"])
+        fig.show()
         explanations.plot(class_names=["a", "b", "c"])
 
 

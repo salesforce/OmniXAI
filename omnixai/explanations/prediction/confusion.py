@@ -7,6 +7,7 @@
 """
 The confusion matrix.
 """
+import numpy as np
 from ..base import ExplanationBase, DashFigure
 
 
@@ -67,13 +68,14 @@ class ConfusionMatrixExplanation(ExplanationBase):
             labels = [class_names[i] for i in range(self.confusion_matrix.shape[0])]
 
         annotations = []
+        total_counts = np.sum(self.confusion_matrix)
         for i, row in enumerate(self.confusion_matrix):
             for j, value in enumerate(row):
                 annotations.append({
                     "x": labels[j],
                     "y": labels[i],
                     "font": {"color": "black"},
-                    "text": str(value),
+                    "text": "{} ({:.1f}%)".format(value, value / total_counts * 100),
                     "xref": "x1",
                     "yref": "y1",
                     "showarrow": False
@@ -84,7 +86,12 @@ class ConfusionMatrixExplanation(ExplanationBase):
             "annotations": annotations
         }
         fig = go.Figure(
-            data=go.Heatmap(z=self.confusion_matrix, y=labels, x=labels, colorscale="blues"),
+            data=go.Heatmap(
+                z=self.confusion_matrix,
+                y=labels,
+                x=labels,
+                colorscale="blues"
+            ),
             layout=layout
         )
         return fig
