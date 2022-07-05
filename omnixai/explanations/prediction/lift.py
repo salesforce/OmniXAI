@@ -5,62 +5,58 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-The cumulative gains.
+The lift curves.
 """
 import numpy as np
 from typing import Dict
 from ..base import ExplanationBase, DashFigure
 
 
-class CumulativeGainExplanation(ExplanationBase):
+class LiftCurveExplanation(ExplanationBase):
     """
-    The class for plotting the cumulative gains. It stores the cumulative gains for each class
-    in a dict, i.e., `{"gains": the cumulative gains, "percentages": the percentage of samples,
-    "num_samples": the number of samples in each class}`.
-    The value of "gains" is a dict with the following format `{0: the cumulative gains for class 0, ...}`.
+    The class for plotting the lift curves. It stores the lift curves for each class
+    in a dict, i.e., `{"gains": the lift gains, "percentages": the percentage of samples}`.
+    The value of "gains" is a dict with the following format `{0: the lift gains for class 0, ...}`.
     """
 
     def __init__(self):
         super().__init__()
         self.explanations = {}
 
-    def add(self, gains: Dict, percentages: np.ndarray, num_samples: Dict):
+    def add(self, gains: Dict, percentages: np.ndarray):
         """
         Adds the false positive rates, true positive rates and AUCs.
 
-        :param gains: The cumulative gains. ``gains`` is a dict with the following format
-            `{0: the cumulative gains for class 0, ...}`.
+        :param gains: The lift gains. ``gains`` is a dict with the following format
+            `{0: the lift gains for class 0, ...}`.
         :param percentages: The percentage of samples.
-        :param num_samples: The number of samples in each class.
         """
-        self.explanations = {"gains": gains, "percentages": percentages, "num_samples": num_samples}
+        self.explanations = {"gains": gains, "percentages": percentages}
 
     def get_explanations(self):
         """
-        Gets the cumulative gains.
+        Gets the lift gains.
 
-        :return: A Dict for the cumulative gains, i.e.,
-            `{"gains": the cumulative gains, "percentages": the percentage of samples,
-            "num_samples": the number of samples in each class}`.
-            The value of "gains" is a dict with the following format `{0: the cumulative gains
+        :return: A Dict for the lift gains, i.e.,
+            `{"gains": the lift gains, "percentages": the percentage of samples}`.
+            The value of "gains" is a dict with the following format `{0: the lift gains
             for class 0, ...}`.
         """
         return self.explanations
 
     def plot(self, class_names=None, linewidth=2, **kwargs):
         """
-        Plots the cumulative gains.
+        Plots the lift curves.
 
         :param class_names: A list of the class names indexed by the labels.
         :param linewidth: The line width.
-        :return: A matplotlib figure plotting the cumulative gains.
+        :return: A matplotlib figure plotting the lift curves.
         """
         import matplotlib.pyplot as plt
         import matplotlib.colors as mcolors
 
         percentages = self.explanations["percentages"]
         class_gains = self.explanations["gains"]
-        num_samples = self.explanations["num_samples"]
         colors = list(mcolors.TABLEAU_COLORS.values())
 
         fig = plt.figure()
@@ -73,22 +69,12 @@ class CumulativeGainExplanation(ExplanationBase):
                 linewidth=linewidth,
                 label="Class {}".format(label),
             )
-            plt.plot(
-                [0, num_samples[i] / len(percentages), 1],
-                [0, 1, 1],
-                color=colors[i % len(colors)],
-                linestyle="dashed",
-                linewidth=linewidth,
-                label="Class {} Best".format(label)
-            )
 
-        plt.plot([0, 1], [0, 1], "k--", linewidth=linewidth, label="Baseline")
-        plt.xlim([0.0, 1.0])
-        plt.ylim([0.0, 1.05])
+        plt.plot([0, 1], [1, 1], "k--", linewidth=linewidth, label="Baseline")
         plt.xlabel("Percentage of samples")
-        plt.ylabel("Gains")
-        plt.title("Cumulative Gain Curves")
-        plt.legend(loc="lower right")
+        plt.ylabel("Lift")
+        plt.title("Lift Curves")
+        plt.legend(loc="upper right")
         plt.grid()
         return fig
 
@@ -98,7 +84,6 @@ class CumulativeGainExplanation(ExplanationBase):
 
         percentages = self.explanations["percentages"]
         class_gains = self.explanations["gains"]
-        num_samples = self.explanations["num_samples"]
         colors = list(mcolors.TABLEAU_COLORS.values())
 
         fig = go.Figure()
@@ -111,37 +96,31 @@ class CumulativeGainExplanation(ExplanationBase):
                 name="Class {}".format(label),
                 line=dict(color=color, width=linewidth),
             ))
-            fig.add_trace(go.Scatter(
-                x=[0, num_samples[i] / len(percentages), 1],
-                y=[0, 1, 1],
-                name="Class {} Best".format(label),
-                line=dict(color=color, width=linewidth, dash="dash"),
-            ))
 
         fig.add_trace(go.Scatter(
             x=[0, 1],
-            y=[0, 1],
+            y=[1, 1],
             line=dict(color="black", dash="dash", width=linewidth),
             name="Baseline"
         ))
         fig.update_layout(
             xaxis_title="Percentage of samples",
-            yaxis_title="Gains"
+            yaxis_title="Lift"
         )
         return fig
 
     def plotly_plot(self, class_names=None, **kwargs):
         """
-        Plots the cumulative gains using Dash.
+        Plots the lift curves using Dash.
 
         :param class_names: A list of the class names indexed by the labels.
-        :return: A plotly dash figure plotting the cumulative gains.
+        :return: A plotly dash figure plotting the lift curves.
         """
         return DashFigure(self._plotly_figure(class_names, **kwargs))
 
     def ipython_plot(self, class_names=None, **kwargs):
         """
-        Plots the cumulative gains in IPython.
+        Plots the lift curves in IPython.
 
         :param class_names: A list of the class names indexed by the labels.
         """

@@ -22,6 +22,7 @@ from ...explanations.prediction.pr import PrecisionRecallExplanation
 from ...explanations.prediction.confusion import ConfusionMatrixExplanation
 from ...explanations.prediction.cumulative import CumulativeGainExplanation
 from ...explanations.prediction.metrics import MetricExplanation
+from ...explanations.prediction.lift import LiftCurveExplanation
 
 
 class PredictionAnalyzer(ExplainerBase):
@@ -150,6 +151,22 @@ class PredictionAnalyzer(ExplainerBase):
             class_trues[i] = np.sum(true)
 
         explanations.add(class_gains, percentages, class_trues)
+        return explanations
+
+    def _lift_curve(self) -> LiftCurveExplanation:
+        """
+        Computes the cumulative lift curve.
+
+        :return: The cumulative lift curve.
+        """
+        explanations = LiftCurveExplanation()
+        class_gains = {}
+        cg = self._cumulative_gain().get_explanations()
+        percentages = cg["percentages"][1:]
+        for i in range(self.num_classes):
+            gains = cg["gains"][i][1:]
+            class_gains[i] = gains / percentages
+        explanations.add(class_gains, percentages)
         return explanations
 
     def _metric(self) -> MetricExplanation:
