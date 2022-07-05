@@ -12,6 +12,7 @@ from typing import Callable, List, Dict
 from sklearn.metrics import roc_curve, auc
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
 
 from ..base import ExplainerBase
 from ...explanations.prediction.roc import ROCExplanation
@@ -47,12 +48,14 @@ class PredictionAnalyzer(ExplainerBase):
         :param mode: The task type, e.g., `classification` and `regression`.
         """
         super().__init__()
-        assert mode == "classification", "`PrecisionRecall` only supports classification models."
+        assert mode in ["classification", "regression"], \
+            "`PredictionAnalyzer` only supports classification and regression models."
         assert test_labels is not None, "Please set the test labels."
         assert len(test_labels) == len(test_data), \
             f"The length of `test_labels` is not equal to the number of examples in `test_data`, " \
             f"{len(test_labels)} != {len(test_data)}"
 
+        self.mode = mode
         self.predict_function = predict_function
         self.y_prob = predict_function(test_data)
         self.y_test = test_labels
@@ -146,8 +149,25 @@ class PredictionAnalyzer(ExplainerBase):
         explanations.add(class_gains, percentages, class_trues)
         return explanations
 
-    def _metric(self):
-        pass
+    def _metric(self) -> MetricExplanation:
+        if self.mode == "classification":
+            metrics = {}
+            y_pred = np.argmax(self.y_prob, axis=1)
+            # Precision, recall and accuracy
+            report = classification_report(self.y_test, y_pred, output_dict=True)
+            for i in range(self.num_classes):
+                metrics[i] = report[str(i)]
+            metrics["macro"] = report["macro avg"]
+            metrics["micro"] = report["weighted avg"]
+            # AUC
+            roc = self._roc().get_explanations()["auc"]
+            for i in range(self.num_classes):
+                metrics[i]["auc"] = roc[i]
+            metrics["macro"]["auc"] = roc["macro"]
+            metrics["micro"]["auc"] = roc["micro"]
+            return MetricExplanation(metrics, self.mode)
+        else:
+            pass
 
     def explain(self, **kwargs) -> Dict:
         pass
