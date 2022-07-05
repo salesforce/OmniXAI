@@ -16,11 +16,8 @@ class TestResidual(unittest.TestCase):
             mode="regression"
         )
         explanations = explainer._regression_residual()
-        # explanations.plotly_plot()
-
-        import matplotlib.pyplot as plt
+        explanations.plotly_plot()
         explanations.plot()
-        plt.show()
 
 
 if __name__ == "__main__":

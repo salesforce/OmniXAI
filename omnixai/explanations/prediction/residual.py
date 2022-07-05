@@ -68,8 +68,8 @@ class ResidualExplanation(ExplanationBase):
                 linewidth=linewidth,
                 label="Baseline"
             )
-        plt.xlabel("Predictions")
-        plt.ylabel("Residuals")
+        plt.xlabel("Prediction")
+        plt.ylabel("Residual")
         plt.title("Regression Residuals")
         plt.legend(loc="upper right")
         plt.grid()
@@ -77,6 +77,38 @@ class ResidualExplanation(ExplanationBase):
 
     def _plotly_figure(self, markersize=5, linewidth=2, **kwargs):
         import plotly.graph_objects as go
+
+        indices = np.argsort(self.predictions)
+        predictions = self.predictions[indices]
+        residuals = self.residuals[indices]
+
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(
+            mode="markers",
+            x=predictions,
+            y=residuals,
+            marker=dict(color="#1f77b4", size=markersize),
+            name=f"Residuals ({self.residual_type})"
+        ))
+        if self.residual_type == "ratio":
+            fig.add_trace(go.Scatter(
+                x=predictions,
+                y=np.ones(predictions.shape),
+                line=dict(color="#ff7f0e", width=linewidth),
+                name="Baseline"
+            ))
+        else:
+            fig.add_trace(go.Scatter(
+                x=predictions,
+                y=np.zeros(predictions.shape),
+                line=dict(color="#ff7f0e", width=linewidth),
+                name="Baseline"
+            ))
+        fig.update_layout(
+            xaxis_title="Prediction",
+            yaxis_title="Residual"
+        )
+        return fig
 
     def plotly_plot(self, **kwargs):
         """
