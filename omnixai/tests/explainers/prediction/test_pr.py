@@ -31,7 +31,7 @@ class TestPrecisionRecall(unittest.TestCase):
         explainer = PredictionAnalyzer(
             predict_function=lambda x: self.classifier.predict_proba(x),
             test_data=self.x_test,
-            test_labels=self.y_test
+            test_targets=self.y_test
         )
         explanations = explainer._precision_recall()
         explanations.plot()

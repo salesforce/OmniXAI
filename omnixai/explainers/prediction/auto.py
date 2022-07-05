@@ -33,7 +33,7 @@ class PredictionAnalyzer(ExplainerBase):
             self,
             predict_function: Callable,
             test_data,
-            test_labels: List,
+            test_targets: List,
             mode: str = "classification"
     ):
         """
@@ -42,23 +42,23 @@ class PredictionAnalyzer(ExplainerBase):
         :param test_data: The test data. ``test_data`` contains the raw features of the test instances.
             If ``test_data`` is a ``Tabular`` with a target/label column, this column is ignored
             (because the labels in this column are raw labels which are not processed by a LabelEncoder).
-        :param test_labels: The test labels. The specified labels by ``test_labels`` will be used to
-            compute metrics and curves. Note that the labels in ``test_labels`` should be integers (processed
+        :param test_targets: The test labels or targets. The specified targets by ``test_targets`` will be used to
+            compute metrics and curves. For classification, ``test_targets`` should be integers (processed
             by a LabelEncoder) and match the prediction probabilities computed by ``predict_function``.
         :param mode: The task type, e.g., `classification` and `regression`.
         """
         super().__init__()
         assert mode in ["classification", "regression"], \
             "`PredictionAnalyzer` only supports classification and regression models."
-        assert test_labels is not None, "Please set the test labels."
-        assert len(test_labels) == len(test_data), \
+        assert test_targets is not None, "Please set the test targets."
+        assert len(test_targets) == len(test_data), \
             f"The length of `test_labels` is not equal to the number of examples in `test_data`, " \
-            f"{len(test_labels)} != {len(test_data)}"
+            f"{len(test_targets)} != {len(test_data)}"
 
         self.mode = mode
         self.predict_function = predict_function
         self.y_prob = predict_function(test_data)
-        self.y_test = test_labels
+        self.y_test = test_targets
         self.num_classes = self.y_prob.shape[1]
 
     def _roc(self) -> ROCExplanation:
