@@ -207,9 +207,6 @@ class PredictionAnalyzer(ExplainerBase):
             metrics["r-square"] = r2_score(self.y_test, self.y_prob)
         return MetricExplanation(metrics, self.mode)
 
-    def _regression_predict(self, **kwargs):
-        pass
-
     def _regression_residual(self, residual_type="diff", **kwargs) -> ResidualExplanation:
         if residual_type == "diff":
             r = self.y_test - self.y_prob
@@ -223,4 +220,13 @@ class PredictionAnalyzer(ExplainerBase):
         return ResidualExplanation(self.y_prob, r, residual_type)
 
     def explain(self, **kwargs) -> Dict:
-        pass
+        results = {"metric": self._metric(**kwargs)}
+        if self.mode == "classification":
+            results["confusion_matrix"] = self._confusion_matrix(**kwargs)
+            results["roc"] = self._roc(**kwargs)
+            results["precision_recall"] = self._precision_recall(**kwargs)
+            results["cumulative_gain"] = self._cumulative_gain(**kwargs)
+            results["lift_curve"] = self._lift_curve(**kwargs)
+        else:
+            results["residual"] = self._regression_residual(**kwargs)
+        return results
