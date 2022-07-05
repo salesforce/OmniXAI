@@ -8,7 +8,8 @@
 The prediction analysis for classification and regression.
 """
 import numpy as np
-from typing import Callable, List, Dict
+import pandas as pd
+from typing import Callable, Dict
 from sklearn.metrics import roc_curve, auc
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import confusion_matrix
@@ -23,6 +24,7 @@ from ...explanations.prediction.confusion import ConfusionMatrixExplanation
 from ...explanations.prediction.cumulative import CumulativeGainExplanation
 from ...explanations.prediction.metrics import MetricExplanation
 from ...explanations.prediction.lift import LiftCurveExplanation
+from ...explanations.prediction.residual import ResidualExplanation
 
 
 class PredictionAnalyzer(ExplainerBase):
@@ -36,7 +38,7 @@ class PredictionAnalyzer(ExplainerBase):
             self,
             predict_function: Callable,
             test_data,
-            test_targets: List,
+            test_targets,
             mode: str = "classification"
     ):
         """
@@ -54,6 +56,19 @@ class PredictionAnalyzer(ExplainerBase):
         assert mode in ["classification", "regression"], \
             "`PredictionAnalyzer` only supports classification and regression models."
         assert test_targets is not None, "Please set the test targets."
+
+        if isinstance(test_targets, (list, tuple)):
+            test_targets = np.array(test_targets)
+        elif isinstance(test_targets, pd.DataFrame):
+            test_targets = test_targets.values
+        elif isinstance(test_targets, np.ndarray):
+            test_targets = test_targets
+        else:
+            raise ValueError(f"The type of `test_targets` is {type(test_targets)}, which is not supported."
+                             f"`test_targets` should be a list, a numpy array or a pandas dataframe.")
+        if test_targets.ndim > 1:
+            test_targets = test_targets.flatten()
+
         assert len(test_targets) == len(test_data), \
             f"The length of `test_labels` is not equal to the number of examples in `test_data`, " \
             f"{len(test_targets)} != {len(test_data)}"
@@ -195,8 +210,17 @@ class PredictionAnalyzer(ExplainerBase):
     def _regression_predict(self):
         pass
 
-    def _regression_residual(self):
-        pass
+    def _regression_residual(self, residual_type="diff") -> ResidualExplanation:
+        if residual_type == "diff":
+            r = self.y_test - self.y_prob
+        elif residual_type == "ratio":
+            r = np.abs(self.y_test) / (np.abs(self.y_prob) + 1e-6)
+        elif residual_type == "log_ratio":
+            r = np.log(np.maximum(np.abs(self.y_test) / (np.abs(self.y_prob) + 1e-6), 1e-3))
+        else:
+            raise ValueError(f"Unknown regression residual type: {residual_type}, "
+                             f"please choose from 'diff', 'ratio' and 'log_ratio'.")
+        return ResidualExplanation(self.y_prob, r, residual_type)
 
     def explain(self, **kwargs) -> Dict:
         pass
