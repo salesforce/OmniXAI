@@ -13,6 +13,8 @@ from sklearn.metrics import roc_curve, auc
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
+from sklearn.metrics import mean_squared_error, mean_absolute_error, \
+    mean_absolute_percentage_error, r2_score
 
 from ..base import ExplainerBase
 from ...explanations.prediction.roc import ROCExplanation
@@ -57,9 +59,10 @@ class PredictionAnalyzer(ExplainerBase):
 
         self.mode = mode
         self.predict_function = predict_function
-        self.y_prob = predict_function(test_data)
         self.y_test = test_targets
-        self.num_classes = self.y_prob.shape[1]
+        self.y_prob = predict_function(test_data)
+        if mode == "classification":
+            self.num_classes = self.y_prob.shape[1]
 
     def _roc(self) -> ROCExplanation:
         """
@@ -150,8 +153,8 @@ class PredictionAnalyzer(ExplainerBase):
         return explanations
 
     def _metric(self) -> MetricExplanation:
+        metrics = {}
         if self.mode == "classification":
-            metrics = {}
             y_pred = np.argmax(self.y_prob, axis=1)
             # Precision, recall and accuracy
             report = classification_report(self.y_test, y_pred, output_dict=True)
@@ -165,9 +168,12 @@ class PredictionAnalyzer(ExplainerBase):
                 metrics[i]["auc"] = roc[i]
             metrics["macro"]["auc"] = roc["macro"]
             metrics["micro"]["auc"] = roc["micro"]
-            return MetricExplanation(metrics, self.mode)
         else:
-            pass
+            metrics["mse"] = mean_squared_error(self.y_test, self.y_prob)
+            metrics["mae"] = mean_absolute_error(self.y_test, self.y_prob)
+            metrics["mape"] = mean_absolute_percentage_error(self.y_test, self.y_prob)
+            metrics["r-square"] = r2_score(self.y_test, self.y_prob)
+        return MetricExplanation(metrics, self.mode)
 
     def explain(self, **kwargs) -> Dict:
         pass

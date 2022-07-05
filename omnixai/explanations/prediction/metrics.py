@@ -55,7 +55,10 @@ class MetricExplanation(ExplanationBase):
                 index = [class_names[i] for i in range(len(self.metrics) - 2)] + ["Macro", "Micro"]
             df = pd.DataFrame(values, columns=columns, index=index)
         else:
-            df = pd.DataFrame()
+            columns = ["Mean squared error (MSE)", "Mean absolute error (MAE)",
+                       "Mean absolute percentage error (MAPE)", "R-squared"]
+            values = ["{:.4f}".format(self.metrics[m]) for m in ["mse", "mae", "mape", "r-square"]]
+            df = pd.DataFrame(values, columns=columns)
         return df
 
     def plot(self, class_names=None, **kwargs):
