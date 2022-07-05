@@ -51,6 +51,8 @@ class CumulativeGainExplanation(ExplanationBase):
         """
         Plots the cumulative gains.
 
+        :param class_names: A list of the class names indexed by the labels.
+        :param linewidth: The line width.
         :return: A matplotlib figure plotting the cumulative gains.
         """
         import matplotlib.pyplot as plt
@@ -132,6 +134,7 @@ class CumulativeGainExplanation(ExplanationBase):
         """
         Plots the cumulative gains using Dash.
 
+        :param class_names: A list of the class names indexed by the labels.
         :return: A plotly dash figure plotting the cumulative gainss.
         """
         return DashFigure(self._plotly_figure(class_names, **kwargs))
@@ -139,6 +142,8 @@ class CumulativeGainExplanation(ExplanationBase):
     def ipython_plot(self, class_names=None, **kwargs):
         """
         Plots the cumulative gains in IPython.
+
+        :param class_names: A list of the class names indexed by the labels.
         """
         import plotly
 

@@ -51,6 +51,8 @@ class ROCExplanation(ExplanationBase):
         """
         Plots the ROC curves.
 
+        :param class_names: A list of the class names indexed by the labels.
+        :param linewidth: The line width.
         :return: A matplotlib figure plotting the ROC curves.
         """
         import matplotlib.pyplot as plt
@@ -140,6 +142,7 @@ class ROCExplanation(ExplanationBase):
         """
         Plots the ROC curves using Dash.
 
+        :param class_names: A list of the class names indexed by the labels.
         :return: A plotly dash figure plotting the ROC curves.
         """
         return DashFigure(self._plotly_figure(class_names, **kwargs))
@@ -147,6 +150,8 @@ class ROCExplanation(ExplanationBase):
     def ipython_plot(self, class_names=None, **kwargs):
         """
         Plots the ROC curves in IPython.
+
+        :param class_names: A list of the class names indexed by the labels.
         """
         import plotly
 

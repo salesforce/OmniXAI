@@ -49,6 +49,8 @@ class PrecisionRecallExplanation(ExplanationBase):
         """
         Plots the precision recall curves.
 
+        :param class_names: A list of the class names indexed by the labels.
+        :param linewidth: The line width.
         :return: A matplotlib figure plotting the precision recall curves.
         """
         import matplotlib.pyplot as plt
@@ -102,6 +104,7 @@ class PrecisionRecallExplanation(ExplanationBase):
         """
         Plots the precision recall curves using Dash.
 
+        :param class_names: A list of the class names indexed by the labels.
         :return: A plotly dash figure plotting the precision recall curves.
         """
         return DashFigure(self._plotly_figure(class_names, **kwargs))
@@ -109,6 +112,8 @@ class PrecisionRecallExplanation(ExplanationBase):
     def ipython_plot(self, class_names=None, **kwargs):
         """
         Plots the precision recall curves in IPython.
+
+        :param class_names: A list of the class names indexed by the labels.
         """
         import plotly
 

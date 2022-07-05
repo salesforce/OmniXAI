@@ -35,6 +35,8 @@ class ConfusionMatrixExplanation(ExplanationBase):
         """
         Plots the confusion matrix.
 
+        :param class_names: A list of the class names indexed by the labels.
+        :param fontsize: The font size for title, xlabel and ylabel.
         :return: A matplotlib figure plotting the confusion matrix.
         """
         import matplotlib.pyplot as plt
@@ -91,6 +93,7 @@ class ConfusionMatrixExplanation(ExplanationBase):
         """
         Plots the confusion matrix using Dash.
 
+        :param class_names: A list of the class names indexed by the labels.
         :return: A plotly dash figure plotting the confusion matrix.
         """
         return DashFigure(self._plotly_figure(class_names, **kwargs))
@@ -98,6 +101,8 @@ class ConfusionMatrixExplanation(ExplanationBase):
     def ipython_plot(self, class_names=None, **kwargs):
         """
         Plots the confusion matrix in IPython.
+
+        :param class_names: A list of the class names indexed by the labels.
         """
         import plotly
 

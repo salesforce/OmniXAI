@@ -18,6 +18,7 @@ from ...explanations.prediction.roc import ROCExplanation
 from ...explanations.prediction.pr import PrecisionRecallExplanation
 from ...explanations.prediction.confusion import ConfusionMatrixExplanation
 from ...explanations.prediction.cumulative import CumulativeGainExplanation
+from ...explanations.prediction.metrics import MetricExplanation
 
 
 class PredictionAnalyzer(ExplainerBase):
@@ -144,6 +145,9 @@ class PredictionAnalyzer(ExplainerBase):
 
         explanations.add(class_gains, percentages, class_trues)
         return explanations
+
+    def _metric(self):
+        pass
 
     def explain(self, **kwargs) -> Dict:
         pass
