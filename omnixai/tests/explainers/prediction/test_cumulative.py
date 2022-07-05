@@ -3,7 +3,7 @@ import numpy as np
 from sklearn import svm, datasets
 from sklearn.model_selection import train_test_split
 
-from omnixai.explainers.prediction.cumulative import CumulativeGain
+from omnixai.explainers.prediction import PredictionAnalyzer
 
 
 class TestCumulativeGain(unittest.TestCase):
@@ -27,12 +27,12 @@ class TestCumulativeGain(unittest.TestCase):
         self.classifier = classifier
 
     def test_roc(self):
-        cg = CumulativeGain(
+        explainer = PredictionAnalyzer(
             predict_function=lambda x: self.classifier.predict_proba(x),
             test_data=self.x_test,
             test_labels=self.y_test
         )
-        explanations = cg.explain()
+        explanations = explainer._cumulative_gain()
         explanations.plot()
         explanations.plotly_plot()
 

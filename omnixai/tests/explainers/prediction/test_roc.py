@@ -3,7 +3,7 @@ import numpy as np
 from sklearn import svm, datasets
 from sklearn.model_selection import train_test_split
 
-from omnixai.explainers.prediction.roc import ROC
+from omnixai.explainers.prediction import PredictionAnalyzer
 
 
 class TestROC(unittest.TestCase):
@@ -27,12 +27,12 @@ class TestROC(unittest.TestCase):
         self.classifier = classifier
 
     def test_roc(self):
-        roc = ROC(
+        explainer = PredictionAnalyzer(
             predict_function=lambda x: self.classifier.predict_proba(x),
             test_data=self.x_test,
             test_labels=self.y_test
         )
-        explanations = roc.explain()
+        explanations = explainer._roc()
         explanations.plot()
         explanations.plotly_plot()
 

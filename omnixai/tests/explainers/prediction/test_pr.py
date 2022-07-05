@@ -4,7 +4,7 @@ from sklearn import svm, datasets
 from sklearn.model_selection import train_test_split
 from sklearn.multiclass import OneVsRestClassifier
 
-from omnixai.explainers.prediction.pr import PrecisionRecall
+from omnixai.explainers.prediction import PredictionAnalyzer
 
 
 class TestPrecisionRecall(unittest.TestCase):
@@ -28,15 +28,14 @@ class TestPrecisionRecall(unittest.TestCase):
         self.classifier = classifier
 
     def test_pr(self):
-        pr = PrecisionRecall(
+        explainer = PredictionAnalyzer(
             predict_function=lambda x: self.classifier.predict_proba(x),
             test_data=self.x_test,
             test_labels=self.y_test
         )
-        explanations = pr.explain()
+        explanations = explainer._precision_recall()
         explanations.plot()
-        fig = explanations.plotly_plot()
-        fig.show()
+        explanations.plotly_plot()
 
 
 if __name__ == "__main__":

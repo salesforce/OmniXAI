@@ -3,7 +3,7 @@ import numpy as np
 from sklearn import svm, datasets
 from sklearn.model_selection import train_test_split
 
-from omnixai.explainers.prediction.confusion import ConfusionMatrix
+from omnixai.explainers.prediction import PredictionAnalyzer
 
 
 class TestConfusionMatrix(unittest.TestCase):
@@ -27,12 +27,12 @@ class TestConfusionMatrix(unittest.TestCase):
         self.classifier = classifier
 
     def test_confusion(self):
-        explainer = ConfusionMatrix(
+        explainer = PredictionAnalyzer(
             predict_function=lambda x: self.classifier.predict_proba(x),
             test_data=self.x_test,
             test_labels=self.y_test
         )
-        explanations = explainer.explain()
+        explanations = explainer._confusion_matrix()
         fig = explanations.plotly_plot(class_names=["a", "b", "c"])
         explanations.plot(class_names=["a", "b", "c"])
 
