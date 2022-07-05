@@ -4,10 +4,9 @@ from sklearn import svm, datasets
 from sklearn.model_selection import train_test_split
 
 from omnixai.explainers.prediction import PredictionAnalyzer
-from omnixai.tests.explainers.tasks import TabularRegression
 
 
-class TestMetrics(unittest.TestCase):
+class TestClassificationMetrics(unittest.TestCase):
 
     def test_classification_metric(self):
         iris = datasets.load_iris()
@@ -32,21 +31,6 @@ class TestMetrics(unittest.TestCase):
         print(explanations.get_explanations())
         explanations.plotly_plot()
         explanations.plot(class_names=["a", "b", "c"])
-
-    def test_regression_metric(self):
-        task = TabularRegression().train_boston()
-        predict_function = lambda z: task.model.predict(task.transform.transform(z))
-
-        explainer = PredictionAnalyzer(
-            predict_function=predict_function,
-            test_data=task.test_data,
-            test_targets=task.test_targets,
-            mode="regression"
-        )
-        explanations = explainer._metric()
-        print(explanations.get_explanations())
-        explanations.plotly_plot()
-        explanations.plot()
 
 
 if __name__ == "__main__":
