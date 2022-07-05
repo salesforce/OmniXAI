@@ -80,7 +80,7 @@ class PredictionAnalyzer(ExplainerBase):
         if mode == "classification":
             self.num_classes = self.y_prob.shape[1]
 
-    def _roc(self) -> ROCExplanation:
+    def _roc(self, **kwargs) -> ROCExplanation:
         """
         Computes the micro-average ROC curve, macro-average ROC curve and ROC curves of all the classes.
 
@@ -113,7 +113,7 @@ class PredictionAnalyzer(ExplainerBase):
         explanation.add(fpr, tpr, roc_auc)
         return explanation
 
-    def _precision_recall(self) -> PrecisionRecallExplanation:
+    def _precision_recall(self, **kwargs) -> PrecisionRecallExplanation:
         """
         Computes the precision recall curves.
 
@@ -130,7 +130,7 @@ class PredictionAnalyzer(ExplainerBase):
         explanations.add(precisions, recalls)
         return explanations
 
-    def _confusion_matrix(self) -> ConfusionMatrixExplanation:
+    def _confusion_matrix(self, **kwargs) -> ConfusionMatrixExplanation:
         """
         Computes the confusion matrix given the model and the test dataset.
 
@@ -140,7 +140,7 @@ class PredictionAnalyzer(ExplainerBase):
         mat = confusion_matrix(self.y_test, y_pred)
         return ConfusionMatrixExplanation(mat)
 
-    def _cumulative_gain(self) -> CumulativeGainExplanation:
+    def _cumulative_gain(self, **kwargs) -> CumulativeGainExplanation:
         """
         Computes the cumulative gain.
 
@@ -168,7 +168,7 @@ class PredictionAnalyzer(ExplainerBase):
         explanations.add(class_gains, percentages, class_trues)
         return explanations
 
-    def _lift_curve(self) -> LiftCurveExplanation:
+    def _lift_curve(self, **kwargs) -> LiftCurveExplanation:
         """
         Computes the cumulative lift curve.
 
@@ -184,7 +184,7 @@ class PredictionAnalyzer(ExplainerBase):
         explanations.add(class_gains, percentages)
         return explanations
 
-    def _metric(self) -> MetricExplanation:
+    def _metric(self, **kwargs) -> MetricExplanation:
         metrics = {}
         if self.mode == "classification":
             y_pred = np.argmax(self.y_prob, axis=1)
@@ -207,10 +207,10 @@ class PredictionAnalyzer(ExplainerBase):
             metrics["r-square"] = r2_score(self.y_test, self.y_prob)
         return MetricExplanation(metrics, self.mode)
 
-    def _regression_predict(self):
+    def _regression_predict(self, **kwargs):
         pass
 
-    def _regression_residual(self, residual_type="diff") -> ResidualExplanation:
+    def _regression_residual(self, residual_type="diff", **kwargs) -> ResidualExplanation:
         if residual_type == "diff":
             r = self.y_test - self.y_prob
         elif residual_type == "ratio":
