@@ -7,6 +7,9 @@
 """
 The OmniXAI dashboard.
 """
+import omnixai.visualization.state as board
+board.init()
+
 import os
 import dash
 import dash_bootstrap_components as dbc
@@ -14,7 +17,12 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 
-from .layout import create_layout
+from .layout import create_banner, create_layout
+from .pages.local_exp import create_local_explanation_layout
+from .pages.global_exp import create_global_explanation_layout
+
+import omnixai.visualization.callbacks.local_exp
+import omnixai.visualization.callbacks.global_exp
 
 
 app = dash.Dash(
@@ -46,7 +54,7 @@ class Dashboard:
     """
 
     def __init__(
-        self, instances=None, local_explanations=None, global_explanations=None, class_names=None, params=None
+            self, instances=None, local_explanations=None, global_explanations=None, class_names=None, params=None
     ):
         """
         :param instances: The instances to explain.
@@ -58,40 +66,42 @@ class Dashboard:
         :param params: A dict containing the additional parameters for plotting figures,
             e.g., `params={"pdp": {"features": ["Age", "Education-Num", "Capital Gain"]}}`.
         """
-        # Explanations
-        app.instances = instances
-        app.local_explanations = local_explanations if local_explanations is not None else {}
-        app.global_explanations = global_explanations if global_explanations is not None else {}
-        app.class_names = class_names
-        app.params = {} if params is None else params
-        app.plots = [name for name in app.local_explanations.keys()] + [
-            f"{name}:global" for name in app.global_explanations.keys()
-        ]
-        # App states
-        app.instance_indices = list(range(len(app.instances))) if instances is not None else []
-        app.show_instance = 0
-        app.num_figures_per_row = 2
-        app.show_plots = app.plots
+        board.state.set(
+            instances=instances,
+            local_explanations=local_explanations,
+            global_explanations=global_explanations,
+            class_names=class_names,
+            params=params
+        )
 
     def show(self, host=os.getenv("HOST", "127.0.0.1"), port=os.getenv("PORT", "8050")):
         """
         Shows the dashboard.
         """
-        if len(app.local_explanations) > 0 or len(app.global_explanations) > 0:
+        if board.state.has_explanations():
             app.run_server(host=host, port=port, debug=False)
 
 
-@app.callback(Output("page-content", "children"), [Input("url", "pathname")])
+@app.callback(
+    Output("page-content", "children"),
+    [Input("url", "pathname")]
+)
 def _display_page(pathname):
-    return create_layout(app)
+    return html.Div(
+        id="app-container",
+        children=[
+            create_banner(app),
+            create_layout(board.state)
+        ],
+    )
 
 
 @app.callback(
-    Output("url", "pathname"),
-    [Input("select_num_figures", "value"), Input("select_instance", "value"), Input("select_plots", "value")],
+    Output("plots", "children"),
+    Input("tabs", "value")
 )
-def _change_num_figures_per_row(num_figures, instance, plots):
-    app.num_figures_per_row = int(num_figures)
-    app.show_instance = int(instance)
-    app.show_plots = plots
-    return f"/dashboard"
+def _click_tab(tab):
+    if tab == 'local-explanation':
+        return create_local_explanation_layout(board.state)
+    elif tab == 'global-explanation':
+        return create_global_explanation_layout(board.state)
