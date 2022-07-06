@@ -91,6 +91,7 @@ def _display_page(pathname):
         id="app-container",
         children=[
             create_banner(app),
+            html.Br(),
             create_layout(board.state)
         ],
     )
