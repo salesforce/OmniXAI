@@ -102,12 +102,7 @@ def _display_page(pathname):
     Input("tabs", "value")
 )
 def _click_tab(tab):
-    plots_option_loc = [{"label": s, "value": s} for s in board.state.get_plots("local")]
-    plots_option_glo = [{"label": s, "value": s} for s in board.state.get_plots("global")]
-
     if tab == 'local-explanation':
-        layout = create_local_explanation_layout(board.state)
-        return layout
+        return create_local_explanation_layout(board.state)
     elif tab == 'global-explanation':
-        layout = create_global_explanation_layout(board.state)
-        return layout
+        return create_global_explanation_layout(board.state)
