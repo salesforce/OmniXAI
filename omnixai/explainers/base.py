@@ -14,7 +14,7 @@ from collections import OrderedDict, defaultdict
 from sklearn.base import BaseEstimator
 from typing import Collection, Callable, Any, Dict
 
-from ..utils.misc import AutodocABCMeta, tensor_to_numpy
+from ..utils.misc import AutodocABCMeta, tensor_to_numpy, build_predict_function
 from ..data.base import Data
 from ..utils.misc import is_torch_available
 from ..explanations.base import PredictedResults
@@ -126,29 +126,12 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         :return: The prediction function.
         :rtype: Callable
         """
-        # A scikit-learn model
-        if isinstance(self.model, BaseEstimator):
-            # A model derived from sklearn.base.BaseEstimator
-            predict_func = self.model.predict_proba if self.mode == "classification" else self.model.predict
-        else:
-            # A torch model, tensorflow model or general function
-            if is_torch_available():
-                import torch.nn as nn
-                if isinstance(self.model, nn.Module):
-                    self.model.eval()
-            predict_func = self.model
-        # Pre-processing and post-processing
-        preprocess = self.preprocess if self.preprocess is not None else lambda x: x
-        postprocess = self.postprocess if self.postprocess is not None else lambda x: x
-
-        # The predict function
-        def _predict(x):
-            inputs = preprocess(x)
-            if not isinstance(inputs, tuple):
-                inputs = (inputs,)
-            return tensor_to_numpy(postprocess(predict_func(*inputs)))
-
-        return _predict
+        return build_predict_function(
+            model=self.model,
+            preprocess=self.preprocess,
+            postprocess=self.postprocess,
+            mode=self.mode
+        )
 
     def _build_explainers(self, params):
         """
