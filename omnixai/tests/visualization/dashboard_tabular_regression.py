@@ -8,7 +8,9 @@ from sklearn.datasets import fetch_california_housing
 from omnixai.data.tabular import Tabular
 from omnixai.preprocessing.base import Identity
 from omnixai.preprocessing.tabular import TabularTransform
+from omnixai.explainers.data import DataAnalyzer
 from omnixai.explainers.tabular import TabularExplainer
+from omnixai.explainers.prediction import PredictionAnalyzer
 from omnixai.visualization.dashboard import Dashboard
 
 
@@ -43,10 +45,27 @@ class TestDashboard(unittest.TestCase):
         self.transformer = transformer
         self.preprocess = lambda z: transformer.transform(z)
         self.x_test = x_test
+        self.test_data = transformer.invert(x_test)
+        self.test_targets = y_test
 
     def test(self):
+        explainer = DataAnalyzer(
+            explainers=["correlation", "mutual", "chi2"],
+            data=self.tabular_data
+        )
+        data_explanations = explainer.explain()
+
+        explainer = PredictionAnalyzer(
+            mode="regression",
+            test_data=self.test_data,
+            test_targets=self.test_targets,
+            model=self.model,
+            preprocess=self.preprocess
+        )
+        prediction_explanations = explainer.explain()
+
         explainers = TabularExplainer(
-            explainers=["lime", "pdp"],
+            explainers=["lime", "shap", "sensitivity", "pdp"],
             mode="regression",
             data=self.tabular_data,
             model=self.model,
@@ -66,6 +85,8 @@ class TestDashboard(unittest.TestCase):
             instances=test_instances,
             local_explanations=local_explanations,
             global_explanations=global_explanations,
+            data_explanations=data_explanations,
+            prediction_explanations=prediction_explanations,
             params={"pdp": {"features": self.features[:4]}}
         )
         dashboard.show()

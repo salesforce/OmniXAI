@@ -66,7 +66,7 @@ class TestDashboard(unittest.TestCase):
         self.model = gbtree
         self.preprocess = lambda z: transformer.transform(z)
         self.test_data = transformer.invert(test)
-        self.test_labels = labels_test
+        self.test_targets = labels_test
 
         i = 1653
         self.instances = transformer.invert(test[i: i + 5])
@@ -90,7 +90,7 @@ class TestDashboard(unittest.TestCase):
         explainer = PredictionAnalyzer(
             mode="classification",
             test_data=self.test_data,
-            test_targets=self.test_labels,
+            test_targets=self.test_targets,
             model=self.model,
             preprocess=self.preprocess
         )
