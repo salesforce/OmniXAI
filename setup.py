@@ -29,7 +29,7 @@ setup(
     install_requires=[
         "numpy>=1.17",
         "pandas>=1.1.0",
-        "scikit-learn>=0.22, <1.2",
+        "scikit-learn>=0.22,<1.2",
         "scipy>=1.5.0",
         "scikit-image>=0.17.2",
         "matplotlib",
@@ -46,6 +46,6 @@ setup(
         "tabulate"
     ],
     extras_require=extras_require,
-    python_requires=">=3.7, <4",
+    python_requires=">=3.7,<4",
     zip_safe=False,
 )
