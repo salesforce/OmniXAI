@@ -1,10 +1,16 @@
+#
+# Copyright (c) 2022 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+#
 from dash import dcc
 from dash import html
 from .utils import create_explanation_layout
 from ..plot import plot_one_instance
 
 
-def create_control_panel_local(state) -> html.Div:
+def create_control_panel(state) -> html.Div:
     return html.Div(
         id="control-card",
         children=[
@@ -81,7 +87,7 @@ def create_local_explanation_layout(state) -> html.Div:
                 id="left-column-local",
                 className="three columns",
                 children=[
-                    create_control_panel_local(state)
+                    create_control_panel(state)
                 ],
             ),
             # Right column

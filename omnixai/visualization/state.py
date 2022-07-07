@@ -1,4 +1,3 @@
-
 class State:
 
     def __init__(self):
@@ -7,14 +6,23 @@ class State:
         self.instances = None
         self.instance_indices = []
 
-        views = ["local", "global", "prediction_analysis", "data_analysis"]
+        views = ["local", "global", "prediction", "data"]
         self.explanations = {view: {} for view in views}
         self.num_figures_per_row = {view: 2 for view in views}
         self.plots = {view: [] for view in views}
         self.display_plots = {view: [] for view in views}
         self.display_instance = {"local": 0}
 
-    def set(self, instances, local_explanations, global_explanations, class_names, params):
+    def set(
+            self,
+            instances,
+            local_explanations,
+            global_explanations,
+            data_explanations,
+            prediction_explanations,
+            class_names,
+            params
+    ):
         self.class_names = class_names
         self.params = {} if params is None else params
         self.instances = instances
@@ -22,6 +30,8 @@ class State:
 
         self.set_explanations("local", local_explanations)
         self.set_explanations("global", global_explanations)
+        self.set_explanations("data", data_explanations)
+        self.set_explanations("prediction", prediction_explanations)
         for view, explanations in self.explanations.items():
             self.plots[view] = [name for name in explanations.keys()]
             self.display_plots[view] = self.plots[view]

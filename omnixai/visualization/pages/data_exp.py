@@ -16,12 +16,12 @@ def create_control_panel(state) -> html.Div:
             html.Br(),
             html.P("Plots"),
             html.Div(
-                id="select-plots-parent-global",
+                id="select-plots-parent-data",
                 children=[
                     dcc.Dropdown(
-                        id="select-plots-global",
-                        options=[{"label": s, "value": s} for s in state.get_plots("global")],
-                        value=state.get_display_plots("global"),
+                        id="select-plots-data",
+                        options=[{"label": s, "value": s} for s in state.get_plots("data")],
+                        value=state.get_display_plots("data"),
                         multi=True,
                         style={"width": "350px"},
                     )
@@ -30,9 +30,9 @@ def create_control_panel(state) -> html.Div:
             html.Br(),
             html.P("Number of figures per row"),
             dcc.Dropdown(
-                id="select-num-figures-global",
+                id="select-num-figures-data",
                 options=[{"label": "1", "value": "1"}, {"label": "2", "value": "2"}],
-                value=str(state.get_num_figures_per_row("global")),
+                value=str(state.get_num_figures_per_row("data")),
                 style={"width": "350px"},
             ),
         ],
@@ -40,20 +40,20 @@ def create_control_panel(state) -> html.Div:
 
 
 def create_right_column(state) -> html.Div:
-    explanation_views = create_explanation_layout(state, explanation_type="global")
+    explanation_views = create_explanation_layout(state, explanation_type="data")
     return html.Div(
-        id="right-column-global",
+        id="right-column-data",
         children=explanation_views
     )
 
 
-def create_global_explanation_layout(state) -> html.Div:
+def create_data_explanation_layout(state) -> html.Div:
     return html.Div(
-        id="global_explanation_views",
+        id="data_explanation_views",
         children=[
             # Left column
             html.Div(
-                id="left-column-global",
+                id="left-column-data",
                 className="three columns",
                 children=[
                     create_control_panel(state)
