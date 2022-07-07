@@ -8,6 +8,7 @@
 The OmniXAI dashboard.
 """
 import omnixai.visualization.state as board
+
 board.init()
 
 import os
@@ -23,7 +24,6 @@ from .pages.global_exp import create_global_explanation_layout
 
 import omnixai.visualization.callbacks.local_exp
 import omnixai.visualization.callbacks.global_exp
-
 
 app = dash.Dash(
     __name__,
@@ -102,7 +102,12 @@ def _display_page(pathname):
     Input("tabs", "value")
 )
 def _click_tab(tab):
+    plots_option_loc = [{"label": s, "value": s} for s in board.state.get_plots("local")]
+    plots_option_glo = [{"label": s, "value": s} for s in board.state.get_plots("global")]
+
     if tab == 'local-explanation':
-        return create_local_explanation_layout(board.state)
+        layout = create_local_explanation_layout(board.state)
+        return layout
     elif tab == 'global-explanation':
-        return create_global_explanation_layout(board.state)
+        layout = create_global_explanation_layout(board.state)
+        return layout

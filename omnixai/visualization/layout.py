@@ -19,12 +19,12 @@ def create_banner(app):
 
 def create_layout(state) -> html.Div:
     children, values = [], []
-    if len(state.local_explanations) > 0:
+    if len(state.get_explanations("local")) > 0:
         children.append(
             dcc.Tab(label="Local Explanation", value="local-explanation")
         )
         values.append("local-explanation")
-    if len(state.global_explanations) > 0:
+    if len(state.get_explanations("global")) > 0:
         children.append(
             dcc.Tab(label="Global Explanation", value="global-explanation")
         )
