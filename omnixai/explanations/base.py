@@ -175,7 +175,7 @@ class PredictedResults(ExplanationBase):
             y=fnames[::-1],
             x=scores[::-1],
             orientation="h",
-            labels={"x": "Predicted values", "y": "Labels"},
+            labels={"x": "Predicted values", "y": "Labels" if labels is not None else "Targets"},
             title=f"Instance {index}",
             color_discrete_map={True: "#008B8B", False: "#DC143C"},
         )
