@@ -9,7 +9,7 @@ The prediction analysis for classification and regression.
 """
 import numpy as np
 import pandas as pd
-from typing import Callable, Dict
+from typing import Callable, Dict, Any
 from sklearn.metrics import roc_curve, auc
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import confusion_matrix
@@ -18,6 +18,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, \
     mean_absolute_percentage_error, r2_score
 
 from ..base import ExplainerBase
+from ...utils.misc import build_predict_function
 from ...explanations.prediction.roc import ROCExplanation
 from ...explanations.prediction.pr import PrecisionRecallExplanation
 from ...explanations.prediction.confusion import ConfusionMatrixExplanation
@@ -36,21 +37,32 @@ class PredictionAnalyzer(ExplainerBase):
 
     def __init__(
             self,
-            predict_function: Callable,
+            mode: str,
             test_data,
             test_targets,
-            mode: str = "classification"
+            model: Any = None,
+            preprocess: Callable = None,
+            postprocess: Callable = None,
+            predict_function: Callable = None,
     ):
         """
-        :param predict_function: The prediction function corresponding to a classification model.
-            The outputs of the ``predict_function`` are the class probabilities.
+        :param mode: The task type, e.g., `classification` and `regression`.
         :param test_data: The test data. ``test_data`` contains the raw features of the test instances.
             If ``test_data`` is a ``Tabular`` with a target/label column, this column is ignored
             (because the labels in this column are raw labels which are not processed by a LabelEncoder).
         :param test_targets: The test labels or targets. The specified targets by ``test_targets`` will be used to
             compute metrics and curves. For classification, ``test_targets`` should be integers (processed
-            by a LabelEncoder) and match the prediction probabilities computed by ``predict_function``.
-        :param mode: The task type, e.g., `classification` and `regression`.
+            by a LabelEncoder) and match the class probabilities returned by the ML model.
+        :param model: The machine learning model to analyze, which can be a scikit-learn model,
+            a tensorflow model, a torch model, or a black-box prediction function.
+        :param preprocess: The preprocessing function that converts the raw input features
+            into the inputs of ``model``.
+        :param postprocess: The postprocessing function that transforms the outputs of ``model``
+            to a user-specific form, e.g., the predicted class probabilities.
+        :param predict_function: The prediction function corresponding to the ML model.
+            The outputs of the ``predict_function`` are the class probabilities. If ``predict_function``
+            is not None, ``PredictionAnalyzer`` will ignore ``model`` and use ``predict_function`` only
+            to generate prediction results.
         """
         super().__init__()
         assert mode in ["classification", "regression"], \
@@ -72,11 +84,22 @@ class PredictionAnalyzer(ExplainerBase):
         assert len(test_targets) == len(test_data), \
             f"The length of `test_labels` is not equal to the number of examples in `test_data`, " \
             f"{len(test_targets)} != {len(test_data)}"
+        assert model is not None or predict_function is not None, \
+            "Both `model` and `predict_function` are None, please set either of them."
+
+        if predict_function is None:
+            self.predict_function = build_predict_function(
+                model=model,
+                preprocess=preprocess,
+                postprocess=postprocess,
+                mode=mode
+            )
+        else:
+            self.predict_function = predict_function
 
         self.mode = mode
-        self.predict_function = predict_function
-        self.y_test = test_targets
-        self.y_prob = predict_function(test_data)
+        self.y_test = test_targets.astype(int) if mode == "classification" else test_targets
+        self.y_prob = self.predict_function(test_data)
         if mode == "classification":
             self.num_classes = self.y_prob.shape[1]
 
@@ -190,10 +213,13 @@ class PredictionAnalyzer(ExplainerBase):
             y_pred = np.argmax(self.y_prob, axis=1)
             # Precision, recall and accuracy
             report = classification_report(self.y_test, y_pred, output_dict=True)
-            for i in range(self.num_classes):
-                metrics[i] = report[str(i)]
             metrics["macro"] = report["macro avg"]
             metrics["micro"] = report["weighted avg"]
+            for key, value in report.items():
+                try:
+                    metrics[int(key)] = value
+                except:
+                    pass
             # AUC
             roc = self._roc().get_explanations()["auc"]
             for i in range(self.num_classes):

@@ -23,6 +23,7 @@ class TestClassificationMetrics(unittest.TestCase):
         classifier.fit(x_train, y_train)
 
         explainer = PredictionAnalyzer(
+            mode="classification",
             predict_function=lambda z: classifier.predict_proba(z),
             test_data=x_test,
             test_targets=y_test
