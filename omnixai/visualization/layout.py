@@ -8,6 +8,22 @@ from dash import dcc
 from dash import html
 
 
+tab_style = {
+    'borderBottom': '1px solid #d6d6d6',
+    'padding': '6px',
+    'fontWeight': 'bold'
+}
+
+tab_selected_style = {
+    'borderTop': '1px solid #d6d6d6',
+    'borderBottom': '1px solid #d6d6d6',
+    'backgroundColor': '#119DFF',
+    'color': 'white',
+    'padding': '6px',
+    'fontWeight': 'bold'
+}
+
+
 def create_banner(app):
     return html.Div(
         id="banner",
@@ -22,25 +38,29 @@ def create_layout(state) -> html.Div:
     # Data analysis tab
     if len(state.get_explanations("data")) > 0:
         children.append(
-            dcc.Tab(label="Data Analysis", value="data-explanation")
+            dcc.Tab(label="Data Analysis", value="data-explanation",
+                    style=tab_style, selected_style=tab_selected_style)
         )
         values.append("data-explanation")
     # Prediction analysis tab
     if len(state.get_explanations("prediction")) > 0:
         children.append(
-            dcc.Tab(label="Prediction Analysis", value="prediction-explanation")
+            dcc.Tab(label="Prediction Analysis", value="prediction-explanation",
+                    style=tab_style, selected_style=tab_selected_style)
         )
         values.append("prediction-explanation")
     # Local explanation tab
     if len(state.get_explanations("local")) > 0:
         children.append(
-            dcc.Tab(label="Local Explanation", value="local-explanation")
+            dcc.Tab(label="Local Explanation", value="local-explanation",
+                    style=tab_style, selected_style=tab_selected_style)
         )
         values.append("local-explanation")
     # Global explanation tab
     if len(state.get_explanations("global")) > 0:
         children.append(
-            dcc.Tab(label="Global Explanation", value="global-explanation")
+            dcc.Tab(label="Global Explanation", value="global-explanation",
+                    style=tab_style, selected_style=tab_selected_style)
         )
         values.append("global-explanation")
 
