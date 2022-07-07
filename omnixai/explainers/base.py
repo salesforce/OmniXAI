@@ -11,12 +11,10 @@ import inspect
 import numpy as np
 from abc import abstractmethod
 from collections import OrderedDict, defaultdict
-from sklearn.base import BaseEstimator
 from typing import Collection, Callable, Any, Dict
 
-from ..utils.misc import AutodocABCMeta, tensor_to_numpy, build_predict_function
+from ..utils.misc import AutodocABCMeta, build_predict_function
 from ..data.base import Data
-from ..utils.misc import is_torch_available
 from ..explanations.base import PredictedResults
 
 _EXPLAINERS = defaultdict(list)
@@ -152,7 +150,10 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             try:
                 if "predict_function" in _signature:
                     explainer = _class(
-                        predict_function=self.predict_function, mode=self.mode, training_data=self.data, **_param
+                        predict_function=self.predict_function,
+                        mode=self.mode,
+                        training_data=self.data,
+                        **_param
                     )
                 elif "model" in _signature:
                     explainer = _class(
@@ -163,11 +164,11 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
                         training_data=self.data,
                         **_param,
                     )
-                elif self.mode == "data_analysis":
-                    explainer = _class(training_data=self.data, **_param)
                 else:
-                    raise RuntimeError(
-                        f"`__init__` in class {_class} doesn't have " f"argument `predict_function` or `model`."
+                    explainer = _class(
+                        mode=self.mode,
+                        training_data=self.data,
+                        **_param
                     )
                 explainers[name] = explainer
             except Exception as e:

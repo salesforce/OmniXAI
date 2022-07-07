@@ -30,13 +30,15 @@ class ImbalanceAnalyzer(ExplainerBase):
     explanation_type = "global"
     alias = ["imbalance"]
 
-    def __init__(self, training_data: Tabular, n_bins: int = 10, **kwargs):
+    def __init__(self, training_data: Tabular, mode: str = "classification", n_bins: int = 10, **kwargs):
         """
         :param training_data: The dataset for training an ML model.
+        :param mode: The task type can be `classification` only.
         :param n_bins: The number of bins for discretizing continuous-valued features.
         """
         super().__init__()
         assert isinstance(training_data, Tabular), "training_data should be an instance of Tabular."
+        assert mode == "classification", "ImbalanceAnalyzer only support classification tasks."
         self.training_data = training_data
         self.transformer = TabularTransform(cate_transform=Ordinal(), cont_transform=KBins(n_bins=n_bins)).fit(
             training_data

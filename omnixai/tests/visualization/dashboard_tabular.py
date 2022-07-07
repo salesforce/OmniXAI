@@ -76,6 +76,7 @@ class TestDashboard(unittest.TestCase):
         explainer = DataAnalyzer(
             explainers=["correlation", "imbalance#0", "imbalance#1",
                         "imbalance#2", "imbalance#3", "mutual", "chi2"],
+            mode="classification",
             data=self.tabular_data
         )
         data_explanations = explainer.explain(

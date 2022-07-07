@@ -28,17 +28,24 @@ class DataAnalyzer(AutoExplainerBase):
 
     _MODELS = AutoExplainerBase._EXPLAINERS[__name__.split(".")[2]]
 
-    def __init__(self, explainers: Collection, data: Tabular, params: Dict = None):
+    def __init__(
+            self,
+            explainers: Collection,
+            mode: str,
+            data: Tabular,
+            params: Dict = None
+    ):
         """
         :param explainers: The names or alias of the analyzers to use, e.g.,
             "correlation" for feature correlation analysis, "mutual" for feature importance analysis.
+        :param mode: The task type, e.g. `classification` or `regression`.
         :param data: The training data used to initialize explainers.
         :param params: A dict containing the additional parameters for initializing each analyzer,
             e.g., `params["imbalance"] = {"param_1": param_1, ...}`.
         """
         super().__init__(
             explainers=explainers,
-            mode="data_analysis",
+            mode=mode,
             data=data,
             model=None,
             preprocess=None,

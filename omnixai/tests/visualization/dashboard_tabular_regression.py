@@ -51,6 +51,7 @@ class TestDashboard(unittest.TestCase):
     def test(self):
         explainer = DataAnalyzer(
             explainers=["correlation", "mutual", "chi2"],
+            mode="regression",
             data=self.tabular_data
         )
         data_explanations = explainer.explain()
