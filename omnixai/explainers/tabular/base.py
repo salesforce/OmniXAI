@@ -65,7 +65,11 @@ class TabularExplainer(ExplainerBase):
         if training_data.target_column is not None:
             self.data = self.data[:, :-1]
         self.dim = self.data.shape[1]
-        self.predict_fn = lambda x: predict_function(self.transformer.invert(x))
+
+        if mode == "classification":
+            self.predict_fn = lambda x: predict_function(self.transformer.invert(x))
+        else:
+            self.predict_fn = lambda x: predict_function(self.transformer.invert(x)).flatten()
 
     def _to_tabular(self, X):
         """
