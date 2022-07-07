@@ -22,10 +22,12 @@ from .layout import create_banner, create_layout
 from .pages.local_exp import create_local_explanation_layout
 from .pages.global_exp import create_global_explanation_layout
 from .pages.data_exp import create_data_explanation_layout
+from .pages.prediction_exp import create_prediction_explanation_layout
 
 import omnixai.visualization.callbacks.local_exp
 import omnixai.visualization.callbacks.global_exp
 import omnixai.visualization.callbacks.data_exp
+import omnixai.visualization.callbacks.prediction_exp
 
 app = dash.Dash(
     __name__,
@@ -121,3 +123,5 @@ def _click_tab(tab):
         return create_global_explanation_layout(board.state)
     elif tab == "data-explanation":
         return create_data_explanation_layout(board.state)
+    elif tab == "prediction-explanation":
+        return create_prediction_explanation_layout(board.state)
