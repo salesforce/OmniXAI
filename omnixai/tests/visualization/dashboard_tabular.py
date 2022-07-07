@@ -13,7 +13,9 @@ import xgboost
 import numpy as np
 from omnixai.data.tabular import Tabular
 from omnixai.preprocessing.tabular import TabularTransform
+from omnixai.explainers.data import DataAnalyzer
 from omnixai.explainers.tabular import TabularExplainer
+from omnixai.explainers.prediction import PredictionAnalyzer
 from omnixai.visualization.dashboard import Dashboard
 
 
@@ -63,14 +65,37 @@ class TestDashboard(unittest.TestCase):
         self.tabular_data = tabular_data
         self.model = gbtree
         self.preprocess = lambda z: transformer.transform(z)
+        self.test_data = transformer.invert(test)
+        self.test_labels = labels_test
 
         i = 1653
         self.instances = transformer.invert(test[i: i + 5])
-        scores = gbtree.predict_proba(transformer.transform(self.instances))
-        self.desired_labels = 1.0 - np.argmax(scores, axis=1)
 
     def test(self):
         np.random.seed(1)
+        explainer = DataAnalyzer(
+            explainers=["correlation", "imbalance#0", "imbalance#1",
+                        "imbalance#2", "imbalance#3", "mutual", "chi2"],
+            data=self.tabular_data
+        )
+        data_explanations = explainer.explain(
+            params={
+                "imbalance#0": {"features": ["Sex"]},
+                "imbalance#1": {"features": ["Race"]},
+                "imbalance#2": {"features": ["Sex", "Race"]},
+                "imbalance#3": {"features": ["Marital Status", "Age"]},
+            }
+        )
+
+        explainer = PredictionAnalyzer(
+            mode="classification",
+            test_data=self.test_data,
+            test_targets=self.test_labels,
+            model=self.model,
+            preprocess=self.preprocess
+        )
+        prediction_explanations = explainer.explain()
+
         explainers = TabularExplainer(
             explainers=["lime", "shap", "mace", "pdp"],
             mode="classification",
@@ -83,12 +108,15 @@ class TestDashboard(unittest.TestCase):
                 "mace": {"ignored_features": ["Sex", "Race", "Relationship", "Capital Loss"]},
             },
         )
-        # Show explanations
         local_explanations = explainers.explain(X=self.instances)
+        global_explanations = explainers.explain_global()
+
         dashboard = Dashboard(
             instances=self.instances,
             local_explanations=local_explanations,
-            global_explanations=explainers.explain_global(),
+            global_explanations=global_explanations,
+            data_explanations=data_explanations,
+            prediction_explanations=prediction_explanations,
             class_names=self.class_names,
             params={
                 "pdp": {
