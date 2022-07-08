@@ -106,7 +106,8 @@ class ResidualExplanation(ExplanationBase):
             ))
         fig.update_layout(
             xaxis_title="Prediction",
-            yaxis_title="Residual"
+            yaxis_title="Residual",
+            title={"text": "Regression Residuals"}
         )
         return fig
 

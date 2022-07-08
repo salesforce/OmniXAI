@@ -96,7 +96,8 @@ class PrecisionRecallExplanation(ExplanationBase):
             ))
         fig.update_layout(
             xaxis_title="Recall",
-            yaxis_title="Precision"
+            yaxis_title="Precision",
+            title={"text": "Precision Recall Curves"}
         )
         return fig
 

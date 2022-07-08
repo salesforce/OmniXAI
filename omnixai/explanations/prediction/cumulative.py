@@ -126,7 +126,8 @@ class CumulativeGainExplanation(ExplanationBase):
         ))
         fig.update_layout(
             xaxis_title="Percentage of samples",
-            yaxis_title="Gains"
+            yaxis_title="Gains",
+            title={"text": "Cumulative Gain Curves"}
         )
         return fig
 

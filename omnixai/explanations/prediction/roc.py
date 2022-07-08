@@ -134,7 +134,8 @@ class ROCExplanation(ExplanationBase):
         ))
         fig.update_layout(
             xaxis_title="False Positive Rate",
-            yaxis_title="True Positive Rate"
+            yaxis_title="True Positive Rate",
+            title={"text": "ROC Curves"}
         )
         return fig
 

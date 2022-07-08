@@ -83,7 +83,8 @@ class ConfusionMatrixExplanation(ExplanationBase):
         layout = {
             "xaxis": {"title": "Predictions"},
             "yaxis": {"title": "GroundTruth"},
-            "annotations": annotations
+            "annotations": annotations,
+            "title": {"text": "Confusion Matrix"}
         }
         fig = go.Figure(
             data=go.Heatmap(

@@ -196,15 +196,17 @@ class PredictedResults(ExplanationBase):
         values = self.results["values"][index]
         labels = self.results["labels"]
         if labels is None:
-            fnames, scores = ["value"], [values]
+            fnames, scores = ["Predicted value"], [values]
         else:
             fnames, scores = labels[index], values
-            fnames = [class_names[f] for f in fnames] if class_names is not None else [str(f) for f in fnames]
+            fnames = [class_names[f] for f in fnames] \
+                if class_names is not None else [str(f) for f in fnames]
         fig = px.bar(
             y=fnames[::-1],
             x=scores[::-1],
             orientation="h",
-            labels={"x": "Predicted values", "y": "Labels" if labels is not None else "Targets"},
+            labels={"x": "Predicted value",
+                    "y": "Label" if labels is not None else "Target"},
             title=f"Instance {index}",
             color_discrete_map={True: "#008B8B", False: "#DC143C"},
         )

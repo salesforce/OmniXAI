@@ -105,7 +105,8 @@ class LiftCurveExplanation(ExplanationBase):
         ))
         fig.update_layout(
             xaxis_title="Percentage of samples",
-            yaxis_title="Lift"
+            yaxis_title="Lift",
+            title={"text": "Lift Curves"}
         )
         return fig
 
