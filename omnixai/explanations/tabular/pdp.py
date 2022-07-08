@@ -59,11 +59,10 @@ class PDPExplanation(ExplanationBase):
         explanations = [self.explanations[k] for k in keys]
         return explanations[0] if len(explanations) == 1 else explanations
 
-    def plot(self, features, class_names=None, plot_std=False, **kwargs):
+    def plot(self, class_names=None, plot_std=False, **kwargs):
         """
         Returns a matplotlib figure showing the PDP explanations.
 
-        :param features: A list of features to be shown in the figure.
         :param class_names: A list of the class names indexed by the labels, e.g.,
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
@@ -72,18 +71,11 @@ class PDPExplanation(ExplanationBase):
         """
         import matplotlib.pyplot as plt
 
-        assert features is not None, "Please choose the features to plot."
-        if isinstance(features, str):
-            features = [features]
-
         explanations = self.get_explanations()
         if isinstance(explanations, dict):
             explanations = [explanations]
         if len(explanations) == 0:
             return None
-        assert all(
-            f in explanations[0] for f in features
-        ), "Some of the specified features are not included in the explanations."
         if len(explanations) > 5:
             warnings.warn(
                 f"There are too many instances ({len(explanations)} > 5), "
@@ -93,6 +85,7 @@ class PDPExplanation(ExplanationBase):
 
         figures = []
         for exps in explanations:
+            features = list(exps.keys())
             num_rows = int(np.round(np.sqrt(len(features))))
             num_cols = int(np.ceil(len(features) / num_rows))
             fig, axes = plt.subplots(num_rows, num_cols, squeeze=False)
@@ -119,13 +112,9 @@ class PDPExplanation(ExplanationBase):
 
         return figures
 
-    def _plotly_figure(self, index, features, class_names=None, **kwargs):
+    def _plotly_figure(self, index, class_names=None, **kwargs):
         from plotly.subplots import make_subplots
         import plotly.graph_objects as go
-
-        assert features is not None, "Please choose the features to plot."
-        if isinstance(features, str):
-            features = [features]
 
         explanations = self.get_explanations()
         if isinstance(explanations, dict):
@@ -133,11 +122,13 @@ class PDPExplanation(ExplanationBase):
         if len(explanations) == 0:
             return None
         if "global" not in self.explanations:
-            assert index is not None, "`index` cannot be None for `plotly_plot`. " "Please specify the instance index."
+            assert index is not None, \
+                "`index` cannot be None for `plotly_plot`. Please specify the instance index."
             exp = explanations[index]
         else:
             exp = explanations[0]
 
+        features = list(exp.keys())
         num_cols = 2
         num_rows = int(np.ceil(len(features) / num_cols))
         fig = make_subplots(rows=num_rows, cols=num_cols, subplot_titles=features)
@@ -154,11 +145,10 @@ class PDPExplanation(ExplanationBase):
         fig.update_layout(height=250 * num_rows)
         return fig
 
-    def plotly_plot(self, features, class_names=None, **kwargs):
+    def plotly_plot(self, class_names=None, **kwargs):
         """
         Returns a plotly dash figure showing the PDP explanations.
 
-        :param features: A list of features to be shown in the figure.
         :param class_names: A list of the class names indexed by the labels, e.g.,
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
@@ -166,13 +156,12 @@ class PDPExplanation(ExplanationBase):
         """
         if "index" in kwargs:
             kwargs.pop("index")
-        return DashFigure(self._plotly_figure(index=None, features=features, class_names=class_names, **kwargs))
+        return DashFigure(self._plotly_figure(index=None, class_names=class_names, **kwargs))
 
-    def ipython_plot(self, features, class_names=None, **kwargs):
+    def ipython_plot(self, class_names=None, **kwargs):
         """
         Shows the partial dependence plots in IPython.
 
-        :param features: A list of features to be shown in the figure.
         :param class_names: A list of the class names indexed by the labels, e.g.,
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
@@ -181,4 +170,4 @@ class PDPExplanation(ExplanationBase):
 
         if "index" in kwargs:
             kwargs.pop("index")
-        plotly.offline.iplot(self._plotly_figure(index=None, features=features, class_names=class_names, **kwargs))
+        plotly.offline.iplot(self._plotly_figure(index=None, class_names=class_names, **kwargs))

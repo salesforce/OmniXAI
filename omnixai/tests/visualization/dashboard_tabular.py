@@ -110,15 +110,7 @@ class TestDashboard(unittest.TestCase):
             },
         )
         local_explanations = explainers.explain(X=self.instances)
-        global_explanations = explainers.explain_global()
-
-        dashboard = Dashboard(
-            instances=self.instances,
-            local_explanations=local_explanations,
-            global_explanations=global_explanations,
-            data_explanations=data_explanations,
-            prediction_explanations=prediction_explanations,
-            class_names=self.class_names,
+        global_explanations = explainers.explain_global(
             params={
                 "pdp": {
                     "features": [
@@ -132,7 +124,16 @@ class TestDashboard(unittest.TestCase):
                         "Occupation",
                     ]
                 }
-            },
+            }
+        )
+
+        dashboard = Dashboard(
+            instances=self.instances,
+            local_explanations=local_explanations,
+            global_explanations=global_explanations,
+            data_explanations=data_explanations,
+            prediction_explanations=prediction_explanations,
+            class_names=self.class_names
         )
         dashboard.show()
 

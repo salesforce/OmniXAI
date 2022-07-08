@@ -80,15 +80,15 @@ class TestDashboard(unittest.TestCase):
         test_instances = self.transformer.invert(self.x_test[0:5])
         # Generate explanations
         local_explanations = explainers.explain(X=test_instances)
-        global_explanations = explainers.explain_global()
+        global_explanations = explainers.explain_global(
+            params={"pdp": {"features": self.features[:6]}})
 
         dashboard = Dashboard(
             instances=test_instances,
             local_explanations=local_explanations,
             global_explanations=global_explanations,
             data_explanations=data_explanations,
-            prediction_explanations=prediction_explanations,
-            params={"pdp": {"features": self.features[:4]}}
+            prediction_explanations=prediction_explanations
         )
         dashboard.show()
 

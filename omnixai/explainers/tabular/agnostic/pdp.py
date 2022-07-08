@@ -78,16 +78,28 @@ class PartialDependenceTabular(TabularExplainer):
         std = np.std(baselines, axis=0)
         return candidates, mean, std
 
-    def _global_explain(self) -> PDPExplanation:
+    def _global_explain(self, features) -> PDPExplanation:
         """
         Generates global explanations.
 
         :return: The global explanations according to the ML model and the training data.
         :rtype: PDPExplanation
         """
+        if features is None:
+            feature_columns = self.feature_columns
+        else:
+            if isinstance(features, str):
+                features = [features]
+            for f in features:
+                assert f in self.feature_columns, \
+                    f"The dataset doesn't have feature `{f}`."
+            feature_columns = features
+        column_index = {f: i for i, f in enumerate(self.feature_columns)}
+
         explanations = PDPExplanation(self.mode)
         categorical_features = set(self.categorical_features)
-        for i, column_name in enumerate(self.feature_columns):
+        for column_name in feature_columns:
+            i = column_index[column_name]
             values, mean, std = self._compute_pdp(i)
             if i in categorical_features:
                 values = [self.categorical_names[i][int(v)] for v in values]
@@ -112,10 +124,10 @@ class PartialDependenceTabular(TabularExplainer):
                 explanations.add(index=k, feature_name=column_name, values=values, pdp_mean=mean, pdp_std=std)
         return explanations
 
-    def explain(self, **kwargs) -> PDPExplanation:
+    def explain(self, features=None, **kwargs) -> PDPExplanation:
         """
         Generates global PDP explanations.
 
         :return: The generated PDP explanations.
         """
-        return self._global_explain()
+        return self._global_explain(features)
