@@ -101,13 +101,14 @@ class PDPExplanation(ExplanationBase):
                 exp = exps[feature]
                 row, col = divmod(i, num_cols)
                 plt.sca(axes[row, col])
+                values = [self._s(v, max_len=10) for v in exp["values"]]
                 # Plot partial dependence
                 if plot_std:
-                    plt.errorbar(exp["values"], exp["scores"], exp["stds"])
+                    plt.errorbar(values, exp["scores"], exp["stds"])
                 else:
-                    plt.plot(exp["values"], exp["scores"])
+                    plt.plot(values, exp["scores"])
                 # Rotate xticks if it is a categorical feature
-                if isinstance(exp["values"][0], str):
+                if isinstance(values[0], str):
                     plt.xticks(rotation=45)
                 plt.ylabel("Partial dependence")
                 plt.title(feature)
@@ -143,13 +144,14 @@ class PDPExplanation(ExplanationBase):
         for i, feature in enumerate(features):
             e = exp[feature]
             row, col = divmod(i, num_cols)
+            values = [self._s(v, max_len=10) for v in e["values"]]
             if self.mode == "classification":
                 for k in range(e["scores"].shape[1]):
                     label = class_names[k] if class_names is not None else f"Label {k}"
-                    fig.add_trace(go.Scatter(x=e["values"], y=e["scores"][:, k], name=label), row=row + 1, col=col + 1)
+                    fig.add_trace(go.Scatter(x=values, y=e["scores"][:, k], name=label), row=row + 1, col=col + 1)
             else:
-                fig.add_trace(go.Scatter(x=e["values"], y=e["scores"], name="Value"), row=row + 1, col=col + 1)
-        fig.update_layout(height=200 * num_rows)
+                fig.add_trace(go.Scatter(x=values, y=e["scores"], name="Value"), row=row + 1, col=col + 1)
+        fig.update_layout(height=250 * num_rows)
         return fig
 
     def plotly_plot(self, features, class_names=None, **kwargs):

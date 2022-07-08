@@ -77,6 +77,15 @@ class ExplanationBase(metaclass=AutodocABCMeta):
         """
         return dill.loads(byte_string)
 
+    @staticmethod
+    def _s(s, max_len=15):
+        if isinstance(s, str):
+            return s[:max_len] + "*" if len(s) > max_len else s
+        elif isinstance(s, float):
+            return int(s) if int(s) == s else "{:.3f}".format(s)
+        else:
+            return s
+
 
 class DashFigure:
     def __init__(self, component):

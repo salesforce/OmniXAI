@@ -52,6 +52,7 @@ class CorrelationExplanation(ExplanationBase):
         fig.colorbar(mat)
 
         features = self.explanations["features"]
+        features = [self._s(f) for f in features]
         ticks = np.arange(len(features))
         ax.set_xticks(ticks)
         ax.set_yticks(ticks)
@@ -64,6 +65,7 @@ class CorrelationExplanation(ExplanationBase):
         import plotly.express as px
 
         features = self.explanations["features"]
+        features = [self._s(f) for f in features]
         fig = px.imshow(self.explanations["correlation"], x=features, y=features, color_continuous_scale="RdBu_r")
         return fig
 

@@ -108,7 +108,8 @@ class FeatureImportance(ExplanationBase):
         for i, index in enumerate(indices):
             exp = explanations[index]
             feat_scores = sorted(
-                list(zip([f"{f} = {v}    " for f, v in zip(exp["features"], exp["values"])], exp["scores"])),
+                list(zip([f"{self._s(f)} = {self._s(v)}    "
+                          for f, v in zip(exp["features"], exp["values"])], exp["scores"])),
                 key=lambda x: abs(x[1]),
             )
             if num_features is not None:
@@ -142,7 +143,8 @@ class FeatureImportance(ExplanationBase):
             title = f"Instance {index}"
 
         feat_scores = sorted(
-            list(zip([f"{f} = {v}" for f, v in zip(exp["features"], exp["values"])], exp["scores"])),
+            list(zip([f"{self._s(f)} = {self._s(v)}"
+                      for f, v in zip(exp["features"], exp["values"])], exp["scores"])),
             key=lambda x: abs(x[1]),
         )
         if num_features is not None:
@@ -245,7 +247,7 @@ class GlobalFeatureImportance(ExplanationBase):
         fig, axes = plt.subplots(1, 1)
         exp = self.get_explanations()
         feat_scores = sorted(
-            list(zip([f"{f}    " for f in exp["features"]], exp["scores"])),
+            list(zip([f"{self._s(f)}    " for f in exp["features"]], exp["scores"])),
             key=lambda x: abs(x[1]),
         )
         if num_features is not None:
@@ -268,7 +270,7 @@ class GlobalFeatureImportance(ExplanationBase):
         exp = self.explanations
         title = f"Global Feature Importance"
         feat_scores = sorted(
-            list(zip(exp["features"], exp["scores"])),
+            list(zip([f"{self._s(f)}" for f in exp["features"]], exp["scores"])),
             key=lambda x: abs(x[1]),
         )
         if num_features is not None:
