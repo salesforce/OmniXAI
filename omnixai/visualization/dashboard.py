@@ -12,11 +12,13 @@ import omnixai.visualization.state as board
 board.init()
 
 import os
+import json
+import copy
 import dash
 import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 
 from .layout import create_banner, create_layout
 from .pages.local_exp import create_local_explanation_layout
@@ -36,7 +38,14 @@ app = dash.Dash(
     title="OmniXAI",
 )
 app.config["suppress_callback_exceptions"] = True
-app.layout = html.Div([dcc.Location(id="url", refresh=False), html.Div(id="page-content")])
+app.layout = html.Div([
+    dcc.Location(id="url", refresh=False),
+    html.Div(id="page-content"),
+    dcc.Store(id="local-explanation-state"),
+    dcc.Store(id="global-explanation-state"),
+    dcc.Store(id="data-explanation-state"),
+    dcc.Store(id="prediction-explanation-state")
+])
 
 
 class Dashboard:
@@ -114,14 +123,45 @@ def _display_page(pathname):
 
 @app.callback(
     Output("plots", "children"),
-    Input("tabs", "value")
+    Input("tabs", "value"),
+    [
+        State("local-explanation-state", "data"),
+        State("global-explanation-state", "data"),
+        State("data-explanation-state", "data"),
+        State("prediction-explanation-state", "data")
+    ]
 )
-def _click_tab(tab):
+def _click_tab(
+        tab,
+        local_exp_state,
+        global_exp_state,
+        data_exp_state,
+        prediction_exp_state
+):
     if tab == "local-explanation":
-        return create_local_explanation_layout(board.state)
+        state = copy.deepcopy(board.state)
+        params = json.loads(local_exp_state) if local_exp_state is not None else {}
+        for param, value in params.items():
+            state.set_param("local", param, value)
+        return create_local_explanation_layout(state)
+
     elif tab == "global-explanation":
-        return create_global_explanation_layout(board.state)
+        state = copy.deepcopy(board.state)
+        params = json.loads(global_exp_state) if global_exp_state is not None else {}
+        for param, value in params.items():
+            state.set_param("global", param, value)
+        return create_global_explanation_layout(state)
+
     elif tab == "data-explanation":
-        return create_data_explanation_layout(board.state)
+        state = copy.deepcopy(board.state)
+        params = json.loads(data_exp_state) if data_exp_state is not None else {}
+        for param, value in params.items():
+            state.set_param("data", param, value)
+        return create_data_explanation_layout(state)
+
     elif tab == "prediction-explanation":
-        return create_prediction_explanation_layout(board.state)
+        state = copy.deepcopy(board.state)
+        params = json.loads(prediction_exp_state) if prediction_exp_state is not None else {}
+        for param, value in params.items():
+            state.set_param("prediction", param, value)
+        return create_prediction_explanation_layout(state)
