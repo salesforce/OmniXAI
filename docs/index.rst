@@ -213,11 +213,15 @@ these two methods to generate explanations.
    # Generate explanations
    test_instances = tabular_data[:5]
    local_explanations = explainers.explain(X=test_instances)
-   global_explanations = explainers.explain_global()
+   global_explanations = explainers.explain_global(
+       params={"pdp": {"features": ["Age", "Education-Num", "Capital Gain",
+                                    "Capital Loss", "Hours per week", "Education",
+                                    "Marital Status", "Occupation"]}}
+   )
 
 Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test
 instance, the generated local explanations, the generated global explanations, the class names, and additional
-parameters for visualization (e.g., only plotting the selected features in PDP).
+parameters for visualization (optional).
 
 .. code-block:: python
 
@@ -227,9 +231,6 @@ parameters for visualization (e.g., only plotting the selected features in PDP).
        local_explanations=local_explanations,           # Set the generated local explanations
        global_explanations=global_explanations,         # Set the generated global explanations
        class_names=class_names,                         # Set class names
-       params={"pdp": {"features": ["Age", "Education-Num", "Capital Gain",
-                                    "Capital Loss", "Hours per week", "Education",
-                                    "Marital Status", "Occupation"]}}
    )
    dashboard.show()                                     # Launch the dashboard
 
