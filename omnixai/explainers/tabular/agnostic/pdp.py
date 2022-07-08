@@ -7,6 +7,7 @@
 """
 The partial dependence plots for tabular data.
 """
+import warnings
 import numpy as np
 
 from ..base import TabularExplainer
@@ -95,6 +96,10 @@ class PartialDependenceTabular(TabularExplainer):
                     f"The dataset doesn't have feature `{f}`."
             feature_columns = features
         column_index = {f: i for i, f in enumerate(self.feature_columns)}
+        if len(features) > 30:
+            warnings.warn(f"Too many features ({len(features)} > 30) for PDP to process, "
+                          f"it will take a while to finish. It is better to choose a subset"
+                          f"of features to analyze by setting parameter `features`.")
 
         explanations = PDPExplanation(self.mode)
         categorical_features = set(self.categorical_features)
