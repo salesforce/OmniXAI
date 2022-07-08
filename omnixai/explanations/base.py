@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import dill
 import numpy as np
 from abc import abstractmethod
 from ..utils.misc import AutodocABCMeta
@@ -47,6 +48,34 @@ class ExplanationBase(metaclass=AutodocABCMeta):
         Plots figures in IPython.
         """
         raise NotImplementedError
+
+    def dump(self, file):
+        """
+        Pickles an explanation object to a file.
+        """
+        dill.dump(self, file)
+
+    def load(self, file):
+        """
+        Unpickle an explanation object from a file.
+        """
+        return dill.load(file)
+
+    def dumps(self):
+        """
+        Pickles a explanation object into a byte string.
+        :return: The pickled explanation object.
+        """
+        return dill.dumps(self)
+
+    def loads(self, byte_string):
+        """
+        Loads an explanation object from a byte string.
+
+        :param byte_string: A byte string.
+        :return: The loaded explanation object.
+        """
+        return dill.loads(byte_string)
 
 
 class DashFigure:
