@@ -53,6 +53,7 @@ explanation methods for vision, NLP and time-series tasks.
 :---:                     | :---:         | :---:            |:---:| :---:   | :---: | :---: | :---:
 | Feature analysis        | NA            | Global           |  ✅  |         |       |      |      |
 | Feature selection       | NA            | Global           |  ✅  |         |       |      |      |
+| Prediction metrics      | Black box     | Global           |     | ✅      | ✅     | ✅   |  ✅  |
 | Partial dependence      | Black box     | Global           |     | ✅      |       |      |      |
 | Sensitivity analysis    | Black box     | Global           |     | ✅      |       |      |      |
 | LIME                    | Black box     | Local            |     | ✅      | ✅     | ✅   |      |
@@ -121,8 +122,9 @@ For example code and an introduction to the library, see the Jupyter notebooks i
 
 To get started, we recommend the linked tutorials in [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
-`NLPExplainer` and `TimeseriesExplainer` for tabular, vision, NLP and time-series tasks, respectively. To generate explanations,
-one only needs to specify
+`NLPExplainer` and `TimeseriesExplainer` for tabular, vision, NLP and time-series tasks, respectively, and using
+`DataAnalyzer` and `PredictionAnalyzer` for feature analysis and prediction result analysis.
+To generate explanations, one only needs to specify
 
 - **The ML model to explain**: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.
 - **The pre-processing function**: i.e., converting raw input features into the model inputs.
@@ -183,7 +185,7 @@ To initialize `TabularExplainer`, we need to set the following parameters:
 - ``model``: The ML model to explain, e.g., a scikit-learn model, a tensorflow model or a pytorch model.
 - ``preprocess``: The preprocessing function converting the raw inputs (A `Tabular` instance) into the inputs of ``model``.
 - ``postprocess`` (optional): The postprocessing function transforming the outputs of ``model`` to a
-  user-specific form, e.g., the predicted probability for each class.
+  user-specific form, e.g., the predicted probability for each class. The output of `postprocess` should be a numpy array.
 - ``mode``: The task type, e.g., "classification" or "regression".
 
 The preprocessing function takes a `Tabular` instance as its input and outputs the processed features that
@@ -222,8 +224,32 @@ global_explanations = explainers.explain_global(
 )
 ```
 
+Similarly, we create a `PredictionAnalyzer` for computing performance metrics for this classification task. 
+To initialize `PredictionAnalyzer`, we set the following parameters:
+
+- `mode`: The task type, e.g., "classification" or "regression".
+- `test_data`: The test dataset, which should be a `Tabular` instance.
+- `test_targets`: The test labels or targets. For classification, ``test_targets`` should be integers 
+  (processed by a LabelEncoder) and match the class probabilities returned by the ML model.
+- `preprocess`: The preprocessing function converting the raw data (a `Tabular` instance) into the inputs of `model`.
+- `postprocess` (optional): The postprocessing function transforming the outputs of ``model`` to a user-specific form, 
+  e.g., the predicted probability for each class. The output of `postprocess` should be a numpy array.
+
+```python
+from omnixai.explainers.prediction import PredictionAnalyzer
+
+analyzer = PredictionAnalyzer(
+    mode="classification",
+    test_data=test_data,                           # The test dataset (a `Tabular` instance)
+    test_targets=test_labels,                      # The test labels (a numpy array)
+    model=model,                                   # The ML model
+    preprocess=lambda z: transformer.transform(z)  # Converts raw features into the model inputs
+)
+prediction_explanations = analyzer.explain()
+```
+
 Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test
-instance, the generated local explanations, the generated global explanations, the class names, and additional
+instance, the local explanations, the global explanations, the prediction metrics, the class names, and additional
 parameters for visualization (optional).
 
 ```python
@@ -231,8 +257,9 @@ from omnixai.visualization.dashboard import Dashboard
 # Launch a dashboard for visualization
 dashboard = Dashboard(
    instances=test_instances,                        # The instances to explain
-   local_explanations=local_explanations,           # Set the generated local explanations
-   global_explanations=global_explanations,         # Set the generated global explanations
+   local_explanations=local_explanations,           # Set the local explanations
+   global_explanations=global_explanations,         # Set the global explanations
+   prediction_explanations=prediction_explanations, # Set the prediction metrics
    class_names=class_names                          # Set class names
 )
 dashboard.show()                                    # Launch the dashboard

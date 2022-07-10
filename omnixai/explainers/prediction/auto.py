@@ -30,7 +30,18 @@ from ...explanations.prediction.residual import ResidualExplanation
 
 class PredictionAnalyzer(ExplainerBase):
     """
-    The analysis for the prediction results of a classification or regression model.
+    The analysis for the prediction results of a classification or regression model:
+
+    .. code-block:: python
+
+        analyzer = PredictionAnalyzer(
+            mode="classification",            # The task type, e.g., "classification" or "regression"
+            test_data=test_data,              # The test dataset (a `Tabular` instance)
+            test_targets=test_labels,         # The test labels (a numpy array)
+            model=model,                      # The ML model
+            preprocess=preprocess_function    # Converts raw features into the model inputs
+        )
+        prediction_explanations = analyzer.explain()
     """
     explanation_type = "prediction"
     alias = ["prediction"]
