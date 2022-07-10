@@ -266,7 +266,7 @@ dashboard.show()                                    # Launch the dashboard
 ```
 
 After opening the Dash app in the browser, we will see a dashboard showing the explanations:
-![alt text](https://github.com/salesforce/OmniXAI/raw/main/docs/_static/demo.png)
+![alt text](https://github.com/salesforce/OmniXAI/raw/prediction_analysis/docs/_static/demo.gif)
 
 ## How to Contribute
 
