@@ -205,7 +205,7 @@ from omnixai.explainers.tabular import TabularExplainer
 explainers = TabularExplainer(
   explainers=["lime", "shap", "mace", "pdp"],       # The explainers to apply
   mode="classification",                            # The task type
-  data=train_data  ,                                # The data for initializing the explainers
+  data=train_data,                                  # The data for initializing the explainers
   model=model,                                      # The ML model to explain
   preprocess=lambda z: transformer.transform(z),    # Converts raw features into the model inputs
   params={
