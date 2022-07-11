@@ -59,7 +59,7 @@ class LinearExplanation(ExplanationBase):
     def _plot(self, plt, ax, feat_scores, title, font_size=None):
         plt.sca(ax)
         feat_scores = sorted(feat_scores.items(), key=lambda x: abs(x[1]))
-        fnames = [f"{f}" + " " * 5 for f, s in feat_scores if s != 0.0]
+        fnames = [f"{self._s(f, max_len=30)}" + " " * 5 for f, s in feat_scores if s != 0.0]
         scores = [s for f, s in feat_scores if s != 0.0]
         colors = ["green" if x > 0 else "red" for x in scores]
         positions = np.arange(len(scores)) + 0.5
@@ -130,7 +130,7 @@ class LinearExplanation(ExplanationBase):
         # Plot coefficients
         coefficients = self.explanations["coefficients"]
         feat_scores = sorted(coefficients.items(), key=lambda x: abs(x[1]))
-        fnames = [f for f, s in feat_scores if s != 0.0]
+        fnames = [self._s(f, max_len=30) for f, s in feat_scores if s != 0.0]
         scores = [s for f, s in feat_scores if s != 0.0]
         coefficient_fig = px.bar(
             y=fnames,
@@ -146,7 +146,7 @@ class LinearExplanation(ExplanationBase):
         if self.explanations["scores"] is not None:
             scores = self.explanations["scores"]
             feat_scores = sorted(scores[index].items(), key=lambda x: abs(x[1]))
-            fnames = [f for f, s in feat_scores if s != 0.0]
+            fnames = [self._s(f, max_len=30) for f, s in feat_scores if s != 0.0]
             scores = [s for f, s in feat_scores if s != 0.0]
             score_fig = px.bar(
                 y=fnames,

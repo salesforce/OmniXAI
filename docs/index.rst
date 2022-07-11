@@ -48,6 +48,7 @@ Method                   Model Type            Explanation Type  EDA            
 =======================  ====================  ================  =============  =======  =======  ======= ==========
 Feature analysis         NA                    Global            ✓
 Feature selection        NA                    Global            ✓
+Prediction metrics       Black box             Global                           ✓        ✓        ✓       ✓
 Partial dependence       Black box             Global                           ✓
 Sensitivity analysis     Black box             Global                           ✓
 LIME                     Black box             Local                            ✓        ✓        ✓
@@ -119,7 +120,8 @@ Getting Started
 To get started, we recommend the linked tutorials in :ref:`Tutorials & Example Code <tutorial>`.
 In general, we recommend using :py:mod:`omnixai.explainers.tabular.TabularExplainer`, :py:mod:`omnixai.explainers.vision.VisionExplainer`,
 :py:mod:`omnixai.explainers.nlp.NLPExplainer` and :py:mod:`omnixai.explainers.timeseries.TimeseriesExplainer` for tabular, vision, NLP and
-time series tasks, respectively. To generate explanations, one only needs to specify
+time series tasks, respectively, and using :py:mod:`omnixai.explainers.data.DataAnalyzer` and :py:mod:`omnixai.explainers.prediction.PredictionAnalyzer`
+for feature analysis and prediction result analysis. To generate explanations, one only needs to specify
 
 - **The ML model to explain**: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.
 - **The pre-processing function**: i.e., converting raw data into the model inputs.
@@ -166,9 +168,15 @@ will be the target/label. After data preprocessing, we can train a XGBoost class
    transformer = TabularTransform().fit(tabular_data)
    class_names = transformer.class_names
    x = transformer.transform(tabular_data)
+   # Split into training and test datasets
+   train, test, train_labels, test_labels = \
+       sklearn.model_selection.train_test_split(x[:, :-1], x[:, -1], train_size=0.80)
    # Train an XGBoost model (the last column of `x` is the label column after transformation)
    model = xgboost.XGBClassifier(n_estimators=300, max_depth=5)
-   model.fit(x[:, :-1], x[:, -1])
+   model.fit(train, train_labels)
+   # Convert the transformed data back to Tabular instances
+   train_data = transformer.invert(train)
+   test_data = transformer.invert(test)
 
 To initialize `TabularExplainer`, we need to set the following parameters:
 
@@ -179,11 +187,13 @@ To initialize `TabularExplainer`, we need to set the following parameters:
 - ``model``: The ML model to explain, e.g., a scikit-learn model, a tensorflow model or a pytorch model.
 - ``preprocess``: The preprocessing function converting the raw data into the inputs of ``model``.
 - ``postprocess`` (optional): The postprocessing function transforming the outputs of ``model`` to a
-  user-specific form, e.g., the predicted probability for each class.
+  user-specific form, e.g., the predicted probability for each class. The output of ``postprocess`` should be a numpy array.
 - ``mode``: The task type, e.g., "classification" or "regression".
 
 The preprocessing function takes a `Tabular` instance as its input and outputs the processed features that
-the ML model consumes. In this example, we simply call ``transformer.transform``.
+the ML model consumes. In this example, we simply call ``transformer.transform``. If one uses some customized transforms
+on pandas dataframes, the preprocess function has format: ``lambda z: some_transform(z.to_pd())``. If the output of ``model``
+is not a numpy array, ``postprocess`` needs to be set to convert it into a numpy array.
 
 .. code-block:: python
 
@@ -194,7 +204,7 @@ the ML model consumes. In this example, we simply call ``transformer.transform``
    explainers = TabularExplainer(
       explainers=["lime", "shap", "mace", "pdp"],       # The explainers to apply
       mode="classification",                            # The task type
-      data=tabular_data,                                # The data for initializing the explainers
+      data=train_data,                                  # The data for initializing the explainers
       model=model,                                      # The ML model to explain
       preprocess=lambda z: transformer.transform(z),    # Converts raw features into the model inputs
       params={
@@ -213,11 +223,40 @@ these two methods to generate explanations.
    # Generate explanations
    test_instances = tabular_data[:5]
    local_explanations = explainers.explain(X=test_instances)
-   global_explanations = explainers.explain_global()
+   global_explanations = explainers.explain_global(
+       params={"pdp": {"features": ["Age", "Education-Num", "Capital Gain",
+                                    "Capital Loss", "Hours per week", "Education",
+                                    "Marital Status", "Occupation"]}}
+   )
+
+Similarly, we create a `PredictionAnalyzer` for computing performance metrics for this classification task.
+To initialize `PredictionAnalyzer`, we set the following parameters:
+
+- ``mode``: The task type, e.g., "classification" or "regression".
+- ``test_data``: The test dataset, which should be a `Tabular` instance.
+- ``test_targets``: The test labels or targets. For classification, ``test_targets`` should be integers
+  (processed by a LabelEncoder) and match the class probabilities returned by the ML model.
+- ``preprocess``: The preprocessing function converting the raw data (a `Tabular` instance) into the inputs of ``model``.
+- ``postprocess`` (optional): The postprocessing function transforming the outputs of ``model`` to a user-specific form,
+  e.g., the predicted probability for each class. The output of ``postprocess`` should be a numpy array.
+
+.. code-block:: python
+
+   from omnixai.explainers.prediction import PredictionAnalyzer
+
+   analyzer = PredictionAnalyzer(
+       mode="classification",
+       test_data=test_data,                           # The test dataset (a `Tabular` instance)
+       test_targets=test_labels,                      # The test labels (a numpy array)
+       model=model,                                   # The ML model
+       preprocess=lambda z: transformer.transform(z)  # Converts raw features into the model inputs
+   )
+   prediction_explanations = analyzer.explain()
+
 
 Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test
-instance, the generated local explanations, the generated global explanations, the class names, and additional
-parameters for visualization (e.g., only plotting the selected features in PDP).
+instance, the local explanations, the global explanations, the prediction metrics, the class names, and additional
+parameters for visualization (optional).
 
 .. code-block:: python
 
@@ -227,9 +266,6 @@ parameters for visualization (e.g., only plotting the selected features in PDP).
        local_explanations=local_explanations,           # Set the generated local explanations
        global_explanations=global_explanations,         # Set the generated global explanations
        class_names=class_names,                         # Set class names
-       params={"pdp": {"features": ["Age", "Education-Num", "Capital Gain",
-                                    "Capital Loss", "Hours per week", "Education",
-                                    "Marital Status", "Occupation"]}}
    )
    dashboard.show()                                     # Launch the dashboard
 

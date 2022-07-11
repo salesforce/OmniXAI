@@ -66,7 +66,7 @@ class SensitivityExplanation(ExplanationBase):
         fig, axes = plt.subplots(2, 2, squeeze=False)
         for i, name in enumerate(["mu", "mu_star", "sigma", "mu_star_conf"]):
             plt.sca(axes[i // 2, i % 2])
-            plt.barh(features, results[name])
+            plt.barh([self._s(f, max_len=10) for f in features], results[name])
             plt.ylabel(name)
             plt.xlabel("Sensitivity")
             plt.grid()
@@ -86,7 +86,8 @@ class SensitivityExplanation(ExplanationBase):
         fig = make_subplots(rows=2, cols=2, subplot_titles=["mu", "mu_star", "sigma", "mu_star_conf"])
         for i, name in enumerate(["mu", "mu_star", "sigma", "mu_star_conf"]):
             r, c = i // 2, i % 2
-            _fig = px.bar(y=features, x=results[name], orientation="h", labels={"x": "Sensitivity", "y": name})
+            _fig = px.bar(y=[self._s(f, max_len=10) for f in features], x=results[name],
+                          orientation="h", labels={"x": "Sensitivity", "y": name})
             fig.add_trace(_fig.data[0], row=r + 1, col=c + 1)
         return fig
 

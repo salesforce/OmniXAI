@@ -11,6 +11,7 @@ import numpy as np
 from abc import ABCMeta
 from functools import wraps
 from packaging import version
+from sklearn.base import BaseEstimator
 
 if sys.version_info < (3, 8):
     import importlib_metadata
@@ -183,3 +184,29 @@ def set_random_seed(seed=0):
         import tensorflow as tf
 
         tf.random.set_seed(seed)
+
+
+def build_predict_function(model, preprocess, postprocess, mode):
+    # A scikit-learn model
+    if isinstance(model, BaseEstimator):
+        # A model derived from sklearn.base.BaseEstimator
+        predict_func = model.predict_proba if mode == "classification" else model.predict
+    else:
+        # A torch model, tensorflow model or general function
+        if is_torch_available():
+            import torch.nn as nn
+            if isinstance(model, nn.Module):
+                model.eval()
+        predict_func = model
+    # Pre-processing and post-processing
+    preprocess = preprocess if preprocess is not None else lambda x: x
+    postprocess = postprocess if postprocess is not None else lambda x: x
+
+    # The predict function
+    def _predict(x):
+        inputs = preprocess(x)
+        if not isinstance(inputs, tuple):
+            inputs = (inputs,)
+        return tensor_to_numpy(postprocess(predict_func(*inputs)))
+
+    return _predict

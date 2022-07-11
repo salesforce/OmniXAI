@@ -20,13 +20,15 @@ from omnixai.utils.misc import set_random_seed
 
 
 class Task:
-    def __init__(self, name, model=None, transform=None, data=None, train_data=None, test_data=None):
+    def __init__(self, name, model=None, transform=None, data=None,
+                 train_data=None, test_data=None, test_targets=None):
         self.name = name
         self.model = model
         self.transform = transform
         self.data = data
         self.train_data = train_data
         self.test_data = test_data
+        self.test_targets = test_targets
 
     def save(self, directory):
         path = os.path.join(directory, self.name)
@@ -211,6 +213,7 @@ class TabularRegression:
             data=tabular_data,
             train_data=transformer.invert(train),
             test_data=transformer.invert(test),
+            test_targets=labels_test
         )
 
     def train_boston_continuous(self):
@@ -246,6 +249,7 @@ class TabularRegression:
             data=tabular_data,
             train_data=transformer.invert(train),
             test_data=transformer.invert(test),
+            test_targets=labels_test
         )
 
     def train_california_housing(self):
@@ -280,6 +284,7 @@ class TabularRegression:
             data=tabular_data,
             train_data=transformer.invert(train),
             test_data=transformer.invert(test),
+            test_targets=labels_test
         )
 
     def train_and_dump(self, directory):

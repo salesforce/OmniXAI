@@ -55,7 +55,7 @@ class ImbalanceExplanation(ExplanationBase):
 
         fig, axes = plt.subplots(1, 1)
         positions = np.arange(len(self.explanations)) + 0.5
-        fnames = [", ".join(str(s) for s in e["feature"]) + "    " for e in self.explanations]
+        fnames = [", ".join(str(self._s(s)) for s in e["feature"]) + "    " for e in self.explanations]
 
         if not isinstance(self.explanations[0]["count"], dict):
             counts = [e["count"] for e in self.explanations]
@@ -77,19 +77,20 @@ class ImbalanceExplanation(ExplanationBase):
     def _plotly_figure(self, **kwargs):
         import plotly.express as px
 
-        fnames = [", ".join(str(s) for s in e["feature"]) for e in self.explanations]
-
+        fnames = [", ".join(str(self._s(s)) for s in e["feature"]) for e in self.explanations]
         if not isinstance(self.explanations[0]["count"], dict):
             counts = [e["count"] for e in self.explanations]
             fig = px.bar(
-                y=fnames, x=counts, orientation="h", labels={"x": "Counts", "y": "Features"}, title="Imbalance Plot"
+                y=fnames, x=counts, orientation="h",
+                labels={"x": "Counts", "y": "Features"}, title="Imbalance Plot"
             )
         else:
             df = pd.DataFrame(fnames, columns=["Features"])
             labels = sorted(self.explanations[0]["count"].keys())
             for label in labels:
                 df[str(label)] = [e["count"][label] for e in self.explanations]
-            fig = px.bar(df, y="Features", x=[str(label) for label in labels], orientation="h", title="Imbalance Plot")
+            fig = px.bar(df, y="Features", x=[str(label) for label in labels],
+                         orientation="h", title="Imbalance Plot")
         return fig
 
     def plotly_plot(self, **kwargs):

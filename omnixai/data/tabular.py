@@ -225,6 +225,16 @@ class Tabular(Data):
                 data=self.to_pd().drop(columns=[self.target_col]), categorical_columns=self.categorical_columns
             )
 
+    def get_target_column(self):
+        """
+        Returns the target/label column.
+
+        :return: A list of targets or labels.
+        :rtype: List
+        """
+        assert self.target_column is not None, "The target/label column doesn't exist."
+        return self.to_pd(copy=False)[[self.target_column]].values.flatten()
+
     def get_continuous_medians(self) -> Dict:
         """
         Gets the absolute median values of the continuous-valued features.
