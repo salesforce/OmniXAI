@@ -53,7 +53,7 @@ class TestImbalance(unittest.TestCase):
                 "imbalance#3": {"features": ["Marital Status", "Age"]},
             }
         )
-        dashboard = Dashboard(global_explanations=explanations)
+        dashboard = Dashboard(data_explanations=explanations)
         dashboard.show()
 
 
