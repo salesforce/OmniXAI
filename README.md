@@ -171,9 +171,15 @@ from omnixai.preprocessing.tabular import TabularTransform
 transformer = TabularTransform().fit(tabular_data)
 class_names = transformer.class_names
 x = transformer.transform(tabular_data)
+# Split into training and test datasets
+train, test, train_labels, test_labels = \
+    sklearn.model_selection.train_test_split(x[:, :-1], x[:, -1], train_size=0.80)
 # Train an XGBoost model (the last column of `x` is the label column after transformation)
 model = xgboost.XGBClassifier(n_estimators=300, max_depth=5)
-model.fit(x[:, :-1], x[:, -1])
+model.fit(train, train_labels)
+# Convert the transformed data back to Tabular instances
+train_data = transformer.invert(train)
+test_data = transformer.invert(test)
 ```
 
 To initialize `TabularExplainer`, we need to set the following parameters:
@@ -190,7 +196,8 @@ To initialize `TabularExplainer`, we need to set the following parameters:
 
 The preprocessing function takes a `Tabular` instance as its input and outputs the processed features that
 the ML model consumes. In this example, we simply call ``transformer.transform``. If one uses some customized transforms 
-on pandas dataframes, the preprocess function has format: `lambda z: some_transform(z.to_pd())`.
+on pandas dataframes, the preprocess function has format: `lambda z: some_transform(z.to_pd())`. If the output of ``model``
+is not a numpy array, ``postprocess`` needs to be set to convert it into a numpy array.
 
 ```python
 from omnixai.explainers.tabular import TabularExplainer
@@ -198,7 +205,7 @@ from omnixai.explainers.tabular import TabularExplainer
 explainers = TabularExplainer(
   explainers=["lime", "shap", "mace", "pdp"],       # The explainers to apply
   mode="classification",                            # The task type
-  data=tabular_data,                                # The data for initializing the explainers
+  data=train_data  ,                                # The data for initializing the explainers
   model=model,                                      # The ML model to explain
   preprocess=lambda z: transformer.transform(z),    # Converts raw features into the model inputs
   params={
@@ -215,7 +222,7 @@ these two methods to generate explanations.
 
 ```python
 # Generate explanations
-test_instances = tabular_data[:5]
+test_instances = test_data[:5]
 local_explanations = explainers.explain(X=test_instances)
 global_explanations = explainers.explain_global(
     params={"pdp": {"features": ["Age", "Education-Num", "Capital Gain",
