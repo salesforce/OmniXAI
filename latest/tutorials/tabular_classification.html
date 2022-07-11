@@ -486,15 +486,19 @@ column of the transformed numpy array will be the target/label.</p>
 <span class="n">transformer</span> <span class="o">=</span> <span class="n">TabularTransform</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
 <span class="n">class_names</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">class_names</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
-<span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">labels_train</span><span class="p">,</span> <span class="n">labels_test</span> <span class="o">=</span> \
+<span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">test_labels</span> <span class="o">=</span> \
     <span class="n">sklearn</span><span class="o">.</span><span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.80</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Training data shape: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test data shape:     </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
 
 <span class="n">gbtree</span> <span class="o">=</span> <span class="n">xgboost</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">gbtree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">labels_train</span><span class="p">)</span>
+<span class="n">gbtree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test accuracy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-    <span class="n">sklearn</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">gbtree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">))))</span>
+    <span class="n">sklearn</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">gbtree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">))))</span>
+
+<span class="c1"># Convert the transformed data back to Tabular instances</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -514,7 +518,7 @@ Test accuracy: 0.8668816213726394
 <li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: The data used to initialize explainers. <code class="docutils literal notranslate"><span class="pre">data</span></code> is the training dataset for training the machine learning model. If the training dataset is too large, <code class="docutils literal notranslate"><span class="pre">data</span></code> can be a subset of it by applying <code class="docutils literal notranslate"><span class="pre">omnixai.sampler.tabular.Sampler.subsample</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The ML model to explain, e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">preprocess</span></code>: The preprocessing function converting the raw data (a <code class="docutils literal notranslate"><span class="pre">Tabular</span></code> instance) into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">postprocess</span></code> (optional): The postprocessing function transforming the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code> to a user-specific form, e.g., the predicted probability for each class.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">postprocess</span></code> (optional): The postprocessing function transforming the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code> to a user-specific form, e.g., the predicted probability for each class. The output of <code class="docutils literal notranslate"><span class="pre">postprocess</span></code> should be a numpy array.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: The task type, e.g., “classification” or “regression”.</p></li>
 </ul>
 <p>The preprocessing function takes a <code class="docutils literal notranslate"><span class="pre">Tabular</span></code> instance as its input and outputs the processed features that the ML model consumes. In this example, we simply call <code class="docutils literal notranslate"><span class="pre">transformer.transform</span></code>. If one uses some special transforms on pandas dataframes, the preprocess function has this kind of format: <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">z:</span> <span class="pre">some_transform(z.to_pd())</span></code>.</p>
@@ -538,7 +542,7 @@ Test accuracy: 0.8668816213726394
 <span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
     <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">],</span>
     <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">transformer</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">train</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
     <span class="n">model</span><span class="o">=</span><span class="n">gbtree</span><span class="p">,</span>
     <span class="n">preprocess</span><span class="o">=</span><span class="n">preprocess</span><span class="p">,</span>
     <span class="n">params</span><span class="o">=</span><span class="p">{</span>
@@ -547,11 +551,14 @@ Test accuracy: 0.8668816213726394
         <span class="s2">&quot;mace&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;ignored_features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Loss&quot;</span><span class="p">]}</span>
     <span class="p">}</span>
 <span class="p">)</span>
-<span class="c1"># Apply an inverse transform, i.e., converting the numpy array back to `Tabular`</span>
-<span class="n">test_instances</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="mi">1653</span><span class="p">:</span><span class="mi">1658</span><span class="p">])</span>
 <span class="c1"># Generate explanations</span>
+<span class="n">test_instances</span> <span class="o">=</span> <span class="n">test_data</span><span class="p">[</span><span class="mi">1653</span><span class="p">:</span><span class="mi">1658</span><span class="p">]</span>
 <span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">test_instances</span><span class="p">)</span>
-<span class="n">global_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain_global</span><span class="p">()</span>
+<span class="n">global_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain_global</span><span class="p">(</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pdp&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">]}}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -559,7 +566,7 @@ Test accuracy: 0.8668816213726394
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ef2f787b02f14b6fbf96ec2113c84e28", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ae3f7f4d83f04c9eb952e01e52d42105", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ipython_plot</span></code> plots the generated explanations in IPython. Parameter <code class="docutils literal notranslate"><span class="pre">index</span></code> indicates which instance to plot, e.g., <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code> means plotting the first instance in <code class="docutils literal notranslate"><span class="pre">test_instances</span></code>.</p>
 <div class="nbinput docutils container">
@@ -575,9 +582,7 @@ Test accuracy: 0.8668816213726394
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MACE results:&quot;</span><span class="p">)</span>
 <span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;mace&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PDP results:&quot;</span><span class="p">)</span>
-<span class="n">global_explanations</span><span class="p">[</span><span class="s2">&quot;pdp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span>
-    <span class="n">features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span><span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Marital Status&quot;</span><span class="p">],</span>
-    <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+<span class="n">global_explanations</span><span class="p">[</span><span class="s2">&quot;pdp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -641,9 +646,138 @@ PDP results:
 <img alt="../_images/tutorials_tabular_classification_14_7.png" src="../_images/tutorials_tabular_classification_14_7.png" />
 </div>
 </div>
-<p>Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test instance, the generated local explanations, the generated global explanations, the class names, and additional parameters for visualization (e.g., only plotting the selected features in PDP).</p>
-<div class="nbinput docutils container">
+<p>Similarly, we create a <code class="docutils literal notranslate"><span class="pre">PredictionAnalyzer</span></code> for computing performance metrics for this classification task. To initialize <code class="docutils literal notranslate"><span class="pre">PredictionAnalyzer</span></code>, we set the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: The task type, e.g., “classification” or “regression”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_data</span></code>: The test dataset, which should be a <code class="docutils literal notranslate"><span class="pre">Tabular</span></code> instance.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_targets</span></code>: The test labels or targets. For classification, <code class="docutils literal notranslate"><span class="pre">test_targets</span></code> should be integers (processed by a LabelEncoder) and match the class probabilities returned by the ML model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preprocess</span></code>: The preprocessing function converting the raw data (a <code class="docutils literal notranslate"><span class="pre">Tabular</span></code> instance) into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">postprocess</span></code> (optional): The postprocessing function transforming the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code> to a user-specific form, e.g., the predicted probability for each class. The output of <code class="docutils literal notranslate"><span class="pre">postprocess</span></code> should be a numpy array.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Compute metrics</span>
+<span class="kn">from</span> <span class="nn">omnixai.explainers.prediction</span> <span class="kn">import</span> <span class="n">PredictionAnalyzer</span>
+
+<span class="n">analyzer</span> <span class="o">=</span> <span class="n">PredictionAnalyzer</span><span class="p">(</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+    <span class="n">test_data</span><span class="o">=</span><span class="n">test_data</span><span class="p">,</span>
+    <span class="n">test_targets</span><span class="o">=</span><span class="n">test_labels</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">gbtree</span><span class="p">,</span>
+    <span class="n">preprocess</span><span class="o">=</span><span class="n">preprocess</span>
+<span class="p">)</span>
+<span class="n">prediction_explanations</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">explain</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">explain</span></code> method returns a dict containing multiple metrics:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="n">prediction_explanations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+metric:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tabular_classification_18_1.png" src="../_images/tutorials_tabular_classification_18_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+confusion_matrix:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tabular_classification_18_3.png" src="../_images/tutorials_tabular_classification_18_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+roc:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tabular_classification_18_5.png" src="../_images/tutorials_tabular_classification_18_5.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+precision_recall:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tabular_classification_18_7.png" src="../_images/tutorials_tabular_classification_18_7.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+cumulative_gain:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tabular_classification_18_9.png" src="../_images/tutorials_tabular_classification_18_9.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+lift_curve:
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tabular_classification_18_11.png" src="../_images/tutorials_tabular_classification_18_11.png" />
+</div>
+</div>
+<p>Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test instance, the local explanations, the global explanations, the prediction result analysis, the class names, and additional parameters for visualization (optional).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -652,10 +786,8 @@ PDP results:
     <span class="n">instances</span><span class="o">=</span><span class="n">test_instances</span><span class="p">,</span>
     <span class="n">local_explanations</span><span class="o">=</span><span class="n">local_explanations</span><span class="p">,</span>
     <span class="n">global_explanations</span><span class="o">=</span><span class="n">global_explanations</span><span class="p">,</span>
-    <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span>
-    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pdp&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
-                                 <span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
-                                 <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">]}}</span>
+    <span class="n">prediction_explanations</span><span class="o">=</span><span class="n">prediction_explanations</span><span class="p">,</span>
+    <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span>
 <span class="p">)</span>
 <span class="n">dashboard</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>

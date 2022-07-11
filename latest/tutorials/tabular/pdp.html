@@ -480,17 +480,15 @@ Test accuracy: 0.8668816213726394
 </pre></div>
 </div>
 </div>
-<p>PDP generates global explanations by calling <code class="docutils literal notranslate"><span class="pre">explainer.explain</span></code>. <code class="docutils literal notranslate"><span class="pre">ipython_plot</span></code> shows the generated explanations in IPython with specified features to plot.</p>
+<p>PDP generates global explanations by calling <code class="docutils literal notranslate"><span class="pre">explainer.explain</span></code>. <code class="docutils literal notranslate"><span class="pre">ipython_plot</span></code> shows the generated explanations in IPython.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">explanations</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">()</span>
-<span class="n">explanations</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span>
-    <span class="n">features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span><span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Marital Status&quot;</span><span class="p">],</span>
-    <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span>
-<span class="p">)</span>
+<span></span><span class="n">explanations</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span>
+    <span class="n">features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span><span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Marital Status&quot;</span><span class="p">])</span>
+<span class="n">explanations</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

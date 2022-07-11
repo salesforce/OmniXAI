@@ -544,12 +544,11 @@ dependence function for all the features with the following format:
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.pdp.PDPExplanation.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a matplotlib figure showing the PDP explanations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>features</strong> – A list of features to be shown in the figure.</p></li>
 <li><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
 <code class="docutils literal notranslate"><span class="pre">class_name</span> <span class="pre">=</span> <span class="pre">['dog',</span> <span class="pre">'cat']</span></code> means that label 0 corresponds to ‘dog’ and
 label 1 corresponds to ‘cat’.</p></li>
@@ -564,16 +563,13 @@ label 1 corresponds to ‘cat’.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.pdp.PDPExplanation.plotly_plot">
-<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a plotly dash figure showing the PDP explanations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>features</strong> – A list of features to be shown in the figure.</p></li>
-<li><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
+<dd class="field-odd"><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
 <code class="docutils literal notranslate"><span class="pre">class_name</span> <span class="pre">=</span> <span class="pre">['dog',</span> <span class="pre">'cat']</span></code> means that label 0 corresponds to ‘dog’ and
-label 1 corresponds to ‘cat’.</p></li>
-</ul>
+label 1 corresponds to ‘cat’.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting PDP explanations.</p>
@@ -583,16 +579,13 @@ label 1 corresponds to ‘cat’.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.pdp.PDPExplanation.ipython_plot">
-<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Shows the partial dependence plots in IPython.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>features</strong> – A list of features to be shown in the figure.</p></li>
-<li><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
+<dd class="field-odd"><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
 <code class="docutils literal notranslate"><span class="pre">class_name</span> <span class="pre">=</span> <span class="pre">['dog',</span> <span class="pre">'cat']</span></code> means that label 0 corresponds to ‘dog’ and
-label 1 corresponds to ‘cat’.</p></li>
-</ul>
+label 1 corresponds to ‘cat’.</p>
 </dd>
 </dl>
 </dd></dl>

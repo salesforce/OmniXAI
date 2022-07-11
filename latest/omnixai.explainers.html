@@ -59,6 +59,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-omnixai.explainers.base">omnixai.explainers.base module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#explainers-for-different-tasks">Explainers for different tasks</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.data.html">omnixai.explainers.data package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a></li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.tabular.html">omnixai.explainers.tabular package</a></li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.vision.html">omnixai.explainers.vision package</a></li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.nlp.html">omnixai.explainers.nlp package</a></li>
@@ -130,8 +131,9 @@
 <p>This package contains all the supported explainers. In practice, we recommend using
 use <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code>,
 <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code>, and <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code>
-for tabular, vision, NLP and time series tasks, respectively. To generate explanations,
-one only needs to specify the ML model, the pre-processing function (converting raw data into the model
+for tabular, vision, NLP and time series tasks, respectively, and using <a class="reference internal" href="omnixai.explainers.data.html#omnixai.explainers.data.DataAnalyzer" title="omnixai.explainers.data.DataAnalyzer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.data.DataAnalyzer</span></code></a>
+and <a class="reference internal" href="omnixai.explainers.prediction.html#omnixai.explainers.prediction.PredictionAnalyzer" title="omnixai.explainers.prediction.PredictionAnalyzer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.prediction.PredictionAnalyzer</span></code></a> for feature analysis and prediction result analysis.
+To generate explanations, one only needs to specify the ML model, the pre-processing function (converting raw data into the model
 inputs), the post-processing function (e.g., converting the model outputs into class probabilities, optional),
 and the explainer names (e.g., lime, shap, gradcam):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
@@ -369,6 +371,7 @@ e.g. <cite>{“pdp”: pdp_explanations, …}</cite>.</p>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.data.html#module-omnixai.explainers.data.chi_square">omnixai.explainers.data.chi_square module</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.tabular.html">omnixai.explainers.tabular package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.tabular.html#module-omnixai.explainers.tabular.base">omnixai.explainers.tabular.base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.tabular.html#module-omnixai.explainers.tabular.auto">omnixai.explainers.tabular.auto module</a></li>

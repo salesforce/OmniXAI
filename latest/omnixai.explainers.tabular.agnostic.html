@@ -59,6 +59,7 @@
 <li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.html#module-omnixai.explainers.base">omnixai.explainers.base module</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="omnixai.explainers.html#explainers-for-different-tasks">Explainers for different tasks</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.data.html">omnixai.explainers.data package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a></li>
 <li class="toctree-l5 current"><a class="reference internal" href="omnixai.explainers.tabular.html">omnixai.explainers.tabular package</a><ul class="current">
 <li class="toctree-l6"><a class="reference internal" href="omnixai.explainers.tabular.html#module-omnixai.explainers.tabular.base">omnixai.explainers.tabular.base module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="omnixai.explainers.tabular.html#module-omnixai.explainers.tabular.auto">omnixai.explainers.tabular.auto module</a></li>
@@ -335,7 +336,7 @@ candidates for each feature during generating partial dependence plots.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular.explain">
-<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular.explain" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates global PDP explanations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>

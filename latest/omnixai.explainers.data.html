@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="omnixai.explainers.tabular package" href="omnixai.explainers.tabular.html" />
+    <link rel="next" title="omnixai.explainers.prediction package" href="omnixai.explainers.prediction.html" />
     <link rel="prev" title="omnixai.explainers package" href="omnixai.explainers.html" /> 
 </head>
 
@@ -66,6 +66,7 @@
 <li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.chi_square">omnixai.explainers.data.chi_square module</a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a></li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.tabular.html">omnixai.explainers.tabular package</a></li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.vision.html">omnixai.explainers.vision package</a></li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.nlp.html">omnixai.explainers.nlp package</a></li>
@@ -137,7 +138,7 @@
 <span id="omnixai-explainers-data-package"></span><h1>omnixai.explainers.data package<a class="headerlink" href="#module-omnixai.explainers.data" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.data.DataAnalyzer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.</span></span><span class="sig-name descname"><span class="pre">DataAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.DataAnalyzer" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.</span></span><span class="sig-name descname"><span class="pre">DataAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.DataAnalyzer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.AutoExplainerBase" title="omnixai.explainers.base.AutoExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code></a></p>
 <p>The class derived from <cite>AutoExplainerBase</cite> for data analysis,
 allowing users to choose multiple explainers and generate
@@ -155,6 +156,7 @@ different explanations at the same time.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>) – The names or alias of the analyzers to use, e.g.,
 “correlation” for feature correlation analysis, “mutual” for feature importance analysis.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g. <cite>classification</cite> or <cite>regression</cite>.</p></li>
 <li><p><strong>data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The training data used to initialize explainers.</p></li>
 <li><p><strong>params</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A dict containing the additional parameters for initializing each analyzer,
 e.g., <cite>params[“imbalance”] = {“param_1”: param_1, …}</cite>.</p></li>
@@ -167,11 +169,30 @@ e.g., <cite>params[“imbalance”] = {“param_1”: param_1, …}</cite>.</p><
 <dd><p>List the supported explainers.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explainers.data.DataAnalyzer.explain">
+<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.DataAnalyzer.explain" title="Permalink to this definition"></a></dt>
+<dd><p>Generates global explanations (override the <cite>explain</cite> method defined in the base class).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> – A dict containing the additional parameters for generating explanations,
+e.g., <cite>params[“pdp”] = {“param_1”: param_1, …}</cite>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dict of explanation results generated by the explainers that support global explanation,
+e.g. <cite>{“pdp”: pdp_explanations, …}</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>OrderedDict</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.data.ImbalanceAnalyzer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.</span></span><span class="sig-name descname"><span class="pre">ImbalanceAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.ImbalanceAnalyzer" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.</span></span><span class="sig-name descname"><span class="pre">ImbalanceAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.ImbalanceAnalyzer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
 <p>The class for checking feature imbalances. It counts the appearances
 of each feature value in different classes. For example, if the feature to analyze is
@@ -182,6 +203,7 @@ values.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The dataset for training an ML model.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type can be <cite>classification</cite> only.</p></li>
 <li><p><strong>n_bins</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of bins for discretizing continuous-valued features.</p></li>
 </ul>
 </dd>
@@ -340,7 +362,7 @@ with respect to the target.</p>
 <span id="omnixai-explainers-data-auto-module"></span><h2>omnixai.explainers.data.auto module<a class="headerlink" href="#module-omnixai.explainers.data.auto" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.data.auto.DataAnalyzer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.auto.</span></span><span class="sig-name descname"><span class="pre">DataAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.auto.DataAnalyzer" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.auto.</span></span><span class="sig-name descname"><span class="pre">DataAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.auto.DataAnalyzer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.AutoExplainerBase" title="omnixai.explainers.base.AutoExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code></a></p>
 <p>The class derived from <cite>AutoExplainerBase</cite> for data analysis,
 allowing users to choose multiple explainers and generate
@@ -358,6 +380,7 @@ different explanations at the same time.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>) – The names or alias of the analyzers to use, e.g.,
 “correlation” for feature correlation analysis, “mutual” for feature importance analysis.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g. <cite>classification</cite> or <cite>regression</cite>.</p></li>
 <li><p><strong>data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The training data used to initialize explainers.</p></li>
 <li><p><strong>params</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A dict containing the additional parameters for initializing each analyzer,
 e.g., <cite>params[“imbalance”] = {“param_1”: param_1, …}</cite>.</p></li>
@@ -368,6 +391,25 @@ e.g., <cite>params[“imbalance”] = {“param_1”: param_1, …}</cite>.</p><
 <dt class="sig sig-object py" id="omnixai.explainers.data.auto.DataAnalyzer.list_explainers">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_explainers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.auto.DataAnalyzer.list_explainers" title="Permalink to this definition"></a></dt>
 <dd><p>List the supported explainers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explainers.data.auto.DataAnalyzer.explain">
+<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.auto.DataAnalyzer.explain" title="Permalink to this definition"></a></dt>
+<dd><p>Generates global explanations (override the <cite>explain</cite> method defined in the base class).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> – A dict containing the additional parameters for generating explanations,
+e.g., <cite>params[“pdp”] = {“param_1”: param_1, …}</cite>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dict of explanation results generated by the explainers that support global explanation,
+e.g. <cite>{“pdp”: pdp_explanations, …}</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>OrderedDict</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -422,7 +464,7 @@ given the input dataset.</p>
 <p>The class for checking feature imbalances.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.data.imbalance.ImbalanceAnalyzer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.imbalance.</span></span><span class="sig-name descname"><span class="pre">ImbalanceAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.imbalance.ImbalanceAnalyzer" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.data.imbalance.</span></span><span class="sig-name descname"><span class="pre">ImbalanceAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.data.imbalance.ImbalanceAnalyzer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
 <p>The class for checking feature imbalances. It counts the appearances
 of each feature value in different classes. For example, if the feature to analyze is
@@ -433,6 +475,7 @@ values.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The dataset for training an ML model.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type can be <cite>classification</cite> only.</p></li>
 <li><p><strong>n_bins</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of bins for discretizing continuous-valued features.</p></li>
 </ul>
 </dd>
@@ -563,7 +606,7 @@ with respect to the target.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="omnixai.explainers.html" class="btn btn-neutral float-left" title="omnixai.explainers package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="omnixai.explainers.tabular.html" class="btn btn-neutral float-right" title="omnixai.explainers.tabular package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="omnixai.explainers.prediction.html" class="btn btn-neutral float-right" title="omnixai.explainers.prediction package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

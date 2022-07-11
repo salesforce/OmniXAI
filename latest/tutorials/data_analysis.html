@@ -432,6 +432,7 @@ parameters are set to None.</p>
 <span class="c1"># the others are for feature imbalance analysis (the same explainer with different parameters).</span>
 <span class="n">explainer</span> <span class="o">=</span> <span class="n">DataAnalyzer</span><span class="p">(</span>
     <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;correlation&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#0&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#1&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#2&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#3&quot;</span><span class="p">,</span> <span class="s2">&quot;mutual&quot;</span><span class="p">,</span> <span class="s2">&quot;chi2&quot;</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="n">tabular_data</span>
 <span class="p">)</span>
 <span class="c1"># Generate explanations by calling `explain_global`.</span>

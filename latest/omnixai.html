@@ -166,10 +166,11 @@ One can simply use this class to transform the raw data into the training/test d
 model can consume.</p>
 </li>
 <li><p><a class="reference internal" href="omnixai.explainers.html#module-omnixai.explainers" title="omnixai.explainers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers</span></code></a>: This is the main package in the library, which contains all the supported explainers.
-The explainers are categorized into four groups:</p>
+The explainers are categorized into the following groups:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="omnixai.explainers.data.html#module-omnixai.explainers.data" title="omnixai.explainers.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.data</span></code></a>: It is for data exploration/analysis, including feature correlation analysis,
 feature imbalance analysis, feature selection, etc.</p></li>
+<li><p><a class="reference internal" href="omnixai.explainers.prediction.html#module-omnixai.explainers.prediction" title="omnixai.explainers.prediction"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.prediction</span></code></a>: It computes the performance metrics for classification and regression tasks.</p></li>
 <li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular</span></code>: It contains the explainers for tabular data, e.g., global explanations
 such as PDP, local explanations such as LIME, SHAP, MACE.</p></li>
 <li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision</span></code>: It contains the explainers for vision tasks, e.g., integrated-gradient,
@@ -179,7 +180,7 @@ Grad-CAM, contrastive explanation, counterfactual explanation.</p></li>
 </ul>
 </li>
 </ul>
-<p>For each group, the explainers are further categorized into “model-agnostic”, “model-specific” and “counterfactual”.
+<p>For “tabular”, “vision”, “nlp” and “timeseries”, the explainers are further categorized into “model-agnostic”, “model-specific” and “counterfactual”.
 A “model-agnostic” explainer can handle black-box ML models, i.e., only requiring a prediction function without
 knowing model details. A “model-specific” explainer requires some information of ML models, e.g., whether the model is
 differentiable, whether the model is a linear model or a tree-based model. “counterfactual” is a special group for counterfactual
@@ -188,7 +189,7 @@ explanation methods which may be either “model-agnostic” or “model-specifi
 <li><p><a class="reference internal" href="omnixai.explanations.html#module-omnixai.explanations" title="omnixai.explanations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explanations</span></code></a>: This package contains the classes for explanation results. For example,
 <a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular.feature_importance" title="omnixai.explanations.tabular.feature_importance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explanations.tabular.feature_importance</span></code></a> is used for storing feature-importance/attribution explanations.
 All of these classes provide plotting functions for visualization, e.g., “plot” using “Matplotlib”, “plotly_plot” using “Dash”
-and “ipython_plot” for IPython. Explanations are categorized into three groups:</p>
+and “ipython_plot” for IPython. Explanations are categorized into these groups:</p>
 <ul>
 <li><p><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular" title="omnixai.explanations.tabular"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explanations.tabular</span></code></a>: For tabular explainers, e.g., feature-importance explanation, etc.</p></li>
 <li><p><a class="reference internal" href="omnixai.explanations.image.html#module-omnixai.explanations.image" title="omnixai.explanations.image"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explanations.image</span></code></a>: For vision explainers, e.g., pixel-importance explanation, etc.</p></li>
@@ -225,7 +226,8 @@ root directory of the repo.</p></li>
 <p>To get started, we recommend the linked tutorials in <a class="reference internal" href="tutorials.html#tutorial"><span class="std std-ref">Tutorials &amp; Example Code</span></a>.
 In general, we recommend using <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.tabular.TabularExplainer</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.vision.VisionExplainer</span></code>,
 <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.nlp.NLPExplainer</span></code> and <code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.timeseries.TimeseriesExplainer</span></code> for tabular, vision, NLP and
-time series tasks, respectively. To generate explanations, one only needs to specify</p>
+time series tasks, respectively, and using <a class="reference internal" href="omnixai.explainers.data.html#omnixai.explainers.data.DataAnalyzer" title="omnixai.explainers.data.DataAnalyzer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.data.DataAnalyzer</span></code></a> and <a class="reference internal" href="omnixai.explainers.prediction.html#omnixai.explainers.prediction.PredictionAnalyzer" title="omnixai.explainers.prediction.PredictionAnalyzer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">omnixai.explainers.prediction.PredictionAnalyzer</span></code></a>
+for feature analysis and prediction result analysis. To generate explanations, one only needs to specify</p>
 <ul class="simple">
 <li><p><strong>The ML model to explain</strong>: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.</p></li>
 <li><p><strong>The pre-processing function</strong>: i.e., converting raw data into the model inputs.</p></li>
@@ -267,9 +269,15 @@ will be the target/label. After data preprocessing, we can train a XGBoost class
 <span class="n">transformer</span> <span class="o">=</span> <span class="n">TabularTransform</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
 <span class="n">class_names</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">class_names</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
+<span class="c1"># Split into training and test datasets</span>
+<span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">test_labels</span> <span class="o">=</span> \
+    <span class="n">sklearn</span><span class="o">.</span><span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.80</span><span class="p">)</span>
 <span class="c1"># Train an XGBoost model (the last column of `x` is the label column after transformation)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">xgboost</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
+<span class="c1"># Convert the transformed data back to Tabular instances</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To initialize <cite>TabularExplainer</cite>, we need to set the following parameters:</p>
@@ -285,7 +293,9 @@ user-specific form, e.g., the predicted probability for each class.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: The task type, e.g., “classification” or “regression”.</p></li>
 </ul>
 <p>The preprocessing function takes a <cite>Tabular</cite> instance as its input and outputs the processed features that
-the ML model consumes. In this example, we simply call <code class="docutils literal notranslate"><span class="pre">transformer.transform</span></code>.</p>
+the ML model consumes. In this example, we simply call <code class="docutils literal notranslate"><span class="pre">transformer.transform</span></code>. If one uses some customized transforms
+on pandas dataframes, the preprocess function has format: <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">z:</span> <span class="pre">some_transform(z.to_pd())</span></code>. If the output of <code class="docutils literal notranslate"><span class="pre">model</span></code>
+is not a numpy array, <code class="docutils literal notranslate"><span class="pre">postprocess</span></code> needs to be set to convert it into a numpy array.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.explainers.tabular</span> <span class="kn">import</span> <span class="n">TabularExplainer</span>
 <span class="kn">from</span> <span class="nn">omnixai.visualization.dashboard</span> <span class="kn">import</span> <span class="n">Dashboard</span>
 
@@ -293,7 +303,7 @@ the ML model consumes. In this example, we simply call <code class="docutils lit
 <span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">],</span>       <span class="c1"># The explainers to apply</span>
    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>                            <span class="c1"># The task type</span>
-   <span class="n">data</span><span class="o">=</span><span class="n">tabular_data</span><span class="p">,</span>                                <span class="c1"># The data for initializing the explainers</span>
+   <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>                                  <span class="c1"># The data for initializing the explainers</span>
    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>                                      <span class="c1"># The ML model to explain</span>
    <span class="n">preprocess</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">),</span>    <span class="c1"># Converts raw features into the model inputs</span>
    <span class="n">params</span><span class="o">=</span><span class="p">{</span>
@@ -310,21 +320,45 @@ these two methods to generate explanations.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate explanations</span>
 <span class="n">test_instances</span> <span class="o">=</span> <span class="n">tabular_data</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
 <span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">test_instances</span><span class="p">)</span>
-<span class="n">global_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain_global</span><span class="p">()</span>
+<span class="n">global_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain_global</span><span class="p">(</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pdp&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">]}}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Similarly, we create a <cite>PredictionAnalyzer</cite> for computing performance metrics for this classification task.
+To initialize <cite>PredictionAnalyzer</cite>, we set the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: The task type, e.g., “classification” or “regression”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_data</span></code>: The test dataset, which should be a <cite>Tabular</cite> instance.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_targets</span></code>: The test labels or targets. For classification, <code class="docutils literal notranslate"><span class="pre">test_targets</span></code> should be integers
+(processed by a LabelEncoder) and match the class probabilities returned by the ML model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preprocess</span></code>: The preprocessing function converting the raw data (a <cite>Tabular</cite> instance) into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">postprocess</span></code> (optional): The postprocessing function transforming the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code> to a user-specific form,
+e.g., the predicted probability for each class. The output of <code class="docutils literal notranslate"><span class="pre">postprocess</span></code> should be a numpy array.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">omnixai.explainers.prediction</span> <span class="kn">import</span> <span class="n">PredictionAnalyzer</span>
+
+<span class="n">analyzer</span> <span class="o">=</span> <span class="n">PredictionAnalyzer</span><span class="p">(</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+    <span class="n">test_data</span><span class="o">=</span><span class="n">test_data</span><span class="p">,</span>                           <span class="c1"># The test dataset (a `Tabular` instance)</span>
+    <span class="n">test_targets</span><span class="o">=</span><span class="n">test_labels</span><span class="p">,</span>                      <span class="c1"># The test labels (a numpy array)</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>                                   <span class="c1"># The ML model</span>
+    <span class="n">preprocess</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  <span class="c1"># Converts raw features into the model inputs</span>
+<span class="p">)</span>
+<span class="n">prediction_explanations</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">explain</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test
-instance, the generated local explanations, the generated global explanations, the class names, and additional
-parameters for visualization (e.g., only plotting the selected features in PDP).</p>
+instance, the local explanations, the global explanations, the prediction metrics, the class names, and additional
+parameters for visualization (optional).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch a dashboard for visualization</span>
 <span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span>
     <span class="n">instances</span><span class="o">=</span><span class="n">test_instances</span><span class="p">,</span>                        <span class="c1"># The instances to explain</span>
     <span class="n">local_explanations</span><span class="o">=</span><span class="n">local_explanations</span><span class="p">,</span>           <span class="c1"># Set the generated local explanations</span>
     <span class="n">global_explanations</span><span class="o">=</span><span class="n">global_explanations</span><span class="p">,</span>         <span class="c1"># Set the generated global explanations</span>
-    <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span>                         <span class="c1"># Set class names</span>
-    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pdp&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
-                                 <span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
-                                 <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">]}}</span>
+    <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span>                          <span class="c1"># Set class names</span>
 <span class="p">)</span>
 <span class="n">dashboard</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>                                     <span class="c1"># Launch the dashboard</span>
 </pre></div>
@@ -526,6 +560,7 @@ by specifying one of the names defined in <code class="docutils literal notransl
 <li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.data.html#module-omnixai.explainers.data.chi_square">omnixai.explainers.data.chi_square module</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="omnixai.explainers.tabular.html">omnixai.explainers.tabular package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.tabular.html#module-omnixai.explainers.tabular.base">omnixai.explainers.tabular.base module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.tabular.html#module-omnixai.explainers.tabular.auto">omnixai.explainers.tabular.auto module</a></li>
