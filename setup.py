@@ -43,7 +43,8 @@ setup(
         "wheel",
         "packaging",
         "ipython",
-        "tabulate"
+        "tabulate",
+        "statsmodels>=0.10.1"
     ],
     extras_require=extras_require,
     python_requires=">=3.7.5,<4",
