@@ -9,6 +9,7 @@ The partial dependence plots for tabular data.
 """
 import warnings
 import numpy as np
+from typing import List
 
 from ..base import TabularExplainer
 from ....data.tabular import Tabular
@@ -99,7 +100,7 @@ class PartialDependenceTabular(TabularExplainer):
         if len(feature_columns) > 20:
             warnings.warn(f"Too many features ({len(feature_columns)} > 20) for PDP to process, "
                           f"it will take a while to finish. It is better to choose a subset"
-                          f"of features to analyze by setting parameter `features`.")
+                          f"of features to analyze by setting the parameter `features`.")
 
         explanations = PDPExplanation(self.mode)
         categorical_features = set(self.categorical_features)
@@ -129,10 +130,11 @@ class PartialDependenceTabular(TabularExplainer):
                 explanations.add(index=k, feature_name=column_name, values=values, pdp_mean=mean, pdp_std=std)
         return explanations
 
-    def explain(self, features=None, **kwargs) -> PDPExplanation:
+    def explain(self, features: List = None, **kwargs) -> PDPExplanation:
         """
         Generates global PDP explanations.
 
+        :param features: The names of the features to be studied.
         :return: The generated PDP explanations.
         """
         return self._global_explain(features)
