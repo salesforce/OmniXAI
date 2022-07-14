@@ -59,8 +59,8 @@ class ALEExplanation(ExplanationBase):
         import matplotlib.pyplot as plt
 
         explanations = self.get_explanations()
-
         features = list(explanations.keys())
+
         figures = []
         for i, feature in enumerate(features):
             fig, axes = plt.subplots(1, 1, squeeze=False)
@@ -84,7 +84,7 @@ class ALEExplanation(ExplanationBase):
 
             if exp["sampled_scores"] is not None:
                 for scores in exp["sampled_scores"]:
-                    plt.plot(values, scores, color="#1f77b4", alpha=0.1)
+                    plt.plot(values, scores, color="#808080", alpha=0.1)
             figures.append(fig)
         return figures
 
