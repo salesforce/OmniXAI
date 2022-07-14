@@ -47,13 +47,13 @@ class ALE(TabularExplainer):
         if self.y.ndim == 1:
             self.y = np.expand_dims(self.y, axis=-1)
 
-    def _ale_continuous(self, column):
-        x = self.data[:, column]
+    def _ale_continuous(self, data, column):
+        x = data[:, column]
         percentiles = np.linspace(0, 100, num=self.grid_resolution)
         bins = sorted(set(np.percentile(x, percentiles)))
         feat_bins = pd.cut(x, bins, include_lowest=True)
 
-        z = self.data.copy()
+        z = data.copy()
         z[:, column] = [feat_bins.categories[i].left for i in feat_bins.codes]
         ya = self.predict_fn(z)
         z[:, column] = [feat_bins.categories[i].right for i in feat_bins.codes]
@@ -75,7 +75,7 @@ class ALE(TabularExplainer):
 
         for col in delta_cols.keys():
             z = (df[(col, "mean")] + df[(col, "mean")].shift(1, fill_value=0)) * 0.5
-            avg = (z * df[(col, "size")]).sum() / df[(col, "size")].sum()
+            avg = (z * df[(col, "size")]).sum() / (df[(col, "size")].sum() + 1e-6)
             df[(col, "mean")] = df[(col, "mean")] - avg
         df = df[[(col, "mean") for col in delta_cols.keys()]]
         df.columns = list(delta_cols.keys())
@@ -134,17 +134,16 @@ class ALE(TabularExplainer):
         sorted_indices = z.argsort()
         return [features[i] for i in sorted_indices]
 
-    def _ale_categorical(self, column):
-        x = self.data[:, column]
-        features = self._categorical_order(column)
+    def _ale_categorical(self, data, features, column):
+        x = data[:, column]
         feature_indices = {f: i for i, f in enumerate(features)}
         unique, counts = np.unique(x, return_counts=True)
         count_df = pd.DataFrame(counts, columns=["size"], index=unique).loc[features]
-        fractions = count_df / count_df.sum()
+        fractions = count_df / (count_df.sum() + 1e-6)
 
-        z = self.data.copy()
+        z = data.copy()
         z[:, column] = [features[min(feature_indices[f] + 1, len(features) - 1)]
-                        for f in self.data[:, column]]
+                        for f in data[:, column]]
         ya_indices = (x != features[-1])
         ya = self.predict_fn(z)[ya_indices]
         if ya.ndim == 1:
@@ -157,7 +156,7 @@ class ALE(TabularExplainer):
         df_a = pd.DataFrame(cols)
 
         z[:, column] = [features[max(feature_indices[f] - 1, 0)]
-                        for f in self.data[:, column]]
+                        for f in data[:, column]]
         yb_indices = (x != features[0])
         yb = self.predict_fn(z)[yb_indices]
         if yb.ndim == 1:
@@ -206,9 +205,10 @@ class ALE(TabularExplainer):
         for feature_name in feature_columns:
             i = column_index[feature_name]
             if i in self.categorical_features:
-                scores = self._ale_categorical(column=i)
+                features = self._categorical_order(i)
+                scores = self._ale_categorical(data=self.data, features=features, column=i)
             else:
-                scores = self._ale_continuous(column=i)
+                scores = self._ale_continuous(data=self.data, column=i)
             explanations.add(
                 feature_name=feature_name,
                 values=list(scores.index.values),
