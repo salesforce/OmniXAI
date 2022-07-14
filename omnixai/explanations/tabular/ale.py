@@ -84,7 +84,7 @@ class ALEExplanation(ExplanationBase):
 
             if exp["sampled_scores"] is not None:
                 for scores in exp["sampled_scores"]:
-                    plt.plot(values, scores, color="#808080", alpha=0.1)
+                    plt.plot(values, scores, color="#808080", alpha=0.15)
             figures.append(fig)
         return figures
 
@@ -104,9 +104,29 @@ class ALEExplanation(ExplanationBase):
             if self.mode == "classification":
                 for k in range(e["scores"].shape[1]):
                     label = class_names[k] if class_names is not None else f"Class {k}"
-                    fig.add_trace(go.Scatter(x=values, y=e["scores"][:, k], name=label), row=row + 1, col=col + 1)
+                    fig.add_trace(go.Scatter(x=values, y=e["scores"][:, k], name=label,
+                                             legendgroup=self._s(str(feature), 10),
+                                             legendgrouptitle_text=self._s(str(feature), 10)),
+                                  row=row + 1, col=col + 1)
             else:
-                fig.add_trace(go.Scatter(x=values, y=e["scores"], name="Target"), row=row + 1, col=col + 1)
+                fig.add_trace(go.Scatter(x=values, y=e["scores"].flatten(), name="Target",
+                                         legendgroup=self._s(str(feature), 10),
+                                         legendgrouptitle_text=self._s(str(feature), 10)),
+                              row=row + 1, col=col + 1)
+
+            if e["sampled_scores"] is not None:
+                for scores in e["sampled_scores"]:
+                    if self.mode == "classification":
+                        for k in range(scores.shape[1]):
+                            fig.add_trace(go.Scatter(x=values, y=scores[:, k],
+                                                     opacity=0.15, mode="lines", showlegend=False,
+                                                     line=dict(color="#808080")),
+                                          row=row + 1, col=col + 1)
+                    else:
+                        fig.add_trace(go.Scatter(x=values, y=scores.flatten(),
+                                                 opacity=0.15, mode="lines", showlegend=False,
+                                                 line=dict(color="#808080")),
+                                      row=row + 1, col=col + 1)
         fig.update_layout(height=250 * num_rows)
         return fig
 

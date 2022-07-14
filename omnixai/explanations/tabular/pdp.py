@@ -144,9 +144,15 @@ class PDPExplanation(ExplanationBase):
             if self.mode == "classification":
                 for k in range(e["scores"].shape[1]):
                     label = class_names[k] if class_names is not None else f"Class {k}"
-                    fig.add_trace(go.Scatter(x=values, y=e["scores"][:, k], name=label), row=row + 1, col=col + 1)
+                    fig.add_trace(go.Scatter(x=values, y=e["scores"][:, k], name=label,
+                                             legendgroup=self._s(str(feature), 10),
+                                             legendgrouptitle_text=self._s(str(feature), 10)),
+                                  row=row + 1, col=col + 1)
             else:
-                fig.add_trace(go.Scatter(x=values, y=e["scores"], name="Target"), row=row + 1, col=col + 1)
+                fig.add_trace(go.Scatter(x=values, y=e["scores"].flatten(), name="Target",
+                                         legendgroup=self._s(str(feature), 10),
+                                         legendgrouptitle_text=self._s(str(feature), 10)),
+                              row=row + 1, col=col + 1)
         fig.update_layout(height=250 * num_rows)
         return fig
 

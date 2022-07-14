@@ -180,7 +180,7 @@ class ALE(TabularExplainer):
     def explain(
             self,
             features: List = None,
-            monte_carlo: bool = True,
+            monte_carlo: bool = False,
             monte_carlo_steps: int = 10,
             monte_carlo_frac: float = 0.1,
             **kwargs
@@ -232,7 +232,6 @@ class ALE(TabularExplainer):
                                 indices += np.random.choice(group, n, replace=False).tolist()
                             s = self._ale_categorical(data=self.data[indices], features=features, column=i)
                             sampled_scores.append(s.values)
-                            assert scores.shape == s.values.shape
             else:
                 percentiles = np.linspace(0, 100, num=self.grid_resolution)
                 bins = sorted(set(np.percentile(self.data[:, i], percentiles)))
@@ -247,8 +246,10 @@ class ALE(TabularExplainer):
                             indices = np.random.choice(range(self.data.shape[0]), n, replace=False)
                             s = self._ale_continuous(data=self.data[indices], column=i, bins=bins)
                             sampled_scores.append(s.values)
-                            assert scores.shape == s.values.shape, f"Feature name: {feature_name}"
+                            assert scores.shape == s.values.shape, \
+                                f"Feature name: {feature_name}, {scores.shape}, {s.values.shape}"
 
+            scores = scores.sort_index()
             explanations.add(
                 feature_name=feature_name,
                 values=list(scores.index.values),
