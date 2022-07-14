@@ -20,11 +20,16 @@ class TestALE(unittest.TestCase):
         task = TabularClassification(base_folder).train_adult(num_training_samples=2000)
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
         explainer = ALE(training_data=task.train_data, predict_function=predict_function)
-        explanations = explainer.explain(features=["Marital Status", "Age"])
+        explanations = explainer.explain(features=["Marital Status", "Education-Num", "Age", "Hours per week"])
         pprint.pprint(explanations.get_explanations())
 
+        import matplotlib.pyplot as plt
+        explanations.plot()
+        plt.show()
+        '''
         fig = explanations.plotly_plot()
         fig.show()
+        '''
 
 
 if __name__ == "__main__":

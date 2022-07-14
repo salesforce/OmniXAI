@@ -44,11 +44,8 @@ class ALE(TabularExplainer):
         super().__init__(training_data=training_data, predict_function=predict_function, mode=mode, **kwargs)
         self.grid_resolution = kwargs.get("grid_resolution", 10)
 
-    def _ale_continuous(self, data, column):
-        x = data[:, column]
-        percentiles = np.linspace(0, 100, num=self.grid_resolution)
-        bins = sorted(set(np.percentile(x, percentiles)))
-        feat_bins = pd.cut(x, bins, include_lowest=True)
+    def _ale_continuous(self, data, column, bins):
+        feat_bins = pd.cut(data[:, column], bins, include_lowest=True)
 
         z = data.copy()
         z[:, column] = [feat_bins.categories[i].left for i in feat_bins.codes]
@@ -214,8 +211,8 @@ class ALE(TabularExplainer):
         explanations = ALEExplanation(self.mode)
         column_index = {f: i for i, f in enumerate(self.feature_columns)}
 
-        sampled_scores = []
         for feature_name in feature_columns:
+            sampled_scores = []
             i = column_index[feature_name]
             if i in self.categorical_features:
                 features = self._categorical_order(i)
@@ -235,17 +232,22 @@ class ALE(TabularExplainer):
                                 indices += np.random.choice(group, n, replace=False).tolist()
                             s = self._ale_categorical(data=self.data[indices], features=features, column=i)
                             sampled_scores.append(s.values)
+                            assert scores.shape == s.values.shape
             else:
-                scores = self._ale_continuous(data=self.data, column=i)
-                n = int(self.data.shape[0] * monte_carlo_frac)
-                if n < 10:
-                    warnings.warn(f"The number of samples in each Monte Carlo step is "
-                                  f"too small, i.e., {n} < 10. The Monte Carlo sampling is ignored.")
-                else:
-                    for _ in range(monte_carlo_steps):
-                        indices = np.random.choice(range(self.data.shape[0]), n, replace=False)
-                        s = self._ale_continuous(data=self.data[indices], column=i)
-                        sampled_scores.append(s.values)
+                percentiles = np.linspace(0, 100, num=self.grid_resolution)
+                bins = sorted(set(np.percentile(self.data[:, i], percentiles)))
+                scores = self._ale_continuous(data=self.data, column=i, bins=bins)
+                if monte_carlo:
+                    n = int(self.data.shape[0] * monte_carlo_frac)
+                    if n < 10:
+                        warnings.warn(f"The number of samples in each Monte Carlo step is "
+                                      f"too small, i.e., {n} < 10. The Monte Carlo sampling is ignored.")
+                    else:
+                        for _ in range(monte_carlo_steps):
+                            indices = np.random.choice(range(self.data.shape[0]), n, replace=False)
+                            s = self._ale_continuous(data=self.data[indices], column=i, bins=bins)
+                            sampled_scores.append(s.values)
+                            assert scores.shape == s.values.shape, f"Feature name: {feature_name}"
 
             explanations.add(
                 feature_name=feature_name,

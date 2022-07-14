@@ -61,14 +61,11 @@ class ALEExplanation(ExplanationBase):
         explanations = self.get_explanations()
 
         features = list(explanations.keys())
-        num_rows = int(np.round(np.sqrt(len(features))))
-        num_cols = int(np.ceil(len(features) / num_rows))
-        fig, axes = plt.subplots(num_rows, num_cols, squeeze=False)
-
+        figures = []
         for i, feature in enumerate(features):
+            fig, axes = plt.subplots(1, 1, squeeze=False)
             exp = explanations[feature]
-            row, col = divmod(i, num_cols)
-            plt.sca(axes[row, col])
+            plt.sca(axes[0, 0])
             values = [self._s(v, max_len=15) for v in exp["values"]]
             plt.plot(values, exp["scores"])
             # Rotate xticks if it is a categorical feature
@@ -84,7 +81,12 @@ class ALEExplanation(ExplanationBase):
                 else:
                     plt.legend(["Target"])
             plt.grid()
-        return fig
+
+            if exp["sampled_scores"] is not None:
+                for scores in exp["sampled_scores"]:
+                    plt.plot(values, scores, color="#1f77b4", alpha=0.1)
+            figures.append(fig)
+        return figures
 
     def _plotly_figure(self, class_names=None, **kwargs):
         from plotly.subplots import make_subplots
