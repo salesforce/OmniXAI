@@ -50,6 +50,7 @@ Feature analysis         NA                    Global            ✓
 Feature selection        NA                    Global            ✓
 Prediction metrics       Black box             Global                           ✓        ✓        ✓       ✓
 Partial dependence       Black box             Global                           ✓
+ALE                      Black box             Global                           ✓
 Sensitivity analysis     Black box             Global                           ✓
 LIME                     Black box             Local                            ✓        ✓        ✓
 SHAP                     Black box*            Local                            ✓        ✓        ✓       ✓
@@ -77,7 +78,8 @@ Data Type   Method                OmniXAI  InterpretML  AIX360  Eli5  Captum  Al
 ==========  ====================  =======  ===========  ======  ====  ======  =====  ========
 Tabular     LIME                  ✓        ✓            ✓       ✘     ✓       ✘      ✘
 \           SHAP                  ✓        ✓            ✓       ✘     ✓       ✓      ✓
-\           Partial dependence    ✓        ✓            ✘       ✘     ✘       ✘      ✘
+\           PDP                   ✓        ✓            ✘       ✘     ✘       ✘      ✘
+\           ALE                   ✓        ✘            ✘       ✘     ✘       ✓      ✘
 \           Sensitivity           ✓        ✓            ✘       ✘     ✘       ✘      ✘
 \           Integrated gradient   ✓        ✘            ✘       ✘     ✓       ✓      ✘
 \           Counterfactual        ✓        ✘            ✘       ✘     ✘       ✓      ✘
