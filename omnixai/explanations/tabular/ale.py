@@ -7,7 +7,6 @@
 """
 Accumulated local effects plots.
 """
-import warnings
 import numpy as np
 from ..base import ExplanationBase, DashFigure
 from collections import OrderedDict
