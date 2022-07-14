@@ -15,6 +15,7 @@ from collections import OrderedDict
 
 from ..base import TabularExplainer
 from ....data.tabular import Tabular
+from ....explanations.tabular.ale import ALEExplanation
 
 
 class ALE(TabularExplainer):
@@ -179,7 +180,7 @@ class ALE(TabularExplainer):
             index=[self.categorical_names[column][int(i)] for i in df.index.values]
         )
 
-    def explain(self, features: List = None, **kwargs):
+    def explain(self, features: List = None, **kwargs) -> ALEExplanation:
         """
         Generates accumulated local effects (ALE) plots.
 
@@ -200,14 +201,17 @@ class ALE(TabularExplainer):
                           f"it will take a while to finish. It is better to choose a subset"
                           f"of features to analyze by setting the parameter `features`.")
 
+        explanations = ALEExplanation(self.mode)
         column_index = {f: i for i, f in enumerate(self.feature_columns)}
-        for column_name in feature_columns:
-            i = column_index[column_name]
+        for feature_name in feature_columns:
+            i = column_index[feature_name]
             if i in self.categorical_features:
                 scores = self._ale_categorical(column=i)
-                print(scores)
-                input('xxx')
             else:
                 scores = self._ale_continuous(column=i)
-                print(scores)
-                input('xxx')
+            explanations.add(
+                feature_name=feature_name,
+                values=list(scores.index.values),
+                scores=scores.values
+            )
+        return explanations

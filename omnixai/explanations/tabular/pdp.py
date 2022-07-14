@@ -40,7 +40,7 @@ class PDPExplanation(ExplanationBase):
 
         :param index: `index = global` for global explanations.
         :param feature_name: The feature column name.
-        :param values: The grid values when generating PDP.
+        :param values: The features values.
         :param pdp_mean: The average PDP scores corresponding to the values.
         :param pdp_std: The standard deviation of the PDP scores corresponding to the values.
         """
@@ -48,11 +48,11 @@ class PDPExplanation(ExplanationBase):
 
     def get_explanations(self):
         """
-        Gets the raw values of the partial dependence function.
+        Gets the partial dependence scores.
 
-        :return: A dict containing the raw values of the partial
-            dependence function for all the features with the following format:
-            `{feature_name: {"values": the PDP grid values, "scores": the average PDP scores,
+        :return: A dict containing the partial
+            dependence scores of all the studied features with the following format:
+            `{feature_name: {"values": the feature values, "scores": the average PDP scores,
             "stds": the standard deviation of the PDP scores}}`.
         """
         keys = sorted(self.explanations.keys())
@@ -94,7 +94,7 @@ class PDPExplanation(ExplanationBase):
                 exp = exps[feature]
                 row, col = divmod(i, num_cols)
                 plt.sca(axes[row, col])
-                values = [self._s(v, max_len=10) for v in exp["values"]]
+                values = [self._s(v, max_len=15) for v in exp["values"]]
                 # Plot partial dependence
                 if plot_std:
                     plt.errorbar(values, exp["scores"], exp["stds"])
@@ -107,6 +107,11 @@ class PDPExplanation(ExplanationBase):
                 plt.title(feature)
                 if class_names is not None:
                     plt.legend(class_names)
+                else:
+                    if self.mode == "classification":
+                        plt.legend([f"Class {i}" for i in range(exp["scores"].shape[1])])
+                    else:
+                        plt.legend(["Target"])
                 plt.grid()
             figures.append(fig)
 
@@ -135,13 +140,13 @@ class PDPExplanation(ExplanationBase):
         for i, feature in enumerate(features):
             e = exp[feature]
             row, col = divmod(i, num_cols)
-            values = [self._s(v, max_len=10) for v in e["values"]]
+            values = [self._s(v, max_len=15) for v in e["values"]]
             if self.mode == "classification":
                 for k in range(e["scores"].shape[1]):
-                    label = class_names[k] if class_names is not None else f"Label {k}"
+                    label = class_names[k] if class_names is not None else f"Class {k}"
                     fig.add_trace(go.Scatter(x=values, y=e["scores"][:, k], name=label), row=row + 1, col=col + 1)
             else:
-                fig.add_trace(go.Scatter(x=values, y=e["scores"], name="Value"), row=row + 1, col=col + 1)
+                fig.add_trace(go.Scatter(x=values, y=e["scores"], name="Target"), row=row + 1, col=col + 1)
         fig.update_layout(height=250 * num_rows)
         return fig
 

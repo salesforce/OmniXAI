@@ -8,6 +8,7 @@ from .auto import TabularExplainer
 from .agnostic.lime import LimeTabular
 from .agnostic.shap import ShapTabular
 from .agnostic.pdp import PartialDependenceTabular
+from .agnostic.ale import ALE
 from .agnostic.sensitivity import SensitivityAnalysisTabular
 from .agnostic.L2X.l2x import L2XTabular
 from .counterfactual.mace.mace import MACEExplainer
@@ -25,6 +26,7 @@ __all__ = [
     "ShapTabular",
     "IntegratedGradientTabular",
     "PartialDependenceTabular",
+    "ALE",
     "SensitivityAnalysisTabular",
     "L2XTabular",
     "MACEExplainer",
