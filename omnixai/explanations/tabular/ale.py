@@ -25,7 +25,7 @@ class ALEExplanation(ExplanationBase):
         self.mode = mode
         self.explanations = OrderedDict()
 
-    def add(self, feature_name, values, scores):
+    def add(self, feature_name, values, scores, sampled_scores=None):
         """
         Adds the raw values of the accumulated local effects
         corresponding to one specific feature.
@@ -33,8 +33,10 @@ class ALEExplanation(ExplanationBase):
         :param feature_name: The feature column name.
         :param values: The feature values.
         :param scores: The ALE scores corresponding to the values.
+        :param sampled_scores: The ALE scores computed with Monte-Carlo samples.
         """
-        self.explanations[feature_name] = {"values": values, "scores": scores}
+        self.explanations[feature_name] = \
+            {"values": values, "scores": scores, "sampled_scores": sampled_scores}
 
     def get_explanations(self):
         """

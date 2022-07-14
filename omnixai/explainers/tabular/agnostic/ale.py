@@ -43,9 +43,6 @@ class ALE(TabularExplainer):
         """
         super().__init__(training_data=training_data, predict_function=predict_function, mode=mode, **kwargs)
         self.grid_resolution = kwargs.get("grid_resolution", 10)
-        self.y = self.predict_fn(self.data)
-        if self.y.ndim == 1:
-            self.y = np.expand_dims(self.y, axis=-1)
 
     def _ale_continuous(self, data, column):
         x = data[:, column]
@@ -135,6 +132,10 @@ class ALE(TabularExplainer):
         return [features[i] for i in sorted_indices]
 
     def _ale_categorical(self, data, features, column):
+        predictions = self.predict_fn(data)
+        if predictions.ndim == 1:
+            predictions = np.expand_dims(predictions, axis=-1)
+
         x = data[:, column]
         feature_indices = {f: i for i, f in enumerate(features)}
         unique, counts = np.unique(x, return_counts=True)
@@ -149,7 +150,7 @@ class ALE(TabularExplainer):
         if ya.ndim == 1:
             ya = np.expand_dims(ya, axis=-1)
 
-        y = self.y[ya_indices]
+        y = predictions[ya_indices]
         cols = OrderedDict({column: z[:, column][ya_indices]})
         delta_cols = OrderedDict({f"delta_{i}": ya[:, i] - y[:, i] for i in range(ya.shape[1])})
         cols.update(delta_cols)
@@ -162,7 +163,7 @@ class ALE(TabularExplainer):
         if yb.ndim == 1:
             yb = np.expand_dims(yb, axis=-1)
 
-        y = self.y[yb_indices]
+        y = predictions[yb_indices]
         cols = OrderedDict({column: x[yb_indices]})
         delta_cols = OrderedDict({f"delta_{i}": y[:, i] - yb[:, i] for i in range(yb.shape[1])})
         cols.update(delta_cols)
@@ -179,11 +180,21 @@ class ALE(TabularExplainer):
             index=[self.categorical_names[column][int(i)] for i in df.index.values]
         )
 
-    def explain(self, features: List = None, **kwargs) -> ALEExplanation:
+    def explain(
+            self,
+            features: List = None,
+            monte_carlo: bool = True,
+            monte_carlo_steps: int = 10,
+            monte_carlo_frac: float = 0.1,
+            **kwargs
+    ) -> ALEExplanation:
         """
         Generates accumulated local effects (ALE) plots.
 
         :param features: The names of the features to be studied.
+        :param monte_carlo: Whether computing ALE plots for Monte Carlo samples.
+        :param monte_carlo_steps: The number of Monte Carlo sampling steps.
+        :param monte_carlo_frac: The number of randomly selected samples in each Monte Carlo step.
         :return: The generated ALE explanations.
         """
         if features is None:
@@ -202,16 +213,44 @@ class ALE(TabularExplainer):
 
         explanations = ALEExplanation(self.mode)
         column_index = {f: i for i, f in enumerate(self.feature_columns)}
+
+        sampled_scores = []
         for feature_name in feature_columns:
             i = column_index[feature_name]
             if i in self.categorical_features:
                 features = self._categorical_order(i)
                 scores = self._ale_categorical(data=self.data, features=features, column=i)
+                if monte_carlo:
+                    n = int(self.data.shape[0] * monte_carlo_frac)
+                    if n < 10:
+                        warnings.warn(f"The number of samples in each Monte Carlo step is "
+                                      f"too small, i.e., {n} < 10. The Monte Carlo sampling is ignored.")
+                    else:
+                        x = pd.DataFrame(self.data[:, i], columns=["value"]).reset_index()
+                        group_indices = x.groupby("value")["index"].apply(list).values
+                        for _ in range(monte_carlo_steps):
+                            indices = []
+                            for group in group_indices:
+                                n = max(1, int(monte_carlo_frac * len(group)))
+                                indices += np.random.choice(group, n, replace=False).tolist()
+                            s = self._ale_categorical(data=self.data[indices], features=features, column=i)
+                            sampled_scores.append(s.values)
             else:
                 scores = self._ale_continuous(data=self.data, column=i)
+                n = int(self.data.shape[0] * monte_carlo_frac)
+                if n < 10:
+                    warnings.warn(f"The number of samples in each Monte Carlo step is "
+                                  f"too small, i.e., {n} < 10. The Monte Carlo sampling is ignored.")
+                else:
+                    for _ in range(monte_carlo_steps):
+                        indices = np.random.choice(range(self.data.shape[0]), n, replace=False)
+                        s = self._ale_continuous(data=self.data[indices], column=i)
+                        sampled_scores.append(s.values)
+
             explanations.add(
                 feature_name=feature_name,
                 values=list(scores.index.values),
-                scores=scores.values
+                scores=scores.values,
+                sampled_scores=sampled_scores if sampled_scores else None
             )
         return explanations
