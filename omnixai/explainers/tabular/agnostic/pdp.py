@@ -53,34 +53,32 @@ class PartialDependenceTabular(TabularExplainer):
                 candidates = sorted(set(np.percentile(self.data[:, column_index], percentiles)))
             self.candidates[column_index] = candidates
 
-    def _compute_pdp(self, column_index, inputs=None):
+    def _compute_pdp(self, data, column_index):
         """
         Computes partial dependence plots.
 
+        :param data: The dataset used to compute PDP scores.
         :param column_index: A feature column index.
-        :param inputs: `None` for global explanations or the input instances for local explanations.
         :return: The candidate features, PDP means and PDP stds.
         :rtype: tuple(List, np.ndarray, np.ndarray)
         """
-        if inputs is None:
-            # For global explanations
-            x = self.data.copy()
-        else:
-            # For local explanations
-            x = self.transformer.transform(inputs.remove_target_column()).copy()
-
+        x = data.copy()
         baselines = []
         candidates = self.candidates[column_index]
         for i, y in enumerate(candidates):
             x[:, column_index] = y
             baselines.append(self.predict_fn(x))
         baselines = np.swapaxes(np.array(baselines), 0, 1)
-
         mean = np.mean(baselines, axis=0)
-        std = np.std(baselines, axis=0)
-        return candidates, mean, std
+        return mean
 
-    def _global_explain(self, features) -> PDPExplanation:
+    def _global_explain(
+            self,
+            features,
+            monte_carlo,
+            monte_carlo_steps,
+            monte_carlo_frac
+    ) -> PDPExplanation:
         """
         Generates global explanations.
 
@@ -106,17 +104,49 @@ class PartialDependenceTabular(TabularExplainer):
         categorical_features = set(self.categorical_features)
         for column_name in feature_columns:
             i = column_index[column_name]
-            values, mean, std = self._compute_pdp(i)
+            values = self.candidates[i]
             if i in categorical_features:
                 values = [self.categorical_names[i][int(v)] for v in values]
-            explanations.add(feature_name=column_name, values=values, scores=mean)
+
+            scores = None
+            sampled_scores = []
+            if monte_carlo:
+                n = int(self.data.shape[0] * monte_carlo_frac)
+                if n < 10:
+                    warnings.warn(f"The number of samples in each Monte Carlo step is "
+                                  f"too small, i.e., {n} < 10. The Monte Carlo sampling is ignored.")
+                else:
+                    for _ in range(monte_carlo_steps):
+                        indices = np.random.choice(range(self.data.shape[0]), n, replace=False)
+                        sampled_scores.append(self._compute_pdp(self.data[indices], i))
+                    scores = sum(sampled_scores) / len(sampled_scores)
+            if scores is None:
+                scores = self._compute_pdp(self.data, i)
+
+            explanations.add(
+                feature_name=column_name,
+                values=values,
+                scores=scores,
+                sampled_scores=sampled_scores if sampled_scores else None
+            )
         return explanations
 
-    def explain(self, features: List = None, **kwargs) -> PDPExplanation:
+    def explain(
+            self,
+            features: List = None,
+            monte_carlo: bool = False,
+            monte_carlo_steps: int = 10,
+            monte_carlo_frac: float = 0.1,
+            **kwargs
+    ) -> PDPExplanation:
         """
         Generates global PDP explanations.
 
         :param features: The names of the features to be studied.
+        :param monte_carlo: Whether computing PDP for Monte Carlo samples.
+        :param monte_carlo_steps: The number of Monte Carlo sampling steps.
+        :param monte_carlo_frac: The number of randomly selected samples in each Monte Carlo step.
         :return: The generated PDP explanations.
         """
-        return self._global_explain(features)
+        return self._global_explain(
+            features, monte_carlo, monte_carlo_steps, monte_carlo_frac)

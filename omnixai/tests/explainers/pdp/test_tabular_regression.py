@@ -20,7 +20,7 @@ class TestPDPTabular(unittest.TestCase):
         explainer = PartialDependenceTabular(
             training_data=task.train_data, predict_function=predict_function, mode="regression"
         )
-        explanations = explainer.explain()
+        explanations = explainer.explain(monte_carlo=False)
         pprint.pprint(explanations.get_explanations())
         self.assertAlmostEqual(np.max(explanations.get_explanations()["LSTAT"]["scores"]), 32.1, delta=0.1)
 
