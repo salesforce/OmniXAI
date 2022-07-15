@@ -129,7 +129,7 @@ class ALEExplanation(ExplanationBase):
                                                  line=dict(color="#808080"),
                                                  legendgroup="Target"),
                                       row=row + 1, col=col + 1)
-        fig.update_layout(height=250 * num_rows)
+        fig.update_layout(height=260 * num_rows)
         return fig
 
     def plotly_plot(self, class_names=None, **kwargs):
