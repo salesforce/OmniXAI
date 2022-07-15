@@ -231,7 +231,8 @@ class ALE(TabularExplainer):
                                 n = max(1, int(monte_carlo_frac * len(group)))
                                 indices += np.random.choice(group, n, replace=False).tolist()
                             s = self._ale_categorical(data=self.data[indices], features=features, column=i)
-                            sampled_scores.append(s.sort_index().values)
+                            if len(s) == len(scores):
+                                sampled_scores.append(s.sort_index().values)
             else:
                 percentiles = np.linspace(0, 100, num=self.grid_resolution)
                 bins = sorted(set(np.percentile(self.data[:, i], percentiles)))
@@ -245,7 +246,8 @@ class ALE(TabularExplainer):
                         for _ in range(monte_carlo_steps):
                             indices = np.random.choice(range(self.data.shape[0]), n, replace=False)
                             s = self._ale_continuous(data=self.data[indices], column=i, bins=bins)
-                            sampled_scores.append(s.sort_index().values)
+                            if len(s) == len(scores):
+                                sampled_scores.append(s.sort_index().values)
 
             scores = scores.sort_index()
             explanations.add(

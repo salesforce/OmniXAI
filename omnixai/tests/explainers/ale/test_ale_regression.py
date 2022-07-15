@@ -20,7 +20,7 @@ class TestALE(unittest.TestCase):
         explainer = ALE(
             training_data=task.train_data, predict_function=predict_function, mode="regression"
         )
-        explanations = explainer.explain(features=["RM"])
+        explanations = explainer.explain()
         pprint.pprint(explanations.get_explanations())
 
         '''
