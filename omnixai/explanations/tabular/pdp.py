@@ -7,10 +7,9 @@
 """
 Partial dependence plots.
 """
-import warnings
 import numpy as np
 from ..base import ExplanationBase, DashFigure
-from collections import defaultdict
+from collections import OrderedDict
 
 
 class PDPExplanation(ExplanationBase):
@@ -19,7 +18,7 @@ class PDPExplanation(ExplanationBase):
     The key in the dict is "global" indicating PDP is a global explanation method.
     The value in the dict is another dict with the following format:
     `{feature_name: {"values": the PDP grid values, "scores": the average PDP scores,
-    "stds": the standard deviation of the PDP scores}}`.
+    "sampled_scores": the PDP scores computed with Monte-Carlo samples}}`.
     """
 
     def __init__(self, mode):
@@ -28,23 +27,23 @@ class PDPExplanation(ExplanationBase):
         """
         super().__init__()
         self.mode = mode
-        self.explanations = defaultdict(dict)
+        self.explanations = OrderedDict()
 
     def __repr__(self):
         return repr(self.explanations)
 
-    def add(self, index, feature_name, values, pdp_mean, pdp_std):
+    def add(self, feature_name, values, scores, sampled_scores=None):
         """
         Adds the raw values of the partial dependence function
         corresponding to one specific feature.
 
-        :param index: `index = global` for global explanations.
         :param feature_name: The feature column name.
         :param values: The features values.
-        :param pdp_mean: The average PDP scores corresponding to the values.
-        :param pdp_std: The standard deviation of the PDP scores corresponding to the values.
+        :param scores: The average PDP scores corresponding to the values.
+        :param sampled_scores: The PDP scores computed with Monte-Carlo samples.
         """
-        self.explanations[index][feature_name] = {"values": values, "scores": pdp_mean, "stds": pdp_std}
+        self.explanations[feature_name] = \
+            {"values": values, "scores": scores, "sampled_scores": sampled_scores}
 
     def get_explanations(self):
         """
@@ -53,107 +52,93 @@ class PDPExplanation(ExplanationBase):
         :return: A dict containing the partial
             dependence scores of all the studied features with the following format:
             `{feature_name: {"values": the feature values, "scores": the average PDP scores,
-            "stds": the standard deviation of the PDP scores}}`.
+            "sampled_scores": the PDP scores computed with Monte-Carlo samples}}`.
         """
-        keys = sorted(self.explanations.keys())
-        explanations = [self.explanations[k] for k in keys]
-        return explanations[0] if len(explanations) == 1 else explanations
+        return self.explanations
 
-    def plot(self, class_names=None, plot_std=False, **kwargs):
+    def plot(self, class_names=None, **kwargs):
         """
         Returns a matplotlib figure showing the PDP explanations.
 
         :param class_names: A list of the class names indexed by the labels, e.g.,
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
-        :param plot_std: Whether to plot the standard deviation of the PDP scores.
         :return: A matplotlib figure plotting PDP explanations.
         """
         import matplotlib.pyplot as plt
 
         explanations = self.get_explanations()
-        if isinstance(explanations, dict):
-            explanations = [explanations]
-        if len(explanations) == 0:
-            return None
-        if len(explanations) > 5:
-            warnings.warn(
-                f"There are too many instances ({len(explanations)} > 5), "
-                f"so only the first 5 instances are plotted."
-            )
-            explanations = explanations[:5]
+        features = list(explanations.keys())
 
         figures = []
-        for exps in explanations:
-            features = list(exps.keys())
-            num_rows = int(np.round(np.sqrt(len(features))))
-            num_cols = int(np.ceil(len(features) / num_rows))
-            fig, axes = plt.subplots(num_rows, num_cols, squeeze=False)
+        for i, feature in enumerate(features):
+            fig, axes = plt.subplots(1, 1, squeeze=False)
+            exp = explanations[feature]
+            plt.sca(axes[0, 0])
+            values = [self._s(v, max_len=15) for v in exp["values"]]
+            plt.plot(values, exp["scores"])
+            # Rotate xticks if it is a categorical feature
+            if isinstance(values[0], str):
+                plt.xticks(rotation=45)
+            plt.ylabel("Partial dependence plots")
+            plt.title(feature)
+            if class_names is not None:
+                plt.legend(class_names)
+            else:
+                if self.mode == "classification":
+                    plt.legend([f"Class {i}" for i in range(exp["scores"].shape[1])])
+                else:
+                    plt.legend(["Target"])
+            plt.grid()
 
-            for i, feature in enumerate(features):
-                exp = exps[feature]
-                row, col = divmod(i, num_cols)
-                plt.sca(axes[row, col])
-                values = [self._s(v, max_len=15) for v in exp["values"]]
-                # Plot partial dependence
-                if plot_std:
-                    plt.errorbar(values, exp["scores"], exp["stds"])
-                else:
-                    plt.plot(values, exp["scores"])
-                # Rotate xticks if it is a categorical feature
-                if isinstance(values[0], str):
-                    plt.xticks(rotation=45)
-                plt.ylabel("Partial dependence")
-                plt.title(feature)
-                if class_names is not None:
-                    plt.legend(class_names)
-                else:
-                    if self.mode == "classification":
-                        plt.legend([f"Class {i}" for i in range(exp["scores"].shape[1])])
-                    else:
-                        plt.legend(["Target"])
-                plt.grid()
+            if exp["sampled_scores"] is not None:
+                for scores in exp["sampled_scores"]:
+                    plt.plot(values, scores, color="#808080", alpha=0.1)
             figures.append(fig)
-
         return figures
 
-    def _plotly_figure(self, index, class_names=None, **kwargs):
+    def _plotly_figure(self, class_names=None, **kwargs):
         from plotly.subplots import make_subplots
         import plotly.graph_objects as go
 
         explanations = self.get_explanations()
-        if isinstance(explanations, dict):
-            explanations = [explanations]
-        if len(explanations) == 0:
-            return None
-        if "global" not in self.explanations:
-            assert index is not None, \
-                "`index` cannot be None for `plotly_plot`. Please specify the instance index."
-            exp = explanations[index]
-        else:
-            exp = explanations[0]
-
-        features = list(exp.keys())
+        features = list(explanations.keys())
         num_cols = 2
         num_rows = int(np.ceil(len(features) / num_cols))
         fig = make_subplots(rows=num_rows, cols=num_cols, subplot_titles=features)
         for i, feature in enumerate(features):
-            e = exp[feature]
+            e = explanations[feature]
             row, col = divmod(i, num_cols)
             values = [self._s(v, max_len=15) for v in e["values"]]
             if self.mode == "classification":
                 for k in range(e["scores"].shape[1]):
                     label = class_names[k] if class_names is not None else f"Class {k}"
-                    fig.add_trace(go.Scatter(x=values, y=e["scores"][:, k], name=label,
-                                             legendgroup=self._s(str(feature), 10),
-                                             legendgrouptitle_text=self._s(str(feature), 10)),
+                    fig.add_trace(go.Scatter(x=values, y=e["scores"][:, k], name=self._s(str(feature), 10),
+                                             legendgroup=label,
+                                             legendgrouptitle_text=label),
                                   row=row + 1, col=col + 1)
             else:
-                fig.add_trace(go.Scatter(x=values, y=e["scores"].flatten(), name="Target",
-                                         legendgroup=self._s(str(feature), 10),
-                                         legendgrouptitle_text=self._s(str(feature), 10)),
+                fig.add_trace(go.Scatter(x=values, y=e["scores"].flatten(), name=self._s(str(feature), 10),
+                                         legendgroup="Target"),
                               row=row + 1, col=col + 1)
-        fig.update_layout(height=250 * num_rows)
+
+            if e["sampled_scores"] is not None:
+                for scores in e["sampled_scores"]:
+                    if self.mode == "classification":
+                        for k in range(scores.shape[1]):
+                            label = class_names[k] if class_names is not None else f"Class {k}"
+                            fig.add_trace(go.Scatter(x=values, y=scores[:, k],
+                                                     opacity=0.1, mode="lines", showlegend=False,
+                                                     line=dict(color="#808080"),
+                                                     legendgroup=label),
+                                          row=row + 1, col=col + 1)
+                    else:
+                        fig.add_trace(go.Scatter(x=values, y=scores.flatten(),
+                                                 opacity=0.1, mode="lines", showlegend=False,
+                                                 line=dict(color="#808080"),
+                                                 legendgroup="Target"),
+                                      row=row + 1, col=col + 1)
+        fig.update_layout(height=260 * num_rows)
         return fig
 
     def plotly_plot(self, class_names=None, **kwargs):
@@ -165,9 +150,7 @@ class PDPExplanation(ExplanationBase):
             label 1 corresponds to 'cat'.
         :return: A plotly dash figure plotting PDP explanations.
         """
-        if "index" in kwargs:
-            kwargs.pop("index")
-        return DashFigure(self._plotly_figure(index=None, class_names=class_names, **kwargs))
+        return DashFigure(self._plotly_figure(class_names=class_names, **kwargs))
 
     def ipython_plot(self, class_names=None, **kwargs):
         """
@@ -179,6 +162,4 @@ class PDPExplanation(ExplanationBase):
         """
         import plotly
 
-        if "index" in kwargs:
-            kwargs.pop("index")
-        plotly.offline.iplot(self._plotly_figure(index=None, class_names=class_names, **kwargs))
+        plotly.offline.iplot(self._plotly_figure(class_names=class_names, **kwargs))

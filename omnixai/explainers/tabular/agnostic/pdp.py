@@ -109,25 +109,7 @@ class PartialDependenceTabular(TabularExplainer):
             values, mean, std = self._compute_pdp(i)
             if i in categorical_features:
                 values = [self.categorical_names[i][int(v)] for v in values]
-            explanations.add(index="global", feature_name=column_name, values=values, pdp_mean=mean, pdp_std=std)
-        return explanations
-
-    def _local_explain(self, X: Tabular) -> PDPExplanation:
-        """
-        Generates local explanations.
-
-        :param X: The input instances.
-        :return: The local explanations according to the ML model and the input instances.
-        :rtype: PDPExplanation
-        """
-        explanations = PDPExplanation(self.mode)
-        categorical_features = set(self.categorical_features)
-        for k in range(X.shape[0]):
-            for i, column_name in enumerate(self.feature_columns):
-                values, mean, std = self._compute_pdp(i, inputs=X.iloc(k))
-                if i in categorical_features:
-                    values = [self.categorical_names[i][int(v)] for v in values]
-                explanations.add(index=k, feature_name=column_name, values=values, pdp_mean=mean, pdp_std=std)
+            explanations.add(feature_name=column_name, values=values, scores=mean)
         return explanations
 
     def explain(self, features: List = None, **kwargs) -> PDPExplanation:
