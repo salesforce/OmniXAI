@@ -205,14 +205,14 @@ is not a numpy array, ``postprocess`` needs to be set to convert it into a numpy
 from omnixai.explainers.tabular import TabularExplainer
 # Initialize a TabularExplainer
 explainers = TabularExplainer(
-  explainers=["lime", "shap", "mace", "pdp"],       # The explainers to apply
-  mode="classification",                            # The task type
-  data=train_data,                                  # The data for initializing the explainers
-  model=model,                                      # The ML model to explain
-  preprocess=lambda z: transformer.transform(z),    # Converts raw features into the model inputs
+  explainers=["lime", "shap", "mace", "pdp", "ale"], # The explainers to apply
+  mode="classification",                             # The task type
+  data=train_data,                                   # The data for initializing the explainers
+  model=model,                                       # The ML model to explain
+  preprocess=lambda z: transformer.transform(z),     # Converts raw features into the model inputs
   params={
      "mace": {"ignored_features": ["Sex", "Race", "Relationship", "Capital Loss"]}
-  }                                                 # Additional parameters
+  }                                                  # Additional parameters
 )
 ```
 
