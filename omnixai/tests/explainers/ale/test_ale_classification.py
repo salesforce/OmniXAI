@@ -23,14 +23,6 @@ class TestALE(unittest.TestCase):
         explanations = explainer.explain()
         pprint.pprint(explanations.get_explanations())
 
-        '''
-        import matplotlib.pyplot as plt
-        explanations.plot()
-        plt.show()
-        '''
-        fig = explanations.plotly_plot()
-        fig.show()
-
 
 if __name__ == "__main__":
     unittest.main()
