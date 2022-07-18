@@ -122,6 +122,13 @@ For example code and an introduction to the library, see the Jupyter notebooks i
 [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html), and the guided walkthrough
 [here](https://opensource.salesforce.com/OmniXAI/latest/index.html). A dashboard demo can be found [here](https://sfr-omnixai-demo.herokuapp.com/).
 
+Some examples:
+1. [Tabular classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/tabular_classification.ipynb)
+2. [Tabular regression](https://github.com/salesforce/OmniXAI/blob/main/tutorials/tabular_regression.ipynb)
+3. [Image classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/vision.ipynb)
+4. [Text classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/nlp_imdb.ipynb)
+5. [Time-series anomaly detection](https://github.com/salesforce/OmniXAI/blob/main/tutorials/timeseries.ipynb)
+
 To get started, we recommend the linked tutorials in [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
 `NLPExplainer` and `TimeseriesExplainer` for tabular, vision, NLP and time-series tasks, respectively, and using
