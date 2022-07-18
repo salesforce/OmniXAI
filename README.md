@@ -49,22 +49,23 @@ The following table shows the supported explanation methods and features in our 
 We will continue improving this library to make it more comprehensive in the future, e.g., supporting more
 explanation methods for vision, NLP and time-series tasks.
 
-| Method                  | Model Type    | Explanation Type | EDA | Tabular | Image | Text | Timeseries | 
-:---:                     | :---:         | :---:            |:---:| :---:   | :---: | :---: | :---:
-| Feature analysis        | NA            | Global           |  ✅  |         |       |      |      |
-| Feature selection       | NA            | Global           |  ✅  |         |       |      |      |
-| Prediction metrics      | Black box     | Global           |     | ✅      | ✅     | ✅   |  ✅  |
-| Partial dependence      | Black box     | Global           |     | ✅      |       |      |      |
-| Sensitivity analysis    | Black box     | Global           |     | ✅      |       |      |      |
-| LIME                    | Black box     | Local            |     | ✅      | ✅     | ✅   |      |
-| SHAP                    | Black box*    | Local            |     | ✅      | ✅     | ✅   |  ✅  |
-| Integrated gradient     | Torch or TF   | Local            |     | ✅      | ✅     | ✅   |      |
-| Counterfactual          | Black box*    | Local            |     | ✅      | ✅     | ✅   |  ✅  |
+|         Method          | Model Type    | Explanation Type | EDA | Tabular | Image | Text | Timeseries | 
+:-----------------------:| :---:         | :---:            |:---:| :---:   | :---: | :---: | :---:
+|    Feature analysis     | NA            | Global           |  ✅  |         |       |      |      |
+|    Feature selection    | NA            | Global           |  ✅  |         |       |      |      |
+|   Prediction metrics    | Black box     | Global           |     | ✅      | ✅     | ✅   |  ✅  |
+|           PDP           | Black box     | Global           |     | ✅      |       |      |      |
+|           ALE           | Black box     | Global           |     | ✅      |       |      |      |
+|  Sensitivity analysis   | Black box     | Global           |     | ✅      |       |      |      |
+|          LIME           | Black box     | Local            |     | ✅      | ✅     | ✅   |      |
+|          SHAP           | Black box*    | Local            |     | ✅      | ✅     | ✅   |  ✅  |
+|   Integrated gradient   | Torch or TF   | Local            |     | ✅      | ✅     | ✅   |      |
+|     Counterfactual      | Black box*    | Local            |     | ✅      | ✅     | ✅   |  ✅  |
 | Contrastive explanation | Torch or TF   | Local            |     |         | ✅    |      |      |
-| Grad-CAM, Grad-CAM++    | Torch or TF   | Local            |     |         | ✅    |      |      |
-| Learning to explain     | Black box     | Local            |     | ✅      | ✅     | ✅   |      |
-| Linear models           | Linear models | Global and Local |     | ✅      |       |      |      |
-| Tree models             | Tree models   | Global and Local |     | ✅      |       |      |      |
+|  Grad-CAM, Grad-CAM++   | Torch or TF   | Local            |     |         | ✅    |      |      |
+|   Learning to explain   | Black box     | Local            |     | ✅      | ✅     | ✅   |      |
+|      Linear models      | Linear models | Global and Local |     | ✅      |       |      |      |
+|       Tree models       | Tree models   | Global and Local |     | ✅      |       |      |      |
 
 *SHAP* accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
 for text data. *Counterfactual* accepts black box models for tabular, text and time-series data, and PyTorch/Tensorflow models for
@@ -73,31 +74,32 @@ image data.
 The following table shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
 in literature:
 
-| Data Type | Method               | OmniXAI | InterpretML | AIX360 | Eli5  | Captum | Alibi | explainX
-:---:       | :---:                | :---:  | :---:       | :---:  | :---: | :---:  | :---: | :---:
-| Tabular   | LIME                 | ✅ | ✅ | ✅ | | ✅ | | |
-|           | SHAP                 | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
-|           | PDP                  | ✅ | ✅ | | | | | |
-|           | Sensitivity          | ✅ | ✅ | | | | | |
+| Data Type |        Method        | OmniXAI | InterpretML | AIX360 | Eli5  | Captum | Alibi | explainX
+:---:       |:--------------------:| :---:  | :---:       | :---:  | :---: | :---:  | :---: | :---:
+| Tabular   |         LIME         | ✅ | ✅ | ✅ | | ✅ | | |
+|           |         SHAP         | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
+|           |         PDP          | ✅ | ✅ | | | | | |
+|           |         ALE          | ✅ | | | | | ✅ | |
+|           |     Sensitivity      | ✅ | ✅ | | | | | |
 |           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           | Counterfactual       | ✅ | | | | | ✅ | |
-|           | Linear models        | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
-|           | Tree models          | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
-|           | L2X                  | ✅ | | | | | | |
-| Image     | LIME                 | ✅ | | | | ✅ | | |
-|           | SHAP                 | ✅ | | | | ✅ | | |
+|           |    Counterfactual    | ✅ | | | | | ✅ | |
+|           |    Linear models     | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
+|           |     Tree models      | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
+|           |         L2X          | ✅ | | | | | | |
+| Image     |         LIME         | ✅ | | | | ✅ | | |
+|           |         SHAP         | ✅ | | | | ✅ | | |
 |           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
 |           | Grad-CAM, Grad-CAM++ | ✅ | | | ✅ | ✅ | | |
-|           | CEM                  | ✅ | | ✅ | | | ✅ | |
-|           | Counterfactual       | ✅ | | | | | ✅ | |
-|           | L2X                  | ✅ | | | | | | |
-| Text      | LIME                 | ✅ | | | ✅ | ✅ | | |
-|           | SHAP                 | ✅ | | | | ✅ | | |
+|           |         CEM          | ✅ | | ✅ | | | ✅ | |
+|           |    Counterfactual    | ✅ | | | | | ✅ | |
+|           |         L2X          | ✅ | | | | | | |
+| Text      |         LIME         | ✅ | | | ✅ | ✅ | | |
+|           |         SHAP         | ✅ | | | | ✅ | | |
 |           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           | L2X                  | ✅ | | | | | | |
-|           | Counterfactual       | ✅ | | | | | | |
-| Timeseries  | SHAP       | ✅ | | | | | | |
-|           | Counterfactual       | ✅ | | | | | | |
+|           |         L2X          | ✅ | | | | | | |
+|           |    Counterfactual    | ✅ | | | | | | |
+| Timeseries  |         SHAP         | ✅ | | | | | | |
+|           |    Counterfactual    | ✅ | | | | | | |
 
 ## Installation
 
@@ -119,6 +121,13 @@ cloning the OmniXAI repo, navigating to the root directory, and calling
 For example code and an introduction to the library, see the Jupyter notebooks in
 [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html), and the guided walkthrough
 [here](https://opensource.salesforce.com/OmniXAI/latest/index.html). A dashboard demo can be found [here](https://sfr-omnixai-demo.herokuapp.com/).
+
+Some examples:
+1. [Tabular classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/tabular_classification.ipynb)
+2. [Tabular regression](https://github.com/salesforce/OmniXAI/blob/main/tutorials/tabular_regression.ipynb)
+3. [Image classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/vision.ipynb)
+4. [Text classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/nlp_imdb.ipynb)
+5. [Time-series anomaly detection](https://github.com/salesforce/OmniXAI/blob/main/tutorials/timeseries.ipynb)
 
 To get started, we recommend the linked tutorials in [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
@@ -203,14 +212,14 @@ is not a numpy array, ``postprocess`` needs to be set to convert it into a numpy
 from omnixai.explainers.tabular import TabularExplainer
 # Initialize a TabularExplainer
 explainers = TabularExplainer(
-  explainers=["lime", "shap", "mace", "pdp"],       # The explainers to apply
-  mode="classification",                            # The task type
-  data=train_data,                                  # The data for initializing the explainers
-  model=model,                                      # The ML model to explain
-  preprocess=lambda z: transformer.transform(z),    # Converts raw features into the model inputs
+  explainers=["lime", "shap", "mace", "pdp", "ale"], # The explainers to apply
+  mode="classification",                             # The task type
+  data=train_data,                                   # The data for initializing the explainers
+  model=model,                                       # The ML model to explain
+  preprocess=lambda z: transformer.transform(z),     # Converts raw features into the model inputs
   params={
      "mace": {"ignored_features": ["Sex", "Race", "Relationship", "Capital Loss"]}
-  }                                                 # Additional parameters
+  }                                                  # Additional parameters
 )
 ```
 

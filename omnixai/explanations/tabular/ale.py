@@ -5,20 +5,16 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-Partial dependence plots.
+Accumulated local effects plots.
 """
 import numpy as np
 from ..base import ExplanationBase, DashFigure
 from collections import OrderedDict
 
 
-class PDPExplanation(ExplanationBase):
+class ALEExplanation(ExplanationBase):
     """
-    The class for PDP explanation results. The PDP explanation results are stored in a dict.
-    The key in the dict is "global" indicating PDP is a global explanation method.
-    The value in the dict is another dict with the following format:
-    `{feature_name: {"values": the PDP grid values, "scores": the average PDP scores,
-    "sampled_scores": the PDP scores computed with Monte-Carlo samples}}`.
+    The class for ALE explanation results. The ALE explanation results are stored in a dict.
     """
 
     def __init__(self, mode):
@@ -29,41 +25,36 @@ class PDPExplanation(ExplanationBase):
         self.mode = mode
         self.explanations = OrderedDict()
 
-    def __repr__(self):
-        return repr(self.explanations)
-
     def add(self, feature_name, values, scores, sampled_scores=None):
         """
-        Adds the raw values of the partial dependence function
+        Adds the raw values of the accumulated local effects
         corresponding to one specific feature.
 
         :param feature_name: The feature column name.
-        :param values: The features values.
-        :param scores: The average PDP scores corresponding to the values.
-        :param sampled_scores: The PDP scores computed with Monte-Carlo samples.
+        :param values: The feature values.
+        :param scores: The ALE scores corresponding to the values.
+        :param sampled_scores: The ALE scores computed with Monte-Carlo samples.
         """
         self.explanations[feature_name] = \
             {"values": values, "scores": scores, "sampled_scores": sampled_scores}
 
     def get_explanations(self):
         """
-        Gets the partial dependence scores.
+        Gets the accumulated local effects.
 
-        :return: A dict containing the partial
-            dependence scores of all the studied features with the following format:
-            `{feature_name: {"values": the feature values, "scores": the average PDP scores,
-            "sampled_scores": the PDP scores computed with Monte-Carlo samples}}`.
+        :return: A dict containing the accumulated local effects of all the studied features
+            with the following format: `{feature_name: {"values": the feature values, "scores": the ALE scores}}`.
         """
         return self.explanations
 
     def plot(self, class_names=None, **kwargs):
         """
-        Returns a matplotlib figure showing the PDP explanations.
+        Returns a matplotlib figure showing the ALE explanations.
 
         :param class_names: A list of the class names indexed by the labels, e.g.,
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
-        :return: A matplotlib figure plotting PDP explanations.
+        :return: A matplotlib figure plotting ALE explanations.
         """
         import matplotlib.pyplot as plt
 
@@ -80,7 +71,7 @@ class PDPExplanation(ExplanationBase):
             # Rotate xticks if it is a categorical feature
             if isinstance(values[0], str):
                 plt.xticks(rotation=45)
-            plt.ylabel("Partial dependence plots")
+            plt.ylabel("Accumulated local effects")
             plt.title(feature)
             if class_names is not None:
                 plt.legend(class_names)
@@ -143,18 +134,18 @@ class PDPExplanation(ExplanationBase):
 
     def plotly_plot(self, class_names=None, **kwargs):
         """
-        Returns a plotly dash figure showing the PDP explanations.
+        Returns a plotly dash figure showing the ALE explanations.
 
         :param class_names: A list of the class names indexed by the labels, e.g.,
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
-        :return: A plotly dash figure plotting PDP explanations.
+        :return: A plotly dash figure plotting ALE explanations.
         """
         return DashFigure(self._plotly_figure(class_names=class_names, **kwargs))
 
     def ipython_plot(self, class_names=None, **kwargs):
         """
-        Shows the partial dependence plots in IPython.
+        Shows the accumulated local effects plots in IPython.
 
         :param class_names: A list of the class names indexed by the labels, e.g.,
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and

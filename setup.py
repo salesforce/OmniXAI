@@ -15,7 +15,7 @@ extras_require["all"] = sum(extras_require.values(), [])
 
 setup(
     name="omnixai",
-    version="1.1.0",
+    version="1.1.1",
     author="Wenzhuo Yang, Hung Le, Silvio Savarese, Steven C.H. Hoi",
     description="OmniXAI: An Explainable AI Toolbox",
     long_description=open("README.md", "r", encoding="utf-8").read(),
@@ -43,9 +43,10 @@ setup(
         "wheel",
         "packaging",
         "ipython",
-        "tabulate"
+        "tabulate",
+        "statsmodels>=0.10.1"
     ],
     extras_require=extras_require,
-    python_requires=">=3.7,<4",
+    python_requires=">=3.7.5,<4",
     zip_safe=False,
 )
