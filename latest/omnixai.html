@@ -301,14 +301,14 @@ is not a numpy array, <code class="docutils literal notranslate"><span class="pr
 
 <span class="c1"># Initialize a TabularExplainer</span>
 <span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
-   <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">],</span>       <span class="c1"># The explainers to apply</span>
-   <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>                            <span class="c1"># The task type</span>
-   <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>                                  <span class="c1"># The data for initializing the explainers</span>
-   <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>                                      <span class="c1"># The ML model to explain</span>
-   <span class="n">preprocess</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">),</span>    <span class="c1"># Converts raw features into the model inputs</span>
+   <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">,</span> <span class="s2">&quot;ale&quot;</span><span class="p">],</span> <span class="c1"># The explainers to apply</span>
+   <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>                             <span class="c1"># The task type</span>
+   <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>                                   <span class="c1"># The data for initializing the explainers</span>
+   <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>                                       <span class="c1"># The ML model to explain</span>
+   <span class="n">preprocess</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">),</span>     <span class="c1"># Converts raw features into the model inputs</span>
    <span class="n">params</span><span class="o">=</span><span class="p">{</span>
       <span class="s2">&quot;mace&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;ignored_features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Loss&quot;</span><span class="p">]}</span>
-   <span class="p">}</span>                                                 <span class="c1"># Additional parameters</span>
+   <span class="p">}</span>                                                  <span class="c1"># Additional parameters</span>
 <span class="p">)</span>
 </pre></div>
 </div>

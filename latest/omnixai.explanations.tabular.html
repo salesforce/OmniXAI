@@ -504,7 +504,7 @@ label 1 corresponds to ‘cat’.</p></li>
 The key in the dict is “global” indicating PDP is a global explanation method.
 The value in the dict is another dict with the following format:
 <cite>{feature_name: {“values”: the PDP grid values, “scores”: the average PDP scores,
-“stds”: the standard deviation of the PDP scores}}</cite>.</p>
+“sampled_scores”: the PDP scores computed with Monte-Carlo samples}}</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>mode</strong> – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p>
@@ -512,17 +512,16 @@ The value in the dict is another dict with the following format:
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.pdp.PDPExplanation.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdp_mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdp_std</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.add" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampled_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the raw values of the partial dependence function
 corresponding to one specific feature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – <cite>index = global</cite> for global explanations.</p></li>
 <li><p><strong>feature_name</strong> – The feature column name.</p></li>
-<li><p><strong>values</strong> – The grid values when generating PDP.</p></li>
-<li><p><strong>pdp_mean</strong> – The average PDP scores corresponding to the values.</p></li>
-<li><p><strong>pdp_std</strong> – The standard deviation of the PDP scores corresponding to the values.</p></li>
+<li><p><strong>values</strong> – The features values.</p></li>
+<li><p><strong>scores</strong> – The average PDP scores corresponding to the values.</p></li>
+<li><p><strong>sampled_scores</strong> – The PDP scores computed with Monte-Carlo samples.</p></li>
 </ul>
 </dd>
 </dl>
@@ -531,29 +530,26 @@ corresponding to one specific feature.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.pdp.PDPExplanation.get_explanations">
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.get_explanations" title="Permalink to this definition"></a></dt>
-<dd><p>Gets the raw values of the partial dependence function.</p>
+<dd><p>Gets the partial dependence scores.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A dict containing the raw values of the partial
-dependence function for all the features with the following format:
-<cite>{feature_name: {“values”: the PDP grid values, “scores”: the average PDP scores,
-“stds”: the standard deviation of the PDP scores}}</cite>.</p>
+<dd class="field-odd"><p>A dict containing the partial
+dependence scores of all the studied features with the following format:
+<cite>{feature_name: {“values”: the feature values, “scores”: the average PDP scores,
+“sampled_scores”: the PDP scores computed with Monte-Carlo samples}}</cite>.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.pdp.PDPExplanation.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a matplotlib figure showing the PDP explanations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
+<dd class="field-odd"><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
 <code class="docutils literal notranslate"><span class="pre">class_name</span> <span class="pre">=</span> <span class="pre">['dog',</span> <span class="pre">'cat']</span></code> means that label 0 corresponds to ‘dog’ and
-label 1 corresponds to ‘cat’.</p></li>
-<li><p><strong>plot_std</strong> – Whether to plot the standard deviation of the PDP scores.</p></li>
-</ul>
+label 1 corresponds to ‘cat’.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A matplotlib figure plotting PDP explanations.</p>

@@ -181,7 +181,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 </tr>
-<tr class="row-odd"><td><p>Partial dependence</p></td>
+<tr class="row-odd"><td><p>PDP</p></td>
 <td><p>Black box</p></td>
 <td><p>Global</p></td>
 <td></td>
@@ -190,7 +190,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>Sensitivity analysis</p></td>
+<tr class="row-even"><td><p>ALE</p></td>
 <td><p>Black box</p></td>
 <td><p>Global</p></td>
 <td></td>
@@ -199,7 +199,16 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>LIME</p></td>
+<tr class="row-odd"><td><p>Sensitivity analysis</p></td>
+<td><p>Black box</p></td>
+<td><p>Global</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LIME</p></td>
 <td><p>Black box</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -208,7 +217,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>SHAP</p></td>
+<tr class="row-odd"><td><p>SHAP</p></td>
 <td><p>Black box*</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -217,7 +226,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 </tr>
-<tr class="row-odd"><td><p>Integrated gradient</p></td>
+<tr class="row-even"><td><p>Integrated gradient</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -226,7 +235,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>Counterfactual</p></td>
+<tr class="row-odd"><td><p>Counterfactual</p></td>
 <td><p>Black box*</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -235,7 +244,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 </tr>
-<tr class="row-odd"><td><p>Contrastive explanation</p></td>
+<tr class="row-even"><td><p>Contrastive explanation</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -244,7 +253,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>Grad-CAM, Grad-CAM++</p></td>
+<tr class="row-odd"><td><p>Grad-CAM, Grad-CAM++</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -253,7 +262,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Learning to explain</p></td>
+<tr class="row-even"><td><p>Learning to explain</p></td>
 <td><p>Black box</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -262,7 +271,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>Linear models</p></td>
+<tr class="row-odd"><td><p>Linear models</p></td>
 <td><p>Linear models</p></td>
 <td><p>Global and Local</p></td>
 <td></td>
@@ -271,7 +280,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Tree models</p></td>
+<tr class="row-even"><td><p>Tree models</p></td>
 <td><p>Tree models</p></td>
 <td><p>Global and Local</p></td>
 <td></td>
@@ -336,7 +345,7 @@ in literature:</p>
 <td><p>✓</p></td>
 </tr>
 <tr class="row-even"><td><p></p></td>
-<td><p>Partial dependence</p></td>
+<td><p>PDP</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -346,6 +355,16 @@ in literature:</p>
 <td><p>✘</p></td>
 </tr>
 <tr class="row-odd"><td><p></p></td>
+<td><p>ALE</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
 <td><p>Sensitivity</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
@@ -355,7 +374,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>Integrated gradient</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -365,7 +384,7 @@ in literature:</p>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>Counterfactual</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -375,7 +394,7 @@ in literature:</p>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>Linear models</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
@@ -385,7 +404,7 @@ in literature:</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>Tree models</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
@@ -395,7 +414,7 @@ in literature:</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>L2X</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -405,7 +424,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p>Image</p></td>
+<tr class="row-even"><td><p>Image</p></td>
 <td><p>LIME</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -415,7 +434,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>SHAP</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -425,7 +444,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>Integrated gradient</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -435,7 +454,7 @@ in literature:</p>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>Grad-CAM, Grad-CAM++</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -445,7 +464,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>Contrastive</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -455,7 +474,7 @@ in literature:</p>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>Counterfactual</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -465,7 +484,7 @@ in literature:</p>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>L2X</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -475,7 +494,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p>Text</p></td>
+<tr class="row-odd"><td><p>Text</p></td>
 <td><p>LIME</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -485,7 +504,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>SHAP</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -495,7 +514,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>Integrated gradient</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -505,7 +524,7 @@ in literature:</p>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>L2X</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -515,7 +534,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>Counterfactual</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -525,7 +544,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p>Timeseries</p></td>
+<tr class="row-even"><td><p>Timeseries</p></td>
 <td><p>SHAP</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -535,7 +554,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>Counterfactual</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -642,14 +661,14 @@ is not a numpy array, <code class="docutils literal notranslate"><span class="pr
 
 <span class="c1"># Initialize a TabularExplainer</span>
 <span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
-   <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">],</span>       <span class="c1"># The explainers to apply</span>
-   <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>                            <span class="c1"># The task type</span>
-   <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>                                  <span class="c1"># The data for initializing the explainers</span>
-   <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>                                      <span class="c1"># The ML model to explain</span>
-   <span class="n">preprocess</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">),</span>    <span class="c1"># Converts raw features into the model inputs</span>
+   <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">,</span> <span class="s2">&quot;ale&quot;</span><span class="p">],</span> <span class="c1"># The explainers to apply</span>
+   <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>                             <span class="c1"># The task type</span>
+   <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>                                   <span class="c1"># The data for initializing the explainers</span>
+   <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>                                       <span class="c1"># The ML model to explain</span>
+   <span class="n">preprocess</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">),</span>     <span class="c1"># Converts raw features into the model inputs</span>
    <span class="n">params</span><span class="o">=</span><span class="p">{</span>
       <span class="s2">&quot;mace&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;ignored_features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Loss&quot;</span><span class="p">]}</span>
-   <span class="p">}</span>                                                 <span class="c1"># Additional parameters</span>
+   <span class="p">}</span>                                                  <span class="c1"># Additional parameters</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -836,12 +855,13 @@ by specifying one of the names defined in <code class="docutils literal notransl
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials.html#tabular-explainers">Tabular Explainers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/ale.html">Accumulated local effects (ALE)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/ce.html">Counterfactual explanation on Diabetes dataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/l2x.html">L2X (learning to explain) for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/lime.html">LIME for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/linear.html">Logistic regression for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/mace.html">MACE counterfactual explanation for income prediction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/pdp.html">Paritial dependence plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/pdp.html">Paritial dependence plots (PDP)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/sensitivity.html">Morris sensitivity analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/shap.html">SHAP for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/tabular/tree.html">Decision tree for income prediction</a></li>

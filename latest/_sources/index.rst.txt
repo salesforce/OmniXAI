@@ -49,7 +49,8 @@ Method                   Model Type            Explanation Type  EDA            
 Feature analysis         NA                    Global            ✓
 Feature selection        NA                    Global            ✓
 Prediction metrics       Black box             Global                           ✓        ✓        ✓       ✓
-Partial dependence       Black box             Global                           ✓
+PDP                      Black box             Global                           ✓
+ALE                      Black box             Global                           ✓
 Sensitivity analysis     Black box             Global                           ✓
 LIME                     Black box             Local                            ✓        ✓        ✓
 SHAP                     Black box*            Local                            ✓        ✓        ✓       ✓
@@ -77,7 +78,8 @@ Data Type   Method                OmniXAI  InterpretML  AIX360  Eli5  Captum  Al
 ==========  ====================  =======  ===========  ======  ====  ======  =====  ========
 Tabular     LIME                  ✓        ✓            ✓       ✘     ✓       ✘      ✘
 \           SHAP                  ✓        ✓            ✓       ✘     ✓       ✓      ✓
-\           Partial dependence    ✓        ✓            ✘       ✘     ✘       ✘      ✘
+\           PDP                   ✓        ✓            ✘       ✘     ✘       ✘      ✘
+\           ALE                   ✓        ✘            ✘       ✘     ✘       ✓      ✘
 \           Sensitivity           ✓        ✓            ✘       ✘     ✘       ✘      ✘
 \           Integrated gradient   ✓        ✘            ✘       ✘     ✓       ✓      ✘
 \           Counterfactual        ✓        ✘            ✘       ✘     ✘       ✓      ✘
@@ -202,14 +204,14 @@ is not a numpy array, ``postprocess`` needs to be set to convert it into a numpy
 
    # Initialize a TabularExplainer
    explainers = TabularExplainer(
-      explainers=["lime", "shap", "mace", "pdp"],       # The explainers to apply
-      mode="classification",                            # The task type
-      data=train_data,                                  # The data for initializing the explainers
-      model=model,                                      # The ML model to explain
-      preprocess=lambda z: transformer.transform(z),    # Converts raw features into the model inputs
+      explainers=["lime", "shap", "mace", "pdp", "ale"], # The explainers to apply
+      mode="classification",                             # The task type
+      data=train_data,                                   # The data for initializing the explainers
+      model=model,                                       # The ML model to explain
+      preprocess=lambda z: transformer.transform(z),     # Converts raw features into the model inputs
       params={
          "mace": {"ignored_features": ["Sex", "Race", "Relationship", "Capital Loss"]}
-      }                                                 # Additional parameters
+      }                                                  # Additional parameters
    )
 
 In this example, LIME, SHAP and MACE generate local explanations while PDP (partial dependence plot)

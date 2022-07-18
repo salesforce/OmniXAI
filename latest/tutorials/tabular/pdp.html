@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paritial dependence plots &mdash; OmniXAI  documentation</title>
+  <title>Paritial dependence plots (PDP) &mdash; OmniXAI  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme.css" type="text/css" />
@@ -52,12 +52,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#basics">Basics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials.html#applications">Applications</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../tutorials.html#tabular-explainers">Tabular Explainers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ale.html">Accumulated local effects (ALE)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ce.html">Counterfactual explanation on Diabetes dataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="l2x.html">L2X (learning to explain) for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lime.html">LIME for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linear.html">Logistic regression for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mace.html">MACE counterfactual explanation for income prediction</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Paritial dependence plots</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Paritial dependence plots (PDP)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sensitivity.html">Morris sensitivity analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="shap.html">SHAP for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tree.html">Decision tree for income prediction</a></li>
@@ -85,7 +86,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../tutorials.html">Tutorials &amp; Example Code</a> &raquo;</li>
-      <li>Paritial dependence plots</li>
+      <li>Paritial dependence plots (PDP)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/tutorials/tabular/pdp.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -365,8 +366,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<section id="Paritial-dependence-plots">
-<h1>Paritial dependence plots<a class="headerlink" href="#Paritial-dependence-plots" title="Permalink to this heading"></a></h1>
+<section id="Paritial-dependence-plots-(PDP)">
+<h1>Paritial dependence plots (PDP)<a class="headerlink" href="#Paritial-dependence-plots-(PDP)" title="Permalink to this heading"></a></h1>
 <p>An example of the partial dependence plots. For more information, please refer to <a class="reference external" href="https://scikit-learn.org/stable/modules/partial_dependence.html">https://scikit-learn.org/stable/modules/partial_dependence.html</a>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -430,15 +431,15 @@ column of the transformed numpy array will be the target/label.</p>
 <span class="n">transformer</span> <span class="o">=</span> <span class="n">TabularTransform</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
 <span class="n">class_names</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">class_names</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
-<span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">labels_train</span><span class="p">,</span> <span class="n">labels_test</span> <span class="o">=</span> \
+<span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">test_labels</span> <span class="o">=</span> \
     <span class="n">sklearn</span><span class="o">.</span><span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.80</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Training data shape: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test data shape:     </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
 
 <span class="n">gbtree</span> <span class="o">=</span> <span class="n">xgboost</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">gbtree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">labels_train</span><span class="p">)</span>
+<span class="n">gbtree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test accuracy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-    <span class="n">sklearn</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">labels_test</span><span class="p">,</span> <span class="n">gbtree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">))))</span>
+    <span class="n">sklearn</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">gbtree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">))))</span>
 </pre></div>
 </div>
 </div>
@@ -462,7 +463,7 @@ Test accuracy: 0.8668816213726394
 </pre></div>
 </div>
 </div>
-<p>To initialize a PDO explainer, we need to set:</p>
+<p>To initialize a PDP explainer, we need to set:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">training_data</span></code>: The data used to initialize a PDP explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code> can be the training dataset for training the machine learning model. If the training dataset is too large, <code class="docutils literal notranslate"><span class="pre">training_data</span></code> can be a subset of it by applying <code class="docutils literal notranslate"><span class="pre">omnixai.sampler.tabular.Sampler.subsample</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">predict_function</span></code>: The prediction function corresponding to the model.</p></li>

@@ -37,6 +37,14 @@ omnixai.explainers.tabular.agnostic.pdp module
    :undoc-members:
    :show-inheritance:
 
+omnixai.explainers.tabular.agnostic.ale module
+----------------------------------------------
+
+.. automodule:: omnixai.explainers.tabular.agnostic.ale
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 omnixai.explainers.tabular.agnostic.sensitivity module
 ------------------------------------------------------
 

@@ -540,7 +540,7 @@ Test accuracy: 0.8668816213726394
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Initialize a TabularExplainer</span>
 <span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
-    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">],</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">,</span> <span class="s2">&quot;ale&quot;</span><span class="p">],</span>
     <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
     <span class="n">model</span><span class="o">=</span><span class="n">gbtree</span><span class="p">,</span>
@@ -566,7 +566,7 @@ Test accuracy: 0.8668816213726394
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ae3f7f4d83f04c9eb952e01e52d42105", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9e03f8867c644333908987da5848c767", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ipython_plot</span></code> plots the generated explanations in IPython. Parameter <code class="docutils literal notranslate"><span class="pre">index</span></code> indicates which instance to plot, e.g., <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code> means plotting the first instance in <code class="docutils literal notranslate"><span class="pre">test_instances</span></code>.</p>
 <div class="nbinput docutils container">
@@ -583,6 +583,8 @@ Test accuracy: 0.8668816213726394
 <span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;mace&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PDP results:&quot;</span><span class="p">)</span>
 <span class="n">global_explanations</span><span class="p">[</span><span class="s2">&quot;pdp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ALE results:&quot;</span><span class="p">)</span>
+<span class="n">global_explanations</span><span class="p">[</span><span class="s2">&quot;ale&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -639,11 +641,26 @@ MACE results:
 PDP results:
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <img alt="../_images/tutorials_tabular_classification_14_7.png" src="../_images/tutorials_tabular_classification_14_7.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ALE results:
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_tabular_classification_14_9.png" src="../_images/tutorials_tabular_classification_14_9.png" />
 </div>
 </div>
 <p>Similarly, we create a <code class="docutils literal notranslate"><span class="pre">PredictionAnalyzer</span></code> for computing performance metrics for this classification task. To initialize <code class="docutils literal notranslate"><span class="pre">PredictionAnalyzer</span></code>, we set the following parameters:</p>
