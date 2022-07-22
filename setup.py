@@ -47,6 +47,6 @@ setup(
         "statsmodels>=0.10.1"
     ],
     extras_require=extras_require,
-    python_requires=">=3.7.5,<4",
+    python_requires=">=3.7,<4",
     zip_safe=False,
 )
