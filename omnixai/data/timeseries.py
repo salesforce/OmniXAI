@@ -167,8 +167,35 @@ class Timeseries(Data):
             raise ValueError(f"`df` can only be `pd.DataFrame` or "
                              f"a list of `pd.DataFrame` instead of {type(df)}")
 
-    def _convert_timestamp_to_int(self):
-        pass
+    @staticmethod
+    def get_timestamp_info(df):
+        timestamps = df.index.values
+        info = {
+            "name": df.index.name,
+            "timestamps": timestamps.copy()
+        }
+        if isinstance(timestamps[0], (np.int32, np.int64, np.float32, np.float64)):
+            info["values"] = timestamps.copy()
+        elif isinstance(timestamps[0], np.datetime64):
+            info["values"] = timestamps.astype(np.int64) / (10 ** 9)
+        else:
+            info["values"] = [hash(t) for t in timestamps]
+        info["ts2val"] = {ts: val for ts, val in zip(info["timestamps"], info["values"])}
+        info["val2ts"] = {val: ts for ts, val in zip(info["timestamps"], info["values"])}
+        return info
 
-    def convert_index_to_column(self):
-        pass
+    @staticmethod
+    def reset_timestamp_index(df, timestamp_info) -> pd.DataFrame:
+        d = timestamp_info["ts2val"]
+        new_df = pd.DataFrame(df.values, columns=df.columns)
+        new_df["@timestamp"] = [d[i] for i in df.index.values]
+        return new_df
+
+    @staticmethod
+    def restore_timestamp_index(df, timestamp_info) -> pd.DataFrame:
+        df = df.copy()
+        d = timestamp_info["val2ts"]
+        df["@timestamp"] = [d[v] for v in df["@timestamp"].values]
+        df.set_index("@timestamp", inplace=True)
+        df.index.name = timestamp_info["name"]
+        return df

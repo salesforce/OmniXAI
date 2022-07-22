@@ -34,6 +34,13 @@ class TestTimeseries(unittest.TestCase):
         x = ts[[1, 0]]
         self.assertEqual(x.values[1][1], 394.507)
 
+        timestamp_info = Timeseries.get_timestamp_info(df)
+        df_a = Timeseries.reset_timestamp_index(df, timestamp_info)
+        df_b = Timeseries.restore_timestamp_index(df_a, timestamp_info)
+        self.assertListEqual(list(df.columns), list(df_b.columns))
+        self.assertListEqual(list(df.index.values), list(df_b.index.values))
+        self.assertEqual(df.equals(df_b), True)
+
 
 if __name__ == "__main__":
     unittest.main()
