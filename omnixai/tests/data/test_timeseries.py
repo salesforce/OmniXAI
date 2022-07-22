@@ -24,13 +24,15 @@ class TestTimeseries(unittest.TestCase):
     def test(self):
         ts = Timeseries.from_pd(self.df)
         self.assertEqual(ts.ts_len, 2)
-        self.assertEqual(ts.shape, (1, 2, 4))
-        self.assertEqual(len(ts), 1)
+        self.assertEqual(ts.shape, (2, 4))
+        self.assertEqual(len(ts), 2)
         df = ts.to_pd()
         self.assertEqual(df.index.year.values[0], 2017)
         self.assertEqual(df.index.month.values[0], 12)
         x = ts.to_numpy()
-        self.assertEqual(x[0][1][1], 506.424)
+        self.assertEqual(x[1][1], 506.424)
+        x = ts[[1, 0]]
+        self.assertEqual(x.values[1][1], 394.507)
 
 
 if __name__ == "__main__":
