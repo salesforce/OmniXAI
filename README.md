@@ -54,8 +54,8 @@ explanation methods for vision, NLP and time-series tasks.
 |    Feature analysis     | NA            | Global           |  ✅  |         |       |      |      |
 |    Feature selection    | NA            | Global           |  ✅  |         |       |      |      |
 |   Prediction metrics    | Black box     | Global           |     | ✅      | ✅     | ✅   |  ✅  |
-|           PDP           | Black box     | Global           |     | ✅      |       |      |      |
-|           ALE           | Black box     | Global           |     | ✅      |       |      |      |
+|   Partial dependence plots | Black box     | Global           |     | ✅      |       |      |      |
+|  Accumulated local effects | Black box     | Global           |     | ✅      |       |      |      |
 |  Sensitivity analysis   | Black box     | Global           |     | ✅      |       |      |      |
 |          LIME           | Black box     | Local            |     | ✅      | ✅     | ✅   |      |
 |          SHAP           | Black box*    | Local            |     | ✅      | ✅     | ✅   |  ✅  |
