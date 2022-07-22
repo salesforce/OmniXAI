@@ -9,7 +9,7 @@ The class for time series data.
 """
 import numpy as np
 import pandas as pd
-from typing import Union, List
+from typing import Union, List, Dict
 from .base import Data
 
 
@@ -168,7 +168,13 @@ class Timeseries(Data):
                              f"a list of `pd.DataFrame` instead of {type(df)}")
 
     @staticmethod
-    def get_timestamp_info(df):
+    def get_timestamp_info(df) -> Dict:
+        """
+        Returns a dict containing timestamp information, e.g., timestamp index name, timestamp values.
+
+        :param df: The time-series in a pandas dataframe.
+        :return: The timestamp information.
+        """
         timestamps = df.index.values
         info = {
             "name": df.index.name,
@@ -186,6 +192,13 @@ class Timeseries(Data):
 
     @staticmethod
     def reset_timestamp_index(df, timestamp_info) -> pd.DataFrame:
+        """
+        Moves the timestamp index to a column and converts timestamps into floats.
+
+        :param df: The time-series in a pandas dataframe.
+        :param timestamp_info: The timestamp information.
+        :return: The converted time-series dataframe.
+        """
         d = timestamp_info["ts2val"]
         new_df = pd.DataFrame(df.values, columns=df.columns)
         new_df["@timestamp"] = [d[i] for i in df.index.values]
@@ -193,6 +206,13 @@ class Timeseries(Data):
 
     @staticmethod
     def restore_timestamp_index(df, timestamp_info) -> pd.DataFrame:
+        """
+        Moves the timestamp column to the index and converts the floats back to timestamps.
+
+        :param df: The time-series in a pandas dataframe.
+        :param timestamp_info: The timestamp information.
+        :return: The original time-series dataframe.
+        """
         df = df.copy()
         d = timestamp_info["val2ts"]
         df["@timestamp"] = [d[v] for v in df["@timestamp"].values]
