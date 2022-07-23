@@ -178,16 +178,15 @@ class Timeseries(Data):
         timestamps = df.index.values
         info = {
             "name": df.index.name,
-            "timestamps": timestamps.copy()
         }
         if isinstance(timestamps[0], (np.int32, np.int64, np.float32, np.float64)):
-            info["values"] = timestamps.copy()
+            values = timestamps.copy()
         elif isinstance(timestamps[0], np.datetime64):
-            info["values"] = timestamps.astype(np.int64) / (10 ** 9)
+            values = timestamps.astype(np.int64) / (10 ** 9)
         else:
-            info["values"] = [hash(t) for t in timestamps]
-        info["ts2val"] = {ts: val for ts, val in zip(info["timestamps"], info["values"])}
-        info["val2ts"] = {val: ts for ts, val in zip(info["timestamps"], info["values"])}
+            values = [hash(t) for t in timestamps]
+        info["ts2val"] = {ts: val for ts, val in zip(timestamps, values)}
+        info["val2ts"] = {val: ts for ts, val in zip(timestamps, values)}
         return info
 
     @staticmethod
@@ -213,9 +212,9 @@ class Timeseries(Data):
         :param timestamp_info: The timestamp information.
         :return: The original time-series dataframe.
         """
-        df = df.copy()
+        x = df.values[:, :-1]
         d = timestamp_info["val2ts"]
-        df["@timestamp"] = [d[v] for v in df["@timestamp"].values]
-        df.set_index("@timestamp", inplace=True)
+        timestamps = [d[v] for v in df["@timestamp"].values]
+        df = pd.DataFrame(x, columns=df.columns[:-1], index=timestamps)
         df.index.name = timestamp_info["name"]
         return df

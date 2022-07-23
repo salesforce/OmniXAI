@@ -37,9 +37,9 @@ class ShapTimeseries(ExplainerBase):
         """
         :param training_data: The data used to initialize the explainer.
         :param predict_function: The prediction function corresponding to the model to explain.
-            The inputs of ``predict_function`` should be a batch (list) of time series, e.g.,
-            an `Timeseries` instance. The outputs of ``predict_function`` are anomaly scores (higher scores
-            imply more anomalous) for anomaly detection or predicted values for forecasting.
+            The input of ``predict_function`` is an `Timeseries` instance. The output of ``predict_function``
+            is the anomaly score (higher scores imply more anomalous) for anomaly detection or the predicted
+            value for forecasting.
         :param mode: The task type, e.g., `anomaly_detection` or `forecasting`.
         """
         super().__init__()
@@ -51,21 +51,24 @@ class ShapTimeseries(ExplainerBase):
         self.mode = mode
         self.data = training_data
         self.predict_function = predict_function
-        self.variable_names = list(self.data.columns)
+        self.variables = list(self.data.columns) + ["@timestamp"]
+        # The timestamp info for the training data
+        self.train_ts_info = Timeseries.get_timestamp_info(self.data.to_pd(copy=False))
+        # The timestamp info for both training and test data
+        self.ts_info = self.train_ts_info.copy()
         # The lengths of test instances must be the same
         self.explainer = None
         self.test_ts_length = None
 
     def _build_predictor(self, ts_len):
         def _predict(xs: np.ndarray):
-            ts = Timeseries(
-                data=xs.reshape((xs.shape[0], ts_len, len(self.variable_names))),
-                variable_names=self.variable_names
-            )
-            return self.predict_function(ts)
+            xs = xs.reshape((xs.shape[0], ts_len, len(self.variables)))
+            dfs = [Timeseries.restore_timestamp_index(
+                pd.DataFrame(x, columns=self.variables), self.ts_info) for x in xs]
+            return np.array([self.predict_function(Timeseries.from_pd(df)) for df in dfs]).flatten()
         return _predict
 
-    def _build_explainer(self, ts_len, num_samples=100):
+    def _build_explainer(self, ts_len, num_samples):
         if self.explainer is not None:
             return
         assert self.data.ts_len > ts_len, \
@@ -73,9 +76,10 @@ class ShapTimeseries(ExplainerBase):
 
         interval = range(self.data.ts_len - ts_len)
         ps = random.sample(interval, min(num_samples, len(interval)))
+        x = Timeseries.reset_timestamp_index(self.data.to_pd(copy=False), self.ts_info)
         self.explainer = shap.KernelExplainer(
             model=self._build_predictor(ts_len),
-            data=np.array([self.data.values[0][p:p + ts_len].flatten() for p in ps]),
+            data=np.array([x.values[p:p + ts_len].flatten() for p in ps]),
             link="identity"
         )
         self.test_ts_length = ts_len
@@ -90,22 +94,25 @@ class ShapTimeseries(ExplainerBase):
         :return: The feature-importance explanations for all the input instances.
         """
         # Initialize the SHAP explainer if it is not created.
-        self._build_explainer(X.ts_len)
+        if "nsamples" not in kwargs:
+            kwargs["nsamples"] = 100
+        self._build_explainer(X.ts_len, kwargs["nsamples"])
         explanations = FeatureImportance(self.mode)
 
-        instances = X.values.reshape((X.batch_size, -1))
-        shap_values = self.explainer.shap_values(instances, **kwargs)
-        scores = Timeseries(
-            data=shap_values.reshape(
-                (shap_values.shape[0], self.test_ts_length, len(self.variable_names))),
-            timestamps=X.index,
-            variable_names=self.variable_names
-        ).to_pd()
+        self.ts_info = self.train_ts_info.copy()
+        info = Timeseries.get_timestamp_info(X.to_pd(copy=False))
+        self.ts_info["ts2val"].update(info["ts2val"])
+        self.ts_info["val2ts"].update(info["val2ts"])
 
-        ts = X.to_pd()
-        if isinstance(ts, pd.DataFrame):
-            explanations.add(ts, scores)
-        else:
-            for t, score in zip(ts, scores):
-                explanations.add(t, score)
+        data = Timeseries.reset_timestamp_index(X.to_pd(copy=False), self.ts_info)
+        instances = data.values.reshape((1, -1))
+        shap_values = self.explainer.shap_values(instances, **kwargs)
+        shap_values = shap_values.reshape(data.shape)
+
+        scores = pd.DataFrame(
+            shap_values,
+            columns=data.columns,
+            index=X.index
+        )
+        explanations.add(X.to_pd(), scores)
         return explanations
