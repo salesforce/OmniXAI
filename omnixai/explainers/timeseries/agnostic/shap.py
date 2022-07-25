@@ -51,20 +51,36 @@ class ShapTimeseries(ExplainerBase):
         self.mode = mode
         self.data = training_data
         self.predict_function = predict_function
-        self.variables = list(self.data.columns) + ["@timestamp"]
-        # The timestamp info for the training data
-        self.train_ts_info = Timeseries.get_timestamp_info(self.data)
-        # The timestamp info for both training and test data
-        self.ts_info = self.train_ts_info.copy()
+        self.variables = list(self.data.columns)
+
         # The lengths of test instances must be the same
         self.explainer = None
         self.test_ts_length = None
+        self.index2timestamps = None
+        self.all_idx2ts = None
+
+    def _build_data(self, ts_len, num_samples):
+        interval = range(self.data.ts_len - ts_len)
+        ps = random.sample(interval, min(num_samples, len(interval)))
+        samples, index2timestamps = [], {}
+        for i, p in enumerate(ps):
+            index2timestamps[i] = self.data.index[p:p + ts_len]
+            x = self.data.values[p:p + ts_len]
+            y = np.zeros((x.shape[0] * x.shape[1] + 1,))
+            y[:-1], y[-1] = x.flatten(), i
+            samples.append(y.flatten())
+        return np.array(samples), index2timestamps
 
     def _build_predictor(self, ts_len):
         def _predict(xs: np.ndarray):
-            xs = xs.reshape((xs.shape[0], ts_len, len(self.variables)))
-            ts = [Timeseries.restore_timestamp_index(
-                Timeseries(x, variable_names=self.variables), self.ts_info) for x in xs]
+            xs = xs.reshape((xs.shape[0], -1))
+            ts = [
+                Timeseries(
+                    data=x[:-1].reshape((ts_len, -1)),
+                    variable_names=self.variables,
+                    timestamps=self.all_idx2ts[x[-1]]
+                ) for x in xs
+            ]
             return np.array([self.predict_function(t) for t in ts]).flatten()
         return _predict
 
@@ -74,12 +90,11 @@ class ShapTimeseries(ExplainerBase):
         assert self.data.ts_len > ts_len, \
             "`ts_length` should be less than the length of the training time series"
 
-        interval = range(self.data.ts_len - ts_len)
-        ps = random.sample(interval, min(num_samples, len(interval)))
-        x = Timeseries.reset_timestamp_index(self.data, self.ts_info)
+        data, self.index2timestamps = self._build_data(ts_len, num_samples)
+        self.all_idx2ts = self.index2timestamps.copy()
         self.explainer = shap.KernelExplainer(
             model=self._build_predictor(ts_len),
-            data=np.array([x.values[p:p + ts_len].flatten() for p in ps]),
+            data=data,
             link="identity"
         )
         self.test_ts_length = ts_len
@@ -98,19 +113,24 @@ class ShapTimeseries(ExplainerBase):
         self._build_explainer(X.ts_len)
         explanations = FeatureImportance(self.mode)
 
-        self.ts_info = self.train_ts_info.copy()
-        info = Timeseries.get_timestamp_info(X)
-        self.ts_info["ts2val"].update(info["ts2val"])
-        self.ts_info["val2ts"].update(info["val2ts"])
+        index = max(self.index2timestamps.keys()) + 1
+        self.all_idx2ts = self.index2timestamps.copy()
+        self.all_idx2ts[index] = X.index
 
-        data = Timeseries.reset_timestamp_index(X, self.ts_info)
-        instances = data.values.reshape((1, -1))
+        instances = np.zeros((1, X.shape[0] * X.shape[1] + 1))
+        instances[:, :-1] = X.values.reshape((1, -1))
+        instances[:, -1] = index
+
         shap_values = self.explainer.shap_values(instances, **kwargs)
-        shap_values = shap_values.reshape(data.shape)
+        shap_values = shap_values.flatten()
+        metric_shap_values = shap_values[:-1].reshape(X.shape)
+        timestamp_shap_value = shap_values[-1]
+
         scores = pd.DataFrame(
-            shap_values,
-            columns=data.columns,
+            metric_shap_values,
+            columns=X.columns,
             index=X.index
         )
+        scores["@timestamp"] = timestamp_shap_value
         explanations.add(X.to_pd(), scores)
         return explanations

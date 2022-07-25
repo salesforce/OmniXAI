@@ -164,6 +164,21 @@ class Timeseries(Data):
         """
         return Timeseries.from_pd(self.to_pd())
 
+    def sort_timestamps(self, only_timestamp=False):
+        """
+        Sorts the samples according to the timestamps.
+
+        :param only_timestamp: If True, only timestamps are sorted.
+            If False, both timestamps and data are sorted.
+        """
+        if only_timestamp:
+            self.timestamps = np.sort(self.timestamps)
+        else:
+            indices = np.argsort(self.timestamps)
+            self.timestamps = self.timestamps[indices]
+            self.data = self.data[indices]
+        return self
+
     @classmethod
     def from_pd(cls, df):
         """
