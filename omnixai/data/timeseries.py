@@ -52,11 +52,9 @@ class Timeseries(Data):
         else:
             variable_names = list(range(data.shape[-1]))
 
-        self.data = pd.DataFrame(
-            data,
-            columns=variable_names,
-            index=timestamps
-        )
+        self.data = data
+        self.variable_names = list(variable_names)
+        self.timestamps = np.array(timestamps)
 
     def __len__(self):
         """
@@ -75,17 +73,23 @@ class Timeseries(Data):
         :return: A subset of the time series.
         :rtype: Timeseries
         """
-        return Timeseries.from_pd(self.data.iloc[i])
+        if type(i) == int:
+            i = [i]
+        return Timeseries(
+            data=self.data[i, :],
+            timestamps=self.timestamps[i],
+            variable_names=self.variable_names
+        )
 
     @property
-    def ts_len(self) -> int:
+    def ts_len(self):
         """
         Returns the length of the time series.
         """
         return self.data.shape[0]
 
     @property
-    def shape(self) -> tuple:
+    def shape(self):
         """
         Returns the raw data shape, e.g., (timestamps, num_variables).
 
@@ -95,48 +99,52 @@ class Timeseries(Data):
         return self.data.shape
 
     @property
-    def values(self) -> np.ndarray:
+    def values(self):
         """
         Returns the raw values of the data object.
 
         :return: A numpy array of the data object.
         """
-        return self.data.values
+        return self.data
 
     @property
-    def columns(self) -> List:
+    def columns(self):
         """
         Gets the metric/variable names.
 
         :return: The list of the metric/variable names.
         """
-        return list(self.data.columns)
+        return self.variable_names
 
     @property
-    def index(self) -> List:
+    def index(self):
         """
         Gets the timestamps.
 
         :return: A list of timestamps.
         """
-        return list(self.data.index)
+        return self.timestamps
 
-    def to_pd(self, copy=True) -> Union[pd.DataFrame, List[pd.DataFrame]]:
+    def to_pd(self) -> pd.DataFrame:
         """
         Converts `Timeseries` to `pd.DataFrame`.
 
         :return: A pandas dataframe representing the time series.
         """
-        return self.data.copy() if copy else self.data
+        return pd.DataFrame(
+            self.data,
+            columns=self.variable_names,
+            index=self.timestamps
+        )
 
-    def to_numpy(self, copy=True) -> np.ndarray:
+    def to_numpy(self, copy=True):
         """
         Converts `Timeseries` to `np.ndarray`.
 
         :param copy: `True` if it returns a data copy, or `False` otherwise.
         :return: A numpy ndarray representing the time series.
         """
-        return self.data.values.copy() if copy else self.data.values
+        return self.data.copy() if copy else self.data
 
     def copy(self):
         """
@@ -145,7 +153,7 @@ class Timeseries(Data):
         :return: The copied time series instance.
         :rtype: Timeseries
         """
-        return Timeseries.from_pd(self.data.copy())
+        return Timeseries.from_pd(self.to_pd())
 
     @classmethod
     def from_pd(cls, df):
@@ -164,21 +172,18 @@ class Timeseries(Data):
                 variable_names=list(df.columns)
             )
         else:
-            raise ValueError(f"`df` can only be `pd.DataFrame` or "
-                             f"a list of `pd.DataFrame` instead of {type(df)}")
+            raise ValueError("`df` can only be `pd.DataFrame`")
 
     @staticmethod
-    def get_timestamp_info(df) -> Dict:
+    def get_timestamp_info(ts):
         """
         Returns a dict containing timestamp information, e.g., timestamp index name, timestamp values.
 
-        :param df: The time-series in a pandas dataframe.
+        :param ts: A Timeseries instance.
         :return: The timestamp information.
         """
-        timestamps = df.index.values
-        info = {
-            "name": df.index.name,
-        }
+        timestamps = ts.index
+        info = {}
         if isinstance(timestamps[0], (np.int32, np.int64, np.float32, np.float64)):
             values = timestamps.copy()
         elif isinstance(timestamps[0], np.datetime64):
@@ -190,31 +195,36 @@ class Timeseries(Data):
         return info
 
     @staticmethod
-    def reset_timestamp_index(df, timestamp_info) -> pd.DataFrame:
+    def reset_timestamp_index(ts, timestamp_info):
         """
         Moves the timestamp index to a column and converts timestamps into floats.
 
-        :param df: The time-series in a pandas dataframe.
+        :param ts: A Timeseries instance.
         :param timestamp_info: The timestamp information.
-        :return: The converted time-series dataframe.
+        :return: A converted Timeseries instance.
         """
         d = timestamp_info["ts2val"]
-        new_df = pd.DataFrame(df.values, columns=df.columns)
-        new_df["@timestamp"] = [d[i] for i in df.index.values]
-        return new_df
+        data = np.zeros((ts.shape[0], ts.shape[1] + 1))
+        data[:, :-1] = ts.values
+        data[:, -1] = [d[i] for i in ts.index]
+        return Timeseries(
+            data,
+            variable_names=ts.columns + ["@timestamp"],
+            timestamps=ts.index
+        )
 
     @staticmethod
-    def restore_timestamp_index(df, timestamp_info) -> pd.DataFrame:
+    def restore_timestamp_index(ts, timestamp_info):
         """
         Moves the timestamp column to the index and converts the floats back to timestamps.
 
-        :param df: The time-series in a pandas dataframe.
+        :param ts: A Timeseries instance with a `@timestamp` column.
         :param timestamp_info: The timestamp information.
         :return: The original time-series dataframe.
         """
-        x = df.values[:, :-1]
         d = timestamp_info["val2ts"]
-        timestamps = [d[v] for v in df["@timestamp"].values]
-        df = pd.DataFrame(x, columns=df.columns[:-1], index=timestamps)
-        df.index.name = timestamp_info["name"]
-        return df
+        return Timeseries(
+            ts.values[:, :-1],
+            variable_names=ts.columns[:-1],
+            timestamps=[d[v] for v in ts.values[:, -1]]
+        )
