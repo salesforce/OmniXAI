@@ -236,12 +236,9 @@ class CounterfactualExplainer(ExplainerBase):
 
     def _build_predictor(self, ts_len):
         def _predict(x: np.ndarray):
-            ts = Timeseries(
-                data=x.reshape((ts_len, len(self.variable_names))),
-                variable_names=self.variable_names
-            )
-            return self.predict_function(ts)[0]
-
+            x = x.reshape((ts_len, len(self.variable_names)))
+            ts = Timeseries(x, variable_names=self.variable_names)
+            return np.array([self.predict_function(ts)]).flatten()[0]
         return _predict
 
     def _build_explainer(self, ts_len):
@@ -252,7 +249,7 @@ class CounterfactualExplainer(ExplainerBase):
         self.test_ts_length = ts_len
         self.predictor = self._build_predictor(ts_len)
 
-        ts = self.data.to_numpy(copy=False)[0]
+        ts = self.data.to_numpy(copy=False)
         # The lower and upper bounds
         bounds = np.stack([np.min(ts, axis=0), np.max(ts, axis=0)])
         bound_min = np.stack([bounds[0]] * ts_len).reshape((1, -1))
@@ -274,32 +271,31 @@ class CounterfactualExplainer(ExplainerBase):
         self.kwargs.update(kwargs)
         self._build_explainer(X.ts_len)
         explanations = CFExplanation()
-        instances = X.values.reshape((X.batch_size, -1))
+        instance = X.values.flatten()
 
-        for i, instance in enumerate(instances):
-            optimizer = CounterfactualOptimizer(
-                x0=instance,
-                ts_len=X.ts_len,
-                bounds=self.bounds,
-                threshold=self.threshold,
-                predict_function=self.predictor,
-                gamma=self.gamma,
-                **self.kwargs
-            )
-            x = optimizer.optimize(
-                revise=kwargs.get("revise", True),
-                verbose=kwargs.get("verbose", True)
-            )
-            explanations.add(
-                query=Timeseries(
-                    data=instance.reshape((X.ts_len, -1)),
-                    timestamps=X.timestamps[i],
-                    variable_names=X.columns
-                ).to_pd(),
-                cfs=Timeseries(
-                    data=x.reshape((X.ts_len, -1)),
-                    timestamps=X.timestamps[i],
-                    variable_names=X.columns
-                ).to_pd() if x is not None else None
-            )
+        optimizer = CounterfactualOptimizer(
+            x0=instance,
+            ts_len=X.ts_len,
+            bounds=self.bounds,
+            threshold=self.threshold,
+            predict_function=self.predictor,
+            gamma=self.gamma,
+            **self.kwargs
+        )
+        x = optimizer.optimize(
+            revise=kwargs.get("revise", True),
+            verbose=kwargs.get("verbose", True)
+        )
+        explanations.add(
+            query=Timeseries(
+                data=instance.reshape((X.ts_len, -1)),
+                timestamps=X.index,
+                variable_names=X.columns
+            ).to_pd(),
+            cfs=Timeseries(
+                data=x.reshape((X.ts_len, -1)),
+                timestamps=X.index,
+                variable_names=X.columns
+            ).to_pd() if x is not None else None
+        )
         return explanations
