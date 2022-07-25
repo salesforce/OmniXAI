@@ -171,7 +171,10 @@ class MACEExplainer(ExplainerBase):
         def _predict(x: np.ndarray):
             xs = x.reshape((-1, ts_len, len(self.variable_names)))
             ts = [Timeseries(x, variable_names=self.variable_names) for x in xs]
-            return np.array([self.predict_function(t) for t in ts]).flatten()
+            try:
+                return np.array(self.predict_function(ts)).flatten()
+            except:
+                return np.array([self.predict_function(t) for t in ts]).flatten()
         return _predict
 
     def _build_explainer(self, ts_len):

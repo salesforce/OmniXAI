@@ -238,7 +238,10 @@ class CounterfactualExplainer(ExplainerBase):
         def _predict(x: np.ndarray):
             x = x.reshape((ts_len, len(self.variable_names)))
             ts = Timeseries(x, variable_names=self.variable_names)
-            return np.array([self.predict_function(ts)]).flatten()[0]
+            try:
+                return np.array([self.predict_function(ts)]).flatten()[0]
+            except:
+                return np.array([self.predict_function([ts])]).flatten()[0]
         return _predict
 
     def _build_explainer(self, ts_len):

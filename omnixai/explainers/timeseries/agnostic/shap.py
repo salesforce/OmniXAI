@@ -81,7 +81,10 @@ class ShapTimeseries(ExplainerBase):
                     timestamps=self.all_idx2ts[x[-1]]
                 ) for x in xs
             ]
-            return np.array([self.predict_function(t) for t in ts]).flatten()
+            try:
+                return np.array(self.predict_function(ts)).flatten()
+            except:
+                return np.array([self.predict_function(t) for t in ts]).flatten()
         return _predict
 
     def _build_explainer(self, ts_len, num_samples=100):
