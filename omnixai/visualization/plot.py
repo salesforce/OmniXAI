@@ -93,6 +93,7 @@ def plot_one_instance(instances, index):
     elif isinstance(instances, Text):
         return plot_text(instances[index].to_str())
     elif isinstance(instances, Timeseries):
-        return plot_timeseries(instances[index].to_pd())
+        # Only one time-series in a Timeseries instance
+        return plot_timeseries(instances.to_pd())
     else:
         raise NotImplementedError

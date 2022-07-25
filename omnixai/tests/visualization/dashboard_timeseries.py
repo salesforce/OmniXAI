@@ -21,11 +21,8 @@ def train_detector(train_df):
     threshold = np.percentile(train_df["values"].values, 90)
 
     def _detector(ts: Timeseries):
-        scores = []
-        for x in ts.values:
-            anomaly_scores = np.sum((x > threshold).astype(int))
-            scores.append(anomaly_scores / x.shape[0])
-        return np.array(scores)
+        anomaly_scores = np.sum((ts.values > threshold).astype(int))
+        return anomaly_scores / ts.shape[0]
 
     return _detector
 

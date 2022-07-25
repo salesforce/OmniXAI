@@ -98,6 +98,15 @@ class Timeseries(Data):
         """
         return self.data.shape
 
+    def num_samples(self) -> int:
+        """
+        Returns 1 because a Timeseries object only contains one time-series.
+
+        :return: 1.
+        :rtype: int
+        """
+        return 1
+
     @property
     def values(self):
         """
