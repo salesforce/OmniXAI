@@ -37,7 +37,7 @@ class TestMerlion(unittest.TestCase):
 
     def test(self):
 
-        def forecasting_function_1(ts: omnixai_timeSeries):
+        def forecasting_function(ts: omnixai_timeSeries):
             # If time_stamps has only one timeseries, "to_pd" returns pd.DataFrame.
             # The output is the forecasted value.
             df = ts.to_pd()
@@ -47,22 +47,13 @@ class TestMerlion(unittest.TestCase):
             )
             return list(targets.items())[0][1].values[0]
 
-        def forecasting_function_2(ts: List[omnixai_timeSeries]):
-            # The input of the forecasting function can also be a batch of omnixai_timeSeries
-            targets, _ = self.model.batch_forecast(
-                time_stamps_list=[[1]] * len(ts),
-                time_series_prev_list=[merlion_timeSeries.from_pd(t.to_pd()) for t in ts]
-            )
-            r = [list(t.items())[0][1].values[0] for t in targets]
-            return r
-
         # Create shap explnaier
         explainers = ShapTimeseries(
             training_data=omnixai_timeSeries.from_pd(self.train_data.to_pd()),
-            predict_function=forecasting_function_1,
+            predict_function=forecasting_function,
             mode="forecasting"
         )
-        test_data = omnixai_timeSeries.from_pd(self.test_data.iloc[:2])
+        test_data = omnixai_timeSeries.from_pd(self.test_data.iloc[:5])
         explanations = explainers.explain(test_data, nsamples=100)
         print(explanations)
 
