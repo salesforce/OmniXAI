@@ -151,7 +151,7 @@ class MACEExplainer(ExplainerBase):
 
     def _candidates(self, ts_len, n_bins=8):
         # Discretize continuous values
-        ts = self.data.to_numpy(copy=False)[0]
+        ts = self.data.to_numpy(copy=False)
         transformer = KBins(n_bins=n_bins).fit(ts)
         values = transformer.invert(np.array([range(n_bins)] * ts.shape[1]).T)
         # The lower and upper bounds
@@ -169,12 +169,9 @@ class MACEExplainer(ExplainerBase):
 
     def _build_predictor(self, ts_len):
         def _predict(x: np.ndarray):
-            ts = Timeseries(
-                data=x.reshape((-1, ts_len, len(self.variable_names))),
-                variable_names=self.variable_names
-            )
-            return self.predict_function(ts)
-
+            xs = x.reshape((-1, ts_len, len(self.variable_names)))
+            ts = [Timeseries(x, variable_names=self.variable_names) for x in xs]
+            return np.array([self.predict_function(t) for t in ts]).flatten()
         return _predict
 
     def _build_explainer(self, ts_len):
@@ -305,38 +302,37 @@ class MACEExplainer(ExplainerBase):
         """
         self._build_explainer(X.ts_len)
         explanations = CFExplanation()
-        labels = (self.predict_function(X) > self.threshold).astype(int)
-        instances = X.values.reshape((X.batch_size, -1))
+        label = int(self.predict_function(X) > self.threshold)
+        instance = X.values.flatten()
 
-        for i, instance in enumerate(instances):
-            y = self._optimize(
-                x=instance,
-                learning_rate=kwargs.get("learning_rate", 0.1),
-                reg_weight=kwargs.get("regularization_weight", 1e-4),
-                entropy_weight=kwargs.get("entropy_weight", 1e-3),
-                batch_size=kwargs.get("batch_size", 50),
-                num_iterations=kwargs.get("num_iterations", 50),
-                less_than_threshold=(labels[i] > 0),
-                verbose=kwargs.get("verbose", True),
-            )
-            y = self._revise(
-                x=instance,
-                y=y,
-                learning_rate=kwargs.get("revise_learning_rate", 1.0),
-                num_iterations=kwargs.get("revise_num_iterations", 100),
-                smoothness_weight=kwargs.get("smoothness_weight", 0.1),
-                less_than_threshold=(labels[i] > 0)
-            )
-            explanations.add(
-                query=Timeseries(
-                    data=instance.reshape((X.ts_len, -1)),
-                    timestamps=X.timestamps[i],
-                    variable_names=X.columns
-                ).to_pd(),
-                cfs=Timeseries(
-                    data=y.reshape((X.ts_len, -1)),
-                    timestamps=X.timestamps[i],
-                    variable_names=X.columns
-                ).to_pd() if y is not None else None
-            )
+        y = self._optimize(
+            x=instance,
+            learning_rate=kwargs.get("learning_rate", 0.1),
+            reg_weight=kwargs.get("regularization_weight", 1e-4),
+            entropy_weight=kwargs.get("entropy_weight", 1e-3),
+            batch_size=kwargs.get("batch_size", 50),
+            num_iterations=kwargs.get("num_iterations", 50),
+            less_than_threshold=(label > 0),
+            verbose=kwargs.get("verbose", True),
+        )
+        y = self._revise(
+            x=instance,
+            y=y,
+            learning_rate=kwargs.get("revise_learning_rate", 1.0),
+            num_iterations=kwargs.get("revise_num_iterations", 100),
+            smoothness_weight=kwargs.get("smoothness_weight", 0.1),
+            less_than_threshold=(label > 0)
+        )
+        explanations.add(
+            query=Timeseries(
+                data=instance.reshape((X.ts_len, -1)),
+                timestamps=X.timestamps,
+                variable_names=X.columns
+            ).to_pd(),
+            cfs=Timeseries(
+                data=y.reshape((X.ts_len, -1)),
+                timestamps=X.timestamps,
+                variable_names=X.columns
+            ).to_pd() if y is not None else None
+        )
         return explanations
