@@ -1,6 +1,5 @@
 import unittest
 import numpy as np
-import pandas as pd
 from omnixai.utils.misc import set_random_seed
 from omnixai.data.timeseries import Timeseries
 from omnixai.explainers.timeseries.agnostic.shap import ShapTimeseries

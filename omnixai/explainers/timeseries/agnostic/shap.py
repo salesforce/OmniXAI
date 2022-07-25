@@ -53,7 +53,7 @@ class ShapTimeseries(ExplainerBase):
         self.predict_function = predict_function
         self.variables = list(self.data.columns) + ["@timestamp"]
         # The timestamp info for the training data
-        self.train_ts_info = Timeseries.get_timestamp_info(self.data.to_pd(copy=False))
+        self.train_ts_info = Timeseries.get_timestamp_info(self.data)
         # The timestamp info for both training and test data
         self.ts_info = self.train_ts_info.copy()
         # The lengths of test instances must be the same
@@ -63,12 +63,12 @@ class ShapTimeseries(ExplainerBase):
     def _build_predictor(self, ts_len):
         def _predict(xs: np.ndarray):
             xs = xs.reshape((xs.shape[0], ts_len, len(self.variables)))
-            dfs = [Timeseries.restore_timestamp_index(
-                pd.DataFrame(x, columns=self.variables), self.ts_info) for x in xs]
-            return np.array([self.predict_function(Timeseries.from_pd(df)) for df in dfs]).flatten()
+            ts = [Timeseries.restore_timestamp_index(
+                Timeseries(x, variable_names=self.variables), self.ts_info) for x in xs]
+            return np.array([self.predict_function(t) for t in ts]).flatten()
         return _predict
 
-    def _build_explainer(self, ts_len, num_samples):
+    def _build_explainer(self, ts_len, num_samples=100):
         if self.explainer is not None:
             return
         assert self.data.ts_len > ts_len, \
@@ -76,7 +76,7 @@ class ShapTimeseries(ExplainerBase):
 
         interval = range(self.data.ts_len - ts_len)
         ps = random.sample(interval, min(num_samples, len(interval)))
-        x = Timeseries.reset_timestamp_index(self.data.to_pd(copy=False), self.ts_info)
+        x = Timeseries.reset_timestamp_index(self.data, self.ts_info)
         self.explainer = shap.KernelExplainer(
             model=self._build_predictor(ts_len),
             data=np.array([x.values[p:p + ts_len].flatten() for p in ps]),
@@ -90,25 +90,23 @@ class ShapTimeseries(ExplainerBase):
 
         :param X: An instance of `Timeseries` representing one input instance or
             a batch of input instances.
-        :param kwargs: Additional parameters for `shap.KernelExplainer.shap_values`.
+        :param kwargs: Additional parameters for `shap.KernelExplainer.shap_values`, e.g.,
+            "nsamples" for the number of times to re-evaluate the model when explaining each prediction.
         :return: The feature-importance explanations for all the input instances.
         """
         # Initialize the SHAP explainer if it is not created.
-        if "nsamples" not in kwargs:
-            kwargs["nsamples"] = 100
-        self._build_explainer(X.ts_len, kwargs["nsamples"])
+        self._build_explainer(X.ts_len)
         explanations = FeatureImportance(self.mode)
 
         self.ts_info = self.train_ts_info.copy()
-        info = Timeseries.get_timestamp_info(X.to_pd(copy=False))
+        info = Timeseries.get_timestamp_info(X)
         self.ts_info["ts2val"].update(info["ts2val"])
         self.ts_info["val2ts"].update(info["val2ts"])
 
-        data = Timeseries.reset_timestamp_index(X.to_pd(copy=False), self.ts_info)
+        data = Timeseries.reset_timestamp_index(X, self.ts_info)
         instances = data.values.reshape((1, -1))
         shap_values = self.explainer.shap_values(instances, **kwargs)
         shap_values = shap_values.reshape(data.shape)
-
         scores = pd.DataFrame(
             shap_values,
             columns=data.columns,
