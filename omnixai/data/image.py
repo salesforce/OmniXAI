@@ -128,6 +128,15 @@ class Image(Data):
         """
         return self.data.shape
 
+    def num_samples(self) -> int:
+        """
+        Returns the number of the images.
+
+        :return: The number of the images.
+        :rtype: int
+        """
+        return self.data.shape[0]
+
     @property
     def image_shape(self) -> tuple:
         """

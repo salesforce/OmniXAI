@@ -116,6 +116,15 @@ class Tabular(Data):
         """
         return self.data.shape
 
+    def num_samples(self) -> int:
+        """
+        Returns the number of the examples.
+
+        :return: The number of the examples.
+        :rtype: int
+        """
+        return self.data.shape[0]
+
     @property
     def values(self) -> np.ndarray:
         """

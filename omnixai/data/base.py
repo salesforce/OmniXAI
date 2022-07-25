@@ -33,3 +33,10 @@ class Data(metaclass=AutodocABCMeta):
         :return: The raw values of the data object.
         """
         raise NotImplementedError
+
+    @abstractmethod
+    def num_samples(self):
+        """
+        :return: The number samples in the dataset.
+        """
+        raise NotImplementedError
