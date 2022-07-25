@@ -159,6 +159,8 @@ def tensor_to_numpy(x):
     """
     Converts a tensor in pytorch or tensorflow into a numpy array.
     """
+    if isinstance(x, (int, np.int32, np.int64, float, np.float32, np.float64)):
+        return np.array([x])
     if not isinstance(x, np.ndarray):
         try:
             x = x.detach().cpu().numpy()
