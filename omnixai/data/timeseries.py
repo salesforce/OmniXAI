@@ -82,14 +82,14 @@ class Timeseries(Data):
         )
 
     @property
-    def ts_len(self):
+    def ts_len(self) -> int:
         """
         Returns the length of the time series.
         """
         return self.data.shape[0]
 
     @property
-    def shape(self):
+    def shape(self) -> tuple:
         """
         Returns the raw data shape, e.g., (timestamps, num_variables).
 
@@ -108,7 +108,7 @@ class Timeseries(Data):
         return 1
 
     @property
-    def values(self):
+    def values(self) -> np.ndarray:
         """
         Returns the raw values of the data object.
 
@@ -117,7 +117,7 @@ class Timeseries(Data):
         return self.data
 
     @property
-    def columns(self):
+    def columns(self) -> List:
         """
         Gets the metric/variable names.
 
@@ -126,7 +126,7 @@ class Timeseries(Data):
         return self.variable_names
 
     @property
-    def index(self):
+    def index(self) -> np.ndarray:
         """
         Gets the timestamps.
 
@@ -146,7 +146,7 @@ class Timeseries(Data):
             index=self.timestamps
         )
 
-    def to_numpy(self, copy=True):
+    def to_numpy(self, copy=True) -> np.ndarray:
         """
         Converts `Timeseries` to `np.ndarray`.
 
@@ -163,21 +163,6 @@ class Timeseries(Data):
         :rtype: Timeseries
         """
         return Timeseries.from_pd(self.to_pd())
-
-    def sort_timestamps(self, only_timestamp=False):
-        """
-        Sorts the samples according to the timestamps.
-
-        :param only_timestamp: If True, only timestamps are sorted.
-            If False, both timestamps and data are sorted.
-        """
-        if only_timestamp:
-            self.timestamps = np.sort(self.timestamps)
-        else:
-            indices = np.argsort(self.timestamps)
-            self.timestamps = self.timestamps[indices]
-            self.data = self.data[indices]
-        return self
 
     @classmethod
     def from_pd(cls, df):
