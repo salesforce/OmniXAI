@@ -1,6 +1,5 @@
 import unittest
 import numpy as np
-import pandas as pd
 from omnixai.utils.misc import set_random_seed
 from omnixai.data.timeseries import Timeseries
 from omnixai.explainers.timeseries.agnostic.shap import ShapTimeseries
@@ -20,13 +19,12 @@ class TestShapTimeseries(unittest.TestCase):
             timestamps=list(range(x.shape[0])),
             variable_names=list('x' * (i + 1) for i in range(x.shape[1]))
         )
-        timestamps = pd.to_datetime(list(range(y.shape[0])), unit='s')
         self.test_data = Timeseries(
             data=y,
-            timestamps=[v for v in timestamps],
+            timestamps=list(range(y.shape[0])),
             variable_names=list('x' * (i + 1) for i in range(x.shape[1]))
         )
-        self.predict_function = lambda xs: np.array([np.sum(z[:, 0]) for z in xs.values])
+        self.predict_function = lambda _x: np.sum(_x.values[:, 0])
 
     def test(self):
         set_random_seed()

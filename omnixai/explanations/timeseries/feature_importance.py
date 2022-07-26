@@ -92,7 +92,7 @@ class FeatureImportance(ExplanationBase):
         if figure_type == "timeseries":
             for exp in explanations:
                 ts, scores = exp["instance"], exp["scores"]
-                num_variables = ts.shape[1]
+                num_variables = max(ts.shape[1], scores.shape[1])
                 if num_variables > max_num_variables_to_plot:
                     warnings.warn("The number of variables in the time series exceeds "
                                   "the maximum number of variables to plot.")
@@ -106,16 +106,17 @@ class FeatureImportance(ExplanationBase):
                     row, col = divmod(i, num_cols)
                     plt.sca(axes[row, col])
                     # Plot the original time series
-                    left_ax = axes[row, col]
-                    ts_a = ts[[ts.columns[i]]]
-                    timestamps = [str(v) for v in ts_a.index.values]
-                    left_ax.plot(timestamps, ts_a.values.flatten(), color='k')
-                    left_ax.set_xticklabels(left_ax.get_xticks(), rotation=45)
+                    if i < ts.shape[1]:
+                        left_ax = axes[row, col]
+                        ts_a = ts[[ts.columns[i]]]
+                        timestamps = [str(v) for v in ts_a.index.values]
+                        left_ax.plot(timestamps, ts_a.values.flatten(), color='k')
+                        left_ax.set_xticklabels(left_ax.get_xticks(), rotation=45)
                     # Plot the importance scores
                     right_ax = axes[row, col].twinx()
                     ts_b = scores[[scores.columns[i]]]
                     right_ax.plot(timestamps, ts_b.values.flatten(), color='r', label="score")
-                    plt.title(f"{ts.columns[i]}")
+                    plt.title(f"{scores.columns[i]}")
                     plt.grid()
                 figures.append(fig)
         else:
@@ -169,6 +170,16 @@ class FeatureImportance(ExplanationBase):
                 line=dict(color=color, dash="dash"),
             ))
 
+        if "@timestamp" in scores:
+            v = scores[["@timestamp"]]
+            score_traces.append(go.Scatter(
+                name="timestamp_score",
+                x=v.index,
+                y=v.values.flatten(),
+                mode="lines",
+                line=dict(color="black", dash="dash"),
+            ))
+
         layout = dict(
             showlegend=True,
             xaxis=dict(
@@ -196,6 +207,9 @@ class FeatureImportance(ExplanationBase):
         for trace_a, trace_b in zip(traces, score_traces):
             fig.add_trace(trace_a)
             fig.add_trace(trace_b, secondary_y=True)
+        if len(score_traces) > len(traces):
+            for trace_b in score_traces[len(traces):]:
+                fig.add_trace(trace_b, secondary_y=True)
         return fig
 
     def plotly_plot(self, index=0, **kwargs):

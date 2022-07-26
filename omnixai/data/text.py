@@ -65,6 +65,15 @@ class Text(Data):
     def __iter__(self):
         return (self.__getitem__(i) for i in range(len(self.data)))
 
+    def num_samples(self) -> int:
+        """
+        Returns the number of the texts or sentences.
+
+        :return: The number of the texts or sentences.
+        :rtype: int
+        """
+        return len(self.data)
+
     @property
     def values(self):
         """

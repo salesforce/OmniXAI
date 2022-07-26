@@ -30,7 +30,7 @@ class State:
         self.class_names = class_names
         self.params = {} if params is None else params
         self.instances = instances
-        self.instance_indices = list(range(len(self.instances))) \
+        self.instance_indices = list(range(self.instances.num_samples())) \
             if instances is not None else []
 
         self.set_explanations("local", local_explanations)
