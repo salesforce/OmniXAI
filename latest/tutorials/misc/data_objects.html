@@ -810,7 +810,7 @@ Raw strings: [&#39;What a great movie! if you have no taste.&#39;, &#39;it was a
 </section>
 <section id="Time-series-data">
 <h2>Time series data<a class="headerlink" href="#Time-series-data" title="Permalink to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> class represents a batch of time series. The values of metrics/variables are stored in a numpy array with shape <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">timestamps,</span> <span class="pre">num_variables)</span></code>. If there is only one time series, <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> is 1.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> class represents a time series. The values of metrics/variables are stored in a numpy array with shape <code class="docutils literal notranslate"><span class="pre">(timestamps,</span> <span class="pre">num_variables)</span></code>. We can construct a <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> instance from a pandas dataframe, where the index indicates the timestamps and the columns are the variables.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -828,28 +828,13 @@ Raw strings: [&#39;What a great movie! if you have no taste.&#39;, &#39;it was a
 </pre></div>
 </div>
 </div>
-<p>We can construct a <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> instance from one or a list of pandas dataframes. The index of the dataframe indicates the timestamps and the columns are the variables.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ts_a</span> <span class="o">=</span> <span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">ts_b</span> <span class="o">=</span> <span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">df</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<p>Here are some useful functions:</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch size of ts_a: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch size of ts_b: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_b</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Length of ts_a: </span><span class="si">{</span><span class="n">ts_a</span><span class="o">.</span><span class="n">ts_len</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To pandas dataframe:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ts_a</span><span class="o">.</span><span class="n">to_pd</span><span class="p">())</span>
+<span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">Timeseries</span><span class="o">.</span><span class="n">from_pd</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -858,12 +843,44 @@ Raw strings: [&#39;What a great movie! if you have no taste.&#39;, &#39;it was a
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Batch size of ts_a: 1
-Batch size of ts_b: 2
-Length of ts_a: 3
+            Consumption     Wind   Solar
+2017-12-27   1263.94091  394.507  16.530
+2017-12-28   1299.86398  506.424  14.162
+2017-12-29   1319.76541  610.314  15.173
+</pre></div></div>
+</div>
+<p>Here are some useful functions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Length of ts: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Length of ts: </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">ts_len</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metrics: </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">columns</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time-series shape: </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Select rows:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To pandas dataframe:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">to_pd</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Length of ts: 3
+Length of ts: 3
+Metrics: [&#39;Consumption&#39;, &#39;Wind&#39;, &#39;Solar&#39;]
+Time-series shape: (3, 3)
+Select rows:
+            Consumption     Wind   Solar
+2017-12-28   1299.86398  506.424  14.162
+2017-12-27   1263.94091  394.507  16.530
 To pandas dataframe:
             Consumption     Wind   Solar
-timestamp
 2017-12-27   1263.94091  394.507  16.530
 2017-12-28   1299.86398  506.424  14.162
 2017-12-29   1319.76541  610.314  15.173

@@ -74,7 +74,6 @@
 
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
- | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
@@ -221,14 +220,6 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.explainers.html#omnixai.explainers.base.AutoExplainerBase">AutoExplainerBase (class in omnixai.explainers.base)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="B">B</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.batch_size">batch_size (omnixai.data.timeseries.Timeseries property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -704,6 +695,8 @@
       </ul></li>
       <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.get_target_column">get_target_column() (omnixai.data.tabular.Tabular method)</a>
 </li>
+      <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.get_timestamp_info">get_timestamp_info() (omnixai.data.timeseries.Timeseries static method)</a>
+</li>
       <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance">GlobalFeatureImportance (class in omnixai.explanations.tabular.feature_importance)</a>
 </li>
       <li><a href="omnixai.explainers.vision.specific.html#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAM">GradCAM (class in omnixai.explainers.vision.specific.gradcam.gradcam)</a>
@@ -1107,12 +1100,22 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.pipeline.Pipeline.name">name (omnixai.preprocessing.pipeline.Pipeline attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.explainers.nlp.html#omnixai.explainers.nlp.auto.NLPExplainer">NLPExplainer (class in omnixai.explainers.nlp.auto)</a>
 </li>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.image.Normalize">Normalize (class in omnixai.preprocessing.image)</a>
 </li>
+      <li><a href="omnixai.data.html#omnixai.data.base.Data.num_samples">num_samples() (omnixai.data.base.Data method)</a>
+
+      <ul>
+        <li><a href="omnixai.data.html#omnixai.data.image.Image.num_samples">(omnixai.data.image.Image method)</a>
+</li>
+        <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.num_samples">(omnixai.data.tabular.Tabular method)</a>
+</li>
+        <li><a href="omnixai.data.html#omnixai.data.text.Text.num_samples">(omnixai.data.text.Text method)</a>
+</li>
+        <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.num_samples">(omnixai.data.timeseries.Timeseries method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -1904,9 +1907,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.data.html#omnixai.data.tabular.Tabular.remove_target_column">remove_target_column() (omnixai.data.tabular.Tabular method)</a>
 </li>
+      <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.reset_timestamp_index">reset_timestamp_index() (omnixai.data.timeseries.Timeseries static method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.image.Resize">Resize (class in omnixai.preprocessing.image)</a>
+</li>
+      <li><a href="omnixai.data.html#omnixai.data.timeseries.Timeseries.restore_timestamp_index">restore_timestamp_index() (omnixai.data.timeseries.Timeseries static method)</a>
 </li>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.image.Round2Int">Round2Int (class in omnixai.preprocessing.image)</a>
 </li>

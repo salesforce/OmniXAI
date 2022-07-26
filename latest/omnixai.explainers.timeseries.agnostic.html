@@ -166,9 +166,9 @@ If using this explainer, please cite the original work: <a class="reference exte
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timeseries</span></code></a>) – The data used to initialize the explainer.</p></li>
 <li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the model to explain.
-The inputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> should be a batch (list) of time series, e.g.,
-an <cite>Timeseries</cite> instance. The outputs of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are anomaly scores (higher scores
-imply more anomalous) for anomaly detection or predicted values for forecasting.</p></li>
+The input of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> is an <cite>Timeseries</cite> instance. The output of <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
+is the anomaly score (higher scores imply more anomalous) for anomaly detection or the predicted
+value for forecasting.</p></li>
 <li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>anomaly_detection</cite> or <cite>forecasting</cite>.</p></li>
 </ul>
 </dd>
@@ -192,7 +192,8 @@ imply more anomalous) for anomaly detection or predicted values for forecasting.
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timeseries</span></code></a>) – An instance of <cite>Timeseries</cite> representing one input instance or
 a batch of input instances.</p></li>
-<li><p><strong>kwargs</strong> – Additional parameters for <cite>shap.KernelExplainer.shap_values</cite>.</p></li>
+<li><p><strong>kwargs</strong> – Additional parameters for <cite>shap.KernelExplainer.shap_values</cite>, e.g.,
+“nsamples” for the number of times to re-evaluate the model when explaining each prediction.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>

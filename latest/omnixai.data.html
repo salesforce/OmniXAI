@@ -245,6 +245,16 @@ indicates the timestamps and the columns are the variables.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.data.base.Data.num_samples">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.base.Data.num_samples" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number samples in the dataset.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -304,6 +314,20 @@ target column.</p></li>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.data.tabular.Tabular.num_samples">
+<span class="sig-name descname"><span class="pre">num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular.num_samples" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the number of the examples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of the examples.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -546,6 +570,20 @@ has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.data.image.Image.num_samples">
+<span class="sig-name descname"><span class="pre">num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.image.Image.num_samples" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the number of the images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of the images.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.image.Image.image_shape">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">image_shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#omnixai.data.image.Image.image_shape" title="Permalink to this definition"></a></dt>
@@ -653,6 +691,20 @@ which should be <cite>Callable</cite> object. If <cite>tokenizer</cite> is None,
 <span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'text'</span></em><a class="headerlink" href="#omnixai.data.text.Text.data_type" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.data.text.Text.num_samples">
+<span class="sig-name descname"><span class="pre">num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.text.Text.num_samples" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the number of the texts or sentences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of the texts or sentences.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.text.Text.values">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#omnixai.data.text.Text.values" title="Permalink to this definition"></a></dt>
@@ -707,7 +759,7 @@ a list of strings if it contains multiple sentences.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.data.text.Text.split">
-<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxsplit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.text.Text.split" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxsplit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.text.Text.split" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -734,20 +786,15 @@ a list of strings if it contains multiple sentences.</p>
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.data.timeseries.</span></span><span class="sig-name descname"><span class="pre">Timeseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#omnixai.data.base.Data" title="omnixai.data.base.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a></p>
-<p>This class represents a univariate/multivariate time series dataset, e.g. a batch of time series.
-The dataset may contain a batch of time series whose metric values are stored in a numpy array
-with shape <cite>(batch_size, timestamps, num_variables)</cite>. If there is only one time series, <cite>batch_size</cite>
-is 1.</p>
+<p>This class represents a univariate/multivariate time series dataset.
+The dataset contains a time series whose metric values are stored in a numpy array
+with shape <cite>(timestamps, num_variables)</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – A numpy array contains one or a batch of time series. If it has one time series only,
-the shape of <code class="docutils literal notranslate"><span class="pre">data</span></code> is <cite>(timestamps, num_variables)</cite>. If it has a batch of time series, the
-shape of <code class="docutils literal notranslate"><span class="pre">data</span></code> is <cite>(batch_size, timestamps, num_variables)</cite>.</p></li>
-<li><p><strong>timestamps</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – If <code class="docutils literal notranslate"><span class="pre">data</span></code> has one time series, <code class="docutils literal notranslate"><span class="pre">timestamps</span></code> is a list of the corresponding
-timestamps. If <code class="docutils literal notranslate"><span class="pre">data</span></code> has a batch of time series, <code class="docutils literal notranslate"><span class="pre">timestamps</span></code> is a batch of lists of the
-timestamps.</p></li>
-<li><p><strong>variable_names</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of metric/variable names in time series data.</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – A numpy array containing a time series. The shape of <code class="docutils literal notranslate"><span class="pre">data</span></code> is <cite>(timestamps, num_variables)</cite>.</p></li>
+<li><p><strong>timestamps</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of timestamps.</p></li>
+<li><p><strong>variable_names</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of metric/variable names.</p></li>
 </ul>
 </dd>
 </dl>
@@ -758,21 +805,19 @@ timestamps.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.ts_len">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ts_len</span></span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.ts_len" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ts_len</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.ts_len" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the length of the time series.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.batch_size">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_size</span></span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.batch_size" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the batch_size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.shape">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.shape" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the raw data shape, e.g., (batch_size, timestamps, num_variables).
-If there is only one time series, <cite>batch_size</cite> is 1.</p>
+<dd><p>Returns the raw data shape, e.g., (timestamps, num_variables).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A tuple for the raw data shape.</p>
@@ -783,16 +828,33 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.num_samples">
+<span class="sig-name descname"><span class="pre">num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.num_samples" title="Permalink to this definition"></a></dt>
+<dd><p>Returns 1 because a Timeseries object only contains one time-series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ol class="arabic simple">
+<li></li>
+</ol>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.values">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.values" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the raw values of the data object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A numpy array of the data object.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>np.ndarray</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A numpy array of the data object.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -802,25 +864,25 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.columns" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the metric/variable names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The list of the metric/variable names.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of the metric/variable names.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.index">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.index" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.index" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the timestamps.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A list of timestamps.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>pd.DatetimeIndex</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of timestamps.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -830,11 +892,11 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 <span class="sig-name descname"><span class="pre">to_pd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.to_pd" title="Permalink to this definition"></a></dt>
 <dd><p>Converts <cite>Timeseries</cite> to <cite>pd.DataFrame</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A pandas dataframe or a batch of pandas dataframes representing the time series.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>pd.DataFrame</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A pandas dataframe representing the time series.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -847,11 +909,11 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, or <cite>False</cite> otherwise.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A numpy ndarray representing the time series.</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.ndarray</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A numpy ndarray representing the time series.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -878,6 +940,54 @@ If there is only one time series, <cite>batch_size</cite> is 1.</p>
 The index of each dataframe should contain the timestamps.</p>
 <p>:return A <cite>Timeseries</cite> instance.
 :rtype: Timeseries</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.get_timestamp_info">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_timestamp_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.get_timestamp_info" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a dict containing timestamp information, e.g., timestamp index name, timestamp values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ts</strong> – A Timeseries instance.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The timestamp information.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.reset_timestamp_index">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset_timestamp_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.reset_timestamp_index" title="Permalink to this definition"></a></dt>
+<dd><p>Moves the timestamp index to a column and converts timestamps into floats.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts</strong> – A Timeseries instance.</p></li>
+<li><p><strong>timestamp_info</strong> – The timestamp information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A converted Timeseries instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.restore_timestamp_index">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">restore_timestamp_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.restore_timestamp_index" title="Permalink to this definition"></a></dt>
+<dd><p>Moves the timestamp column to the index and converts the floats back to timestamps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts</strong> – A Timeseries instance with a <cite>&#64;timestamp</cite> column.</p></li>
+<li><p><strong>timestamp_info</strong> – The timestamp information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The original time-series dataframe.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

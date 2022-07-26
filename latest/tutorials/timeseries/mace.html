@@ -385,7 +385,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>The time series data used here is a sythentic univariate time series dataset. We recommend using <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> to represent a time series dataset. <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> contains a batch of time series, i.e., each instance in <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> is a univariate/multivariate time series, which can be constructed from one or a list of pandas dataframes (the index in the dataframe indicates the timestamps and the columns are the variables).</p>
+<p>The time series data used here is a sythentic univariate time series dataset. We recommend using <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> to represent a time series dataset. <code class="docutils literal notranslate"><span class="pre">Timeseries</span></code> contains one univariate/multivariate time series, which can be constructed from a pandas dataframe (the index in the dataframe indicates the timestamps and the columns are the variables).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -444,11 +444,8 @@ timestamp
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># A simple detector for determining whether a window of time series is anomalous</span>
 <span class="k">def</span> <span class="nf">detector</span><span class="p">(</span><span class="n">ts</span><span class="p">:</span> <span class="n">Timeseries</span><span class="p">):</span>
-    <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
-        <span class="n">anomaly_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
-        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">anomaly_scores</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="n">anomaly_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">ts</span><span class="o">.</span><span class="n">values</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">anomaly_scores</span> <span class="o">/</span> <span class="n">ts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
