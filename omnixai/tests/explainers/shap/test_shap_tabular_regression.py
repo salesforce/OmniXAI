@@ -18,7 +18,11 @@ class TestShapTabular(unittest.TestCase):
 
         set_random_seed()
         explainer = ShapTabular(
-            training_data=task.train_data, predict_function=predict_function, mode="regression", nsamples=100
+            training_data=task.train_data,
+            predict_function=predict_function,
+            mode="regression",
+            ignored_features=None,
+            nsamples=100
         )
 
         i = 25
