@@ -143,12 +143,12 @@ class LimeTabular(TabularExplainer):
 
             for label, values in exp:
                 df = X.iloc(i).to_pd()
-                feature_values = \
-                    [df[self.feature_columns[self.valid_indices[feat]]].values[0] for feat, _ in values]
+                feature_values = [df[self.feature_columns[self.valid_indices[v[0]]]].values[0] for v in values]
+                feature_names = [self.feature_columns[self.valid_indices[v[0]]] for v in values]
                 explanations.add(
                     instance=df,
                     target_label=label,
-                    feature_names=[self.feature_columns[self.valid_indices[v[0]]] for v in values],
+                    feature_names=feature_names,
                     feature_values=feature_values,
                     importance_scores=[v[1] for v in values],
                 )
