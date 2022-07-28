@@ -17,7 +17,12 @@ class TestLimeTabular(unittest.TestCase):
         base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
         task = TabularClassification(base_folder).train_adult(num_training_samples=2000)
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
-        explainer = LimeTabular(training_data=task.train_data, predict_function=predict_function, kernel_width=3)
+        explainer = LimeTabular(
+            training_data=task.train_data,
+            predict_function=predict_function,
+            ignored_features=None,
+            kernel_width=3
+        )
 
         set_random_seed()
         i = 1653
