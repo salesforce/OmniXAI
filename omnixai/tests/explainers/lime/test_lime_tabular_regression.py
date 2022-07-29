@@ -15,7 +15,12 @@ class TestLimeTabular(unittest.TestCase):
     def test_explain(self):
         task = TabularRegression().train_boston()
         predict_function = lambda z: task.model.predict(task.transform.transform(z))
-        explainer = LimeTabular(training_data=task.train_data, predict_function=predict_function, mode="regression")
+        explainer = LimeTabular(
+            training_data=task.train_data,
+            predict_function=predict_function,
+            mode="regression",
+            ignored_features=None
+        )
 
         set_random_seed()
         i = 25

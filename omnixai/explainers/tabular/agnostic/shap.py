@@ -9,7 +9,7 @@ The SHAP explainer for tabular data.
 """
 import shap
 import numpy as np
-from typing import Callable
+from typing import Callable, List
 
 from ..base import TabularExplainer
 from ....data.tabular import Tabular
@@ -25,7 +25,14 @@ class ShapTabular(TabularExplainer):
     explanation_type = "local"
     alias = ["shap"]
 
-    def __init__(self, training_data: Tabular, predict_function: Callable, mode: str = "classification", **kwargs):
+    def __init__(
+            self,
+            training_data: Tabular,
+            predict_function: Callable,
+            mode: str = "classification",
+            ignored_features: List = None,
+            **kwargs
+    ):
         """
         :param training_data: The data used to initialize a SHAP explainer. ``training_data``
             can be the training dataset for training the machine learning model. If the training
@@ -35,18 +42,20 @@ class ShapTabular(TabularExplainer):
             are the class probabilities. When the model is for regression, the outputs of
             the ``predict_function`` are the estimated values.
         :param mode: The task type, e.g., `classification` or `regression`.
+        :param ignored_features: The features ignored in computing feature importance scores.
         :param kwargs: Additional parameters to initialize `shap.KernelExplainer`, e.g., ``nsamples``.
             Please refer to the doc of `shap.KernelExplainer`.
         """
         super().__init__(training_data=training_data, predict_function=predict_function, mode=mode, **kwargs)
-        if "nsamples" in kwargs:
-            data = shap.sample(self.data, nsamples=kwargs["nsamples"])
-        else:
-            data = self.data
+        self.ignored_features = set(ignored_features) if ignored_features is not None else set()
+        if self.target_column is not None:
+            assert self.target_column not in self.ignored_features, \
+                f"The target column {self.target_column} cannot be in the ignored feature list."
+        self.valid_indices = [i for i, f in enumerate(self.feature_columns) if f not in self.ignored_features]
 
-        self.explainer = shap.KernelExplainer(
-            self.predict_fn, data, link="logit" if mode == "classification" else "identity", **kwargs
-        )
+        if "nsamples" not in kwargs:
+            kwargs["nsamples"] = 100
+        self.background_data = shap.sample(self.data, nsamples=kwargs["nsamples"])
 
     def explain(self, X, y=None, **kwargs) -> FeatureImportance:
         """
@@ -57,13 +66,13 @@ class ShapTabular(TabularExplainer):
         :param y: A batch of labels to explain. For regression, ``y`` is ignored.
             For classification, the top predicted label of each instance will be explained
             when ``y = None``.
-        :param kwargs: Additional parameters for `shap.KernelExplainer.shap_values`.
+        :param kwargs: Additional parameters for `shap.KernelExplainer.shap_values`,
+            e.g., ``nsamples`` -- the number of times to re-evaluate the model when explaining each prediction.
         :return: The feature-importance explanations for all the input instances.
         """
         X = self._to_tabular(X).remove_target_column()
         explanations = FeatureImportance(self.mode)
         instances = self.transformer.transform(X)
-        shap_values = self.explainer.shap_values(instances, **kwargs)
 
         if self.mode == "classification":
             if y is not None:
@@ -80,12 +89,23 @@ class ShapTabular(TabularExplainer):
         else:
             y = None
 
-        for i, instance in enumerate(instances):
-            df = X.iloc(i).to_pd()
-            feature_values = [df[self.feature_columns[feat]].values[0] for feat in range(len(self.feature_columns))]
-            if self.mode == "classification":
-                label = y[i]
-                importance_scores = shap_values[label][i]
+        if len(self.ignored_features) == 0:
+            explainer = shap.KernelExplainer(
+                self.predict_fn, self.background_data,
+                link="logit" if self.mode == "classification" else "identity", **kwargs
+            )
+            shap_values = explainer.shap_values(instances, **kwargs)
+
+            for i, instance in enumerate(instances):
+                df = X.iloc(i).to_pd()
+                feature_values = \
+                    [df[self.feature_columns[feat]].values[0] for feat in range(len(self.feature_columns))]
+                if self.mode == "classification":
+                    label = y[i]
+                    importance_scores = shap_values[label][i]
+                else:
+                    label = None
+                    importance_scores = shap_values[i]
                 explanations.add(
                     instance=df,
                     target_label=label,
@@ -94,13 +114,36 @@ class ShapTabular(TabularExplainer):
                     importance_scores=importance_scores,
                     sort=True,
                 )
-            else:
+        else:
+            for i, instance in enumerate(instances):
+                def _predict(_x):
+                    _y = np.tile(instance, (_x.shape[0], 1))
+                    _y[:, self.valid_indices] = _x
+                    return self.predict_fn(_y)
+                predict_function = _predict
+                test_x = instance[self.valid_indices]
+
+                explainer = shap.KernelExplainer(
+                    predict_function, self.background_data[:, self.valid_indices],
+                    link="logit" if self.mode == "classification" else "identity", **kwargs
+                )
+                shap_values = explainer.shap_values(np.expand_dims(test_x, axis=0), **kwargs)
+
+                df = X.iloc(i).to_pd()
+                feature_values = [df[self.feature_columns[f]].values[0] for f in self.valid_indices]
+                feature_names = [self.feature_columns[f] for f in self.valid_indices]
+                if self.mode == "classification":
+                    label = y[i]
+                    importance_scores = shap_values[label][0]
+                else:
+                    label = None
+                    importance_scores = shap_values[0]
                 explanations.add(
                     instance=df,
-                    target_label=None,
-                    feature_names=self.feature_columns,
+                    target_label=label,
+                    feature_names=feature_names,
                     feature_values=feature_values,
-                    importance_scores=shap_values[i],
+                    importance_scores=importance_scores,
                     sort=True,
                 )
         return explanations

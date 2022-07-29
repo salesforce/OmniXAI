@@ -19,7 +19,12 @@ class TestShapTabular(unittest.TestCase):
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
 
         set_random_seed()
-        explainer = ShapTabular(training_data=task.train_data, predict_function=predict_function, nsamples=150)
+        explainer = ShapTabular(
+            training_data=task.train_data,
+            predict_function=predict_function,
+            ignored_features=None,
+            nsamples=150
+        )
 
         i = 1653
         test_x = task.test_data.iloc(i)

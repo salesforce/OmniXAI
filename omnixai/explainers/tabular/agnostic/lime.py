@@ -8,8 +8,9 @@
 The LIME explainer for tabular data.
 """
 import warnings
+import numpy as np
 from lime import lime_tabular
-from typing import Callable
+from typing import Callable, List
 
 from ..base import TabularExplainer
 from ....data.tabular import Tabular
@@ -25,7 +26,14 @@ class LimeTabular(TabularExplainer):
     explanation_type = "local"
     alias = ["lime"]
 
-    def __init__(self, training_data: Tabular, predict_function: Callable, mode: str = "classification", **kwargs):
+    def __init__(
+            self,
+            training_data: Tabular,
+            predict_function: Callable,
+            mode: str = "classification",
+            ignored_features: List = None,
+            **kwargs
+    ):
         """
         :param training_data: The data used to train local explainers in LIME. ``training_data``
             can be the training dataset for training the machine learning model. If the training
@@ -36,19 +44,38 @@ class LimeTabular(TabularExplainer):
             are the class probabilities. When the model is for regression, the outputs of
             the ``predict_function`` are the estimated values.
         :param mode: The task type, e.g., `classification` or `regression`.
+        :param ignored_features: The features ignored in computing feature importance scores.
         :param kwargs: Additional parameters to initialize `lime_tabular.LimeTabularExplainer`,
             e.g., ``kernel_width`` and ``discretizer``. Please refer to the doc of
             `lime_tabular.LimeTabularExplainer`.
         """
         super().__init__(training_data=training_data, predict_function=predict_function, mode=mode, **kwargs)
-        self.explainer = lime_tabular.LimeTabularExplainer(
-            training_data=self.data,
-            mode=mode,
-            feature_names=self.feature_columns,
-            categorical_features=self.categorical_features,
-            categorical_names=self.categorical_names,
-            **kwargs,
-        )
+        self.ignored_features = set(ignored_features) if ignored_features is not None else set()
+        if self.target_column is not None:
+            assert self.target_column not in self.ignored_features, \
+                f"The target column {self.target_column} cannot be in the ignored feature list."
+
+        if len(self.ignored_features) == 0:
+            self.explainer = lime_tabular.LimeTabularExplainer(
+                training_data=self.data,
+                mode=mode,
+                feature_names=self.feature_columns,
+                categorical_features=self.categorical_features,
+                categorical_names=self.categorical_names,
+                **kwargs,
+            )
+            self.valid_indices = list(range(len(self.feature_columns)))
+        else:
+            self.valid_indices = [i for i, f in enumerate(self.feature_columns) if f not in self.ignored_features]
+            categorical_names = [f for f in self.categorical_columns if f not in self.ignored_features]
+            self.explainer = lime_tabular.LimeTabularExplainer(
+                training_data=self.data[:, self.valid_indices],
+                mode=mode,
+                feature_names=[self.feature_columns[i] for i in self.valid_indices],
+                categorical_features=list(range(len(categorical_names))),
+                categorical_names=categorical_names,
+                **kwargs,
+            )
 
     def explain(self, X, y=None, **kwargs) -> FeatureImportance:
         """
@@ -93,22 +120,35 @@ class LimeTabular(TabularExplainer):
             y = None
 
         for i, instance in enumerate(instances):
+            if len(self.ignored_features) == 0:
+                predict_function = self.predict_fn
+                test_x = instance
+            else:
+                def _predict(_x):
+                    _y = np.tile(instance, (_x.shape[0], 1))
+                    _y[:, self.valid_indices] = _x
+                    return self.predict_fn(_y)
+                predict_function = _predict
+                test_x = instance[self.valid_indices]
+
             if self.mode == "classification":
                 e = self.explainer.explain_instance(
-                    instance, predict_fn=self.predict_fn, labels=(y[i],) if y is not None else None, **kwargs
+                    test_x, predict_fn=predict_function, labels=(y[i],) if y is not None else None, **kwargs
                 )
                 exp = e.as_map().items()
             else:
-                e = self.explainer.explain_instance(instance, predict_fn=self.predict_fn, labels=(1,), **kwargs)
+                e = self.explainer.explain_instance(
+                    test_x, predict_fn=predict_function, labels=(1,), **kwargs)
                 exp = [(None, e.as_map()[1])]
 
             for label, values in exp:
                 df = X.iloc(i).to_pd()
-                feature_values = [df[self.feature_columns[feat]].values[0] for feat, _ in values]
+                feature_values = [df[self.feature_columns[self.valid_indices[v[0]]]].values[0] for v in values]
+                feature_names = [self.feature_columns[self.valid_indices[v[0]]] for v in values]
                 explanations.add(
                     instance=df,
                     target_label=label,
-                    feature_names=[self.feature_columns[v[0]] for v in values],
+                    feature_names=feature_names,
                     feature_values=feature_values,
                     importance_scores=[v[1] for v in values],
                 )
