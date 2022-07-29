@@ -55,7 +55,7 @@ class LimeTabular(TabularExplainer):
             assert self.target_column not in self.ignored_features, \
                 f"The target column {self.target_column} cannot be in the ignored feature list."
 
-        if ignored_features is None:
+        if len(self.ignored_features) == 0:
             self.explainer = lime_tabular.LimeTabularExplainer(
                 training_data=self.data,
                 mode=mode,
@@ -66,8 +66,8 @@ class LimeTabular(TabularExplainer):
             )
             self.valid_indices = list(range(len(self.feature_columns)))
         else:
-            self.valid_indices = [i for i, f in enumerate(self.feature_columns) if f not in ignored_features]
-            categorical_names = [f for f in self.categorical_columns if f not in ignored_features]
+            self.valid_indices = [i for i, f in enumerate(self.feature_columns) if f not in self.ignored_features]
+            categorical_names = [f for f in self.categorical_columns if f not in self.ignored_features]
             self.explainer = lime_tabular.LimeTabularExplainer(
                 training_data=self.data[:, self.valid_indices],
                 mode=mode,
