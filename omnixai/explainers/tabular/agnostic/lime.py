@@ -50,9 +50,9 @@ class LimeTabular(TabularExplainer):
             `lime_tabular.LimeTabularExplainer`.
         """
         super().__init__(training_data=training_data, predict_function=predict_function, mode=mode, **kwargs)
-        self.ignored_features = set(ignored_features) if ignored_features is not None else None
+        self.ignored_features = set(ignored_features) if ignored_features is not None else set()
         if self.target_column is not None:
-            assert self.target_column not in ignored_features, \
+            assert self.target_column not in self.ignored_features, \
                 f"The target column {self.target_column} cannot be in the ignored feature list."
 
         if ignored_features is None:
@@ -120,7 +120,7 @@ class LimeTabular(TabularExplainer):
             y = None
 
         for i, instance in enumerate(instances):
-            if self.ignored_features is None:
+            if len(self.ignored_features) == 0:
                 predict_function = self.predict_fn
                 test_x = instance
             else:

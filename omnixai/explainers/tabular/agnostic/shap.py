@@ -49,7 +49,7 @@ class ShapTabular(TabularExplainer):
         super().__init__(training_data=training_data, predict_function=predict_function, mode=mode, **kwargs)
         self.ignored_features = set(ignored_features) if ignored_features is not None else set()
         if self.target_column is not None:
-            assert self.target_column not in ignored_features, \
+            assert self.target_column not in self.ignored_features, \
                 f"The target column {self.target_column} cannot be in the ignored feature list."
         self.valid_indices = [i for i, f in enumerate(self.feature_columns) if f not in self.ignored_features]
 
