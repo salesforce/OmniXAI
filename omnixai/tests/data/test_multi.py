@@ -22,7 +22,8 @@ class TestMultiInputs(unittest.TestCase):
 
     def test(self):
         self.assertEqual(self.inputs.num_samples(), 1)
-        print(self.inputs.values)
+        print(self.inputs.image)
+        print(self.inputs.text)
 
 
 if __name__ == "__main__":

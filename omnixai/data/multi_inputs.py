@@ -12,7 +12,6 @@ from .base import Data
 from .tabular import Tabular
 from .image import Image
 from .text import Text
-from .timeseries import Timeseries
 
 
 class MultiInputs(Data):
@@ -30,13 +29,15 @@ class MultiInputs(Data):
         super().__init__()
         num_samples = []
         for key, value in inputs.items():
-            assert isinstance(value, (Tabular, Image, Text, Timeseries)), \
-                f"The type of input {key} must be `Tabular`, `Image`, `Text` or `Timeseries` " \
+            assert isinstance(value, (Tabular, Image, Text)), \
+                f"The type of input {key} must be `Tabular`, `Image` or `Text` " \
                 f"instead of {type(value)}."
             num_samples.append(value.num_samples())
         assert min(num_samples) == max(num_samples), \
             f"The numbers of samples in the inputs are different: {num_samples}."
 
+        for key, value in inputs.items():
+            setattr(self, key, value)
         self.inputs = inputs
         self.nsamples = num_samples[0]
 
@@ -56,3 +57,6 @@ class MultiInputs(Data):
         :return: The number samples in the inputs.
         """
         return self.nsamples
+
+    def __contains__(self, item):
+        return item in self.inputs
