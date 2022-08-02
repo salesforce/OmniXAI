@@ -1,6 +1,7 @@
 import os
 import torch
 import unittest
+import numpy as np
 from PIL import Image as PilImage
 from omnixai.data.text import Text
 from omnixai.data.image import Image
@@ -16,10 +17,11 @@ class TestGradCAM(unittest.TestCase):
 
     def setUp(self) -> None:
         directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets")
-        img = Resize(size=720).transform(
+        im = Resize(size=480).transform(
             Image(PilImage.open(os.path.join(directory, "images/girl_dog.jpg")).convert("RGB")))
-        text = Text("A girl playing with her dog on the beach")
-        self.inputs = MultiInputs(image=img, text=text)
+        image = Image(data=np.concatenate([im.to_numpy(), im.to_numpy()]), batched=True)
+        text = Text(["A girl playing with her dog on the beach", "A girl playing with her dog"])
+        self.inputs = MultiInputs(image=image, text=text)
 
         pretrained_path = \
             "https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base_retrieval_coco.pth"
@@ -29,8 +31,8 @@ class TestGradCAM(unittest.TestCase):
         self.tokenizer = BlipITM.init_tokenizer()
 
         def _preprocess(x: MultiInputs):
-            images = torch.stack([self.image_processor(im.to_pil()) for im in x.image])
-            texts = self.text_processor(x.text.to_str())
+            images = torch.stack([self.image_processor(z.to_pil()) for z in x.image])
+            texts = [self.text_processor(z) for z in x.text.values]
             return images, texts
 
         self.preprocess = _preprocess

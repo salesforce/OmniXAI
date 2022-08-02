@@ -4,13 +4,17 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import inspect
 import numpy as np
 from typing import Callable
 from abc import abstractmethod
+from PIL import Image as PilImage
 
 from omnixai.utils.misc import AutodocABCMeta
+from omnixai.data.image import Image
 from omnixai.data.multi_inputs import MultiInputs
 from omnixai.utils.misc import is_torch_available
+from omnixai.preprocessing.image import Resize
 
 if not is_torch_available():
     raise EnvironmentError("Torch cannot be found.")
@@ -86,40 +90,80 @@ class Base(metaclass=AutodocABCMeta):
 
         for layer, activation, gradient in zip(self.target_layers, activations, gradients):
             # Compute GradCAM scores
-            weights = self._compute_weights(activation, gradient, masks)
-            gradcam = weights * activation
+            gradcam = self._compute_gradcam(activation, gradient, masks)
             # Reshape the scores according to the patch size
             shape = gradcam.shape
             assert shape[-1] >= np.prod(self.patch_shape), \
                 f"The patch shape {self.patch_shape} is too large, i.e., {self.patch_shape} vs {shape[-1]}."
             n = self.patch_shape[0] * self.patch_shape[1]
             gradcam = gradcam[..., -n:].reshape(shape[:-1] + self.patch_shape)
+
+            # The GradCAM scores corresponding to the tokens
             gradcam = np.mean(gradcam, axis=1)
-            scores.append(gradcam)
+            # The average GradCAM scores
+            lengths, avg = np.sum(masks, axis=1), np.sum(gradcam, axis=1)
+            avg = avg / lengths.reshape((-1,) + (1,) * (avg.ndim - 1))
+            scores.append((gradcam, avg))
         return scores
 
     @abstractmethod
-    def _compute_weights(self, activations, gradients, masks):
+    def _compute_gradcam(self, activations, gradients, masks):
         pass
+
+    @staticmethod
+    def _padding(masks):
+        lengths = [len(mask) for mask in masks]
+        if min(lengths) == max(lengths):
+            return np.array(masks, dtype=np.float32)
+        else:
+            m = np.zeros((len(masks), max(lengths)))
+            for i, (length, mask) in enumerate(zip(lengths, masks)):
+                m[i, :length] = mask
+            return m
+
+    @staticmethod
+    def _resize_scores(scores, shape):
+        resized_scores = []
+        for score in scores:
+            min_val, max_val = np.min(score), np.max(score)
+            score = (score - min_val) / (max_val - min_val + 1e-8) * 255
+            im = Resize(shape).transform(Image(data=score, batched=False))
+            resized_scores.append(im.to_numpy() / 255.0)
+        return np.concatenate(resized_scores, axis=0)
 
     def explain(self, X: MultiInputs, **kwargs):
         assert "image" in X, "The input doesn't have attribute `image`."
         assert "text" in X, "The input doesn't have attribute `text`."
 
-        tokenized_texts = self.tokenizer(X.text.to_str())
-        try:
-            masks = tokenized_texts.attention_mask
-        except:
-            masks = tokenized_texts["attention_mask"]
-        masks = masks.detach().cpu().numpy() if isinstance(masks, torch.Tensor) else \
-            np.array(masks, dtype=np.float32)
-        if masks.ndim == 1:
-            masks = np.expand_dims(masks, axis=0)
+        tokenizer_params = {}
+        signature = inspect.signature(self.tokenizer).parameters
+        if "padding" in signature:
+            tokenizer_params["padding"] = True
+        if "max_length" in signature:
+            tokenizer_params["max_length"] = 512
+        tokenized_texts = self.tokenizer(X.text.values, **tokenizer_params)
+        masks = self._padding(tokenized_texts["attention_mask"])
 
         self.activations, self.gradients = [], []
         outputs = self.model(*self.preprocess(X))
         self._backward(outputs, **kwargs)
         scores = self._compute_scores(masks)
+        # By default, there is only one target_layer
+        gradcams, avg = scores[0]
+
+        shape = X.image.image_shape[:2]
+        avg = self._resize_scores(avg, shape)
+        gradcams = np.stack([self._resize_scores(g, shape) for g in gradcams])
+
+        print(gradcams.shape)
+        print(avg.shape)
+        import matplotlib.pyplot as plt
+        plt.imshow(avg[0])
+        plt.show()
+
+        for g in gradcams[0]:
+            plt.imshow(g)
+            plt.show()
 
 
 class GradCAM(Base):
@@ -144,5 +188,7 @@ class GradCAM(Base):
             **kwargs
         )
 
-    def _compute_weights(self, activations, gradients, masks):
-        return gradients * masks[:, None, :, None]
+    def _compute_gradcam(self, activations, gradients, masks):
+        scores = gradients * activations * masks[:, None, :, None]
+        scores[scores < 0] = 0
+        return scores
