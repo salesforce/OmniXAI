@@ -46,7 +46,11 @@ class TestGradCAM(unittest.TestCase):
             tokenizer=self.tokenizer,
             loss_function=None
         )
-        explainer.explain(self.inputs)
+        explanations = explainer.explain(self.inputs)
+
+        import matplotlib.pyplot as plt
+        explanations.plot()
+        plt.show()
 
 
 if __name__ == "__main__":
