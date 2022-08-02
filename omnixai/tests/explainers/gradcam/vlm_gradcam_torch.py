@@ -47,10 +47,8 @@ class TestGradCAM(unittest.TestCase):
             loss_function=None
         )
         explanations = explainer.explain(self.inputs)
-
-        import matplotlib.pyplot as plt
-        explanations.plot()
-        plt.show()
+        fig = explanations.plotly_plot()
+        fig.show()
 
 
 if __name__ == "__main__":
