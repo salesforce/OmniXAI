@@ -8,13 +8,13 @@ import inspect
 import numpy as np
 from typing import Callable
 from abc import abstractmethod
-from PIL import Image as PilImage
 
 from omnixai.utils.misc import AutodocABCMeta
 from omnixai.data.image import Image
 from omnixai.data.multi_inputs import MultiInputs
 from omnixai.utils.misc import is_torch_available
 from omnixai.preprocessing.image import Resize
+from omnixai.explanations.image.pixel_importance import PixelImportance
 
 if not is_torch_available():
     raise EnvironmentError("Torch cannot be found.")
@@ -134,13 +134,12 @@ class Base(metaclass=AutodocABCMeta):
     def explain(self, X: MultiInputs, **kwargs):
         assert "image" in X, "The input doesn't have attribute `image`."
         assert "text" in X, "The input doesn't have attribute `text`."
+        explanations = PixelImportance("vlm", use_heatmap=True)
 
         tokenizer_params = {}
         signature = inspect.signature(self.tokenizer).parameters
         if "padding" in signature:
             tokenizer_params["padding"] = True
-        if "max_length" in signature:
-            tokenizer_params["max_length"] = 512
         tokenized_texts = self.tokenizer(X.text.values, **tokenizer_params)
         masks = self._padding(tokenized_texts["attention_mask"])
 
@@ -155,15 +154,19 @@ class Base(metaclass=AutodocABCMeta):
         avg = self._resize_scores(avg, shape)
         gradcams = np.stack([self._resize_scores(g, shape) for g in gradcams])
 
-        print(gradcams.shape)
-        print(avg.shape)
-        import matplotlib.pyplot as plt
-        plt.imshow(avg[0])
-        plt.show()
-
-        for g in gradcams[0]:
-            plt.imshow(g)
-            plt.show()
+        for i in range(X.num_samples()):
+            tokens = [t for t, m in zip(tokenized_texts["input_ids"][i],
+                                        tokenized_texts["attention_mask"][i])
+                      if m > 0]
+            labels = ["Avg GradCAM"] + [self.tokenizer.decode([t]) for t in tokens]
+            scores = [avg[i]] + [g for g in gradcams[i][:len(tokens)]]
+            explanations.add(
+                image=X.image[i].to_numpy()[0],
+                importance_scores=scores,
+                labels=labels,
+                target_label=None
+            )
+        return explanations
 
 
 class GradCAM(Base):
