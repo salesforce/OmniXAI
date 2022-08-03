@@ -29,7 +29,7 @@ class GradCAM(ExplainerBase):
             target_layer,
             preprocess_function: Callable,
             tokenizer: Callable,
-            loss_function: Callable = None,
+            loss_function: Callable,
             patch_shape: tuple = (24, 24),
             **kwargs
     ):
@@ -46,6 +46,10 @@ class GradCAM(ExplainerBase):
         super().__init__()
         if not is_tf_available() and not is_torch_available():
             raise EnvironmentError("Both Torch and Tensorflow cannot be found.")
+        assert target_layer is not None, "The target layer cannot be None."
+        assert preprocess_function is not None, "`preprocess_function` cannot be None."
+        assert tokenizer is not None, "The tokenizer cannot be None."
+        assert loss_function is not None, "The loss_function cannot be None."
 
         _class = None
         if is_torch_available():

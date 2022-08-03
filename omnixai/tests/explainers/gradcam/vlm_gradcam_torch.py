@@ -44,7 +44,7 @@ class TestGradCAM(unittest.TestCase):
                 crossattention.self.attention_probs_layer,
             preprocess_function=self.preprocess,
             tokenizer=self.tokenizer,
-            loss_function=None
+            loss_function=lambda outputs: outputs[:, 1].sum()
         )
         explanations = explainer.explain(self.inputs)
         fig = explanations.plotly_plot()

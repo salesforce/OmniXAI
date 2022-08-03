@@ -76,10 +76,7 @@ class Base(metaclass=AutodocABCMeta):
         self.gradients = [outputs[0].detach().cpu()] + self.gradients
 
     def _backward(self, outputs, **kwargs):
-        if self.loss_function is None:
-            loss = outputs[:, 1].sum()
-        else:
-            loss = self.loss_function(outputs, **kwargs)
+        loss = self.loss_function(outputs, **kwargs)
         self.model.zero_grad()
         loss.backward(retain_graph=True)
 
