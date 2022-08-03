@@ -115,15 +115,13 @@ class IntegratedGradient(ExplainerBase):
         assert embedding_layer is not None, "The embedding layer cannot be None."
         assert preprocess_function is not None, "`preprocess_function` cannot be None."
         assert tokenizer is not None, "The tokenizer cannot be None."
+        assert loss_function is not None, "The loss_function cannot be None."
 
         self.model = model
         self.embedding_layer = embedding_layer
         self.preprocess_function = preprocess_function
         self.tokenizer = tokenizer
-        if loss_function is None:
-            self.loss_function = lambda outputs: outputs[:, 1].sum()
-        else:
-            self.loss_function = loss_function
+        self.loss_function = loss_function
 
         self.ig_class = None
         if is_torch_available():

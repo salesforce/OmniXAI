@@ -41,7 +41,7 @@ class TestIG(unittest.TestCase):
             embedding_layer=self.model.text_encoder.embeddings.word_embeddings,
             preprocess_function=self.preprocess,
             tokenizer=self.tokenizer,
-            loss_function=None
+            loss_function=lambda outputs: outputs[:, 1].sum()
         )
         explanations = explainer.explain(self.inputs)
         fig = explanations.plotly_plot()
