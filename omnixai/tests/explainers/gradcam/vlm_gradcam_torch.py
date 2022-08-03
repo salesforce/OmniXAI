@@ -7,7 +7,7 @@ from omnixai.data.text import Text
 from omnixai.data.image import Image
 from omnixai.data.multi_inputs import MultiInputs
 from omnixai.preprocessing.image import Resize
-from omnixai.explainers.vision_language.specific.gradcam.pytorch.gradcam import GradCAM
+from omnixai.explainers.vision_language.specific.gradcam import GradCAM
 
 from lavis.models import BlipITM
 from lavis.processors import load_processor
