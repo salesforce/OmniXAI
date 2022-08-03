@@ -144,7 +144,10 @@ class Base(metaclass=AutodocABCMeta):
         masks = self._padding(tokenized_texts["attention_mask"])
 
         self.activations, self.gradients = [], []
-        outputs = self.model(*self.preprocess(X))
+        inputs = self.preprocess(X)
+        if not isinstance(inputs, (tuple, list)):
+            inputs = (inputs,)
+        outputs = self.model(*inputs)
         self._backward(outputs, **kwargs)
         scores = self._compute_scores(masks)
         # By default, there is only one target_layer
