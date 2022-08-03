@@ -219,7 +219,7 @@ class IntegratedGradientText(ExplainerBase):
             torch_inputs = []
             for x in inputs:
                 if isinstance(x, (np.ndarray, list)):
-                    x = torch.tensor(x)
+                    x = torch.tensor(x, dtype=torch.get_default_dtype())
                 torch_inputs.append(x.to(device))
             return tuple(torch_inputs)
         else:
@@ -228,7 +228,7 @@ class IntegratedGradientText(ExplainerBase):
             tf_inputs = []
             for x in inputs:
                 if isinstance(x, (np.ndarray, list)):
-                    x = tf.convert_to_tensor(x)
+                    x = tf.convert_to_tensor(x, dtype=tf.keras.backend.floatx())
                 tf_inputs.append(x)
             return tuple(tf_inputs)
 
