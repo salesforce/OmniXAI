@@ -31,7 +31,7 @@ class _IntegratedGradientTorch:
         self.embedding_layer_inputs = None
 
     def compute_integrated_gradients(
-            self, model, embedding_layer, inputs, loss_function, steps, **kwargs
+            self, model, embedding_layer, inputs, loss_function, steps, batch_size=8, **kwargs
     ):
         import torch
 
@@ -49,29 +49,34 @@ class _IntegratedGradientTorch:
 
             # Build the inputs for computing integrated gradient
             alphas = np.linspace(start=0.0, stop=1.0, num=steps, endpoint=True)
-            self.embedding_layer_inputs = torch.tensor(
-                np.stack([baselines[0] + a * (self.embeddings[0] - baselines[0]) for a in alphas]),
-                dtype=torch.get_default_dtype(),
-                device=device,
-                requires_grad=True,
-            )
-            repeated_inputs = []
-            num_reps = self.embedding_layer_inputs.shape[0]
-            for x in all_inputs:
-                if isinstance(x, torch.Tensor):
-                    repeated_inputs.append(x.repeat(*((num_reps,) + (1,) * (len(x.shape) - 1))))
-                elif isinstance(x, (list, tuple)):
-                    repeated_inputs.append(x * num_reps)
-                else:
-                    raise ValueError(f"Wrong type {type(x)}")
+            gradients = []
+            for k in range(0, len(alphas), batch_size):
+                self.embedding_layer_inputs = torch.tensor(
+                    np.stack([baselines[0] + a * (self.embeddings[0] - baselines[0])
+                              for a in alphas[k:k + batch_size]]),
+                    dtype=torch.get_default_dtype(),
+                    device=device,
+                    requires_grad=True,
+                )
+                repeated_inputs = []
+                num_reps = self.embedding_layer_inputs.shape[0]
+                for x in all_inputs:
+                    if isinstance(x, torch.Tensor):
+                        repeated_inputs.append(x.repeat(*((num_reps,) + (1,) * (len(x.shape) - 1))))
+                    elif isinstance(x, (list, tuple)):
+                        repeated_inputs.append(x * num_reps)
+                    else:
+                        raise ValueError(f"Wrong type {type(x)}")
 
-            # Compute gradients
-            outputs = model(*repeated_inputs)
-            loss = torch.stack(
-                [loss_function(outputs[i:i + 1], **kwargs) for i in range(outputs.shape[0])])
-            gradients = (
-                torch.autograd.grad(torch.unbind(loss), self.embedding_layer_inputs)[0].detach().cpu().numpy()
-            )
+                # Compute gradients
+                outputs = model(*repeated_inputs)
+                loss = torch.stack(
+                    [loss_function(outputs[i:i + 1], **kwargs) for i in range(outputs.shape[0])])
+                grad = (
+                    torch.autograd.grad(torch.unbind(loss), self.embedding_layer_inputs)[0].detach().cpu().numpy()
+                )
+                gradients.append(grad)
+            gradients = np.concatenate(gradients, axis=0)
         finally:
             for hook in hooks:
                 hook.remove()
@@ -149,7 +154,8 @@ class IntegratedGradient(ExplainerBase):
         """
         assert "image" in X, "The input doesn't have attribute `image`."
         assert "text" in X, "The input doesn't have attribute `text`."
-        steps = kwargs.get("steps", 20)
+        steps = kwargs.get("steps", 32)
+        batch_size = kwargs.get("batch_size", 8)
         explanations = WordImportance(mode="vlm")
 
         tokenizer_params = {}
@@ -168,6 +174,7 @@ class IntegratedGradient(ExplainerBase):
                 inputs=inputs,
                 loss_function=self.loss_function,
                 steps=steps,
+                batch_size=batch_size,
                 **kwargs
             )
             tokens = [t for t, m in zip(tokenized_texts["input_ids"][i],
