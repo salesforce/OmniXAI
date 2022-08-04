@@ -45,6 +45,7 @@ class _IntegratedGradientTorch:
             hooks.append(embedding_layer.register_forward_hook(self._embedding_hook))
             model(*all_inputs)
             baselines = np.zeros(self.embeddings.shape)
+            hooks.append(embedding_layer.register_forward_hook(self._embedding_layer_hook))
 
             # Build the inputs for computing integrated gradient
             alphas = np.linspace(start=0.0, stop=1.0, num=steps, endpoint=True)
@@ -65,7 +66,6 @@ class _IntegratedGradientTorch:
                     raise ValueError(f"Wrong type {type(x)}")
 
             # Compute gradients
-            hooks.append(embedding_layer.register_forward_hook(self._embedding_layer_hook))
             outputs = model(*repeated_inputs)
             loss = torch.stack(
                 [loss_function(outputs[i:i + 1], **kwargs) for i in range(outputs.shape[0])])
