@@ -90,7 +90,7 @@ class _IntegratedGradientTf:
         self.embedding_layer_inputs = None
 
     def compute_integrated_gradients(
-        self, model, embedding_layer, inputs, output_index, additional_inputs=None, steps=50
+            self, model, embedding_layer, inputs, output_index, additional_inputs=None, steps=50
     ):
         import tensorflow as tf
 
@@ -164,13 +164,13 @@ class IntegratedGradientText(ExplainerBase):
     alias = ["ig", "integrated_gradient"]
 
     def __init__(
-        self,
-        model,
-        embedding_layer,
-        preprocess_function: Callable,
-        mode: str = "classification",
-        id2token: Dict = None,
-        **kwargs,
+            self,
+            model,
+            embedding_layer,
+            preprocess_function: Callable,
+            mode: str = "classification",
+            id2token: Dict = None,
+            **kwargs,
     ):
         """
         :param model: The model to explain, whose type can be `tf.keras.Model` or `torch.nn.Module`.
@@ -219,7 +219,7 @@ class IntegratedGradientText(ExplainerBase):
             torch_inputs = []
             for x in inputs:
                 if isinstance(x, (np.ndarray, list)):
-                    x = torch.tensor(x, dtype=torch.get_default_dtype())
+                    x = torch.tensor(x)
                 torch_inputs.append(x.to(device))
             return tuple(torch_inputs)
         else:
@@ -228,7 +228,7 @@ class IntegratedGradientText(ExplainerBase):
             tf_inputs = []
             for x in inputs:
                 if isinstance(x, (np.ndarray, list)):
-                    x = tf.convert_to_tensor(x, dtype=tf.keras.backend.floatx())
+                    x = tf.convert_to_tensor(x)
                 tf_inputs.append(x)
             return tuple(tf_inputs)
 
