@@ -57,11 +57,3 @@ Timeseries Explainers
    :glob:
 
    tutorials/timeseries/*
-
-Vision-Language Explainers
---------------------------
-.. toctree::
-   :maxdepth: 2
-   :glob:
-
-   tutorials/vision_language/*
