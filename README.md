@@ -79,7 +79,7 @@ image data.
 
 This [table](https://opensource.salesforce.com/OmniXAI/latest/index.html#comparison-with-competitors) 
 shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
-in literature
+in literature.
 
 ## Installation
 
