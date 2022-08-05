@@ -30,7 +30,7 @@ class _IntegratedGradientTorch:
         self.embedding_layer_inputs = None
 
     def compute_integrated_gradients(
-        self, model, embedding_layer, inputs, output_index, additional_inputs=None, steps=50
+        self, model, embedding_layer, inputs, output_index, additional_inputs=None, steps=50, batch_size=8
     ):
         import torch
 
@@ -48,26 +48,32 @@ class _IntegratedGradientTorch:
             hooks.append(embedding_layer.register_forward_hook(self._embedding_hook))
             model(*all_inputs)
             baselines = np.zeros(self.embeddings.shape)
+            hooks.append(embedding_layer.register_forward_hook(self._embedding_layer_hook))
 
             # Build the inputs for computing integrated gradient
             alphas = np.linspace(start=0.0, stop=1.0, num=steps, endpoint=True)
-            self.embedding_layer_inputs = torch.tensor(
-                np.stack([baselines[0] + a * (self.embeddings[0] - baselines[0]) for a in alphas]),
-                dtype=torch.get_default_dtype(),
-                device=device,
-                requires_grad=True,
-            )
-            all_inputs = self._repeat(all_inputs, num_reps=self.embedding_layer_inputs.shape[0])
+            gradients = []
+            for k in range(0, len(alphas), batch_size):
+                self.embedding_layer_inputs = torch.tensor(
+                    np.stack([baselines[0] + a * (self.embeddings[0] - baselines[0])
+                              for a in alphas[k:k + batch_size]]),
+                    dtype=torch.get_default_dtype(),
+                    device=device,
+                    requires_grad=True,
+                )
+                repeated_inputs = self._repeat(all_inputs, num_reps=self.embedding_layer_inputs.shape[0])
 
-            # Compute gradients
-            hooks.append(embedding_layer.register_forward_hook(self._embedding_layer_hook))
-            predictions = model(*all_inputs)
-            if len(predictions.shape) > 1:
-                assert output_index is not None, "The model has multiple outputs, the output index cannot be None"
-                predictions = predictions[:, output_index]
-            gradients = (
-                torch.autograd.grad(torch.unbind(predictions), self.embedding_layer_inputs)[0].detach().cpu().numpy()
-            )
+                # Compute gradients
+                predictions = model(*repeated_inputs)
+                if len(predictions.shape) > 1:
+                    assert output_index is not None, "The model has multiple outputs, the output index cannot be None"
+                    predictions = predictions[:, output_index]
+                grad = (
+                    torch.autograd.grad(
+                        torch.unbind(predictions), self.embedding_layer_inputs)[0].detach().cpu().numpy()
+                )
+                gradients.append(grad)
+            gradients = np.concatenate(gradients, axis=0)
         finally:
             for hook in hooks:
                 hook.remove()
@@ -90,7 +96,7 @@ class _IntegratedGradientTf:
         self.embedding_layer_inputs = None
 
     def compute_integrated_gradients(
-            self, model, embedding_layer, inputs, output_index, additional_inputs=None, steps=50
+            self, model, embedding_layer, inputs, output_index, additional_inputs=None, steps=50, batch_size=8
     ):
         import tensorflow as tf
 
@@ -245,6 +251,7 @@ class IntegratedGradientText(ExplainerBase):
         :return: The explanations for all the instances, e.g., word/token importance scores.
         """
         steps = kwargs.get("steps", 50)
+        batch_size = kwargs.get("batch_size", 16)
         explanations = WordImportance(mode=self.mode)
 
         inputs = self._preprocess(X)
@@ -275,6 +282,7 @@ class IntegratedGradientText(ExplainerBase):
                 output_index=output_index,
                 additional_inputs=None if len(inputs) == 1 else inputs[1:],
                 steps=steps,
+                batch_size=batch_size
             )
             tokens = inputs[0].detach().cpu().numpy() if self.model_type == "torch" else inputs[0].numpy()
             explanations.add(
