@@ -134,6 +134,7 @@ Some examples:
 3. [Image classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/vision.ipynb)
 4. [Text classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/nlp_imdb.ipynb)
 5. [Time-series anomaly detection](https://github.com/salesforce/OmniXAI/blob/main/tutorials/timeseries.ipynb)
+6. [Vision-language tasks](https://github.com/salesforce/OmniXAI/blob/main/tutorials/vision_language)
 
 To get started, we recommend the linked tutorials in [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
