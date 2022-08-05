@@ -212,8 +212,8 @@ entry <cite>{“target_label”: the predicted label of the input instance}</cit
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.image.pixel_importance.PixelImportance.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance.plot" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a matplotlib figure plotting pixel importance scores.</p>
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_figures</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance.plot" title="Permalink to this definition"></a></dt>
+<dd><p>Returns matplotlib figures plotting pixel importance scores.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -224,17 +224,18 @@ for the first 10 instances.</p></li>
 <li><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
 <code class="docutils literal notranslate"><span class="pre">class_name</span> <span class="pre">=</span> <span class="pre">['dog',</span> <span class="pre">'cat']</span></code> means that label 0 corresponds to ‘dog’ and
 label 1 corresponds to ‘cat’.</p></li>
+<li><p><strong>max_num_figures</strong> – The maximum number of figures to plot.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A matplotlib figure plotting pixel importance scores.</p>
+<dd class="field-even"><p>A list of matplotlib figures plotting pixel importance scores.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.image.pixel_importance.PixelImportance.plotly_plot">
-<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance.plotly_plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_figures</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a plotly dash figure plotting the pixel importance scores for one
 specific instance.</p>
 <dl class="field-list simple">
@@ -245,6 +246,7 @@ plot the first explanation result when <code class="docutils literal notranslate
 <li><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
 <code class="docutils literal notranslate"><span class="pre">class_name</span> <span class="pre">=</span> <span class="pre">['dog',</span> <span class="pre">'cat']</span></code> means that label 0 corresponds to ‘dog’ and
 label 1 corresponds to ‘cat’.</p></li>
+<li><p><strong>max_num_figures</strong> – The maximum number of figures to plot.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -255,7 +257,7 @@ label 1 corresponds to ‘cat’.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.image.pixel_importance.PixelImportance.ipython_plot">
-<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance.ipython_plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_figures</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the pixel importance scores in IPython.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -265,6 +267,7 @@ plot the first explanation result when <code class="docutils literal notranslate
 <li><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
 <code class="docutils literal notranslate"><span class="pre">class_name</span> <span class="pre">=</span> <span class="pre">['dog',</span> <span class="pre">'cat']</span></code> means that label 0 corresponds to ‘dog’ and
 label 1 corresponds to ‘cat’.</p></li>
+<li><p><strong>max_num_figures</strong> – The maximum number of figures to plot.</p></li>
 </ul>
 </dd>
 </dl>
