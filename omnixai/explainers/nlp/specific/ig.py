@@ -113,22 +113,28 @@ class _IntegratedGradientTf:
 
             # Build the inputs for computing integrated gradient
             alphas = np.linspace(start=0.0, stop=1.0, num=steps, endpoint=True)
-            self.embedding_layer_inputs = tf.convert_to_tensor(
-                np.stack([baselines[0] + a * (self.embeddings[0] - baselines[0]) for a in alphas]),
-                dtype=tf.keras.backend.floatx(),
-            )
-            all_inputs = [
-                tf.tile(x, (self.embedding_layer_inputs.shape[0],) + (1,) * (len(x.shape) - 1)) for x in all_inputs
-            ]
-
             # Compute gradients
-            with tf.GradientTape() as tape:
-                self._embedding_layer_hook(embedding_layer, tape)
-                predictions = model(*all_inputs)
-                if len(predictions.shape) > 1:
-                    assert output_index is not None, "The model has multiple outputs, the output index cannot be None"
-                    predictions = predictions[:, output_index]
-                gradients = tape.gradient(predictions, embedding_layer.res).numpy()
+            gradients = []
+            for k in range(0, len(alphas), batch_size):
+                with tf.GradientTape() as tape:
+                    self._embedding_layer_hook(embedding_layer, tape)
+                    self.embedding_layer_inputs = tf.convert_to_tensor(
+                        np.stack([baselines[0] + a * (self.embeddings[0] - baselines[0])
+                                  for a in alphas[k:k + batch_size]]),
+                        dtype=tf.keras.backend.floatx(),
+                    )
+                    repeated_inputs = [
+                        tf.tile(x, (self.embedding_layer_inputs.shape[0],) + (1,) * (len(x.shape) - 1))
+                        for x in all_inputs
+                    ]
+                    predictions = model(*repeated_inputs)
+                    if len(predictions.shape) > 1:
+                        assert output_index is not None, \
+                            "The model has multiple outputs, the output index cannot be None"
+                        predictions = predictions[:, output_index]
+                    grad = tape.gradient(predictions, embedding_layer.res).numpy()
+                    gradients.append(grad)
+            gradients = np.concatenate(gradients, axis=0)
         finally:
             self._remove_hook(embedding_layer, original_call)
         return _calculate_integral(self.embeddings[0], baselines[0], gradients)
