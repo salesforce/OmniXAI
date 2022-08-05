@@ -77,35 +77,9 @@ explanation methods for vision, NLP and time-series tasks.
 for text data. *Counterfactual* accepts black box models for tabular, text and time-series data, and PyTorch/Tensorflow models for
 image data.
 
-The following table shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
-in literature:
-
-| Data Type |        Method        | OmniXAI | InterpretML | AIX360 | Eli5  | Captum | Alibi | explainX
-:---:       |:--------------------:| :---:  | :---:       | :---:  | :---: | :---:  | :---: | :---:
-| Tabular   |         LIME         | ✅ | ✅ | ✅ | | ✅ | | |
-|           |         SHAP         | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
-|           |         PDP          | ✅ | ✅ | | | | | |
-|           |         ALE          | ✅ | | | | | ✅ | |
-|           |     Sensitivity      | ✅ | ✅ | | | | | |
-|           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           |    Counterfactual    | ✅ | | | | | ✅ | |
-|           |    Linear models     | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
-|           |     Tree models      | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
-|           |         L2X          | ✅ | | | | | | |
-| Image     |         LIME         | ✅ | | | | ✅ | | |
-|           |         SHAP         | ✅ | | | | ✅ | | |
-|           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           | Grad-CAM, Grad-CAM++ | ✅ | | | ✅ | ✅ | | |
-|           |         CEM          | ✅ | | ✅ | | | ✅ | |
-|           |    Counterfactual    | ✅ | | | | | ✅ | |
-|           |         L2X          | ✅ | | | | | | |
-| Text      |         LIME         | ✅ | | | ✅ | ✅ | | |
-|           |         SHAP         | ✅ | | | | ✅ | | |
-|           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           |         L2X          | ✅ | | | | | | |
-|           |    Counterfactual    | ✅ | | | | | | |
-| Timeseries  |         SHAP         | ✅ | | | | | | |
-|           |    Counterfactual    | ✅ | | | | | | |
+This [table](https://opensource.salesforce.com/OmniXAI/latest/index.html#comparison-with-competitors) 
+shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
+in literature
 
 ## Installation
 
