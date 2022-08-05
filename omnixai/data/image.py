@@ -24,7 +24,7 @@ class Image(Data):
     data_type = "image"
 
     def __init__(
-        self, data: Union[np.ndarray, PilImage.Image] = None, batched: bool = False, channel_last: bool = True
+            self, data: Union[np.ndarray, PilImage.Image] = None, batched: bool = False, channel_last: bool = True
     ):
         """
         :param data: The image data, which is either np.ndarray or PIL.Image. If ``data``
@@ -111,7 +111,7 @@ class Image(Data):
         :rtype: Image
         """
         if isinstance(i, int):
-            return Image(self.data[i : i + 1], batched=True, channel_last=True)
+            return Image(self.data[i: i + 1], batched=True, channel_last=True)
         else:
             return Image(self.data[i], batched=True, channel_last=True)
 

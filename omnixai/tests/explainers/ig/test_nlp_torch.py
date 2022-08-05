@@ -146,7 +146,7 @@ class TestIG(unittest.TestCase):
             preprocess_function=self.preprocess,
             id2token=self.transform.id_to_word,
         )
-        explanations = explainer.explain(self.x_test[idx : idx + 9])
+        explanations = explainer.explain(self.x_test[idx: idx + 9])
         explanations.plot(class_names=self.class_names, max_num_subplots=9)
 
 

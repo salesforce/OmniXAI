@@ -65,9 +65,9 @@ class PixelImportance(ExplanationBase):
         """
         return self.explanations if index is None else self.explanations[index]
 
-    def plot(self, index=None, class_names=None, **kwargs):
+    def plot(self, index=None, class_names=None, max_num_figures=20, **kwargs):
         """
-        Returns a matplotlib figure plotting pixel importance scores.
+        Returns matplotlib figures plotting pixel importance scores.
 
         :param index: The index of an explanation result stored in ``PixelImportance``,
             e.g., it will plot the first explanation result when ``index = 0``.
@@ -76,7 +76,8 @@ class PixelImportance(ExplanationBase):
         :param class_names: A list of the class names indexed by the labels, e.g.,
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
-        :return: A matplotlib figure plotting pixel importance scores.
+        :param max_num_figures: The maximum number of figures to plot.
+        :return: A list of matplotlib figures plotting pixel importance scores.
         """
         import matplotlib.pyplot as plt
 
@@ -93,78 +94,113 @@ class PixelImportance(ExplanationBase):
         if len(indices) == 0:
             return
 
-        num_rows = len(indices)
-        num_cols = 3
-        fig, axes = plt.subplots(num_rows, num_cols, squeeze=False)
-
-        for i, index in enumerate(indices):
+        figures = []
+        for index in indices:
             exp = explanations[index]
-            importance_scores = np.expand_dims(exp["scores"], axis=-1) if exp["scores"].ndim == 2 else exp["scores"]
-            image = np.transpose(np.stack([exp["image"]] * 3), (1, 2, 0)) if exp["image"].ndim == 2 else exp["image"]
+            all_scores = exp["scores"]
+            if not isinstance(all_scores, (list, tuple)):
+                all_scores = [all_scores]
+            if "labels" in exp:
+                labels = exp["labels"]
+                if not isinstance(labels, (list, tuple)):
+                    labels = [labels]
+                assert len(all_scores) == len(labels)
+            image = np.transpose(np.stack([exp["image"]] * 3), (1, 2, 0)) \
+                if exp["image"].ndim == 2 else exp["image"]
 
-            # Original image
-            plt.sca(axes[i, 0])
-            plt.imshow(image)
-            plt.xticks([])
-            plt.yticks([])
-            if exp.get("target_label", None) is not None:
-                label = exp["target_label"]
-                class_name = label if class_names is None else class_names[label]
-                plt.title(f"{class_name}")
+            for i, scores in enumerate(all_scores):
+                fig, axes = plt.subplots(1, 2, squeeze=False)
+                importance_scores = np.expand_dims(scores, axis=-1) \
+                    if scores.ndim == 2 else scores
 
-            # Image and importance scores
-            if not self.use_heatmap:
-                scores = _plot_pixel_importance(importance_scores, image, overlay=True)
-            else:
-                scores = _plot_pixel_importance_heatmap(importance_scores, image, overlay=True)
-            plt.sca(axes[i, 1])
-            plt.imshow(scores)
-            plt.xticks([])
-            plt.yticks([])
-            plt.title(f"Scores")
+                # Image and importance scores
+                if not self.use_heatmap:
+                    scores = _plot_pixel_importance(importance_scores, image, overlay=True)
+                else:
+                    scores = _plot_pixel_importance_heatmap(importance_scores, image, overlay=True)
+                plt.sca(axes[0, 0])
+                plt.imshow(scores)
+                plt.xticks([])
+                plt.yticks([])
+                if "labels" in exp:
+                    plt.title(f"{labels[i]}")
+                elif "target_label" in exp:
+                    label = exp["target_label"]
+                    class_name = label if class_names is None else class_names[label]
+                    plt.title(f"{class_name}")
 
-            # Positive pixel importance scores
-            if not self.use_heatmap:
-                scores = _plot_pixel_importance(importance_scores, image, polarity="positive")
-            else:
-                scores = _plot_pixel_importance_heatmap(importance_scores, image, overlay=False)
-            plt.sca(axes[i, 2])
-            plt.imshow(scores)
-            plt.xticks([])
-            plt.yticks([])
-            plt.title(f"Positive")
+                # Positive pixel importance scores
+                if not self.use_heatmap:
+                    scores = _plot_pixel_importance(importance_scores, image, polarity="positive")
+                else:
+                    scores = _plot_pixel_importance_heatmap(importance_scores, image, overlay=False)
+                plt.sca(axes[0, 1])
+                plt.imshow(scores)
+                plt.xticks([])
+                plt.yticks([])
+                plt.title("Score")
 
-        return fig
+                figures.append(fig)
+                if len(figures) >= max_num_figures:
+                    return figures
+        return figures
 
-    def _plotly_figure(self, index, class_names=None, **kwargs):
+    def _plotly_figure(self, index, class_names=None, max_num_figures=20, **kwargs):
         import plotly.express as px
         from plotly.subplots import make_subplots
 
         exp = self.explanations[index]
-        importance_scores = np.expand_dims(exp["scores"], axis=-1) if exp["scores"].ndim == 2 else exp["scores"]
-        image = np.transpose(np.stack([exp["image"]] * 3), (1, 2, 0)) if exp["image"].ndim == 2 else exp["image"]
+        all_scores = exp["scores"]
+        if not isinstance(all_scores, (list, tuple)):
+            all_scores = [all_scores]
+            all_scores = all_scores[:max_num_figures]
+        if "labels" in exp:
+            labels = exp["labels"]
+            if not isinstance(labels, (list, tuple)):
+                labels = [labels]
+            labels = labels[:max_num_figures]
+            assert len(all_scores) == len(labels)
+        image = np.transpose(np.stack([exp["image"]] * 3), (1, 2, 0)) \
+            if exp["image"].ndim == 2 else exp["image"]
 
-        fig = make_subplots(rows=1, cols=2, subplot_titles=["Overlay", "Positive"])
-        # Image and importance scores
-        if not self.use_heatmap:
-            img = _plot_pixel_importance(importance_scores, image, overlay=True)
+        # Subtitles for the plots
+        if len(all_scores) == 1:
+            subplot_titles = ["Overlay", "Score"]
         else:
-            img = _plot_pixel_importance_heatmap(importance_scores, image, overlay=True)
-        img_figure = px.imshow(img.squeeze().astype(np.uint8))
-        fig.add_trace(img_figure.data[0], row=1, col=1)
-        # Positive pixel importance scores
-        if not self.use_heatmap:
-            img = _plot_pixel_importance(importance_scores, image, polarity="positive")
-        else:
-            img = _plot_pixel_importance_heatmap(importance_scores, image, overlay=False)
-        img_figure = px.imshow(img.squeeze().astype(np.uint8))
-        fig.add_trace(img_figure.data[0], row=1, col=2)
+            subplot_titles = []
+            if "labels" in exp:
+                for i in range(len(all_scores)):
+                    subplot_titles += [str(labels[i]), "Score"]
+            else:
+                for i in range(len(all_scores)):
+                    subplot_titles += ["Overlay", "Score"]
+
+        fig = make_subplots(rows=len(all_scores), cols=2, subplot_titles=subplot_titles)
+        for i, scores in enumerate(all_scores):
+            importance_scores = np.expand_dims(scores, axis=-1) \
+                if scores.ndim == 2 else scores
+            # Image and importance scores
+            if not self.use_heatmap:
+                img = _plot_pixel_importance(importance_scores, image, overlay=True)
+            else:
+                img = _plot_pixel_importance_heatmap(importance_scores, image, overlay=True)
+            img_figure = px.imshow(img.squeeze().astype(np.uint8))
+            fig.add_trace(img_figure.data[0], row=i + 1, col=1)
+            # Positive pixel importance scores
+            if not self.use_heatmap:
+                img = _plot_pixel_importance(importance_scores, image, polarity="positive")
+            else:
+                img = _plot_pixel_importance_heatmap(importance_scores, image, overlay=False)
+            img_figure = px.imshow(img.squeeze().astype(np.uint8))
+            fig.add_trace(img_figure.data[0], row=i + 1, col=2)
 
         fig.update_xaxes(visible=False, showticklabels=False)
         fig.update_yaxes(visible=False, showticklabels=False)
+        if len(all_scores) > 1:
+            fig.update_layout(height=260 * len(all_scores))
         return fig
 
-    def plotly_plot(self, index=0, class_names=None, **kwargs):
+    def plotly_plot(self, index=0, class_names=None, max_num_figures=20, **kwargs):
         """
         Returns a plotly dash figure plotting the pixel importance scores for one
         specific instance.
@@ -174,12 +210,14 @@ class PixelImportance(ExplanationBase):
         :param class_names: A list of the class names indexed by the labels, e.g.,
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
+        :param max_num_figures: The maximum number of figures to plot.
         :return: A plotly dash figure plotting the pixel importance scores.
         """
         assert index is not None, "`index` cannot be None for `plotly_plot`. " "Please specify the instance index."
-        return DashFigure(self._plotly_figure(index, class_names=class_names, **kwargs))
+        return DashFigure(self._plotly_figure(
+            index, class_names=class_names, max_num_figures=max_num_figures, **kwargs))
 
-    def ipython_plot(self, index=0, class_names=None, **kwargs):
+    def ipython_plot(self, index=0, class_names=None, max_num_figures=20, **kwargs):
         """
         Plots the pixel importance scores in IPython.
 
@@ -188,11 +226,13 @@ class PixelImportance(ExplanationBase):
         :param class_names: A list of the class names indexed by the labels, e.g.,
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
+        :param max_num_figures: The maximum number of figures to plot.
         """
         import plotly
 
         assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
-        return plotly.offline.iplot(self._plotly_figure(index, class_names=class_names, **kwargs))
+        return plotly.offline.iplot(self._plotly_figure(
+            index, class_names=class_names, max_num_figures=max_num_figures, **kwargs))
 
 
 def _plot_pixel_importance_heatmap(importance_scores, image, overlay=True):

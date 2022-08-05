@@ -77,35 +77,9 @@ explanation methods for vision, NLP and time-series tasks.
 for text data. *Counterfactual* accepts black box models for tabular, text and time-series data, and PyTorch/Tensorflow models for
 image data.
 
-The following table shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
-in literature:
-
-| Data Type |        Method        | OmniXAI | InterpretML | AIX360 | Eli5  | Captum | Alibi | explainX
-:---:       |:--------------------:| :---:  | :---:       | :---:  | :---: | :---:  | :---: | :---:
-| Tabular   |         LIME         | ✅ | ✅ | ✅ | | ✅ | | |
-|           |         SHAP         | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
-|           |         PDP          | ✅ | ✅ | | | | | |
-|           |         ALE          | ✅ | | | | | ✅ | |
-|           |     Sensitivity      | ✅ | ✅ | | | | | |
-|           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           |    Counterfactual    | ✅ | | | | | ✅ | |
-|           |    Linear models     | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
-|           |     Tree models      | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ |
-|           |         L2X          | ✅ | | | | | | |
-| Image     |         LIME         | ✅ | | | | ✅ | | |
-|           |         SHAP         | ✅ | | | | ✅ | | |
-|           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           | Grad-CAM, Grad-CAM++ | ✅ | | | ✅ | ✅ | | |
-|           |         CEM          | ✅ | | ✅ | | | ✅ | |
-|           |    Counterfactual    | ✅ | | | | | ✅ | |
-|           |         L2X          | ✅ | | | | | | |
-| Text      |         LIME         | ✅ | | | ✅ | ✅ | | |
-|           |         SHAP         | ✅ | | | | ✅ | | |
-|           | Integrated gradient  | ✅ | | | | ✅ | ✅ | |
-|           |         L2X          | ✅ | | | | | | |
-|           |    Counterfactual    | ✅ | | | | | | |
-| Timeseries  |         SHAP         | ✅ | | | | | | |
-|           |    Counterfactual    | ✅ | | | | | | |
+This [table](https://opensource.salesforce.com/OmniXAI/latest/index.html#comparison-with-competitors) 
+shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
+in literature
 
 ## Installation
 
@@ -134,6 +108,7 @@ Some examples:
 3. [Image classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/vision.ipynb)
 4. [Text classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/nlp_imdb.ipynb)
 5. [Time-series anomaly detection](https://github.com/salesforce/OmniXAI/blob/main/tutorials/timeseries.ipynb)
+6. [Vision-language tasks](https://github.com/salesforce/OmniXAI/blob/main/tutorials/vision/gradcam_vlm.ipynb)
 
 To get started, we recommend the linked tutorials in [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
