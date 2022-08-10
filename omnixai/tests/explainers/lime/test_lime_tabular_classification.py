@@ -13,7 +13,7 @@ from omnixai.tests.explainers.tasks import TabularClassification
 
 
 class TestLimeTabular(unittest.TestCase):
-    def test_1(self):
+    def xxx_test_1(self):
         base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
         task = TabularClassification(base_folder).train_adult(num_training_samples=2000)
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
@@ -49,7 +49,7 @@ class TestLimeTabular(unittest.TestCase):
                 self.assertEqual(e["features"][2], "Hours per week")
                 self.assertAlmostEqual(e["scores"][2], -0.0851, delta=1e-3)
 
-    def test_2(self):
+    def xxx_test_2(self):
         task = TabularClassification().train_iris()
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
         explainer = LimeTabular(training_data=task.train_data, predict_function=predict_function)
@@ -67,7 +67,7 @@ class TestLimeTabular(unittest.TestCase):
             self.assertEqual(e["features"][1], "petal width (cm)")
             self.assertAlmostEqual(e["scores"][1], 0.0330, delta=1e-3)
 
-    def test_3(self):
+    def xxx_test_3(self):
         base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
         task = TabularClassification(base_folder).train_agaricus()
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
@@ -86,6 +86,30 @@ class TestLimeTabular(unittest.TestCase):
             self.assertAlmostEqual(e["scores"][0], 0.3363, delta=1e-3)
             self.assertEqual(e["features"][1], "gill-size")
             self.assertAlmostEqual(e["scores"][1], 0.3181, delta=1e-3)
+
+    def test_4(self):
+        task = TabularClassification().train_iris()
+        predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
+        explainer = LimeTabular(
+            training_data=task.train_data, predict_function=predict_function, random_state=1234)
+
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory)
+        explainer = LimeTabular.load(directory=directory)
+
+        set_random_seed()
+        test_x = task.test_data.iloc(12)
+        explanations = explainer.explain(test_x)
+        for e in explanations.get_explanations():
+            print(e["instance"])
+            print(f"Target label: {e['target_label']}")
+            pprint.pprint(list(zip(e["features"], e["values"], e["scores"])))
+            self.assertEqual(e["target_label"], 1)
+            self.assertEqual(e["features"][0], "petal length (cm)")
+            self.assertAlmostEqual(e["scores"][0], 0.3332, delta=1e-3)
+            self.assertEqual(e["features"][1], "petal width (cm)")
+            self.assertAlmostEqual(e["scores"][1], 0.0591, delta=1e-3)
 
 
 if __name__ == "__main__":

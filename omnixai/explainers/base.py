@@ -7,11 +7,14 @@
 """
 The base classes for the supported explainers.
 """
+import os
+import dill
 import inspect
 import numpy as np
+from copy import deepcopy
 from abc import abstractmethod
 from collections import OrderedDict, defaultdict
-from typing import Collection, Callable, Any, Dict
+from typing import Collection, Callable, Any, Dict, List
 
 from ..utils.misc import AutodocABCMeta, build_predict_function
 from ..data.base import Data
@@ -59,6 +62,45 @@ class ExplainerBase(metaclass=ExplainerABCMeta):
         """
         return "local"
 
+    def __getstate__(self):
+        return {k: deepcopy(v) for k, v in self.__dict__.items()}
+
+    def __setstate__(self, state):
+        for name, value in state.items():
+            setattr(self, name, value)
+
+    def save(
+            self,
+            directory: str,
+            filename: str = None,
+            ignored_attributes: List = None,
+            **kwargs
+    ):
+        os.makedirs(directory, exist_ok=True)
+        if filename is None:
+            filename = f"{type(self).__name__}.pkl"
+        state = self.__getstate__()
+        if ignored_attributes:
+            for attr in ignored_attributes:
+                state.pop(attr, None)
+        with open(os.path.join(directory, filename), "wb") as f:
+            dill.dump(state, f)
+
+    @classmethod
+    def load(
+            cls,
+            directory: str,
+            filename: str = None,
+            **kwargs
+    ):
+        if filename is None:
+            filename = f"{cls.__name__}.pkl"
+        with open(os.path.join(directory, filename), "rb") as f:
+            state = dill.load(f)
+        self = super(ExplainerBase, cls).__new__(cls)
+        self.__setstate__(state)
+        return self
+
 
 class AutoExplainerBase(metaclass=AutodocABCMeta):
     """
@@ -70,14 +112,14 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
     _EXPLAINERS = _EXPLAINERS
 
     def __init__(
-        self,
-        explainers: Collection[str],
-        mode: str,
-        data: Data,
-        model: Any,
-        preprocess: Callable = None,
-        postprocess: Callable = None,
-        params: Dict = None,
+            self,
+            explainers: Collection[str],
+            mode: str,
+            data: Data,
+            model: Any,
+            preprocess: Callable = None,
+            postprocess: Callable = None,
+            params: Dict = None,
     ):
         """
         :param explainers: The names or alias of the explainers to use.
