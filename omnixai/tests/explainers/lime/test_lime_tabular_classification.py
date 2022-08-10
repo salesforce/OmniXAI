@@ -13,7 +13,7 @@ from omnixai.tests.explainers.tasks import TabularClassification
 
 
 class TestLimeTabular(unittest.TestCase):
-    def xxx_test_1(self):
+    def test_1(self):
         base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
         task = TabularClassification(base_folder).train_adult(num_training_samples=2000)
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
@@ -49,7 +49,7 @@ class TestLimeTabular(unittest.TestCase):
                 self.assertEqual(e["features"][2], "Hours per week")
                 self.assertAlmostEqual(e["scores"][2], -0.0851, delta=1e-3)
 
-    def xxx_test_2(self):
+    def test_2(self):
         task = TabularClassification().train_iris()
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
         explainer = LimeTabular(training_data=task.train_data, predict_function=predict_function)
@@ -67,7 +67,7 @@ class TestLimeTabular(unittest.TestCase):
             self.assertEqual(e["features"][1], "petal width (cm)")
             self.assertAlmostEqual(e["scores"][1], 0.0330, delta=1e-3)
 
-    def xxx_test_3(self):
+    def test_3(self):
         base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
         task = TabularClassification(base_folder).train_agaricus()
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
