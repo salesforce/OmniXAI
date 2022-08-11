@@ -1,3 +1,4 @@
+import os
 import unittest
 import numpy as np
 from omnixai.utils.misc import set_random_seed
@@ -32,6 +33,16 @@ class TestShapTimeseries(unittest.TestCase):
             training_data=self.training_data,
             predict_function=self.predict_function
         )
+        explanations = explainer.explain(self.test_data)
+        scores = explanations.get_explanations(index=0)["scores"]["x"].values
+        self.assertAlmostEqual(scores[0], -9.673, delta=1e-3)
+        self.assertAlmostEqual(scores[1], -9.673, delta=1e-3)
+        self.assertAlmostEqual(scores[2], -9.673, delta=1e-3)
+
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory)
+        explainer = ShapTimeseries.load(directory=directory)
         explanations = explainer.explain(self.test_data)
         scores = explanations.get_explanations(index=0)["scores"]["x"].values
         self.assertAlmostEqual(scores[0], -9.673, delta=1e-3)
