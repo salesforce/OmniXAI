@@ -76,6 +76,13 @@ class ExplainerBase(metaclass=ExplainerABCMeta):
             ignored_attributes: List = None,
             **kwargs
     ):
+        """
+        Saves the initialized explainer.
+
+        :param directory: The folder for the dumped explainer.
+        :param filename: The filename (the explainer class name if it is None).
+        :paran ignored_attributes: The list of the attributes without dumping.
+        """
         os.makedirs(directory, exist_ok=True)
         if filename is None:
             filename = f"{type(self).__name__}.pkl"
@@ -93,6 +100,12 @@ class ExplainerBase(metaclass=ExplainerABCMeta):
             filename: str = None,
             **kwargs
     ):
+        """
+        Loads the dumped explainer.
+
+        :param directory: The folder for the dumped explainer.
+        :param filename: The filename (the explainer class name if it is None).
+        """
         if filename is None:
             filename = f"{cls.__name__}.pkl"
         with open(os.path.join(directory, filename), "rb") as f:
