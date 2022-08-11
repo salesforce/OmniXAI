@@ -35,6 +35,18 @@ class TestMACE(unittest.TestCase):
             print(explanation["counterfactual"])
             print("-----------------")
 
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory)
+        explainer = MACEExplainer.load(directory=directory)
+        explanations = explainer.explain(self.test_instances)
+        for explanation in explanations.get_explanations():
+            print("Query instance:")
+            print(explanation["query"])
+            print("Counterfactual examples:")
+            print(explanation["counterfactual"])
+            print("-----------------")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -62,25 +62,25 @@ class CFRetrieval:
         self.hnsw_m = hnsw_m
         self.hnsw_ef = hnsw_ef
 
-        self.predict_scores = predict_function(self.subset)
-        self.predict_labels = np.argmax(self.predict_scores, axis=1)
-        self.class_labels = sorted(set(self.predict_labels))
-        self.classes = defaultdict(list)
-        for i, label in enumerate(self.predict_labels):
-            self.classes[label].append(i)
+        predict_scores = predict_function(self.subset)
+        predict_labels = np.argmax(predict_scores, axis=1)
+        class_labels = sorted(set(predict_labels))
+        classes = defaultdict(list)
+        for i, label in enumerate(predict_labels):
+            classes[label].append(i)
 
         self.transformer = TabularTransform(
             cate_transform=Pipeline().step(OneHot()), cont_transform=KBins(n_bins=num_cont_bins)
         ).fit(self.subset)
-        self.data = self.transformer.transform(self.subset)
+        data = self.transformer.transform(self.subset)
 
         self.knn_models = {}
         self.knn_num_elements = {}
-        self.knn_dim = self.data.shape[1]
+        self.knn_dim = data.shape[1]
 
-        for label in self.class_labels:
-            y = self.classes[label]
-            x = self.data[y]
+        for label in class_labels:
+            y = classes[label]
+            x = data[y]
             self.knn_models[label], self.knn_num_elements[label] = self._build_knn_index(x, y)
 
     def _build_knn_index(

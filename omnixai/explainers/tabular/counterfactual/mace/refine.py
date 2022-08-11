@@ -17,16 +17,19 @@ class BinarySearchRefinement:
     in the generated counterfactual examples via binary search.
     """
 
-    def __init__(self, training_data: Tabular, predict_function: Callable):
+    def __init__(self, training_data: Tabular):
         """
         :param training_data: The training data.
-        :param predict_function: The predict function.
         """
-        self.predict_function = predict_function
         self.cont_columns = training_data.continuous_columns
 
     @staticmethod
-    def _refine(instance: Tabular, predict_function: Callable, cont_features: Dict, desired_label: int) -> pd.DataFrame:
+    def _refine(
+            instance: Tabular,
+            predict_function: Callable,
+            cont_features: Dict,
+            desired_label: int
+    ) -> pd.DataFrame:
         """
         Refines the continuous-valued features for the given instance.
 
@@ -53,10 +56,17 @@ class BinarySearchRefinement:
             y.iloc[0, column2loc[col]] = r if r is not None else x.iloc[0, column2loc[col]]
         return y
 
-    def refine(self, instance: Tabular, cfs: Tabular, desired_label: int) -> Union[Tabular, None]:
+    def refine(
+            self,
+            predict_function: Callable,
+            instance: Tabular,
+            cfs: Tabular,
+            desired_label: int
+    ) -> Union[Tabular, None]:
         """
         Refines the continuous-valued features in the counterfactual examples.
 
+        :param predict_function: The predict function.
         :param instance: The query instance.
         :param cfs: The counterfactual examples.
         :param desired_label: The desired label.
@@ -79,6 +89,6 @@ class BinarySearchRefinement:
                 results.append(y)
             else:
                 results.append(
-                    BinarySearchRefinement._refine(cfs.iloc([i]), self.predict_function, cont_features, desired_label)
+                    BinarySearchRefinement._refine(cfs.iloc([i]), predict_function, cont_features, desired_label)
                 )
         return Tabular(data=pd.concat(results), categorical_columns=cfs.categorical_columns)
