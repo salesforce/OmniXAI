@@ -107,6 +107,31 @@ class TestShapTreeTabular(unittest.TestCase):
         print(model.predict(test_x))
         pprint.pprint(model.explain(test_x).get_explanations())
 
+    def test_4(self):
+        iris = sklearn.datasets.load_iris()
+        tabular_data = Tabular(
+            np.concatenate([iris.data, iris.target.reshape((-1, 1))], axis=1),
+            feature_columns=iris.feature_names + ["label"],
+            target_column="label",
+        )
+
+        np.random.seed(1)
+        gbtree = xgboost.XGBClassifier(n_estimators=300, max_depth=5)
+        model = ShapTreeTabular(model=gbtree)
+        model.fit(tabular_data)
+
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        model.save(directory=directory)
+        model = ShapTreeTabular.load(directory=directory)
+
+        i = np.random.randint(0, tabular_data.shape[0])
+        test_x = tabular_data.iloc(i)
+        print(model.class_names())
+        print(test_x)
+        print(model.predict(test_x))
+        pprint.pprint(model.explain(test_x).get_explanations())
+
 
 if __name__ == "__main__":
     unittest.main()

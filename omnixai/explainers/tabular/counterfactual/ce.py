@@ -15,11 +15,11 @@ from omnixai.explainers.tabular.base import TabularExplainer
 from omnixai.explanations.tabular.counterfactual import CFExplanation
 from omnixai.utils.misc import is_torch_available, is_tf_available, ProgressBar
 
-
 if is_torch_available():
     import torch
     import torch.nn as nn
     from torch.autograd import grad
+
 
     class _ObjectiveTorch(nn.Module):
         def __init__(self, x0, target, model, c, kappa, gamma=None):
@@ -55,9 +55,9 @@ if is_torch_available():
             loss = nn.functional.relu(a - b + self.kappa)
             return torch.mean(self.c * loss + regularization), torch.mean(a - b)
 
-
 if is_tf_available():
     import tensorflow as tf
+
 
     class _ObjectiveTF(tf.keras.Model):
         def __init__(self, x0, target, model, c, kappa, gamma=None):
@@ -99,18 +99,18 @@ class CounterfactualOptimizer:
     """
 
     def __init__(
-        self,
-        x0,
-        target,
-        model,
-        c=10.0,
-        kappa=10.0,
-        binary_search_steps=5,
-        learning_rate=1e-2,
-        num_iterations=1000,
-        grad_clip=1e3,
-        gamma=None,
-        bounds=None,
+            self,
+            x0,
+            target,
+            model,
+            c=10.0,
+            kappa=10.0,
+            binary_search_steps=5,
+            learning_rate=1e-2,
+            num_iterations=1000,
+            grad_clip=1e3,
+            gamma=None,
+            bounds=None,
     ):
         """
         :param x0: The input image.
@@ -193,9 +193,9 @@ class CounterfactualOptimizer:
             predictions, loss = model(inputs)
             gradients = (
                 grad(outputs=predictions, inputs=inputs, grad_outputs=torch.ones_like(predictions).to(param.device))[0]
-                .detach()
-                .cpu()
-                .numpy()
+                    .detach()
+                    .cpu()
+                    .numpy()
             )
             loss = loss.detach().cpu().numpy()
         else:
@@ -271,17 +271,17 @@ class CounterfactualExplainer(TabularExplainer):
     alias = ["ce", "counterfactual"]
 
     def __init__(
-        self,
-        training_data: Tabular,
-        predict_function: Callable,
-        mode: str = "classification",
-        c=10.0,
-        kappa=10.0,
-        binary_search_steps=5,
-        learning_rate=1e-2,
-        num_iterations=1000,
-        grad_clip=1e3,
-        **kwargs,
+            self,
+            training_data: Tabular,
+            predict_function: Callable,
+            mode: str = "classification",
+            c=10.0,
+            kappa=10.0,
+            binary_search_steps=5,
+            learning_rate=1e-2,
+            num_iterations=1000,
+            grad_clip=1e3,
+            **kwargs,
     ):
         """
         :param training_data: The data used to extract information such as medians of
@@ -303,7 +303,7 @@ class CounterfactualExplainer(TabularExplainer):
         super().__init__(training_data=training_data, predict_function=predict_function, mode=mode, **kwargs)
         assert mode == "classification", "CE supports classification tasks only."
         assert (
-            len(self.categorical_columns) == 0
+                len(self.categorical_columns) == 0
         ), "The integrated-gradient explainer only supports continuous-valued features"
 
         model_type = None
@@ -335,10 +335,10 @@ class CounterfactualExplainer(TabularExplainer):
         self.bounds = (np.expand_dims(bounds[0], axis=0), np.expand_dims(bounds[1], axis=0))
 
         # Optimizer
-        self.create_optimizer = lambda x, y: CounterfactualOptimizer(
+        self.create_optimizer = lambda x, y, model: CounterfactualOptimizer(
             x,
             y,
-            self.model,
+            model,
             c=c,
             kappa=kappa,
             binary_search_steps=binary_search_steps,
@@ -400,7 +400,7 @@ class CounterfactualExplainer(TabularExplainer):
             cf_labels = self._predict(inputs)
             for k, cf_label in enumerate(cf_labels):
                 if cf_label != label:
-                    return inputs[k : k + 1]
+                    return inputs[k: k + 1]
         return cf
 
     def explain(self, X, **kwargs) -> CFExplanation:
@@ -418,15 +418,34 @@ class CounterfactualExplainer(TabularExplainer):
         y = self._predict(instances)
 
         for i in range(instances.shape[0]):
-            optimizer = self.create_optimizer(x=instances[i : i + 1], y=y[i])
+            optimizer = self.create_optimizer(x=instances[i: i + 1], y=y[i], model=self.model)
             cf = optimizer.optimize(verbose=verbose)
             instance_df = X.iloc(i).to_pd()
             instance_df["label"] = y[i]
             if cf is not None:
-                cf = self._revise(instance=instances[i : i + 1], label=y[i], cf=cf)
+                cf = self._revise(instance=instances[i: i + 1], label=y[i], cf=cf)
                 cf_df = self._to_tabular(cf).to_pd()
                 cf_df["label"] = self._predict(cf)[0]
             else:
                 cf_df = None
             explanations.add(query=instance_df, cfs=cf_df)
         return explanations
+
+    def save(
+            self,
+            directory: str,
+            filename: str = None,
+            **kwargs
+    ):
+        """
+        Saves the initialized explainer.
+
+        :param directory: The folder for the dumped explainer.
+        :param filename: The filename (the explainer class name if it is None).
+        """
+        super().save(
+            directory=directory,
+            filename=filename,
+            ignored_attributes=["data"],
+            **kwargs
+        )

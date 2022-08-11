@@ -88,6 +88,35 @@ class TestLinearTabular(unittest.TestCase):
         self.assertAlmostEqual(e["coefficients"]["petal length (cm)"], -1.8005, delta=1e-3)
         self.assertAlmostEqual(e["coefficients"]["petal width (cm)"], -1.7055, delta=1e-3)
 
+    def test_3(self):
+        iris = sklearn.datasets.load_iris()
+        tabular_data = Tabular(
+            np.concatenate([iris.data, iris.target.reshape((-1, 1))], axis=1),
+            feature_columns=iris.feature_names + ["label"],
+            target_column="label",
+        )
+
+        set_random_seed()
+        model = LogisticRegression()
+        model.fit(tabular_data)
+
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        model.save(directory=directory)
+        model = LogisticRegression.load(directory=directory)
+
+        i = np.random.randint(0, tabular_data.shape[0])
+        test_x = tabular_data.iloc(i)
+        print(model.class_names())
+        print(test_x)
+        print(model.predict(test_x))
+        explanations = model.explain(test_x)
+        e = explanations.get_explanations()
+        pprint.pprint(e["coefficients"])
+        pprint.pprint(e["scores"])
+        self.assertAlmostEqual(e["coefficients"]["petal length (cm)"], -1.8005, delta=1e-3)
+        self.assertAlmostEqual(e["coefficients"]["petal width (cm)"], -1.7055, delta=1e-3)
+
 
 if __name__ == "__main__":
     unittest.main()

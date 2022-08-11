@@ -171,6 +171,15 @@ class TestCE(unittest.TestCase):
             print(e["query"])
             print(e["counterfactual"])
 
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory)
+        explainer = CounterfactualExplainer.load(directory=directory)
+        explanations = explainer.explain(x_test[:1])
+        for e in explanations.get_explanations():
+            print(e["query"])
+            print(e["counterfactual"])
+
     def test_torch(self):
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/../../datasets/diabetes.csv"
         x_train, y_train, x_test, y_test, feature_names, x_train_un, x_test_un = self.diabetes_data(file_path)
@@ -180,6 +189,16 @@ class TestCE(unittest.TestCase):
         model = self.train_torch_model(x_train, y_train, x_test, y_test)
         tabular_data = Tabular(x_train, feature_columns=feature_names)
         explainer = CounterfactualExplainer(training_data=tabular_data, predict_function=model)
+        explanations = explainer.explain(x_test[:1])
+        for e in explanations.get_explanations():
+            print("\n")
+            print(e["query"])
+            print(e["counterfactual"])
+
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory, filename="CounterfactualExplainer_torch")
+        explainer = CounterfactualExplainer.load(directory=directory, filename="CounterfactualExplainer_torch")
         explanations = explainer.explain(x_test[:1])
         for e in explanations.get_explanations():
             print("\n")
