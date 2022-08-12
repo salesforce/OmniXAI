@@ -155,6 +155,12 @@ class TestL2XImage(unittest.TestCase):
         explanations = explainer.explain(self.x_test[0:5])
         explanations.plot(class_names=self.class_names)
 
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory)
+        explainer = L2XImage.load(directory=directory)
+        explanations = explainer.explain(self.x_test[0:5])
+
 
 if __name__ == "__main__":
     unittest.main()
