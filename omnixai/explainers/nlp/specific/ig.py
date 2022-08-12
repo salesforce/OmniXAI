@@ -25,30 +25,32 @@ def _calculate_integral(inp, baseline, gradients):
 
 
 class _IntegratedGradientTorch:
-    def __init__(self):
+    def __init__(self, model, embedding_layer):
+        self.model = model
+        self.embedding_layer = embedding_layer
         self.embeddings = None
         self.embedding_layer_inputs = None
 
     def compute_integrated_gradients(
-        self, model, embedding_layer, inputs, output_index, additional_inputs=None, steps=50, batch_size=8
+        self, inputs, output_index, additional_inputs=None, steps=50, batch_size=8
     ):
         import torch
 
         assert inputs.shape[0] == 1, "The batch size of `inputs` should be 1."
-        device = next(model.parameters()).device
+        device = next(self.model.parameters()).device
         hooks = []
 
-        model.eval()
+        self.model.eval()
         all_inputs = (inputs,)
         if additional_inputs is not None:
             all_inputs += (additional_inputs,) if not isinstance(additional_inputs, tuple) else additional_inputs
 
         try:
             # Forward pass for extracting embeddings
-            hooks.append(embedding_layer.register_forward_hook(self._embedding_hook))
-            model(*all_inputs)
+            hooks.append(self.embedding_layer.register_forward_hook(self._embedding_hook))
+            self.model(*all_inputs)
             baselines = np.zeros(self.embeddings.shape)
-            hooks.append(embedding_layer.register_forward_hook(self._embedding_layer_hook))
+            hooks.append(self.embedding_layer.register_forward_hook(self._embedding_layer_hook))
 
             # Build the inputs for computing integrated gradient
             alphas = np.linspace(start=0.0, stop=1.0, num=steps, endpoint=True)
@@ -64,7 +66,7 @@ class _IntegratedGradientTorch:
                 repeated_inputs = self._repeat(all_inputs, num_reps=self.embedding_layer_inputs.shape[0])
 
                 # Compute gradients
-                predictions = model(*repeated_inputs)
+                predictions = self.model(*repeated_inputs)
                 if len(predictions.shape) > 1:
                     assert output_index is not None, "The model has multiple outputs, the output index cannot be None"
                     predictions = predictions[:, output_index]
@@ -91,24 +93,26 @@ class _IntegratedGradientTorch:
 
 
 class _IntegratedGradientTf:
-    def __init__(self):
+    def __init__(self, model, embedding_layer):
+        self.model = model
+        self.embedding_layer = embedding_layer
         self.embeddings = None
         self.embedding_layer_inputs = None
 
     def compute_integrated_gradients(
-            self, model, embedding_layer, inputs, output_index, additional_inputs=None, steps=50, batch_size=8
+            self, inputs, output_index, additional_inputs=None, steps=50, batch_size=8
     ):
         import tensorflow as tf
 
-        original_call = embedding_layer.call
+        original_call = self.embedding_layer.call
         all_inputs = (inputs,)
         if additional_inputs is not None:
             all_inputs += (additional_inputs,) if not isinstance(additional_inputs, tuple) else additional_inputs
 
         try:
-            self._embedding_hook(embedding_layer)
-            model(*all_inputs)
-            self.embeddings = embedding_layer.res.numpy()
+            self._embedding_hook(self.embedding_layer)
+            self.model(*all_inputs)
+            self.embeddings = self.embedding_layer.res.numpy()
             baselines = np.zeros(self.embeddings.shape)
 
             # Build the inputs for computing integrated gradient
@@ -117,7 +121,7 @@ class _IntegratedGradientTf:
             gradients = []
             for k in range(0, len(alphas), batch_size):
                 with tf.GradientTape() as tape:
-                    self._embedding_layer_hook(embedding_layer, tape)
+                    self._embedding_layer_hook(self.embedding_layer, tape)
                     self.embedding_layer_inputs = tf.convert_to_tensor(
                         np.stack([baselines[0] + a * (self.embeddings[0] - baselines[0])
                                   for a in alphas[k:k + batch_size]]),
@@ -127,16 +131,16 @@ class _IntegratedGradientTf:
                         tf.tile(x, (self.embedding_layer_inputs.shape[0],) + (1,) * (len(x.shape) - 1))
                         for x in all_inputs
                     ]
-                    predictions = model(*repeated_inputs)
+                    predictions = self.model(*repeated_inputs)
                     if len(predictions.shape) > 1:
                         assert output_index is not None, \
                             "The model has multiple outputs, the output index cannot be None"
                         predictions = predictions[:, output_index]
-                    grad = tape.gradient(predictions, embedding_layer.res).numpy()
+                    grad = tape.gradient(predictions, self.embedding_layer.res).numpy()
                     gradients.append(grad)
             gradients = np.concatenate(gradients, axis=0)
         finally:
-            self._remove_hook(embedding_layer, original_call)
+            self._remove_hook(self.embedding_layer, original_call)
         return _calculate_integral(self.embeddings[0], baselines[0], gradients)
 
     def _embedding_hook(self, layer):
@@ -204,21 +208,22 @@ class IntegratedGradientText(ExplainerBase):
         self.preprocess_function = preprocess_function
         self.id2token = id2token
 
-        self.ig_class = None
+        ig_class = None
         if is_torch_available():
             import torch.nn as nn
 
             if isinstance(model, nn.Module):
-                self.ig_class = _IntegratedGradientTorch
+                ig_class = _IntegratedGradientTorch
                 self.model_type = "torch"
-        if self.ig_class is None and is_tf_available():
+        if ig_class is None and is_tf_available():
             import tensorflow as tf
 
             if isinstance(model, tf.keras.Model):
-                self.ig_class = _IntegratedGradientTf
+                ig_class = _IntegratedGradientTf
                 self.model_type = "tf"
-        if self.ig_class is None:
+        if ig_class is None:
             raise ValueError(f"`model` should be a tf.keras.Model " f"or a torch.nn.Module instead of {type(model)}")
+        self.ig_model = ig_class(self.model, self.embedding_layer)
 
     def _preprocess(self, X: Text):
         inputs = self.preprocess_function(X)
@@ -281,9 +286,7 @@ class IntegratedGradientText(ExplainerBase):
         for i, instance in enumerate(X):
             output_index = y[i] if y is not None else None
             inputs = self._preprocess(instance)
-            scores = self.ig_class().compute_integrated_gradients(
-                model=self.model,
-                embedding_layer=self.embedding_layer,
+            scores = self.ig_model.compute_integrated_gradients(
                 inputs=inputs[0],
                 output_index=output_index,
                 additional_inputs=None if len(inputs) == 1 else inputs[1:],
