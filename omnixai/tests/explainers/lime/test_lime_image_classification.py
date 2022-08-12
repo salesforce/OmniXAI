@@ -63,16 +63,6 @@ class TestImageClassification(unittest.TestCase):
         self.assertAlmostEqual(np.sum(explanations.get_explanations(0)["masks"][0]), 9309, delta=10)
         self.assertAlmostEqual(np.sum(explanations.get_explanations(0)["masks"][1]), 988, delta=10)
 
-        set_random_seed()
-        base_folder = os.path.dirname(os.path.abspath(__file__))
-        directory = f"{base_folder}/../../datasets/tmp"
-        explainer.save(directory=directory)
-        explainer = LimeImage.load(directory=directory)
-        explanations = explainer.explain(self.img, hide_color=0, num_samples=1000)
-
-        self.assertAlmostEqual(np.sum(explanations.get_explanations(0)["masks"][0]), 9309, delta=10)
-        self.assertAlmostEqual(np.sum(explanations.get_explanations(0)["masks"][1]), 988, delta=10)
-
 
 if __name__ == "__main__":
     unittest.main()

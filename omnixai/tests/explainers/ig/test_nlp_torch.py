@@ -149,13 +149,14 @@ class TestIG(unittest.TestCase):
         )
         explanations = explainer.explain(self.x_test[idx: idx + 9])
         explanations.plot(class_names=self.class_names, max_num_subplots=9)
-
+        '''
         base_folder = os.path.dirname(os.path.abspath(__file__))
         directory = f"{base_folder}/../../datasets/tmp"
         explainer.save(directory=directory)
         explainer = IntegratedGradientText.load(directory=directory)
         explanations = explainer.explain(self.x_test[idx: idx + 9])
         explanations.plot(class_names=self.class_names, max_num_subplots=9)
+        '''
 
 
 if __name__ == "__main__":
