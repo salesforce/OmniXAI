@@ -73,7 +73,6 @@ class ExplainerBase(metaclass=ExplainerABCMeta):
             self,
             directory: str,
             filename: str = None,
-            ignored_attributes: List = None,
             **kwargs
     ):
         """
@@ -81,14 +80,13 @@ class ExplainerBase(metaclass=ExplainerABCMeta):
 
         :param directory: The folder for the dumped explainer.
         :param filename: The filename (the explainer class name if it is None).
-        :paran ignored_attributes: The list of the attributes without dumping.
         """
         os.makedirs(directory, exist_ok=True)
         if filename is None:
             filename = f"{type(self).__name__}.pkl"
         state = self.__getstate__()
-        if ignored_attributes:
-            for attr in ignored_attributes:
+        if "ignored_attributes" in kwargs:
+            for attr in kwargs["ignored_attributes"]:
                 state.pop(attr, None)
         with open(os.path.join(directory, filename), "wb") as f:
             dill.dump(state, f)
