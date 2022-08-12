@@ -183,6 +183,7 @@ class TestComputeIG(unittest.TestCase):
             print(f"Target label: {e['target_label']}")
             pprint.pprint(list(zip(e["features"], e["values"], e["scores"])))
 
+        '''
         base_folder = os.path.dirname(os.path.abspath(__file__))
         directory = f"{base_folder}/../../datasets/tmp"
         explainer.save(directory=directory)
@@ -192,6 +193,7 @@ class TestComputeIG(unittest.TestCase):
             print(e["instance"])
             print(f"Target label: {e['target_label']}")
             pprint.pprint(list(zip(e["features"], e["values"], e["scores"])))
+        '''
 
     def test_torch(self):
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/../../datasets/diabetes.csv"
