@@ -76,10 +76,10 @@ class CounterfactualExplainer(ExplainerBase):
 
         self.model = model
         self.preprocess_function = preprocess_function
-        self.create_optimizer = lambda x, y: CounterfactualOptimizer(
+        self.create_optimizer = lambda x, y, m: CounterfactualOptimizer(
             x,
             y,
-            model,
+            m,
             c=c,
             kappa=kappa,
             binary_search_steps=binary_search_steps,
@@ -146,7 +146,7 @@ class CounterfactualExplainer(ExplainerBase):
 
         for i in range(len(X)):
             x = self._preprocess(X[i])
-            optimizer = self.create_optimizer(x=x, y=y[i])
+            optimizer = self.create_optimizer(x=x, y=y[i], m=self.model)
             # Original image
             x = x.squeeze()
             if x.ndim == 3 and x.shape[0] == 3:
