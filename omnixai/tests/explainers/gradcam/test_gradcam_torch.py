@@ -12,7 +12,7 @@ from torchvision import models, transforms
 from PIL import Image as PilImage
 
 from omnixai.data.image import Image
-from omnixai.explainers.vision.specific.gradcam.pytorch.gradcam import GradCAM
+from omnixai.explainers.vision.specific.gradcam import GradCAM
 
 
 class TestGradCAM(unittest.TestCase):
