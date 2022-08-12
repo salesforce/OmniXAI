@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import os
 import unittest
 import pprint
 import sklearn.ensemble
@@ -54,6 +55,12 @@ class TestLimeText(unittest.TestCase):
                 self.assertAlmostEqual(e["scores"][0], 0.1417, delta=1e-3)
                 self.assertEqual(e["tokens"][1], "Host")
                 self.assertAlmostEqual(e["scores"][1], 0.1275, delta=1e-3)
+
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory)
+        explainer = LimeText.load(directory=directory)
+        explanations = explainer.explain(self.x_test[idx: idx + 4], num_features=6)
 
 
 if __name__ == "__main__":

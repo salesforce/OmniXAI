@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import os
 import unittest
 import numpy as np
 import sklearn.ensemble
@@ -40,7 +41,14 @@ class TestL2XText(unittest.TestCase):
     def test_explain(self):
         idx = 83
         explainer = L2XText(training_data=self.x_train, predict_function=self.predict_function)
-        explanations = explainer.explain(self.x_test[idx : idx + 9])
+        explanations = explainer.explain(self.x_test[idx: idx + 9])
+        explanations.plot(class_names=self.class_names, max_num_subplots=9)
+
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory)
+        explainer = L2XText.load(directory=directory)
+        explanations = explainer.explain(self.x_test[idx: idx + 9])
         explanations.plot(class_names=self.class_names, max_num_subplots=9)
 
 
