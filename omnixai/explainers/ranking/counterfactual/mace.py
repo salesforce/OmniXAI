@@ -69,7 +69,7 @@ class _GLDOptimizer:
         best_objective, best_solution, sols = 1e8, None, []
         for i in range(len(solutions)):
             score, objective = scores[i], 1e8
-            if self.oracle_function(score):
+            if self.oracle_function(score) >= 0:
                 sols.append(ys[i])
                 objective = ss[i]
                 if objective < best_objective:
@@ -221,7 +221,7 @@ class _DiversityModule:
                 data=pd.concat(extended_cfs, sort=False), categorical_columns=cfs.categorical_columns
             )
         scores = predict_function(extended_cfs)
-        indices = [i for i, score in enumerate(scores) if oracle_function(score)]
+        indices = [i for i, score in enumerate(scores) if oracle_function(score) >= 0]
         return extended_cfs.iloc(indices), scores[indices]
 
     def _loss(
@@ -335,7 +335,7 @@ class _BinarySearchRefinement:
                 z = (a + b) * 0.5
                 y.iloc[0, column2loc[col]] = z
                 scores = predict_function(Tabular(data=y, categorical_columns=instance.categorical_columns))
-                if oracle_function(scores[0]):
+                if oracle_function(scores[0]) >= 0:
                     b, r = z, z
                 else:
                     a = z
@@ -392,7 +392,7 @@ class MACEExplainer(ExplainerBase):
 
     def __init__(
         self,
-        training_data: Tabular,
+        training_data: Union[Tabular, None],
         predict_function: Callable,
         ignored_features: List = None,
         **kwargs,
@@ -420,7 +420,7 @@ class MACEExplainer(ExplainerBase):
         self.diversity = _DiversityModule(training_data) \
             if training_data is not None else None
 
-    def _candidate_features(self, data, max_num_candidates=10, cont_strategy="quantile"):
+    def _candidate_features(self, data, max_num_candidates=10, strategy="kbins"):
         cate_features = [c for c in data.categorical_columns if c not in self.ignored_features]
         cont_features = [c for c in data.continuous_columns if c not in self.ignored_features]
 
@@ -429,29 +429,72 @@ class MACEExplainer(ExplainerBase):
             data=df[cate_features + cont_features],
             categorical_columns=cate_features
         )
-        transformer = TabularTransform(
-            cate_transform=Ordinal(), cont_transform=KBins(n_bins=10, strategy=cont_strategy)
-        ).fit(x)
+        if strategy == "kbins":
+            transformer = TabularTransform(
+                cate_transform=Ordinal(), cont_transform=KBins(n_bins=10)).fit(x)
+        else:
+            transformer = TabularTransform(cate_transform=Ordinal()).fit(x)
         y = transformer.invert(transformer.transform(x)).to_pd(copy=False)
 
         counts = [Counter(y[f].values).most_common(max_num_candidates) for f in y.columns]
         candidates = {f: [c[0] for c in count] for f, count in zip(y.columns, counts)}
         return candidates
 
+    @staticmethod
+    def _greedy(
+            predict_function: Callable,
+            instance: Tabular,
+            oracle_function: Callable,
+            candidate_features: Dict
+    ) -> Dict:
+        assert isinstance(instance, Tabular), "Input ``instance`` should be an instance of Tabular."
+        assert instance.shape[0] == 1, "The input ``instance`` can only contain one instance."
+
+        x = instance.remove_target_column()
+        y = x.to_pd(copy=False)
+        column2loc = {c: y.columns.get_loc(c) for c in y.columns}
+
+        example, visited = None, {}
+        best_score, all_scores = -1, None
+        for _ in range(len(candidate_features)):
+            update = None
+            for feature, values in candidate_features.items():
+                if feature in visited:
+                    continue
+                for v in values:
+                    z = y.copy()
+                    z.iloc[0, column2loc[feature]] = v
+                    score = predict_function(Tabular(data=z, categorical_columns=x.categorical_columns))[0]
+                    if oracle_function(score) > best_score:
+                        best_score = oracle_function(score)
+                        all_scores = score
+                        update = (feature, v)
+            if update is None:
+                break
+
+            visited[update[0]] = True
+            y.iloc[0, column2loc[update[0]]] = update[1]
+            if all_scores is not None:
+                if oracle_function(all_scores) >= 0:
+                    example = Tabular(data=y, categorical_columns=x.categorical_columns)
+                    break
+
+        if example is not None:
+            return {"best_cf": example, "cfs": example}
+        else:
+            return {}
+
     def _generate_cf_examples(
             self,
             x: Tabular,
+            candidate_features: Dict,
+            cont_feature_medians: Dict,
             oracle_function: Callable,
             min_radius: float = 0.0005,
             max_radius: float = 0.25,
             num_epochs: int = 20,
             num_starts: int = 3,
     ):
-        candidate_features = self._candidate_features(x, cont_strategy="uniform") \
-            if self.candidate_features is None else self.candidate_features
-        cont_feature_medians = x.get_continuous_medians() \
-            if self.cont_feature_medians is None else self.cont_feature_medians
-
         optimizer = _GLDOptimizer(
             x=x,
             predict_function=self.predict_function,
@@ -466,7 +509,7 @@ class MACEExplainer(ExplainerBase):
             num_starts=num_starts
         )
         score = self.predict_function(y)
-        if oracle_function(score):
+        if oracle_function(score) >= 0:
             return {"best_cf": y.remove_target_column(), "cfs": ys.remove_target_column()}
         else:
             return {}
@@ -501,18 +544,25 @@ class MACEExplainer(ExplainerBase):
                 item_b_index = item_b_index * len(item_a_index)
         assert len(item_a_index) == len(item_a_index)
 
+        candidate_features = self._candidate_features(X, strategy="identity") \
+            if self.candidate_features is None else self.candidate_features
+        cont_feature_medians = X.get_continuous_medians() \
+            if self.cont_feature_medians is None else self.cont_feature_medians
+
         for a_index, b_index in zip(item_a_index, item_b_index):
             x = X.iloc(b_index)
             score_a = self.predict_function(X.iloc(a_index))[0]
             score_b = self.predict_function(x)[0]
             if score_a >= score_b:
-                oracle_function = lambda s: s > score_a
+                oracle_function = lambda s: s - score_a
             else:
-                oracle_function = lambda s: s < score_a
+                oracle_function = lambda s: score_a - s
 
-            examples = self._generate_cf_examples(x, oracle_function)
+            examples = self._generate_cf_examples(
+                x, candidate_features, cont_feature_medians, oracle_function)
             if not examples:
-                raise NotImplementedError
+                examples = self._greedy(
+                    self.predict_function, x, oracle_function, candidate_features)
 
             cfs_df = None
             if examples:

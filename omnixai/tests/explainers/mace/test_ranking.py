@@ -31,7 +31,7 @@ class TestMACE(unittest.TestCase):
             item_a_index=0,
             item_b_index=[1, 2]
         )
-        fig = explanations.plotly_plot(index=1)
+        fig = explanations.plotly_plot(index=0)
         fig.show()
 
 
