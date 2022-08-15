@@ -410,6 +410,7 @@ class MACEExplainer(ExplainerBase):
         super().__init__()
         assert training_data is None or isinstance(training_data, Tabular), \
             f"`training_data` should be Tabular or None instead of {type(training_data)}."
+        self.kwargs = kwargs
 
         self.predict_function = lambda x: predict_function(x).flatten()
         self.ignored_features = set(ignored_features) if ignored_features is not None else set()
@@ -420,7 +421,7 @@ class MACEExplainer(ExplainerBase):
         self.diversity = _DiversityModule(training_data) \
             if training_data is not None else None
 
-    def _candidate_features(self, data, max_num_candidates=10, strategy="kbins"):
+    def _candidate_features(self, data, max_num_candidates=10):
         cate_features = [c for c in data.categorical_columns if c not in self.ignored_features]
         cont_features = [c for c in data.continuous_columns if c not in self.ignored_features]
 
@@ -429,12 +430,10 @@ class MACEExplainer(ExplainerBase):
             data=df[cate_features + cont_features],
             categorical_columns=cate_features
         )
-        if strategy == "kbins":
-            transformer = TabularTransform(
-                cate_transform=Ordinal(), cont_transform=KBins(n_bins=10)).fit(x)
-        else:
-            transformer = TabularTransform(cate_transform=Ordinal()).fit(x)
-        y = transformer.invert(transformer.transform(x)).to_pd(copy=False)
+        transformer = TabularTransform(
+            cate_transform=Ordinal(), cont_transform=KBins(n_bins=10)
+        ).fit(x)
+        y = transformer.invert(transformer.transform(x)).to_pd(copy=False).dropna(axis=1)
 
         counts = [Counter(y[f].values).most_common(max_num_candidates) for f in y.columns]
         candidates = {f: [c[0] for c in count] for f, count in zip(y.columns, counts)}
@@ -493,7 +492,7 @@ class MACEExplainer(ExplainerBase):
             min_radius: float = 0.0005,
             max_radius: float = 0.25,
             num_epochs: int = 20,
-            num_starts: int = 3,
+            num_starts: int = 4,
     ):
         optimizer = _GLDOptimizer(
             x=x,
@@ -544,7 +543,7 @@ class MACEExplainer(ExplainerBase):
                 item_b_index = item_b_index * len(item_a_index)
         assert len(item_a_index) == len(item_a_index)
 
-        candidate_features = self._candidate_features(X, strategy="identity") \
+        candidate_features = self._candidate_features(X) \
             if self.candidate_features is None else self.candidate_features
         cont_feature_medians = X.get_continuous_medians() \
             if self.cont_feature_medians is None else self.cont_feature_medians
@@ -559,7 +558,7 @@ class MACEExplainer(ExplainerBase):
                 oracle_function = lambda s: score_a - s
 
             examples = self._generate_cf_examples(
-                x, candidate_features, cont_feature_medians, oracle_function)
+                x, candidate_features, cont_feature_medians, oracle_function, **self.kwargs)
             if not examples:
                 examples = self._greedy(
                     self.predict_function, x, oracle_function, candidate_features)
