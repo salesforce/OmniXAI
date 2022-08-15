@@ -492,7 +492,7 @@ class MACEExplainer(ExplainerBase):
             min_radius: float = 0.0005,
             max_radius: float = 0.25,
             num_epochs: int = 20,
-            num_starts: int = 4,
+            num_starts: int = 3,
     ):
         optimizer = _GLDOptimizer(
             x=x,
@@ -543,9 +543,11 @@ class MACEExplainer(ExplainerBase):
                 item_b_index = item_b_index * len(item_a_index)
         assert len(item_a_index) == len(item_a_index)
 
+        df = X.to_pd(copy=False)
         candidate_features = self._candidate_features(X) \
             if self.candidate_features is None else self.candidate_features
-        cont_feature_medians = X.get_continuous_medians() \
+        cont_feature_medians = {c: np.mean(np.abs(df[c].values.astype(float)))
+                                for c in X.continuous_columns} \
             if self.cont_feature_medians is None else self.cont_feature_medians
 
         for a_index, b_index in zip(item_a_index, item_b_index):

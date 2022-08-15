@@ -23,15 +23,16 @@ class TestMACE(unittest.TestCase):
 
     def test_candidate_features(self):
         explainer = MACEExplainer(
-            training_data=self.data,
-            predict_function=self.predict_function
+            training_data=None,
+            predict_function=self.predict_function,
+            ignored_features=["Sex", "Race", "fnlwgt"]
         )
         explanations = explainer.explain(
             X=self.test_instances,
             item_a_index=0,
             item_b_index=[1, 2]
         )
-        fig = explanations.plotly_plot(index=0)
+        fig = explanations.plotly_plot()
         fig.show()
 
 
