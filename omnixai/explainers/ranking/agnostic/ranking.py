@@ -16,7 +16,7 @@ import itertools
 import pandas as pd
 
 
-class RankingExplainer(ExplainerBase):
+class ValidityRankingExplainer(ExplainerBase):
     """
     Ranking Explainer for Tabular Data.
     """

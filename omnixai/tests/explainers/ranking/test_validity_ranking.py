@@ -7,7 +7,7 @@
 import os
 import unittest
 import pandas as pd
-from omnixai.explainers.ranking.agnostic.ranking import RankingExplainer
+from omnixai.explainers.ranking.agnostic.ranking import ValidityRankingExplainer
 from omnixai.tests.explainers.tasks import TabularClassification
 
 pd.set_option("display.max_columns", None)
@@ -23,7 +23,7 @@ class TestRanking(unittest.TestCase):
 
     def test_candidate_features(self):
         print(self.data.feature_columns)
-        explainer = RankingExplainer(
+        explainer = ValidityRankingExplainer(
             training_data=self.data,
             predict_function=self.predict_function,
             features=['Age', 'Workclass', 'fnlwgt', 'Education',
