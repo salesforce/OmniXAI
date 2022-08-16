@@ -32,8 +32,9 @@ class TestMACE(unittest.TestCase):
             item_a_index=0,
             item_b_index=[1, 2]
         )
-        fig = explanations.plotly_plot()
-        fig.show()
+        print(explanations)
+        # fig = explanations.plotly_plot()
+        # fig.show()
 
 
 if __name__ == "__main__":
