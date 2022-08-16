@@ -25,7 +25,7 @@ class MACEExplainer(ExplainerBase):
     """
     The Model-Agnostic Counterfactual Explanation (MACE) developed by Yang et al. Please
     cite the paper `MACE: An Efficient Model-Agnostic Framework for Counterfactual Explanation`.
-    This explainer is designed for ranking tasks only.
+    This version of MACE is designed for ranking tasks only.
     """
 
     explanation_type = "local"
