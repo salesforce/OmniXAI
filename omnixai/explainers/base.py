@@ -14,7 +14,7 @@ import numpy as np
 from copy import deepcopy
 from abc import abstractmethod
 from collections import OrderedDict, defaultdict
-from typing import Collection, Callable, Any, Dict, List
+from typing import Collection, Callable, Any, Dict
 
 from ..utils.misc import AutodocABCMeta, build_predict_function
 from ..data.base import Data
@@ -147,13 +147,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             e.g., `params["lime"] = {"param_1": param_1, ...}`.
         """
         super().__init__()
-        self._NAME_TO_CLASS = {_class.__name__: _class for _class in self._MODELS}
-        for _class in self._MODELS:
-            if hasattr(_class, "alias"):
-                for name in _class.alias:
-                    assert name not in self._NAME_TO_CLASS, f"Alias {name} exists, please use a different one."
-                    self._NAME_TO_CLASS[name] = _class
-
+        self._NAME_TO_CLASS = self._name_to_class(self._MODELS)
         for name in explainers:
             name = name.split("#")[0]
             assert (
@@ -166,8 +160,19 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         self.model = model
         self.preprocess = preprocess
         self.postprocess = postprocess
-        self.predict_function = self._build_predict_function()
+        self.params = params
+        self.predict_function = None
         self.explainers = self._build_explainers(params)
+
+    @staticmethod
+    def _name_to_class(models):
+        name_to_class = {_class.__name__: _class for _class in models}
+        for _class in models:
+            if hasattr(_class, "alias"):
+                for name in _class.alias:
+                    assert name not in name_to_class, f"Alias {name} exists, please use a different one."
+                    name_to_class[name] = _class
+        return name_to_class
 
     def _build_predict_function(self):
         """
@@ -194,6 +199,9 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         """
         if params is None:
             params = {}
+        if self.predict_function is None:
+            self.predict_function = self._build_predict_function()
+
         explainers = {}
         for name in self.names:
             explainer_name = name.split("#")[0]
@@ -235,6 +243,8 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         :return: The predictions results.
         :rtype: PredictedResults
         """
+        if self.predict_function is None:
+            self.predict_function = self._build_predict_function()
         predictions = self.predict_function(X)
         if not isinstance(predictions, np.ndarray):
             try:
@@ -308,3 +318,120 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         List the supported explainers.
         """
         pass
+
+    def save(
+            self,
+            directory: str,
+            mode: str = "model_and_data",
+            **kwargs
+    ):
+        """
+        Saves the initialized explainers.
+
+        :param directory: The folder for the dumped explainer.
+        :param mode: How to save the explainers, i.e., "model_and_data" and "individual".
+            "model_and_data" for saving the model, preprocessing function, postprocessing function
+            and dataset for initialization, or "individual" for saving each initialized explainer
+            in the AutoExplainer. When there is no explainer that needs to train a post-hoc
+            explanation model (e.g., L2X) and the dataset for initialization is not too large,
+            "model_and_data" is a better option. Otherwise, "individual" is a proper option.
+            For vision and NLP explainers, we recommend using "model_and_data".
+        """
+        from ..utils.misc import is_tf_available, is_torch_available
+
+        assert mode in ["model_and_data", "individual"], \
+            "`mode` is either 'model_and_data' or 'individual'."
+        os.makedirs(directory, exist_ok=True)
+
+        params = {
+            "save_mode": mode,
+            "names": self.names,
+            "mode": self.mode,
+            "preprocess": self.preprocess,
+            "postprocess": self.postprocess,
+            "params": self.params
+        }
+        if mode == "model_and_data":
+            params["data"] = self.data
+        with open(os.path.join(directory, "params.pkl"), "wb") as f:
+            dill.dump(params, f)
+
+        if mode == "individual":
+            with open(os.path.join(directory, "explainers.pkl"), "wb") as f:
+                dill.dump(list(self.explainers.keys()), f)
+            for key, explainer in self.explainers.items():
+                explainer.save(directory, filename=key)
+
+        model_type = "other"
+        if is_torch_available():
+            import torch.nn as nn
+            if isinstance(self.model, nn.Module):
+                model_type = "torch"
+        if model_type == "other" and is_tf_available():
+            import tensorflow as tf
+            if isinstance(self.model, tf.keras.Model):
+                model_type = "tf"
+        with open(os.path.join(directory, "model_type.pkl"), "wb") as f:
+            dill.dump(model_type, f)
+
+        if model_type == "torch":
+            import torch
+            torch.save(self.model, os.path.join(directory, "model.pth"))
+        elif model_type == "tf":
+            self.model.save(os.path.join(directory, "model"))
+        else:
+            with open(os.path.join(directory, "model.pkl"), "wb") as f:
+                dill.dump(self.model, f)
+
+    @classmethod
+    def load(
+            cls,
+            directory: str,
+            **kwargs
+    ):
+        """
+        Loads the dumped explainers.
+
+        :param directory: The folder for the dumped explainer.
+        """
+        with open(os.path.join(directory, "params.pkl"), "rb") as f:
+            params = dill.load(f)
+        with open(os.path.join(directory, "model_type.pkl"), "rb") as f:
+            model_type = dill.load(f)
+
+        if model_type == "torch":
+            import torch
+            model = torch.load(os.path.join(directory, "model.pth"))
+        elif model_type == "tf":
+            import tensorflow as tf
+            model = tf.keras.models.load_model(os.path.join(directory, "model"))
+        else:
+            with open(os.path.join(directory, "model.pkl"), "rb") as f:
+                model = dill.load(f)
+        params["model"] = model
+
+        if params["save_mode"] == "model_and_data":
+            return cls(
+                explainers=params["names"],
+                mode=params["mode"],
+                data=params["data"],
+                model=params["model"],
+                preprocess=params["preprocess"],
+                postprocess=params["postprocess"],
+                params=params["params"],
+            )
+        else:
+            explainers = {}
+            name_to_class = cls._name_to_class(cls.MODELS)
+            with open(os.path.join(directory, "explainers.pkl"), "rb") as f:
+                explainer_names = dill.load(f)
+                for name in explainer_names:
+                    explainer_name = name.split("#")[0]
+                    _class = name_to_class[explainer_name]
+                    explainers[name] = _class.load(directory, filename=name)
+            params["explainers"] = explainers
+
+            self = super(AutoExplainerBase, cls).__new__(cls)
+            for name, value in params.items():
+                setattr(self, name, value)
+            return self
