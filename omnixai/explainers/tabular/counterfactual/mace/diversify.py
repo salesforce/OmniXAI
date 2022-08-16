@@ -39,6 +39,7 @@ class DiversityModule:
             predict_function: Callable,
             x: Tabular,
             cfs: Tabular,
+            oracle_function: Callable,
             desired_label: int
     ) -> (Tabular, np.ndarray):
         """
@@ -47,6 +48,7 @@ class DiversityModule:
         :param predict_function: The predict function.
         :param x: The query instance.
         :param cfs: The counterfactual examples.
+        :param oracle_function: The function for determining whether a solution is acceptable or not.
         :param desired_label: The desired label.
         :return: The counterfactual examples (Tabular) and
             the corresponding prediction scores w.r.t the desired label (numpy.ndarray).
@@ -74,8 +76,11 @@ class DiversityModule:
                 data=pd.concat(extended_cfs, sort=False), categorical_columns=cfs.categorical_columns
             )
         scores = predict_function(extended_cfs)
-        indices = [i for i, score in enumerate(scores) if np.argmax(score) == desired_label]
-        return extended_cfs.iloc(indices), scores[indices, desired_label]
+        indices = [i for i, score in enumerate(scores) if oracle_function(score) > 0]
+        if desired_label >= 0:
+            return extended_cfs.iloc(indices), scores[indices, desired_label]
+        else:
+            return extended_cfs.iloc(indices), scores[indices]
 
     def _loss(
             self,
@@ -108,6 +113,7 @@ class DiversityModule:
             predict_function: Callable,
             instance: Tabular,
             counterfactual_examples: Tabular,
+            oracle_function: Callable,
             desired_label: int,
             k: int = 5,
             predict_score_weight: float = 0.0,
@@ -118,13 +124,14 @@ class DiversityModule:
         :param predict_function: The predict function.
         :param instance: The query instance.
         :param counterfactual_examples: The candidate counterfactual examples.
-        :param desired_label: The desired label.
+        :param oracle_function: The function for determining whether a solution is acceptable or not.
+        :param desired_label: The desired label for classification tasks only.
         :param k: The max number of the generated diverse counterfactual examples.
         :param predict_score_weight: The weight of the prediction score in the counterfactual loss.
         :return: A Tabular including the diverse counterfactual examples.
         """
         original_cfs, scores = self._extend_cfs(
-            predict_function, instance, counterfactual_examples, desired_label)
+            predict_function, instance, counterfactual_examples, oracle_function, desired_label)
         x = instance.to_pd(copy=False).astype(self.convert_dict)
         cfs = original_cfs.to_pd(copy=False).astype(self.convert_dict)
 

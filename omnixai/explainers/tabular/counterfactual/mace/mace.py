@@ -109,8 +109,14 @@ class MACEExplainer(ExplainerBase):
                 # Generate diverse counterfactual examples
                 if examples:
                     cfs = self.diversity.get_diverse_cfs(
-                        self.predict_function, x, examples["cfs"], desired_label, k=max_number_examples)
-                    cfs = self.refinement.refine(self.predict_function, x, cfs, desired_label)
+                        self.predict_function, x, examples["cfs"],
+                        oracle_function=lambda _s: int(desired_label == np.argmax(_s)),
+                        desired_label=desired_label, k=max_number_examples
+                    )
+                    cfs = self.refinement.refine(
+                        self.predict_function, x, cfs,
+                        oracle_function=lambda _s: int(desired_label == np.argmax(_s))
+                    )
                     cfs_df = cfs.to_pd()
                     cfs_df["label"] = desired_label
                     all_cfs.append(cfs_df)
