@@ -335,7 +335,6 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             in the AutoExplainer. When there is no explainer that needs to train a post-hoc
             explanation model (e.g., L2X) and the dataset for initialization is not too large,
             "model_and_data" is a better option. Otherwise, "individual" is a proper option.
-            For vision and NLP explainers, we recommend using "model_and_data".
         """
         from ..utils.misc import is_tf_available, is_torch_available
 
@@ -347,6 +346,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             "save_mode": mode,
             "names": self.names,
             "mode": self.mode,
+            "model": self.model,
             "preprocess": self.preprocess,
             "postprocess": self.postprocess,
             "params": self.params
@@ -362,27 +362,6 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             for key, explainer in self.explainers.items():
                 explainer.save(directory, filename=key)
 
-        model_type = "other"
-        if is_torch_available():
-            import torch.nn as nn
-            if isinstance(self.model, nn.Module):
-                model_type = "torch"
-        if model_type == "other" and is_tf_available():
-            import tensorflow as tf
-            if isinstance(self.model, tf.keras.Model):
-                model_type = "tf"
-        with open(os.path.join(directory, "model_type.pkl"), "wb") as f:
-            dill.dump(model_type, f)
-
-        if model_type == "torch":
-            import torch
-            torch.save(self.model, os.path.join(directory, "model.pth"))
-        elif model_type == "tf":
-            self.model.save(os.path.join(directory, "model"))
-        else:
-            with open(os.path.join(directory, "model.pkl"), "wb") as f:
-                dill.dump(self.model, f)
-
     @classmethod
     def load(
             cls,
@@ -396,19 +375,6 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         """
         with open(os.path.join(directory, "params.pkl"), "rb") as f:
             params = dill.load(f)
-        with open(os.path.join(directory, "model_type.pkl"), "rb") as f:
-            model_type = dill.load(f)
-
-        if model_type == "torch":
-            import torch
-            model = torch.load(os.path.join(directory, "model.pth"))
-        elif model_type == "tf":
-            import tensorflow as tf
-            model = tf.keras.models.load_model(os.path.join(directory, "model"))
-        else:
-            with open(os.path.join(directory, "model.pkl"), "rb") as f:
-                model = dill.load(f)
-        params["model"] = model
 
         if params["save_mode"] == "model_and_data":
             return cls(
