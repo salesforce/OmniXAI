@@ -30,19 +30,25 @@ class ValidityRankingExplainer(ExplainerBase):
         features: List,
         predict_function: Callable,
         preprocessing_fn: Callable = None,
-        **kwargs
     ):
         """
         :param training_data: The data used to initialize a Ranking explainer. ``training_data``
             can be the training dataset for training the machine learning model.
+        :param features: The list of features to be explained by the valid per-query algorithm
         :param predict_function: The prediction function corresponding to the model to explain.
             the outputs of the ``predict_function`` are the document scores.
+        :param preprocessing_fn: The preprocessing function to process/transform the feature attributes
+        before prediction. The output of the preprocessing function is the input to the ranking model.
         """
         super().__init__()
         self.training_data = training_data.to_pd()
         self.features = features
-        self.mean_features = self._compute_stats(self.training_data, self.features, 'mean')
-        self.median_features = self._compute_stats(self.training_data, self.features, 'median')
+        self.mean_features = self._compute_stats(
+            self.training_data, self.features, "mean"
+        )
+        self.median_features = self._compute_stats(
+            self.training_data, self.features, "median"
+        )
 
         if preprocessing_fn:
             self.preprocessing_fn = preprocessing_fn
@@ -52,9 +58,9 @@ class ValidityRankingExplainer(ExplainerBase):
 
     @staticmethod
     def _compute_stats(data: pd.DataFrame, features: List, mask_type):
-        if mask_type == 'mean':
+        if mask_type == "mean":
             stats = data.mean()
-        if mask_type == 'median':
+        if mask_type == "median":
             stats = data.median()
 
         for f in features:
@@ -90,8 +96,8 @@ class ValidityRankingExplainer(ExplainerBase):
         return x
 
     @staticmethod
-    def compute_pairs(num_samples):
-        positions = list(range(1, num_samples + 1))
+    def compute_pairs(n_docs):
+        positions = list(range(1, n_docs + 1))
         combs = list(itertools.combinations(positions, r=2)) + list(
             itertools.combinations(positions[::-1], r=2)
         )
@@ -111,32 +117,38 @@ class ValidityRankingExplainer(ExplainerBase):
         for i in range(0, len(self.features)):
             if i not in minimal_features:
                 x = self.compute_mask(x, mask, i)
-        scores = self.predict_fn(Tabular(x, categorical_columns=categorical_cols)).flatten()
+        scores = self.predict_fn(
+            Tabular(x, categorical_columns=categorical_cols)
+        ).flatten()
         print(scores)
         ranks = self.compute_rank(scores)
         print(ranks)
         return scipy.stats.kendalltau(ranks, pi), scipy.stats.weightedtau(ranks, pi)
 
     @staticmethod
-    def compute_num_samples(tabular_data: Tabular):
+    def compute_n_docs(tabular_data: Tabular):
         return tabular_data.to_pd().shape[0]
 
     def explain(
         self,
         tabular_data: Tabular,
         k: int = 3,
-        num_samples: int = None,
+        n_docs: int = None,
         mask: str = "median",
         weighted: bool = False,
         epsilon: float = -1.0,
     ):
-        if not num_samples:
-            num_samples = self.compute_num_samples(tabular_data)
-        print('Num samples: ', num_samples)
-        pairs = self.compute_pairs(num_samples)
+        if not n_docs:
+            n_docs = self.compute_n_docs(tabular_data)
+        print("Num samples: ", n_docs)
+        pairs = self.compute_pairs(n_docs)
         weights = np.array([(1 / p[0] + 1 / p[1]) for p in pairs])
-        sample = self.preprocessing_fn(tabular_data).iloc[:num_samples]
-        pi = self.compute_rank(self.predict_fn(Tabular(sample, categorical_columns=tabular_data.categorical_cols)))
+        sample = self.preprocessing_fn(tabular_data).iloc[:n_docs]
+        pi = self.compute_rank(
+            self.predict_fn(
+                Tabular(sample, categorical_columns=tabular_data.categorical_cols)
+            )
+        )
         pi = pi.tolist()
         print(pi)
         minimal_feat_set = {}
@@ -152,7 +164,9 @@ class ValidityRankingExplainer(ExplainerBase):
                     for i in range(0, len(self.features)):
                         if i != feature and i not in minimal_feat_set:
                             x = self.compute_mask(x, mask, i)
-                    scores = self.predict_fn(Tabular(x, categorical_columns=tabular_data.categorical_cols)).flatten()
+                    scores = self.predict_fn(
+                        Tabular(x, categorical_columns=tabular_data.categorical_cols)
+                    ).flatten()
                     ranks = (-scores).argsort().argsort() + 1
                     for p in pairs:
                         propensity[feature].append(
@@ -178,10 +192,10 @@ class ValidityRankingExplainer(ExplainerBase):
                 break
             max_utility = max(curr_max_utility, max_utility)
             minimal_feat_set[curr_argmax_utility] = curr_max_utility
-            validity = self.compute_validity(pi, minimal_feat_set, mask, sample, tabular_data.categorical_cols)
+            validity = self.compute_validity(
+                pi, minimal_feat_set, mask, sample, tabular_data.categorical_cols
+            )
             if len(pairs) == 0:
                 break
         minimal_feat_set = {self.features[u]: v for u, v in minimal_feat_set.items()}
         return minimal_feat_set, validity
-
-
