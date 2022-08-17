@@ -336,8 +336,6 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             explanation model (e.g., L2X) and the dataset for initialization is not too large,
             "model_and_data" is a better option. Otherwise, "individual" is a proper option.
         """
-        from ..utils.misc import is_tf_available, is_torch_available
-
         assert mode in ["model_and_data", "individual"], \
             "`mode` is either 'model_and_data' or 'individual'."
         os.makedirs(directory, exist_ok=True)
