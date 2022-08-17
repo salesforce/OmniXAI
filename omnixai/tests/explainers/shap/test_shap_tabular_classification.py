@@ -71,6 +71,24 @@ class TestShapTabular(unittest.TestCase):
             print(f"Target label: {e['target_label']}")
             pprint.pprint(list(zip(e["features"], e["values"], e["scores"])))
 
+    def test_4(self):
+        task = TabularClassification().train_iris()
+        predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
+        explainer = ShapTabular(training_data=task.train_data, predict_function=predict_function, nsamples=100)
+
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory)
+        explainer = ShapTabular.load(directory=directory)
+
+        i = 25
+        test_x = task.test_data.iloc([i, i + 1])
+        explanations = explainer.explain(test_x, nsamples=100)
+        for e in explanations.get_explanations():
+            print(e["instance"])
+            print(f"Target label: {e['target_label']}")
+            pprint.pprint(list(zip(e["features"], e["values"], e["scores"])))
+
 
 if __name__ == "__main__":
     unittest.main()

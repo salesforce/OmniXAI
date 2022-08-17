@@ -26,26 +26,28 @@ def _calculate_integral(inp, baseline, gradients):
 
 
 class _IntegratedGradientTorch:
-    def __init__(self):
+    def __init__(self, model, embedding_layer):
+        self.model = model
+        self.embedding_layer = embedding_layer
         self.embeddings = None
         self.embedding_layer_inputs = None
 
     def compute_integrated_gradients(
-            self, model, embedding_layer, inputs, loss_function, steps, batch_size=8, **kwargs
+            self, inputs, loss_function, steps, batch_size=8, **kwargs
     ):
         import torch
 
-        device = next(model.parameters()).device
+        device = next(self.model.parameters()).device
         hooks = []
 
-        model.eval()
+        self.model.eval()
         all_inputs = (inputs,) if not isinstance(inputs, tuple) else inputs
         try:
             # Forward pass for extracting embeddings
-            hooks.append(embedding_layer.register_forward_hook(self._embedding_hook))
-            model(*all_inputs)
+            hooks.append(self.embedding_layer.register_forward_hook(self._embedding_hook))
+            self.model(*all_inputs)
             baselines = np.zeros(self.embeddings.shape)
-            hooks.append(embedding_layer.register_forward_hook(self._embedding_layer_hook))
+            hooks.append(self.embedding_layer.register_forward_hook(self._embedding_layer_hook))
 
             # Build the inputs for computing integrated gradient
             alphas = np.linspace(start=0.0, stop=1.0, num=steps, endpoint=True)
@@ -69,7 +71,7 @@ class _IntegratedGradientTorch:
                         raise ValueError(f"Wrong type {type(x)}")
 
                 # Compute gradients
-                outputs = model(*repeated_inputs)
+                outputs = self.model(*repeated_inputs)
                 loss = torch.stack(
                     [loss_function(outputs[i:i + 1], **kwargs) for i in range(outputs.shape[0])])
                 grad = (
@@ -128,20 +130,21 @@ class IntegratedGradient(ExplainerBase):
         self.tokenizer = tokenizer
         self.loss_function = loss_function
 
-        self.ig_class = None
+        ig_class = None
         if is_torch_available():
             import torch.nn as nn
 
             if isinstance(model, nn.Module):
-                self.ig_class = _IntegratedGradientTorch
+                ig_class = _IntegratedGradientTorch
                 self.model_type = "torch"
-        if self.ig_class is None and is_tf_available():
+        if ig_class is None and is_tf_available():
             import tensorflow as tf
 
             if isinstance(model, tf.keras.Model):
                 raise ValueError("The tensorflow model is not supported yet.")
-        if self.ig_class is None:
+        if ig_class is None:
             raise ValueError(f"`model` should be a tf.keras.Model " f"or a torch.nn.Module instead of {type(model)}")
+        self.ig_model = ig_class(self.model, self.embedding_layer)
 
     def explain(self, X: MultiInputs, **kwargs) -> WordImportance:
         """
@@ -168,9 +171,7 @@ class IntegratedGradient(ExplainerBase):
             inputs = self.preprocess_function(instance)
             if not isinstance(inputs, (tuple, list)):
                 inputs = (inputs,)
-            scores = self.ig_class().compute_integrated_gradients(
-                model=self.model,
-                embedding_layer=self.embedding_layer,
+            scores = self.ig_model.compute_integrated_gradients(
                 inputs=inputs,
                 loss_function=self.loss_function,
                 steps=steps,

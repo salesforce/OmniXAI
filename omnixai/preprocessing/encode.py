@@ -21,9 +21,9 @@ class KBins(TransformBase):
     Discretizes continuous values into bins.
     """
 
-    def __init__(self, n_bins):
+    def __init__(self, n_bins, **kwargs):
         super().__init__()
-        self.encoder = preprocessing.KBinsDiscretizer(n_bins=n_bins, encode="ordinal")
+        self.encoder = preprocessing.KBinsDiscretizer(n_bins=n_bins, encode="ordinal", **kwargs)
 
     def fit(self, x):
         if isinstance(x, pd.DataFrame):
@@ -45,12 +45,12 @@ class OneHot(TransformBase):
     One-hot encoding for categorical values.
     """
 
-    def __init__(self, drop=None):
+    def __init__(self, drop=None, **kwargs):
         super().__init__()
         if drop is None:
-            self.encoder = preprocessing.OneHotEncoder(handle_unknown="ignore")
+            self.encoder = preprocessing.OneHotEncoder(handle_unknown="ignore", **kwargs)
         else:
-            self.encoder = preprocessing.OneHotEncoder(drop=drop)
+            self.encoder = preprocessing.OneHotEncoder(drop=drop, **kwargs)
 
     def fit(self, x):
         if isinstance(x, pd.DataFrame):

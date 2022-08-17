@@ -52,9 +52,9 @@ class ShapTreeTabular(SklearnBase):
         )
         assert model is not None, "Please specify the model."
         self.model = model
-        self.predict_fn = model.predict_proba if mode == "classification" else model.predict
         self.explainer = None
         self.feature_names = None
+        self.kwargs = kwargs
 
     def _fit(self, X: np.ndarray, y: np.ndarray, **kwargs) -> None:
         self.model.fit(X, y, **kwargs)
@@ -69,8 +69,8 @@ class ShapTreeTabular(SklearnBase):
         super(ShapTreeTabular, self).fit(training_data=training_data, train_size=train_size, **kwargs)
         self.feature_names = self.transformer.get_feature_names()
         data = self.transformer.transform(training_data.remove_target_column())
-        if "nsamples" in kwargs:
-            data = shap.sample(data, nsamples=kwargs["nsamples"])
+        if "nsamples" in self.kwargs:
+            data = shap.sample(data, nsamples=self.kwargs["nsamples"])
         self.explainer = shap.TreeExplainer(self.model, data, **kwargs)
 
     def explain(self, X: Tabular, y: List = None, **kwargs) -> FeatureImportance:
@@ -87,6 +87,8 @@ class ShapTreeTabular(SklearnBase):
         explanations = FeatureImportance(self.mode)
         instances = self.transformer.transform(X)
         shap_values = self.explainer.shap_values(instances, **kwargs)
+        predict_fn = self.model.predict_proba if self.mode == "classification" \
+            else self.model.predict
 
         # For xgboost.XGBClassifier, sometimes the output of shap tree doesn't
         # include the SHAP values for different labels (which may be a bug)
@@ -104,7 +106,7 @@ class ShapTreeTabular(SklearnBase):
                         f"should be the same as the number of instances in X."
                     )
             else:
-                prediction_scores = self.predict_fn(instances)
+                prediction_scores = predict_fn(instances)
                 y = np.argmax(prediction_scores, axis=1)
         else:
             y = None

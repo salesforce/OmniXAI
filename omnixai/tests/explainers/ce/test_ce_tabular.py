@@ -186,6 +186,16 @@ class TestCE(unittest.TestCase):
             print(e["query"])
             print(e["counterfactual"])
 
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory, filename="CounterfactualExplainer_torch.pkl")
+        explainer = CounterfactualExplainer.load(directory=directory, filename="CounterfactualExplainer_torch.pkl")
+        explanations = explainer.explain(x_test[:1])
+        for e in explanations.get_explanations():
+            print("\n")
+            print(e["query"])
+            print(e["counterfactual"])
+
 
 if __name__ == "__main__":
     unittest.main()

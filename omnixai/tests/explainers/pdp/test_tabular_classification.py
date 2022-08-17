@@ -30,6 +30,19 @@ class TestPDPTabular(unittest.TestCase):
         explanations = explainer.explain()
         pprint.pprint(explanations.get_explanations())
 
+    def test_3(self):
+        set_random_seed()
+        task = TabularClassification().train_iris()
+        predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
+        explainer = PartialDependenceTabular(training_data=task.train_data, predict_function=predict_function)
+
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory)
+        explainer = PartialDependenceTabular.load(directory=directory)
+        explanations = explainer.explain()
+        pprint.pprint(explanations.get_explanations())
+
 
 if __name__ == "__main__":
     unittest.main()

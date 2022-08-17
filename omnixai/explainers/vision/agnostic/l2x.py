@@ -272,3 +272,22 @@ class L2XImage(ExplainerBase):
                 image=image.to_numpy()[0], target_label=y[i] if y is not None else None, importance_scores=scores
             )
         return explanations
+
+    def save(
+            self,
+            directory: str,
+            filename: str = None,
+            **kwargs
+    ):
+        """
+        Saves the initialized explainer.
+
+        :param directory: The folder for the dumped explainer.
+        :param filename: The filename (the explainer class name if it is None).
+        """
+        super().save(
+            directory=directory,
+            filename=filename,
+            ignored_attributes=["data", "predictions"],
+            **kwargs
+        )

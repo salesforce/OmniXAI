@@ -183,6 +183,18 @@ class TestComputeIG(unittest.TestCase):
             print(f"Target label: {e['target_label']}")
             pprint.pprint(list(zip(e["features"], e["values"], e["scores"])))
 
+        '''
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        explainer.save(directory=directory)
+        explainer = IntegratedGradientTabular.load(directory=directory)
+        explanations = explainer.explain(x_test[:1])
+        for e in explanations.get_explanations():
+            print(e["instance"])
+            print(f"Target label: {e['target_label']}")
+            pprint.pprint(list(zip(e["features"], e["values"], e["scores"])))
+        '''
+
     def test_torch(self):
         file_path = os.path.dirname(os.path.abspath(__file__)) + "/../../datasets/diabetes.csv"
         x_train, y_train, x_test, y_test, feature_names, x_train_un, x_test_un = self.diabetes_data(file_path)

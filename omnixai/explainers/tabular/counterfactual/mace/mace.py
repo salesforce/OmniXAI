@@ -56,15 +56,13 @@ class MACEExplainer(ExplainerBase):
         """
         super().__init__()
         assert mode == "classification", "MACE supports classification tasks only."
-        self.training_data = training_data.remove_target_column()
         self.predict_function = predict_function
         self.ignored_features = ignored_features
 
         self.recall = CFRetrieval(training_data, predict_function, ignored_features, **kwargs)
-        self.gld = GLD(training_data, predict_function, **kwargs)
-        self.greedy = Greedy(training_data, predict_function)
-        self.diversity = DiversityModule(training_data, predict_function)
-        self.refinement = BinarySearchRefinement(training_data, predict_function)
+        self.gld = GLD(training_data, **kwargs)
+        self.diversity = DiversityModule(training_data)
+        self.refinement = BinarySearchRefinement(training_data)
 
     def explain(self, X: Tabular, y: Union[List, np.ndarray] = None, max_number_examples: int = 5) -> CFExplanation:
         """
@@ -102,15 +100,23 @@ class MACEExplainer(ExplainerBase):
                 candidates, indices = self.recall.get_cf_features(x, desired_label)
 
                 # Find counterfactual examples via GLD
-                examples = self.gld.get_cf_examples(x, desired_label, candidates)
+                examples = self.gld.get_cf_examples(self.predict_function, x, desired_label, candidates)
                 if not examples:
                     # If GLD fails, try to apply the greedy method
-                    examples = self.greedy.get_cf_examples(x, desired_label, candidates)
+                    examples = Greedy().get_cf_examples(
+                        self.predict_function, x, desired_label, candidates)
 
                 # Generate diverse counterfactual examples
                 if examples:
-                    cfs = self.diversity.get_diverse_cfs(x, examples["cfs"], desired_label, k=max_number_examples)
-                    cfs = self.refinement.refine(x, cfs, desired_label)
+                    cfs = self.diversity.get_diverse_cfs(
+                        self.predict_function, x, examples["cfs"],
+                        oracle_function=lambda _s: int(desired_label == np.argmax(_s)),
+                        desired_label=desired_label, k=max_number_examples
+                    )
+                    cfs = self.refinement.refine(
+                        self.predict_function, x, cfs,
+                        oracle_function=lambda _s: int(desired_label == np.argmax(_s))
+                    )
                     cfs_df = cfs.to_pd()
                     cfs_df["label"] = desired_label
                     all_cfs.append(cfs_df)

@@ -109,6 +109,32 @@ class TestTreeTabular(unittest.TestCase):
         for e in explanations.get_explanations()["path"]:
             pprint.pprint([p["text"] for p in e])
 
+    def test_4(self):
+        iris = sklearn.datasets.load_iris()
+        tabular_data = Tabular(
+            np.concatenate([iris.data, iris.target.reshape((-1, 1))], axis=1),
+            feature_columns=iris.feature_names + ["label"],
+            target_column="label",
+        )
+
+        np.random.seed(1)
+        model = TreeClassifier()
+        model.fit(tabular_data)
+
+        base_folder = os.path.dirname(os.path.abspath(__file__))
+        directory = f"{base_folder}/../../datasets/tmp"
+        model.save(directory=directory)
+        model = TreeClassifier.load(directory=directory)
+
+        i = np.random.randint(0, tabular_data.shape[0])
+        test_x = tabular_data.iloc(i)
+        print(model.class_names())
+        print(test_x)
+        print(model.predict(test_x))
+        explanations = model.explain(test_x)
+        for e in explanations.get_explanations()["path"]:
+            pprint.pprint([p["text"] for p in e])
+
 
 if __name__ == "__main__":
     unittest.main()
