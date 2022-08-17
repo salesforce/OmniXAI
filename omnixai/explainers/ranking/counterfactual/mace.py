@@ -52,6 +52,7 @@ class MACEExplainer(ExplainerBase):
         assert training_data is None or isinstance(training_data, Tabular), \
             f"`training_data` should be Tabular or None instead of {type(training_data)}."
         self.kwargs = kwargs
+        self.max_num_candidates = kwargs.get("max_num_candidates", 10)
 
         self.predict_function = lambda x: predict_function(x).flatten()
         self.ignored_features = set(ignored_features) if ignored_features is not None else set()
@@ -62,7 +63,7 @@ class MACEExplainer(ExplainerBase):
         self.diversity = DiversityModule(training_data) \
             if training_data is not None else None
 
-    def _candidate_features(self, data, max_num_candidates=10):
+    def _candidate_features(self, data):
         cate_features = [c for c in data.categorical_columns if c not in self.ignored_features]
         cont_features = [c for c in data.continuous_columns if c not in self.ignored_features]
 
@@ -76,7 +77,7 @@ class MACEExplainer(ExplainerBase):
         ).fit(x)
         y = transformer.invert(transformer.transform(x)).to_pd(copy=False).dropna(axis=1)
 
-        counts = [Counter(y[f].values).most_common(max_num_candidates) for f in y.columns]
+        counts = [Counter(y[f].values).most_common(self.max_num_candidates) for f in y.columns]
         candidates = {f: [c[0] for c in count] for f, count in zip(y.columns, counts)}
         return candidates
 
