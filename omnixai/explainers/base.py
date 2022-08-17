@@ -422,7 +422,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             )
         else:
             explainers = {}
-            name_to_class = cls._name_to_class(cls.MODELS)
+            name_to_class = cls._name_to_class(cls._MODELS)
             with open(os.path.join(directory, "explainers.pkl"), "rb") as f:
                 explainer_names = dill.load(f)
                 for name in explainer_names:
@@ -430,6 +430,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
                     _class = name_to_class[explainer_name]
                     explainers[name] = _class.load(directory, filename=name)
             params["explainers"] = explainers
+            params["predict_function"] = None
 
             self = super(AutoExplainerBase, cls).__new__(cls)
             for name, value in params.items():
