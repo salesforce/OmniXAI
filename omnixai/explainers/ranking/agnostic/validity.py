@@ -46,9 +46,7 @@ class ValidityRankingExplainer(ExplainerBase):
 
         training_data = training_data.to_pd()
         self.features = features
-        self.mean_features = self._compute_stats(
-            training_data, self.features, "mean"
-        )
+        self.mean_features = self._compute_stats(training_data, self.features, "mean")
         self.median_features = self._compute_stats(
             training_data, self.features, "median"
         )
@@ -113,10 +111,10 @@ class ValidityRankingExplainer(ExplainerBase):
         ).flatten()
         ranks = self.compute_rank(scores)
         return {
-            'Tau': scipy.stats.kendalltau(ranks, pi),
-            'Weighted_Tau': scipy.stats.weightedtau(ranks, pi),
-            'Top_K_Ranking': ranks,
-            'Ranks': pi
+            "Tau": scipy.stats.kendalltau(ranks, pi),
+            "Weighted_Tau": scipy.stats.weightedtau(ranks, pi),
+            "Top_K_Ranking": ranks,
+            "Ranks": pi,
         }
 
     def explain(
@@ -128,7 +126,7 @@ class ValidityRankingExplainer(ExplainerBase):
         weighted: bool = False,
         epsilon: float = -1.0,
         query_feature: str = None,
-        verbose: bool = False
+        verbose: bool = False,
     ) -> ValidExplanation:
         if not n_docs:
             n_docs = tabular_data.shape[0]
@@ -192,9 +190,10 @@ class ValidityRankingExplainer(ExplainerBase):
         )
         minimal_feat_set = {self.features[u]: v for u, v in minimal_feat_set.items()}
         explanations = ValidExplanation()
-        explanations.set(query=query_feature,
-                         df=tabular_data.to_pd(),
-                         top_features=minimal_feat_set,
-                         validity=validity,
-                         )
+        explanations.set(
+            query=query_feature,
+            df=tabular_data.to_pd(),
+            top_features=minimal_feat_set,
+            validity=validity,
+        )
         return explanations
