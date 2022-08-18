@@ -7,7 +7,7 @@
 import os
 import unittest
 import pandas as pd
-from omnixai.explainers.ranking.agnostic.ranking import ValidityRankingExplainer
+from omnixai.explainers.ranking.agnostic.validity import ValidityRankingExplainer
 from omnixai.tests.explainers.tasks import TabularClassification
 
 pd.set_option("display.max_columns", None)

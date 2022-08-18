@@ -15,6 +15,8 @@ import scipy
 import itertools
 import pandas as pd
 
+from ....explanations.ranking.agnostic.validity import ValidExplanation
+
 
 class ValidityRankingExplainer(ExplainerBase):
     """
@@ -29,7 +31,7 @@ class ValidityRankingExplainer(ExplainerBase):
         training_data: Tabular,
         features: List,
         predict_function: Callable,
-        preprocessing_fn: Callable = None,
+        preprocessing_function: Callable = None,
     ):
         """
         :param training_data: The data used to initialize a Ranking explainer. ``training_data``
@@ -37,7 +39,7 @@ class ValidityRankingExplainer(ExplainerBase):
         :param features: The list of features to be explained by the valid per-query algorithm
         :param predict_function: The prediction function corresponding to the model to explain.
             the outputs of the ``predict_function`` are the document scores.
-        :param preprocessing_fn: The preprocessing function to process/transform the feature attributes
+        :param preprocessing_function: The preprocessing function to process/transform the feature attributes
         before prediction. The output of the preprocessing function is the input to the ranking model.
         """
         super().__init__()
@@ -50,8 +52,8 @@ class ValidityRankingExplainer(ExplainerBase):
             self.training_data, self.features, "median"
         )
 
-        if preprocessing_fn:
-            self.preprocessing_fn = preprocessing_fn
+        if preprocessing_function:
+            self.preprocessing_fn = preprocessing_function
         else:
             self.preprocessing_fn = lambda x: x.to_pd()
         self.predict_fn = predict_function
@@ -123,7 +125,12 @@ class ValidityRankingExplainer(ExplainerBase):
         print(scores)
         ranks = self.compute_rank(scores)
         print(ranks)
-        return scipy.stats.kendalltau(ranks, pi), scipy.stats.weightedtau(ranks, pi)
+        return {
+            'Tau': scipy.stats.kendalltau(ranks, pi),
+            'Weighted_Tau': scipy.stats.weightedtau(ranks, pi),
+            'Top_K_Ranking': ranks,
+            'Ranks': pi
+        }
 
     @staticmethod
     def compute_n_docs(tabular_data: Tabular):
@@ -137,7 +144,8 @@ class ValidityRankingExplainer(ExplainerBase):
         mask: str = "median",
         weighted: bool = False,
         epsilon: float = -1.0,
-    ):
+        query_feature: str = None
+    ) -> ValidExplanation:
         if not n_docs:
             n_docs = self.compute_n_docs(tabular_data)
         print("Num samples: ", n_docs)
@@ -192,10 +200,16 @@ class ValidityRankingExplainer(ExplainerBase):
                 break
             max_utility = max(curr_max_utility, max_utility)
             minimal_feat_set[curr_argmax_utility] = curr_max_utility
-            validity = self.compute_validity(
-                pi, minimal_feat_set, mask, sample, tabular_data.categorical_cols
-            )
             if len(pairs) == 0:
                 break
+        validity = self.compute_validity(
+            pi, minimal_feat_set, mask, sample, tabular_data.categorical_cols
+        )
         minimal_feat_set = {self.features[u]: v for u, v in minimal_feat_set.items()}
-        return minimal_feat_set, validity
+        explanations = ValidExplanation()
+        explanations.set(query=query_feature,
+                         df=tabular_data.to_pd(),
+                         top_features=minimal_feat_set,
+                         validity=validity,
+                         )
+        return explanations
