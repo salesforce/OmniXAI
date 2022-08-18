@@ -39,7 +39,8 @@ class ValidityRankingExplainer(ExplainerBase):
             can be the training dataset for training the machine learning model.
         :param features: The list of features to be explained by the valid per-query algorithm
         :param predict_function: The prediction function corresponding to the model to explain.
-            the outputs of the ``predict_function`` are the document scores.
+            the outputs of the ``predict_function`` are the document scores. The output must be
+            a numpy array
         """
         super().__init__()
         assert isinstance(training_data, Tabular)
@@ -153,11 +154,11 @@ class ValidityRankingExplainer(ExplainerBase):
         pairs = self.compute_pairs(n_docs)
         weights = np.array([(1 / p[0] + 1 / p[1]) for p in pairs])
         sample = tabular_data.to_pd().iloc[:n_docs]
-        pi = self.compute_rank(
-            self.predict_fn(
-                Tabular(sample, categorical_columns=tabular_data.categorical_cols)
-            )
+        scores = self.predict_fn(
+            Tabular(sample, categorical_columns=tabular_data.categorical_cols)
         )
+        assert isinstance(scores, np.ndarray)
+        pi = self.compute_rank(scores)
         pi = pi.tolist()
         if verbose:
             print(f"Ranks of documents from given model: {pi}")
