@@ -40,13 +40,17 @@ class ValidityRankingExplainer(ExplainerBase):
             the outputs of the ``predict_function`` are the document scores.
         """
         super().__init__()
-        self.training_data = training_data.to_pd()
+        assert isinstance(training_data, Tabular)
+        for f in features:
+            assert f in training_data.columns
+
+        training_data = training_data.to_pd()
         self.features = features
         self.mean_features = self._compute_stats(
-            self.training_data, self.features, "mean"
+            training_data, self.features, "mean"
         )
         self.median_features = self._compute_stats(
-            self.training_data, self.features, "median"
+            training_data, self.features, "median"
         )
 
         self.predict_fn = predict_function
@@ -73,21 +77,13 @@ class ValidityRankingExplainer(ExplainerBase):
         else:
             return 0.0
 
-    @staticmethod
-    def _create_copy(sample):
-        if type(sample) == np.ndarray or type(sample) == pd.DataFrame:
-            x = sample.copy()
-        else:
-            x = sample.clone()
-        return x
-
     def compute_mask(self, x, mask, idx):
-        if type(x) == np.ndarray:
+        if isinstance(x, np.ndarray):
             x[:, :, idx] = self._compute_mask(mask, idx)
-        elif type(x) == pd.DataFrame:
+        elif isinstance(x, pd.DataFrame):
             x[self.features[idx]] = self._compute_mask(mask, idx)
         else:
-            raise Exception("input must be either numpy array or pandas DataFrame")
+            raise ValueError("input must be either numpy array or pandas DataFrame")
         return x
 
     @staticmethod
@@ -108,23 +104,20 @@ class ValidityRankingExplainer(ExplainerBase):
         return (scores[i] - scores[j]) * abs(ranks[i] - ranks[j])
 
     def compute_validity(self, pi, minimal_features, mask, sample, categorical_cols):
-        x = self._create_copy(sample)
+        x = sample.copy()
         for i in range(0, len(self.features)):
             if i not in minimal_features:
                 x = self.compute_mask(x, mask, i)
         scores = self.predict_fn(
             Tabular(x, categorical_columns=categorical_cols)
         ).flatten()
-        print(scores)
         ranks = self.compute_rank(scores)
-        print(ranks)
         return {
             'Tau': scipy.stats.kendalltau(ranks, pi),
             'Weighted_Tau': scipy.stats.weightedtau(ranks, pi),
             'Top_K_Ranking': ranks,
             'Ranks': pi
         }
-
 
     def explain(
         self,
@@ -134,11 +127,13 @@ class ValidityRankingExplainer(ExplainerBase):
         mask: str = "median",
         weighted: bool = False,
         epsilon: float = -1.0,
-        query_feature: str = None
+        query_feature: str = None,
+        verbose: bool = False
     ) -> ValidExplanation:
         if not n_docs:
             n_docs = tabular_data.shape[0]
-        print("Num samples: ", n_docs)
+        if verbose:
+            print("Num samples: ", n_docs)
         pairs = self.compute_pairs(n_docs)
         weights = np.array([(1 / p[0] + 1 / p[1]) for p in pairs])
         sample = tabular_data.to_pd().iloc[:n_docs]
@@ -148,17 +143,17 @@ class ValidityRankingExplainer(ExplainerBase):
             )
         )
         pi = pi.tolist()
-        print(pi)
+        if verbose:
+            print(f"Ranks of documents from given model: {pi}")
         minimal_feat_set = {}
         max_utility = -np.inf
-        validity = None
         for trials in range(0, k):
             propensity = {}
             utility = []
             for feature in range(0, len(self.features)):
                 if feature not in minimal_feat_set:
                     propensity[feature] = []
-                    x = self._create_copy(sample)
+                    x = sample.copy()
                     for i in range(0, len(self.features)):
                         if i != feature and i not in minimal_feat_set:
                             x = self.compute_mask(x, mask, i)
