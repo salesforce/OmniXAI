@@ -31,7 +31,6 @@ class ValidityRankingExplainer(ExplainerBase):
         training_data: Tabular,
         features: List,
         predict_function: Callable,
-        preprocessing_function: Callable = None,
     ):
         """
         :param training_data: The data used to initialize a Ranking explainer. ``training_data``
@@ -39,8 +38,6 @@ class ValidityRankingExplainer(ExplainerBase):
         :param features: The list of features to be explained by the valid per-query algorithm
         :param predict_function: The prediction function corresponding to the model to explain.
             the outputs of the ``predict_function`` are the document scores.
-        :param preprocessing_function: The preprocessing function to process/transform the feature attributes
-        before prediction. The output of the preprocessing function is the input to the ranking model.
         """
         super().__init__()
         self.training_data = training_data.to_pd()
@@ -52,10 +49,6 @@ class ValidityRankingExplainer(ExplainerBase):
             self.training_data, self.features, "median"
         )
 
-        if preprocessing_function:
-            self.preprocessing_fn = preprocessing_function
-        else:
-            self.preprocessing_fn = lambda x: x.to_pd()
         self.predict_fn = predict_function
 
     @staticmethod
@@ -132,9 +125,6 @@ class ValidityRankingExplainer(ExplainerBase):
             'Ranks': pi
         }
 
-    @staticmethod
-    def compute_n_docs(tabular_data: Tabular):
-        return tabular_data.to_pd().shape[0]
 
     def explain(
         self,
@@ -147,11 +137,11 @@ class ValidityRankingExplainer(ExplainerBase):
         query_feature: str = None
     ) -> ValidExplanation:
         if not n_docs:
-            n_docs = self.compute_n_docs(tabular_data)
+            n_docs = tabular_data.shape[0]
         print("Num samples: ", n_docs)
         pairs = self.compute_pairs(n_docs)
         weights = np.array([(1 / p[0] + 1 / p[1]) for p in pairs])
-        sample = self.preprocessing_fn(tabular_data).iloc[:n_docs]
+        sample = tabular_data.to_pd().iloc[:n_docs]
         pi = self.compute_rank(
             self.predict_fn(
                 Tabular(sample, categorical_columns=tabular_data.categorical_cols)
