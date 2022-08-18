@@ -17,6 +17,8 @@ import pandas as pd
 
 from ....explanations.ranking.agnostic.validity import ValidExplanation
 
+MASK_TYPES = ["median", "mode", "zero"]
+
 
 class ValidityRankingExplainer(ExplainerBase):
     """
@@ -125,9 +127,25 @@ class ValidityRankingExplainer(ExplainerBase):
         mask: str = "median",
         weighted: bool = False,
         epsilon: float = -1.0,
-        query_feature: str = None,
+        query_id: str = None,
         verbose: bool = False,
     ) -> ValidExplanation:
+        """
+        Generates the valid per-query feature-importance explanations for the input instances.
+        :param tabular_data: A set of input documents for a query.
+        :param k: The maximum number of features to be accounted as explanation
+        :param n_docs: The number of documents to be considered for the explanation
+        :param mask: The type of feature masking to be performed (median, mode, None) default=median
+        :param weighted: flag for calculating weighted propensity
+        :param epsilon: epsilon value for the greedy-cover procedure. Negative epsilon will replace
+         greedy-cover with simple greedy
+        :param query_id: The feature column representing the query_id if present
+        :param verbose: flag for verbosity of print statements
+        :return: The valid per-query feature-importance explanations for the given documents.
+        """
+
+        assert mask in MASK_TYPES
+
         if not n_docs:
             n_docs = tabular_data.shape[0]
         if verbose:
@@ -191,7 +209,7 @@ class ValidityRankingExplainer(ExplainerBase):
         minimal_feat_set = {self.features[u]: v for u, v in minimal_feat_set.items()}
         explanations = ValidExplanation()
         explanations.set(
-            query=query_feature,
+            query=query_id,
             df=tabular_data.to_pd(),
             top_features=minimal_feat_set,
             validity=validity,
