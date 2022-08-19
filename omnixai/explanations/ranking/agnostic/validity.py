@@ -95,7 +95,7 @@ class ValidExplanation(ExplanationBase):
         one or the first 5 instances.
 
         :param font_size: The font size of table entries.
-        :return: A list of matplotlib figures plotting counterfactual examples.
+        :return: Matplotlib figure plotting the most important features followed by remaning features
         """
         import warnings
         import matplotlib.pyplot as plt
@@ -110,7 +110,7 @@ class ValidExplanation(ExplanationBase):
     def plotly_plot(self, **kwargs):
         """
         Plots the document features and explainable features in Dash.
-        :return: A plotly dash figure showing the counterfactual examples.
+        :return: A plotly dash figure showing the important features followed by remaining features
         """
 
         df = self.explanations["docs"]
@@ -119,16 +119,12 @@ class ValidExplanation(ExplanationBase):
         validity = self.explanations["validity"]
         return DashFigure(self._plotly_table(df, top_features, query, validity))
 
-    def ipython_plot(self, **kwargs):
+    def ipython_fig(self):
         """
-        Plots the generated counterfactual examples in IPython.
-
+            Returns the ipython figure
         """
 
-        import plotly
         import plotly.figure_factory as ff
-        from matplotlib import colors
-
 
         exp = self.explanations
 
@@ -139,7 +135,7 @@ class ValidExplanation(ExplanationBase):
         opacity = 1 / (len(top_features) + 1)
         a = 0
 
-        fig = ff.create_table(df[feature_columns].round(4), colorscale='blues',font_colors=['#000000'])
+        fig = ff.create_table(df[feature_columns].round(4), colorscale='blues', font_colors=['#000000'])
 
         colorscale = []
         for i in range(0, len(top_features)):
@@ -150,15 +146,24 @@ class ValidExplanation(ExplanationBase):
         for i in range(len(feature_columns)):
             for j in range(len(z)):
                 z[j][i] = 0
-        for i in range(1, len(top_features)+1):
+        for i in range(1, len(top_features) + 1):
             for j in range(len(z)):
-                z[j][i] = colorscale[i-1]
+                z[j][i] = colorscale[i - 1]
 
+        return fig
+
+    def ipython_plot(self, **kwargs):
+        """
+        Plots a table for ipython showing the important features followed by the remaining features.
+        """
+        import plotly
+
+        fig = self.ipython_fig()
         plotly.offline.iplot(fig)
 
     def _plotly_table(self, df, top_features, query, validity):
         """
-        Plots a table showing the important features.
+        Plots a dash table showing the important features followed by the remaining features.
         """
         from dash import dash_table
         df["#Rank"] = validity["Ranks"]
