@@ -22,7 +22,6 @@ class TestRanking(unittest.TestCase):
         self.test_instances = task.test_data.iloc(list(range(5))).remove_target_column()
 
     def test_candidate_features(self):
-        print(self.data.feature_columns)
         explainer = ValidityRankingExplainer(
             training_data=self.data,
             predict_function=self.predict_function

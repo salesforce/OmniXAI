@@ -58,27 +58,29 @@ class ValidityRankingExplanation(ExplanationBase):
         return self.explanations if index is None else self.explanations[index]
 
     @staticmethod
-    def _plot(plt, df, font_size, bar_width=0.4):
+    def _plot(plt, df, top_features, validity, font_size, bar_width=0.4):
+        df["#Rank"] = validity["Ranks"]
+        columns = ValidityRankingExplanation.rearrange_columns(df, top_features)
+        df = df[columns]
+
         counts = np.zeros(len(df.columns))
-        for i in range(df.shape[1] - 1):
-            for j in range(1, df.shape[0]):
-                counts[i] += int(df.values[0, i] != df.values[j, i])
+        for i, f in enumerate(df.columns):
+            if f in top_features:
+                counts[i] = top_features[f]
 
         plt.bar(np.arange(len(df.columns)) + 0.5, counts, bar_width)
         table = plt.table(cellText=df.values, rowLabels=df.index, colLabels=df.columns, loc="bottom")
         plt.subplots_adjust(left=0.1, bottom=0.25)
-        plt.ylabel("The number of feature changes")
+        plt.ylabel("The validity metrics")
         plt.yticks(np.arange(max(counts)))
         plt.xticks([])
         plt.grid()
 
-        # Highlight the differences between the query and the CF examples
         for k in range(df.shape[1]):
             table[(0, k)].set_facecolor("#C5C5C5")
-            table[(1, k)].set_facecolor("#E2DED0")
-        for j in range(1, df.shape[0]):
-            for k in range(df.shape[1] - 1):
-                if df.values[0][k] != df.values[j][k]:
+        for j in range(df.shape[0]):
+            for k, f in enumerate(df.columns):
+                if f in top_features:
                     table[(j + 1, k)].set_facecolor("#56b5fd")
 
         # Change the font size if `font_size` is set
@@ -86,7 +88,7 @@ class ValidityRankingExplanation(ExplanationBase):
             table.auto_set_font_size(False)
             table.set_fontsize(font_size)
 
-    def plot(self, index=0, font_size=10, **kwargs):
+    def plot(self, index=0, font_size=8, **kwargs):
         """
         Returns a matplotlib figure showing the explanations.
 
@@ -98,7 +100,13 @@ class ValidityRankingExplanation(ExplanationBase):
 
         explanations = self.get_explanations(index)
         fig = plt.figure()
-        self._plot(plt, explanations["item"], font_size)
+        self._plot(
+            plt,
+            df=explanations["item"],
+            top_features=explanations["top_features"],
+            validity=explanations["validity"],
+            font_size=font_size
+        )
         return fig
 
     def plotly_plot(self, index=0, **kwargs):
@@ -111,9 +119,8 @@ class ValidityRankingExplanation(ExplanationBase):
         explanations = self.get_explanations(index)
         df = explanations["item"]
         top_features = explanations["top_features"].keys()
-        query = explanations["query"]
         validity = explanations["validity"]
-        return DashFigure(self._plotly_table(df, top_features, query, validity))
+        return DashFigure(self._plotly_table(df, top_features, validity))
 
     def ipython_plot(self, index=0, **kwargs):
         """
@@ -142,7 +149,7 @@ class ValidityRankingExplanation(ExplanationBase):
         )
         colorscale = []
         for i in range(0, len(top_features)):
-            colorscale.append(a)
+            colorscale.append(1 - a)
             a += opacity
 
         z = fig['data'][0]['z']
@@ -154,20 +161,14 @@ class ValidityRankingExplanation(ExplanationBase):
                 z[j][i] = colorscale[i - 1]
         return fig
 
-    def _plotly_table(self, df, top_features, query, validity):
+    def _plotly_table(self, df, top_features, validity):
         """
         Plots a dash table showing the important features followed by the remaining features.
         """
         from dash import dash_table
         df["#Rank"] = validity["Ranks"]
         feature_columns = self.rearrange_columns(df, top_features)
-        columns = [{"name": c, "id": c} for c in feature_columns]
-        if query:
-            columns = [{"name": query, "id": query}] + columns
-
-        data = []
-        for idx, row in df.iterrows():
-            data.append({c: row[c] for c in feature_columns})
+        data = [{c: row[c] for c in feature_columns} for idx, row in df.iterrows()]
 
         style_data_conditional = [{"if": {"row_index": 0}, "backgroundColor": "rgb(240, 240, 240)"}]
         opacity = 1 / (len(top_features) + 1)
@@ -182,7 +183,7 @@ class ValidityRankingExplanation(ExplanationBase):
 
         table = dash_table.DataTable(
             id="table",
-            columns=columns,
+            columns=[{"name": c, "id": c} for c in feature_columns],
             data=data,
             style_header_conditional=[{"textAlign": "center"}],
             style_cell_conditional=[{"textAlign": "center"}],
