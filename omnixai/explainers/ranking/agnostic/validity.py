@@ -19,7 +19,9 @@ from ....explanations.tabular.validity import ValidityRankingExplanation
 
 class ValidityRankingExplainer(ExplainerBase):
     """
-    Ranking Explainer for Tabular Data.
+    Ranking Explainer for Tabular Data. If using this explainer, please cite the paper
+    `Extracting per Query Valid Explanations for Blackbox Learning-to-Rank Models,
+    https://dl.acm.org/doi/10.1145/3471158.3472241`.
     """
 
     explanation_type = "local"
@@ -84,9 +86,8 @@ class ValidityRankingExplainer(ExplainerBase):
     @staticmethod
     def _compute_pairs(n_items):
         positions = list(range(1, n_items + 1))
-        combs = list(itertools.combinations(positions, r=2)) + list(
-            itertools.combinations(positions[::-1], r=2)
-        )
+        combs = list(itertools.combinations(positions, r=2)) + \
+                list(itertools.combinations(positions[::-1], r=2))
         pairs = np.array(list(filter(lambda x: x[0] < x[1], combs)))
         return pairs
 
@@ -100,7 +101,7 @@ class ValidityRankingExplainer(ExplainerBase):
 
     def _compute_validity(self, pi, minimal_features, mask, sample, categorical_cols):
         x = sample.copy()
-        for i in range(0, len(self.features)):
+        for i in range(len(self.features)):
             if i not in minimal_features:
                 x = self._compute_mask(x, mask, i)
         scores = self.predict_fn(
@@ -129,7 +130,7 @@ class ValidityRankingExplainer(ExplainerBase):
         """
         Generates the valid per-query feature-importance explanations for the input instances.
 
-        :param tabular_data: A set of input documents for a query.
+        :param tabular_data: A set of input items for a query.
         :param k: The maximum number of features to be accounted as explanation
         :param n_items: The number of items to be considered for the explanation
         :param mask: The type of feature masking to be performed (median, mode, None) default=median
@@ -138,7 +139,7 @@ class ValidityRankingExplainer(ExplainerBase):
             greedy-cover with simple greedy
         :param query_id: The feature column representing the query_id if present
         :param verbose: Flag for verbosity of print statements
-        :return: The valid per-query feature-importance explanations for the given documents.
+        :return: The valid per-query feature-importance explanations for the given items.
         """
         assert mask in ["median", "mode", "zero"], \
             f"`mask` should be 'median', 'mean' or 'zero' instead of {mask}."
@@ -157,7 +158,7 @@ class ValidityRankingExplainer(ExplainerBase):
             "The output of the prediction function should be a numpy array."
         pi = self._compute_rank(scores).tolist()
         if verbose:
-            print(f"Ranks of documents from given model: {pi}")
+            print(f"Ranks of items from given model: {pi}")
 
         minimal_feat_set = {}
         max_utility = -np.inf
