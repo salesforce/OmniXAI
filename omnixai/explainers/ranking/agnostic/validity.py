@@ -14,7 +14,7 @@ import pandas as pd
 from typing import Callable, List
 from ...base import ExplainerBase
 from ....data.tabular import Tabular
-from ....explanations.ranking.agnostic.validity import ValidExplanation
+from ....explanations.tabular.validity import ValidityRankingExplanation
 
 
 class ValidityRankingExplainer(ExplainerBase):
@@ -29,7 +29,8 @@ class ValidityRankingExplainer(ExplainerBase):
             self,
             training_data: Tabular,
             predict_function: Callable,
-            ignored_features: List = None
+            ignored_features: List = None,
+            **kwargs
     ):
         """
         :param training_data: The data used to initialize a Ranking explainer. ``training_data``
@@ -123,7 +124,8 @@ class ValidityRankingExplainer(ExplainerBase):
             epsilon: float = -1.0,
             query_id: str = None,
             verbose: bool = False,
-    ) -> ValidExplanation:
+            **kwargs
+    ) -> ValidityRankingExplanation:
         """
         Generates the valid per-query feature-importance explanations for the input instances.
 
@@ -204,8 +206,8 @@ class ValidityRankingExplainer(ExplainerBase):
         )
         minimal_feat_set = {self.features[u]: v for u, v in minimal_feat_set.items()}
 
-        explanations = ValidExplanation()
-        explanations.set(
+        explanations = ValidityRankingExplanation()
+        explanations.add(
             query=query_id,
             df=tabular_data.to_pd(),
             top_features=minimal_feat_set,

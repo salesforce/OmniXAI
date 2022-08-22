@@ -5,15 +5,15 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-Counterfactual explanations.
+Validity ranking explanation explanations.
 """
 import numpy as np
-from ...base import ExplanationBase, DashFigure
+from ...explanations.base import ExplanationBase, DashFigure
 
 
-class ValidExplanation(ExplanationBase):
+class ValidityRankingExplanation(ExplanationBase):
     """
-    The class for ranking explanation results.
+    The class for validity ranking explanation results.
     """
 
     def __init__(self):
@@ -23,45 +23,42 @@ class ValidExplanation(ExplanationBase):
     def __repr__(self):
         return repr(self.explanations)
 
-    def set(self, query, df, top_features, validity, **kwargs):
+    def add(self, query, df, top_features, validity, **kwargs):
         """
-        Sets the generated explanation corresponding to one instance.
+        Adds the generated explanation corresponding to one instance.
 
         :param query: The instance to explain.
-        :param df: The dataframe of input query document features.
+        :param df: The dataframe of input query item features.
         :param top_features: The features that explain the ranking
-        :param validity: The validity metric for the top features.
+        :param validity: The validity metrics for the top features.
         :param kwargs: Additional information to store.
         """
         e = {
             "query": query,
-             "docs": df,
-             "top_features": top_features,
-             "validity": validity
+            "item": df,
+            "top_features": top_features,
+            "validity": validity
         }
         e.update(kwargs)
-        self.explanations = e
+        self.explanations.append(e)
 
-    def get_explanations(self):
+    def get_explanations(self, index=None):
         """
-        Gets the generated counterfactual explanations.
+        Gets the generated explanations.
 
+        :param index: The index of an explanation result stored in ``ValidityRankingExplanation``.
+            When it is None, it returns a list of all the explanations.
         :return: The explanation for one specific instance (a dict)
             or all the explanations for all the instances (a list). Each dict has
-            the following format: `{"query": the original input instance, "counterfactual":
-            the generated counterfactual examples}`. Both "query" and "counterfactual" are
-            pandas dataframes with an additional column "label" which stores the predicted
-            labels of these instances.
+            the following format: `{"query": the original input instance, "item":
+            The dataframe of input query item features, "top_features": The top features that
+            explain the ranking, "validity": The validity metrics for the top features.}`.
         :rtype: Union[Dict, List]
         """
-        return self.explanations
+        return self.explanations if index is None else self.explanations[index]
 
     @staticmethod
     def _plot(plt, df, font_size, bar_width=0.4):
-        """
-        Plots a table showing the generated counterfactual examples.
-        """
-
         counts = np.zeros(len(df.columns))
         for i in range(df.shape[1] - 1):
             for j in range(1, df.shape[0]):
@@ -89,54 +86,60 @@ class ValidExplanation(ExplanationBase):
             table.auto_set_font_size(False)
             table.set_fontsize(font_size)
 
-    def plot(self, font_size=10, **kwargs):
+    def plot(self, index=0, font_size=10, **kwargs):
         """
-        Returns a list of matplotlib figures showing the explanations of
-        one or the first 5 instances.
+        Returns a matplotlib figure showing the explanations.
 
+        :param index: The index of an explanation result stored in ``ValidityRankingExplanation``.
         :param font_size: The font size of table entries.
-        :return: Matplotlib figure plotting the most important features followed by remaning features
+        :return: Matplotlib figure plotting the most important features followed by remaining features.
         """
-        import warnings
         import matplotlib.pyplot as plt
 
-        explanations = self.get_explanations()
-
+        explanations = self.get_explanations(index)
         fig = plt.figure()
-
-        self._plot(plt, explanations["docs"], font_size)
+        self._plot(plt, explanations["item"], font_size)
         return fig
 
-    def plotly_plot(self, **kwargs):
+    def plotly_plot(self, index=0, **kwargs):
         """
         Plots the document features and explainable features in Dash.
+
+        :param index: The index of an explanation result stored in ``ValidityRankingExplanation``.
         :return: A plotly dash figure showing the important features followed by remaining features
         """
-
-        df = self.explanations["docs"]
-        top_features = self.explanations["top_features"].keys()
-        query = self.explanations["query"]
-        validity = self.explanations["validity"]
+        explanations = self.get_explanations(index)
+        df = explanations["item"]
+        top_features = explanations["top_features"].keys()
+        query = explanations["query"]
+        validity = explanations["validity"]
         return DashFigure(self._plotly_table(df, top_features, query, validity))
 
-    def ipython_fig(self):
+    def ipython_plot(self, index=0, **kwargs):
         """
-            Returns the ipython figure
+        Plots a table for ipython showing the important features followed by the remaining features.
         """
+        import plotly
 
+        fig = self._ipython_figure(index)
+        plotly.offline.iplot(fig)
+
+    def _ipython_figure(self, index):
         import plotly.figure_factory as ff
 
-        exp = self.explanations
-
-        df = exp["docs"]
+        exp = self.get_explanations(index)
+        df = exp["item"]
         df["#Rank"] = exp["validity"]["Ranks"]
         top_features = exp["top_features"].keys()
         feature_columns = self.rearrange_columns(df, top_features)
         opacity = 1 / (len(top_features) + 1)
         a = 0
 
-        fig = ff.create_table(df[feature_columns].round(4), colorscale='blues', font_colors=['#000000'])
-
+        fig = ff.create_table(
+            df[feature_columns].round(4),
+            colorscale='blues',
+            font_colors=['#000000']
+        )
         colorscale = []
         for i in range(0, len(top_features)):
             colorscale.append(a)
@@ -149,17 +152,7 @@ class ValidExplanation(ExplanationBase):
         for i in range(1, len(top_features) + 1):
             for j in range(len(z)):
                 z[j][i] = colorscale[i - 1]
-
         return fig
-
-    def ipython_plot(self, **kwargs):
-        """
-        Plots a table for ipython showing the important features followed by the remaining features.
-        """
-        import plotly
-
-        fig = self.ipython_fig()
-        plotly.offline.iplot(fig)
 
     def _plotly_table(self, df, top_features, query, validity):
         """
@@ -177,7 +170,7 @@ class ValidExplanation(ExplanationBase):
             data.append({c: row[c] for c in feature_columns})
 
         style_data_conditional = [{"if": {"row_index": 0}, "backgroundColor": "rgb(240, 240, 240)"}]
-        opacity = 1/(len(top_features)+1)
+        opacity = 1 / (len(top_features) + 1)
         a = 0
         for f in top_features:
             cond = {
