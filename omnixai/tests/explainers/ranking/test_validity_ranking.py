@@ -33,6 +33,9 @@ class TestRanking(unittest.TestCase):
             k=8
         )
         print(explanations)
+        e = explanations.get_explanations(index=0)
+        self.assertAlmostEqual(e["top_features"]["Marital Status"], 5.621, delta=1e-3)
+        self.assertAlmostEqual(e["top_features"]["Capital Loss"], 9.580, delta=1e-3)
 
 
 if __name__ == "__main__":
