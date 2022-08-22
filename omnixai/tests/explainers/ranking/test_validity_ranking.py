@@ -25,11 +25,7 @@ class TestRanking(unittest.TestCase):
         print(self.data.feature_columns)
         explainer = ValidityRankingExplainer(
             training_data=self.data,
-            predict_function=self.predict_function,
-            features=['Age', 'Workclass', 'fnlwgt', 'Education',
-                      'Education-Num', 'Marital Status', 'Occupation',
-                      'Relationship', 'Race', 'Sex', 'Capital Gain',
-                      'Capital Loss', 'Hours per week', 'Country']
+            predict_function=self.predict_function
         )
         explanations = explainer.explain(
             tabular_data=self.test_instances,
