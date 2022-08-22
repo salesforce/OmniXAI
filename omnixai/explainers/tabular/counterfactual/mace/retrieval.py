@@ -4,7 +4,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
-import hnswlib
 import numpy as np
 import pandas as pd
 from collections import defaultdict, Counter
@@ -85,7 +84,7 @@ class CFRetrieval:
 
     def _build_knn_index(
         self, instances: Union[List, np.ndarray], labels: Union[List, np.ndarray]
-    ) -> (hnswlib.Index, int):
+    ):
         """
         Builds the KNN search index for each class.
 
@@ -93,6 +92,7 @@ class CFRetrieval:
         :param labels: The class labels of the instances.
         :return: The KNN search index and the number of the elements in the KNN model.
         """
+        import hnswlib
         # Remove duplicated examples
         hash_keys, xs, ys = {}, [], []
         for x, y in zip(instances, labels):
