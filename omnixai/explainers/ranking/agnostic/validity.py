@@ -51,25 +51,19 @@ class ValidityRankingExplainer(ExplainerBase):
 
         self.predict_fn = predict_function
         self.features = [f for f in training_data.feature_columns if f not in ignored_features]
-        training_data = training_data.to_pd(copy=False)
         self.stats_features = {
-            "mean": self._compute_stats(training_data, self.features, "mean"),
-            "median": self._compute_stats(training_data, self.features, "median")
+            "mean": self._compute_stats(training_data, np.mean),
+            "median": self._compute_stats(training_data, np.median)
         }
 
     @staticmethod
-    def _compute_stats(data: pd.DataFrame, features: List, mask_type: str):
-        if mask_type == "mean":
-            stats = data.mean()
-        elif mask_type == "median":
-            stats = data.median()
-        else:
-            raise ValueError(f"Unknown mask type: {mask_type}")
-
-        for f in features:
-            if f not in stats:
-                most_common_value = data[f].value_counts().idxmax()
-                stats[f] = most_common_value
+    def _compute_stats(data: Tabular, func: Callable):
+        stats, df = {}, data.to_pd(copy=False)
+        for f in data.categorical_columns:
+            most_common_value = df[f].value_counts().idxmax()
+            stats[f] = most_common_value
+        for f in data.continuous_columns:
+            stats[f] = func(df[f].values.astype(float))
         return stats
 
     def _compute_mask(self, x, mask, idx):
@@ -157,6 +151,7 @@ class ValidityRankingExplainer(ExplainerBase):
         assert isinstance(scores, np.ndarray), \
             "The output of the prediction function should be a numpy array."
         pi = self._compute_rank(scores).tolist()
+        rank2index = {p: i for i, p in enumerate(pi)}
         if verbose:
             print(f"Ranks of items from given model: {pi}")
 
@@ -167,7 +162,6 @@ class ValidityRankingExplainer(ExplainerBase):
             utility = []
             for feature in range(len(self.features)):
                 if feature not in minimal_feat_set:
-                    propensity[feature] = []
                     x = sample.copy()
                     for i in range(len(self.features)):
                         if i != feature and i not in minimal_feat_set:
@@ -176,12 +170,10 @@ class ValidityRankingExplainer(ExplainerBase):
                         Tabular(x, categorical_columns=tabular_data.categorical_cols)
                     ).flatten()
                     ranks = self._compute_rank(scores)
-                    for p in pairs:
-                        propensity[feature].append(
-                            self._calculate_propensity(
-                                scores, ranks, pi.index(p[0]), pi.index(p[1])
-                            )
-                        )
+                    propensity[feature] = [
+                        self._calculate_propensity(scores, ranks, rank2index[p[0]], rank2index[p[1]])
+                        for p in pairs
+                    ]
                     if weighted:
                         utility.append(np.sum(weights * np.array(propensity[feature])))
                     else:
