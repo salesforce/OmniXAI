@@ -111,7 +111,7 @@ class ValidityRankingExplainer(ExplainerBase):
 
     def explain(
             self,
-            tabular_data: Tabular,
+            X: Tabular,
             k: int = 3,
             n_items: int = None,
             mask: str = "median",
@@ -124,7 +124,7 @@ class ValidityRankingExplainer(ExplainerBase):
         """
         Generates the valid per-query feature-importance explanations for the input instances.
 
-        :param tabular_data: A set of input items for a query.
+        :param X: A set of input items for a query.
         :param k: The maximum number of features to be accounted as explanation
         :param n_items: The number of items to be considered for the explanation
         :param mask: The type of feature masking to be performed (median, mode, None) default=median
@@ -138,15 +138,15 @@ class ValidityRankingExplainer(ExplainerBase):
         assert mask in ["median", "mode", "zero"], \
             f"`mask` should be 'median', 'mean' or 'zero' instead of {mask}."
         if n_items is None or n_items <= 0:
-            n_items = tabular_data.shape[0]
+            n_items = X.shape[0]
         if verbose:
             print("Num samples: ", n_items)
 
         pairs = self._compute_pairs(n_items)
         weights = np.array([(1 / p[0] + 1 / p[1]) for p in pairs])
-        sample = tabular_data.to_pd(copy=False).iloc[:n_items]
+        sample = X.to_pd(copy=False).iloc[:n_items]
         scores = self.predict_fn(
-            Tabular(sample, categorical_columns=tabular_data.categorical_cols)
+            Tabular(sample, categorical_columns=X.categorical_columns)
         )
         assert isinstance(scores, np.ndarray), \
             "The output of the prediction function should be a numpy array."
@@ -167,7 +167,7 @@ class ValidityRankingExplainer(ExplainerBase):
                         if i != feature and i not in minimal_feat_set:
                             x = self._compute_mask(x, mask, i)
                     scores = self.predict_fn(
-                        Tabular(x, categorical_columns=tabular_data.categorical_cols)
+                        Tabular(x, categorical_columns=X.categorical_columns)
                     ).flatten()
                     ranks = self._compute_rank(scores)
                     propensity[feature] = [
@@ -195,14 +195,14 @@ class ValidityRankingExplainer(ExplainerBase):
             if len(pairs) == 0:
                 break
         validity = self._compute_validity(
-            pi, minimal_feat_set, mask, sample, tabular_data.categorical_cols
+            pi, minimal_feat_set, mask, sample, X.categorical_columns
         )
         minimal_feat_set = {self.features[u]: v for u, v in minimal_feat_set.items()}
 
         explanations = ValidityRankingExplanation()
         explanations.add(
             query=query_id,
-            df=tabular_data.to_pd(),
+            df=X.to_pd(),
             top_features=minimal_feat_set,
             validity=validity,
         )

@@ -27,7 +27,7 @@ class TestRanking(unittest.TestCase):
             predict_function=self.predict_function
         )
         explanations = explainer.explain(
-            tabular_data=self.test_instances,
+            X=self.test_instances,
             epsilon=-1.0,
             weighted=True,
             k=8
