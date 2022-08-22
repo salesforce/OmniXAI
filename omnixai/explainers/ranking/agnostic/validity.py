@@ -67,12 +67,12 @@ class ValidityRankingExplainer(ExplainerBase):
         return stats
 
     def _compute_mask(self, x, mask, idx):
+        val = self.stats_features[mask][self.features[idx]] \
+            if mask in self.stats_features else 0.0
         if isinstance(x, np.ndarray):
-            x[:, :, idx] = self.stats_features[mask][self.features[idx]] \
-                if mask in self.stats_features else 0.0
+            x[:, :, idx] = val
         elif isinstance(x, pd.DataFrame):
-            x[self.features[idx]] = self.stats_features[mask][self.features[idx]] \
-                if mask in self.stats_features else 0.0
+            x[self.features[idx]] = val
         else:
             raise ValueError("Input must be either numpy array or pandas DataFrame")
         return x
