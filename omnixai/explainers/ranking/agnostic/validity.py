@@ -56,14 +56,15 @@ class ValidityRankingExplainer(ExplainerBase):
             "median": self._compute_stats(training_data, np.median)
         }
 
-    @staticmethod
-    def _compute_stats(data: Tabular, func: Callable):
+    def _compute_stats(self, data: Tabular, func: Callable):
         stats, df = {}, data.to_pd(copy=False)
         for f in data.categorical_columns:
-            most_common_value = df[f].value_counts().idxmax()
-            stats[f] = most_common_value
+            if f in self.features:
+                most_common_value = df[f].value_counts().idxmax()
+                stats[f] = most_common_value
         for f in data.continuous_columns:
-            stats[f] = func(df[f].values.astype(float))
+            if f in self.features:
+                stats[f] = func(df[f].values.astype(float))
         return stats
 
     def _compute_mask(self, x, mask, idx):
