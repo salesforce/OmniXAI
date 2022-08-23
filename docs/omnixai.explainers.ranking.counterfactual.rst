@@ -1,5 +1,5 @@
 omnixai.explainers.ranking.counterfactual package
-===========================================
+=================================================
 
 .. automodule:: omnixai.explainers.ranking.counterfactual
    :members:
@@ -10,7 +10,7 @@ omnixai.explainers.ranking.counterfactual package
    validity
 
 omnixai.explainers.ranking.counterfactual.mace module
------------------------------------------------
+-----------------------------------------------------
 
 .. automodule:: omnixai.explainers.ranking.counterfactual.mace
    :members:

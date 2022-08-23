@@ -10,7 +10,7 @@ omnixai.explainers.ranking.agnostic package
    validity
 
 omnixai.explainers.ranking.agnostic.validity module
------------------------------------------------
+---------------------------------------------------
 
 .. automodule:: omnixai.explainers.ranking.agnostic.validity
    :members:

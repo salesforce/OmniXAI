@@ -141,3 +141,4 @@ Explainers for different tasks
    omnixai.explainers.vision
    omnixai.explainers.nlp
    omnixai.explainers.timeseries
+   omnixai.explainers.ranking
