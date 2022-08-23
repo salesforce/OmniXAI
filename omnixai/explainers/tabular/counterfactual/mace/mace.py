@@ -15,6 +15,7 @@ from ...base import ExplainerBase
 from .....data.tabular import Tabular
 
 from .retrieval import CFRetrieval
+from .rl import RL
 from .gld import GLD
 from .greedy import Greedy
 from .diversify import DiversityModule
@@ -39,6 +40,7 @@ class MACEExplainer(ExplainerBase):
         predict_function: Callable,
         mode: str = "classification",
         ignored_features: List = None,
+        method: str = "gld",
         **kwargs,
     ):
         """
@@ -56,13 +58,18 @@ class MACEExplainer(ExplainerBase):
         """
         super().__init__()
         assert mode == "classification", "MACE supports classification tasks only."
+        assert method in ["gld", "rl"], "`method` should be `gld` or `rl`."
+        self.method = method
         self.predict_function = predict_function
         self.ignored_features = ignored_features
 
         self.recall = CFRetrieval(training_data, predict_function, ignored_features, **kwargs)
-        self.gld = GLD(training_data, **kwargs)
         self.diversity = DiversityModule(training_data)
         self.refinement = BinarySearchRefinement(training_data)
+        if method == "gld":
+            self.solver = GLD(training_data, **kwargs)
+        else:
+            self.solver = RL(**kwargs)
 
     def explain(
             self,
@@ -105,8 +112,8 @@ class MACEExplainer(ExplainerBase):
                 # Get candidate features
                 candidates, indices = self.recall.get_cf_features(x, desired_label)
 
-                # Find counterfactual examples via GLD
-                examples = self.gld.get_cf_examples(self.predict_function, x, desired_label, candidates)
+                # Find counterfactual examples
+                examples = self.solver.get_cf_examples(self.predict_function, x, desired_label, candidates)
                 if not examples:
                     # If GLD fails, try to apply the greedy method
                     examples = Greedy().get_cf_examples(
