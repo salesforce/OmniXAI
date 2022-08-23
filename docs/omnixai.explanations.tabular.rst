@@ -78,3 +78,12 @@ omnixai.explanations.tabular.imbalance module
    :members:
    :undoc-members:
    :show-inheritance:
+
+omnixai.explanations.tabular.validity module
+---------------------------------------------
+
+.. automodule:: omnixai.explanations.tabular.validity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

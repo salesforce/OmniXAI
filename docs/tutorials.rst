@@ -57,3 +57,13 @@ Timeseries Explainers
    :glob:
 
    tutorials/timeseries/*
+
+
+Learning-To-Ranking Explainers
+---------------------
+.. toctree::
+   :maxdepth: 2
+   :glob:
+
+   tutorials/ranking/*
+
