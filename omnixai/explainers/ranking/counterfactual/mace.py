@@ -37,6 +37,7 @@ class MACEExplainer(ExplainerBase):
         training_data: Union[Tabular, None],
         predict_function: Callable,
         ignored_features: List = None,
+        method: str = "gld",
         **kwargs,
     ):
         """
@@ -48,10 +49,14 @@ class MACEExplainer(ExplainerBase):
         :param predict_function: The prediction function corresponding to the ranking model to explain.
             The outputs of the ``predict_function`` are the ranking scores.
         :param ignored_features: The features ignored in generating counterfactual examples.
+        :param method: The method for generating counterfactual examples, e.g., "gld", "rl" or "greedy".
         """
         super().__init__()
         assert training_data is None or isinstance(training_data, Tabular), \
             f"`training_data` should be Tabular or None instead of {type(training_data)}."
+        assert method in ["gld", "rl", "greedy"], \
+            "`method` should be `gld`, `rl` or `greedy`."
+        self.method = method
         self.kwargs = kwargs
         self.max_num_candidates = kwargs.get("max_num_candidates", 10)
 
@@ -200,7 +205,6 @@ class MACEExplainer(ExplainerBase):
             item_a_index: Union[int, List],
             item_b_index: Union[int, List],
             max_number_examples: int = 5,
-            method: str = "gld",
             **kwargs
     ) -> CFExplanation:
         """
@@ -214,7 +218,6 @@ class MACEExplainer(ExplainerBase):
         :param item_a_index: The index of the baseline example (item A).
         :param item_b_index: The index of the example to explain (item B).
         :param max_number_examples: The maximum number of the generated counterfactual examples.
-        :param method: The method for generating counterfactual examples, e.g., "gld", "rl" or "greedy".
         :return: A CFExplanation object containing the generated explanations.
         """
         explanations = CFExplanation()
@@ -227,8 +230,6 @@ class MACEExplainer(ExplainerBase):
             if isinstance(item_a_index, (list, tuple)):
                 item_b_index = item_b_index * len(item_a_index)
         assert len(item_a_index) == len(item_a_index)
-        assert method in ["gld", "rl", "greedy"], \
-            "`method` should be `gld`, `rl` or `greedy`."
 
         df = X.to_pd(copy=False)
         candidate_features = self._candidate_features(X) \
@@ -247,10 +248,10 @@ class MACEExplainer(ExplainerBase):
                 oracle_function = lambda s: score_a - s
 
             examples = {}
-            if method == "gld":
+            if self.method == "gld":
                 examples = self._generate_cf_examples_gld(
                     x, candidate_features, cont_feature_medians, oracle_function, **self.kwargs)
-            elif method == "rl":
+            elif self.method == "rl":
                 examples = self._generate_cf_examples_rl(
                     x, candidate_features, oracle_function, **self.kwargs)
             if not examples:
