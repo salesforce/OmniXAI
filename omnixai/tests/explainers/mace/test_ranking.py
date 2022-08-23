@@ -25,7 +25,8 @@ class TestMACE(unittest.TestCase):
         explainer = MACEExplainer(
             training_data=None,
             predict_function=self.predict_function,
-            ignored_features=["Sex", "Race", "fnlwgt"]
+            ignored_features=["Sex", "Race", "fnlwgt"],
+            method="rl"
         )
         explanations = explainer.explain(
             X=self.test_instances,
