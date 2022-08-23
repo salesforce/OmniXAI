@@ -116,7 +116,7 @@ class MACEExplainer(ExplainerBase):
             visited[update[0]] = True
             y.iloc[0, column2loc[update[0]]] = update[1]
             if all_scores is not None:
-                if oracle_function(all_scores) >= 0:
+                if oracle_function(all_scores) > 0:
                     example = Tabular(data=y, categorical_columns=x.categorical_columns)
                     break
 
@@ -153,7 +153,7 @@ class MACEExplainer(ExplainerBase):
             loss_weight=0
         )
         score = self.predict_function(y)
-        if oracle_function(score) >= 0:
+        if oracle_function(score) > 0:
             return {"best_cf": y.remove_target_column(), "cfs": ys.remove_target_column()}
         else:
             return {}
