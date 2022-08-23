@@ -30,7 +30,8 @@ class TestMACE(unittest.TestCase):
         explanations = explainer.explain(
             X=self.test_instances,
             item_a_index=0,
-            item_b_index=[1, 2]
+            item_b_index=[1, 2],
+            method="rl"
         )
         print(explanations)
 
