@@ -67,6 +67,7 @@
 <li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.tree">omnixai.explanations.tabular.tree module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.correlation">omnixai.explanations.tabular.correlation module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.imbalance">omnixai.explanations.tabular.imbalance module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.validity">omnixai.explanations.tabular.validity module</a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.image.html">omnixai.explanations.image package</a></li>
@@ -1020,6 +1021,98 @@ class label 2: count 2, …}}</cite>. If there are no class labels, the dict wil
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Shows the imbalance plot in IPython.</p>
 </dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-omnixai.explanations.tabular.validity">
+<span id="omnixai-explanations-tabular-validity-module"></span><h2>omnixai.explanations.tabular.validity module<a class="headerlink" href="#module-omnixai.explanations.tabular.validity" title="Permalink to this heading"></a></h2>
+<p>Validity ranking explanation explanations.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.validity.ValidityRankingExplanation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.tabular.validity.</span></span><span class="sig-name descname"><span class="pre">ValidityRankingExplanation</span></span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
+<p>The class for validity ranking explanation results.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.validity.ValidityRankingExplanation.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validity</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.add" title="Permalink to this definition"></a></dt>
+<dd><p>Adds the generated explanation corresponding to one instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> – The instance to explain.</p></li>
+<li><p><strong>df</strong> – The dataframe of input query item features.</p></li>
+<li><p><strong>top_features</strong> – The features that explain the ranking</p></li>
+<li><p><strong>validity</strong> – The validity metrics for the top features.</p></li>
+<li><p><strong>kwargs</strong> – Additional information to store.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.validity.ValidityRankingExplanation.get_explanations">
+<span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.get_explanations" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the generated explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation</span></code>.
+When it is None, it returns a list of all the explanations.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The explanation for one specific instance (a dict)
+or all the explanations for all the instances (a list). Each dict has
+the following format: <cite>{“query”: the original input instance, “item”:
+The dataframe of input query item features, “top_features”: The top features that
+explain the ranking, “validity”: The validity metrics for the top features.}</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[Dict, List]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.validity.ValidityRankingExplanation.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.plot" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a matplotlib figure showing the explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation</span></code>.</p></li>
+<li><p><strong>font_size</strong> – The font size of table entries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib figure plotting the most important features followed by remaining features.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.validity.ValidityRankingExplanation.plotly_plot">
+<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the document features and explainable features in Dash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation</span></code>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A plotly dash figure showing the important features followed by remaining features</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.validity.ValidityRankingExplanation.ipython_plot">
+<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots a table for ipython showing the important features followed by the remaining features.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.validity.ValidityRankingExplanation.rearrange_columns">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rearrange_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_features</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.rearrange_columns" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
