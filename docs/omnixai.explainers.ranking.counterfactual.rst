@@ -7,7 +7,7 @@ omnixai.explainers.ranking.counterfactual package
    :show-inheritance:
 
 .. autosummary::
-   validity
+   mace
 
 omnixai.explainers.ranking.counterfactual.mace module
 -----------------------------------------------------
