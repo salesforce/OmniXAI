@@ -84,8 +84,38 @@ class MACEExplainer(ExplainerBase):
         y = transformer.invert(transformer.transform(x)).to_pd(copy=False).dropna(axis=1)
 
         counts = [Counter(y[f].values).most_common(self.max_num_candidates) for f in y.columns]
-        candidates = {f: [c[0] for c in count] for f, count in zip(y.columns, counts)}
+        candidates = {f: [c[0] for c in count] for f, count in zip(y.columns, counts) if len(count) > 1}
         return candidates
+
+    def _build_predict_function(self, x: Tabular, index_a: int, index_b: int):
+        """
+        Because the prediction function of a ranking task can be a list-wise score function,
+        we need to convert it into an element-wise function for generating counterfacutal examples.
+
+        :param x: The list of the recommended items given a query.
+        :param index_a: The index of the baseline example (item A).
+        :param index_b: The index of the example to explain (item B).
+        :return:
+        """
+        scores = self.predict_function(x)
+        greater_than = bool(scores[index_a] > scores[index_b])
+        df = x.to_pd()
+
+        def _predict(_y: Tabular):
+            _z = _y.to_pd(copy=False)
+            _scores = []
+            for i in range(_z.shape[0]):
+                df.iloc[index_b] = _z.iloc[i]
+                _s = self.predict_function(
+                    Tabular(df, categorical_columns=x.categorical_columns)
+                )
+                if greater_than:
+                    _scores.append(_s[index_b] - _s[index_a])
+                else:
+                    _scores.append(_s[index_a] - _s[index_b])
+            return np.array(_scores, dtype=float)
+
+        return _predict
 
     @staticmethod
     def _greedy(
@@ -128,9 +158,10 @@ class MACEExplainer(ExplainerBase):
         else:
             return {}
 
+    @staticmethod
     def _generate_cf_examples_gld(
-            self,
             x: Tabular,
+            predict_function: Callable,
             candidate_features: Dict,
             cont_feature_medians: Dict,
             oracle_function: Callable,
@@ -142,7 +173,7 @@ class MACEExplainer(ExplainerBase):
     ):
         optimizer = GLDOptimizer(
             x=x,
-            predict_function=self.predict_function,
+            predict_function=predict_function,
             candidate_features=candidate_features,
             oracle_function=oracle_function,
             desired_label=-1,
@@ -156,21 +187,22 @@ class MACEExplainer(ExplainerBase):
             num_starts=num_starts,
             loss_weight=0
         )
-        score = self.predict_function(y)
+        score = predict_function(y)
         if oracle_function(score) > 0:
             return {"cfs": ys.remove_target_column()}
         else:
             return {}
 
+    @staticmethod
     def _generate_cf_examples_rl(
-            self,
             x: Tabular,
+            predict_function,
             candidate_features: Dict,
             oracle_function: Callable,
             *,
             batch_size=40,
             learning_rate=0.1,
-            num_iterations=15,
+            num_iterations=10,
             regularization_weight=2.0,
             entropy_weight=2.0,
             base_score_percentile=50,
@@ -179,7 +211,7 @@ class MACEExplainer(ExplainerBase):
     ):
         optimizer = RLOptimizer(
             x=x,
-            predict_function=self.predict_function,
+            predict_function=predict_function,
             candidate_features=candidate_features,
             oracle_function=oracle_function,
             desired_label=-1
@@ -230,6 +262,7 @@ class MACEExplainer(ExplainerBase):
             if isinstance(item_a_index, (list, tuple)):
                 item_b_index = item_b_index * len(item_a_index)
         assert len(item_a_index) == len(item_a_index)
+        X = X.remove_target_column()
 
         df = X.to_pd(copy=False)
         candidate_features = self._candidate_features(X) \
@@ -238,38 +271,48 @@ class MACEExplainer(ExplainerBase):
                                 for c in X.continuous_columns} \
             if self.cont_feature_medians is None else self.cont_feature_medians
 
+        def _rank(_x: Tabular):
+            return (-self.predict_function(_x)).argsort().argsort() + 1
+
         for a_index, b_index in zip(item_a_index, item_b_index):
             x = X.iloc(b_index)
-            score_a = self.predict_function(X.iloc(a_index))[0]
-            score_b = self.predict_function(x)[0]
-            if score_a >= score_b:
-                oracle_function = lambda s: s - score_a
-            else:
-                oracle_function = lambda s: score_a - s
+            predict_fn = self._build_predict_function(X, a_index, b_index)
+            oracle_function = lambda s: s
 
             examples = {}
             if self.method == "gld":
                 examples = self._generate_cf_examples_gld(
-                    x, candidate_features, cont_feature_medians, oracle_function, **self.kwargs)
+                    x, predict_fn, candidate_features, cont_feature_medians, oracle_function, **self.kwargs)
             elif self.method == "rl":
                 examples = self._generate_cf_examples_rl(
-                    x, candidate_features, oracle_function, **self.kwargs)
+                    x, predict_fn, candidate_features, oracle_function, **self.kwargs)
             if not examples:
                 examples = self._greedy(
-                    self.predict_function, x, oracle_function, candidate_features)
+                    predict_fn, x, oracle_function, candidate_features)
 
-            cfs_df = None
-            if examples:
+            if "cfs" in examples:
+                cfs_df = examples["cfs"].to_pd()
+            else:
+                cfs_df = None
+
+            if examples and max_number_examples > 1:
                 diversity = DiversityModule(X) if self.diversity is None else self.diversity
                 cfs = diversity.get_diverse_cfs(
-                    self.predict_function, x, examples["cfs"], oracle_function,
+                    predict_fn, x, examples["cfs"], oracle_function,
                     desired_label=-1, k=max_number_examples
                 )
-                cfs = BinarySearchRefinement(x).refine(self.predict_function, x, cfs, oracle_function)
-                cfs_df = cfs.to_pd().reset_index()
-                cfs_df["@ranking_score"] = self.predict_function(cfs)
+                cfs = BinarySearchRefinement(x).refine(predict_fn, x, cfs, oracle_function)
+                cfs_df = cfs.to_pd()
+
+            if cfs_df is not None:
+                df, ranks = X.to_pd(), []
+                for i in range(cfs_df.shape[0]):
+                    df.iloc[b_index] = cfs_df.iloc[i]
+                    ranks.append(_rank(Tabular(
+                        df, categorical_columns=x.categorical_columns))[b_index])
+                cfs_df["@rank"] = ranks
 
             instance_df = x.to_pd()
-            instance_df["@ranking_score"] = score_b
+            instance_df["@rank"] = _rank(X)[b_index]
             explanations.add(query=instance_df, cfs=cfs_df)
         return explanations
