@@ -235,11 +235,12 @@ class GlobalFeatureImportance(ExplanationBase):
         """
         return self.explanations
 
-    def plot(self, num_features=20, **kwargs):
+    def plot(self, num_features=20, truncate_long_features=True, **kwargs):
         """
         Plots feature importance scores.
 
         :param num_features: The maximum number of features to plot.
+        :param truncate_long_features: Flag to truncate long feature names
         :return: A matplotlib figure plotting feature importance scores.
         """
         import matplotlib.pyplot as plt
@@ -247,7 +248,7 @@ class GlobalFeatureImportance(ExplanationBase):
         fig, axes = plt.subplots(1, 1)
         exp = self.get_explanations()
         feat_scores = sorted(
-            list(zip([f"{self._s(f)}    " for f in exp["features"]], exp["scores"])),
+            list(zip([f"{self._s(f) if truncate_long_features else f}    " for f in exp["features"]], exp["scores"])),
             key=lambda x: abs(x[1]),
         )
         if num_features is not None:
@@ -264,13 +265,13 @@ class GlobalFeatureImportance(ExplanationBase):
         plt.title(f"Global Feature Importance")
         return fig
 
-    def _plotly_figure(self, num_features=20, **kwargs):
+    def _plotly_figure(self, num_features=20, truncate_long_features=True, **kwargs):
         import plotly.express as px
 
         exp = self.explanations
         title = f"Global Feature Importance"
         feat_scores = sorted(
-            list(zip([f"{self._s(f)}" for f in exp["features"]], exp["scores"])),
+            list(zip([f"{self._s(f) if truncate_long_features else f}" for f in exp["features"]], exp["scores"])),
             key=lambda x: abs(x[1]),
         )
         if num_features is not None:
@@ -288,20 +289,26 @@ class GlobalFeatureImportance(ExplanationBase):
         )
         return fig
 
-    def plotly_plot(self, num_features=20, **kwargs):
+    def plotly_plot(self, num_features=20, truncate_long_features=True, **kwargs):
         """
         Plots feature importance scores for one specific instance using Dash.
 
         :param num_features: The maximum number of features to plot.
+        :param truncate_long_features: Flag to truncate long feature names
         :return: A plotly dash figure plotting feature importance scores.
         """
-        return DashFigure(self._plotly_figure(num_features=num_features, **kwargs))
+        return DashFigure(self._plotly_figure(num_features=num_features,
+                                              truncate_long_features=truncate_long_features,
+                                              **kwargs))
 
-    def ipython_plot(self, num_features=20, **kwargs):
+    def ipython_plot(self, num_features=20, truncate_long_features=True, **kwargs):
         """
         Plots the feature importance scores in IPython.
 
         :param num_features: The maximum number of features to plot.
+        :param truncate_long_features: Flag to truncate long feature names
         """
         import plotly
-        plotly.offline.iplot(self._plotly_figure(num_features=num_features, **kwargs))
+        plotly.offline.iplot(self._plotly_figure(num_features=num_features,
+                                                 truncate_long_features=truncate_long_features,
+                                                 **kwargs))
