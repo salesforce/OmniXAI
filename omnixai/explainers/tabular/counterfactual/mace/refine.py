@@ -4,7 +4,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
-import numpy as np
 import pandas as pd
 from typing import Dict, Callable, Union
 
@@ -45,7 +44,7 @@ class BinarySearchRefinement:
 
         for col, (a, b) in cont_features.items():
             gap, r = b - a, None
-            while (b - a) / (gap + 1e-3) > 0.1:
+            while (b - a) / gap > 0.1:
                 z = (a + b) * 0.5
                 y.iloc[0, column2loc[col]] = z
                 scores = predict_function(Tabular(data=y, categorical_columns=instance.categorical_columns))[0]
@@ -83,8 +82,8 @@ class BinarySearchRefinement:
             cont_features = {}
             for col in self.cont_columns:
                 a, b = float(x[col].values[0]), float(y[col].values[0])
-                if a != b:
-                    cont_features[col] = (a, b) if a <= b else (b, a)
+                if abs(a - b) > 1e-6:
+                    cont_features[col] = (a, b)
             if len(cont_features) == 0:
                 results.append(y)
             else:
