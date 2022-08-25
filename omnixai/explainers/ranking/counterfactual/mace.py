@@ -312,7 +312,10 @@ class MACEExplainer(ExplainerBase):
                         df, categorical_columns=x.categorical_columns))[b_index])
                 cfs_df["@rank"] = ranks
 
-            instance_df = x.to_pd()
-            instance_df["@rank"] = _rank(X)[b_index]
-            explanations.add(query=instance_df, cfs=cfs_df)
+            ranks = _rank(X)
+            query = x.to_pd()
+            query["@rank"] = ranks[b_index]
+            context = X.iloc(a_index).to_pd()
+            context["@rank"] = ranks[a_index]
+            explanations.add(query=query, cfs=cfs_df, context=context)
         return explanations

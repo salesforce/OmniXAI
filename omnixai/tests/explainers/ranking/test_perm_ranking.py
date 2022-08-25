@@ -34,10 +34,13 @@ class TestRanking(unittest.TestCase):
         print(explanations)
         e = explanations.get_explanations()
         self.assertAlmostEqual(e["scores"][0], 1.403, delta=1e-3)
-        self.assertTrue(e["features"] == ['Marital Status', 'Education-Num', 'Age', 'Occupation',
-                                          'Sex', 'fnlwgt', 'Hours per week', 'Relationship',
-                                          'Education', 'Workclass', 'Race', 'Capital Gain',
-                                          'Capital Loss', 'Country'])
+        self.assertListEqual(
+            e["features"],
+            ['Marital Status', 'Education-Num', 'Age', 'Occupation',
+             'Sex', 'fnlwgt', 'Hours per week', 'Relationship',
+             'Education', 'Workclass', 'Race', 'Capital Gain',
+             'Capital Loss', 'Country']
+        )
 
 
 if __name__ == "__main__":
