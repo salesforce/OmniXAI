@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 """
-Ranking Explainer for tabular data.
+Feature Permutation Ranking Explainer for tabular data.
 """
 import numpy as np
 import itertools
@@ -23,14 +23,14 @@ class PermutationRankingExplainer(ExplainerBase):
     """
 
     explanation_type = "local"
-    alias = ["validity"]
+    alias = ["permutation"]
 
     def __init__(
             self,
             training_data: Tabular,
             predict_function: Callable,
             ignored_features: List = None,
-            random_state:int = None,
+            random_state: int = None,
             **kwargs
     ):
         """
@@ -67,14 +67,15 @@ class PermutationRankingExplainer(ExplainerBase):
         propensity = (scores[i] - scores[j]) * abs(ranks[i] - ranks[j])
         score_diff = (ideal_scores[i] - ideal_scores[j]) * abs(ranks[i] - ranks[j])
         if quotient:
-            return abs(propensity / score_diff)
+            return abs(propensity) / (abs(score_diff) + 1e-6)
         return abs(score_diff - propensity)
 
     def _permute(self, x, idx):
         if isinstance(x, np.ndarray):
             x[:, :, idx] = np.random.permutation(x[:, :, idx])
         elif isinstance(x, pd.DataFrame):
-            x[self.features[idx]] = x[self.features[idx]].sample(frac=1.0, random_state=self.random_state).values
+            x[self.features[idx]] = x[self.features[idx]].sample(
+                frac=1.0, random_state=self.random_state).values
         else:
             raise Exception("Input must be either numpy array or pandas DataFrame")
         return x
@@ -84,7 +85,7 @@ class PermutationRankingExplainer(ExplainerBase):
             X: Tabular,
             n_items: int = None,
             weighted: bool = False,
-            quotient:bool = False,
+            quotient: bool = False,
             query_id: str = None,
             n_iter: int = 100,
             verbose: bool = False,
@@ -106,6 +107,7 @@ class PermutationRankingExplainer(ExplainerBase):
             n_items = X.shape[0]
         if verbose:
             print("Num samples: ", n_items)
+
         average_utility = {}
         pairs = self._compute_pairs(n_items)
         weights = np.array([(1 / p[0] + 1 / p[1]) for p in pairs])
@@ -130,13 +132,14 @@ class PermutationRankingExplainer(ExplainerBase):
                 ).flatten()
                 ranks = self._compute_rank(scores)
                 propensity = [
-                    self._calculate_propensity(scores,
-                                              ranks,
-                                              rank2index[p[0]],
-                                              rank2index[p[1]],
-                                              ideal_scores,
-                                              quotient)
-                    for p in pairs
+                    self._calculate_propensity(
+                        scores=scores,
+                        ranks=ranks,
+                        i=rank2index[p[0]],
+                        j=rank2index[p[1]],
+                        ideal_scores=ideal_scores,
+                        quotient=quotient
+                    ) for p in pairs
                 ]
                 if weighted:
                     utility.append(np.sum(weights * np.array(propensity)))
@@ -151,5 +154,3 @@ class PermutationRankingExplainer(ExplainerBase):
             sort=True
         )
         return explanations
-
-
