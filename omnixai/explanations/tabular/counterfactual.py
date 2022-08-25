@@ -57,7 +57,8 @@ class CFExplanation(ExplanationBase):
         """
         return self.explanations if index is None else self.explanations[index]
 
-    def _get_changed_columns(self, query, cfs):
+    @staticmethod
+    def _get_changed_columns(query, cfs):
         """
         Gets the differences between the instance and the generated counterfactual examples.
 
@@ -76,15 +77,20 @@ class CFExplanation(ExplanationBase):
         return columns
 
     @staticmethod
-    def _plot(plt, index, df, font_size, bar_width=0.4):
+    def _plot(plt, index, query, cfs, context=None, font_size=10, bar_width=0.4):
         """
         Plots a table showing the generated counterfactual examples.
         """
+        df = pd.concat([query, cfs], axis=0)
         rows = [f"Instance {index}"] + [f"CF {k}" for k in range(1, df.shape[0])]
         counts = np.zeros(len(df.columns))
         for i in range(df.shape[1] - 1):
             for j in range(1, df.shape[0]):
                 counts[i] += int(df.values[0, i] != df.values[j, i])
+        # Context
+        if context is not None:
+            df = pd.concat([context, df], axis=0)
+            rows = [f"Context {k + 1}" for k in range(context.shape[0])] + rows
 
         plt.bar(np.arange(len(df.columns)) + 0.5, counts, bar_width)
         table = plt.table(cellText=df.values, rowLabels=rows, colLabels=df.columns, loc="bottom")
@@ -98,10 +104,11 @@ class CFExplanation(ExplanationBase):
         # Highlight the differences between the query and the CF examples
         for k in range(df.shape[1]):
             table[(0, k)].set_facecolor("#C5C5C5")
-            table[(1, k)].set_facecolor("#E2DED0")
-        for j in range(1, df.shape[0]):
+            for i in range(1, df.shape[0] - cfs.shape[0] + 1):
+                table[(i, k)].set_facecolor("#E2DED0")
+        for j in range(df.shape[0] - cfs.shape[0], df.shape[0]):
             for k in range(df.shape[1] - 1):
-                if df.values[0][k] != df.values[j][k]:
+                if query.values[0][k] != df.values[j][k]:
                     table[(j + 1, k)].set_facecolor("#56b5fd")
 
         # Change the font size if `font_size` is set
@@ -149,10 +156,14 @@ class CFExplanation(ExplanationBase):
             else:
                 columns = exp["query"].columns
             query, cfs = exp["query"][columns], exp["counterfactual"][columns]
-            df = pd.concat([query, cfs], axis=0)
+            context = exp["context"][columns] if "context" in exp else None
+
+            dfs = [query, cfs, context]
             if class_names is not None:
-                df["label"] = [class_names[label] for label in df["label"].values]
-            self._plot(plt, index, df, font_size)
+                for df in dfs:
+                    if df is not None:
+                        df["label"] = [class_names[label] for label in df["label"].values]
+            self._plot(plt, index, query, cfs, context, font_size)
         return figures
 
     def plotly_plot(self, index=0, class_names=None, **kwargs):
@@ -167,21 +178,27 @@ class CFExplanation(ExplanationBase):
             label 1 corresponds to 'cat'.
         :return: A plotly dash figure showing the counterfactual examples.
         """
-        assert index is not None, "`index` cannot be None for `plotly_plot`. " "Please specify the instance index."
+        assert index is not None, \
+            "`index` cannot be None for `plotly_plot`. Please specify the instance index."
 
         exp = self.explanations[index]
+        context = exp["context"] if "context" in exp else None
         if exp["counterfactual"] is None:
-            return DashFigure(self._plotly_table(exp["query"], None))
+            return DashFigure(self._plotly_table(exp["query"], None, context))
 
-        if len(exp["query"].columns) > 5:
+        if len(exp["query"].columns) > 5 and not kwargs.get("show_all_columns", False):
             columns = self._get_changed_columns(exp["query"], exp["counterfactual"])
         else:
             columns = exp["query"].columns
         query, cfs = exp["query"][columns], exp["counterfactual"][columns]
-        df = pd.concat([query, cfs], axis=0)
+        context = context[columns] if context is not None else None
+        dfs = [query, cfs, context]
+
         if class_names is not None:
-            df["label"] = [class_names[label] for label in df["label"].values]
-        return DashFigure(self._plotly_table(df.iloc[0:1], df.iloc[1:]))
+            for df in dfs:
+                if df is not None:
+                    df["label"] = [class_names[label] for label in df["label"].values]
+        return DashFigure(self._plotly_table(query, cfs, context))
 
     def ipython_plot(self, index=0, class_names=None, **kwargs):
         """
@@ -194,31 +211,47 @@ class CFExplanation(ExplanationBase):
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
         """
-        assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
+        assert index is not None, \
+            "`index` cannot be None for `ipython_plot`. Please specify the instance index."
         import plotly
         import plotly.figure_factory as ff
 
         exp = self.explanations[index]
         if exp["counterfactual"] is None:
             return None
-        if len(exp["query"].columns) > 5:
+        if len(exp["query"].columns) > 5 and not kwargs.get("show_all_columns", False):
             columns = self._get_changed_columns(exp["query"], exp["counterfactual"])
         else:
             columns = exp["query"].columns
         query, cfs = exp["query"][columns], exp["counterfactual"][columns]
-        df = pd.concat([query, cfs], axis=0)
+        context = exp["context"][columns] if "context" in exp else None
+
+        names, dfs = [], []
+        if context is not None:
+            dfs.append(context)
+            names += [f"Context" for _ in range(context.shape[0])]
+        dfs.append(query)
+        names.append("Query")
+        if cfs is not None:
+            dfs.append(cfs)
+            names += [f"CF {i + 1}" for i in range(cfs.shape[0])]
+
+        df = pd.concat(dfs, axis=0)
         if class_names is not None:
             df["label"] = [class_names[label] for label in df["label"].values]
+        df.insert(loc=0, column="#", value=names)
         plotly.offline.iplot(ff.create_table(df.round(4)))
 
     @staticmethod
-    def _plotly_table(query, cfs):
+    def _plotly_table(query, cfs, context):
         """
         Plots a table showing the generated counterfactual examples.
         """
         from dash import dash_table
         feature_columns = query.columns
         columns = [{"name": "#", "id": "#"}] + [{"name": c, "id": c} for c in feature_columns]
+        context_size = context.shape[0] if context is not None else 0
+        highlight_row_offset = query.shape[0] + context_size + 1
 
         highlights = []
         query = query.values
@@ -230,25 +263,34 @@ class CFExplanation(ExplanationBase):
                         highlights.append((i, j))
 
         data = []
+        # Context row
+        if context is not None:
+            for x in context.values:
+                row = {"#": "Context"}
+                row.update({c: d for c, d in zip(feature_columns, x)})
+                data.append(row)
+        # Query row
         for x in query:
-            data.append({c: d for c, d in zip(feature_columns, x)})
-        data.append({c: "-" for c in feature_columns})
+            row = {"#": "Query"}
+            row.update({c: d for c, d in zip(feature_columns, x)})
+            data.append(row)
+        # Separator
+        row = {"#": "-"}
+        row.update({c: "-" for c in feature_columns})
+        data.append(row)
+        # CF example row
         if cfs is not None:
-            for x in cfs:
-                data.append({c: d for c, d in zip(feature_columns, x)})
-        for i, d in enumerate(data):
-            if i == 0:
-                d.update({"#": "Query"})
-            elif i == 1:
-                d.update({"#": "-"})
-            else:
-                d.update({"#": "CF {}".format(i - 1)})
+            for i, x in enumerate(cfs):
+                row = {"#": f"CF {i + 1}"}
+                row.update({c: d for c, d in zip(feature_columns, x)})
+                data.append(row)
 
         style_data_conditional = [{"if": {"row_index": 0}, "backgroundColor": "rgb(240, 240, 240)"}]
         for i, j in highlights:
             c = feature_columns[j]
             cond = {
-                "if": {"filter_query": "{{{0}}} != ''".format(c), "column_id": c, "row_index": i + 2},
+                "if": {"filter_query": "{{{0}}} != ''".format(c),
+                       "column_id": c, "row_index": i + highlight_row_offset},
                 "backgroundColor": "dodgerblue",
             }
             style_data_conditional.append(cond)
