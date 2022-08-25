@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>omnixai.explainers.timeseries package &mdash; OmniXAI  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="omnixai.explainers.timeseries.agnostic package" href="omnixai.explainers.timeseries.agnostic.html" />
+    <link rel="prev" title="omnixai.explainers.nlp.counterfactual package" href="omnixai.explainers.nlp.counterfactual.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> OmniXAI
+          </a>
+              <div class="version">
+                v1.1.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="omnixai.html">OmniXAI: An Explanation Toolbox</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#library-design">Library Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#more-examples">More Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#how-to-contribute">How to Contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-different-data-types">Modules for Different Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#preprocessing-functions">Preprocessing Functions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="omnixai.html#supported-explanation-methods">Supported Explanation Methods</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="omnixai.explainers.html">omnixai.explainers package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.html#module-omnixai.explainers.base">omnixai.explainers.base module</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="omnixai.explainers.html#explainers-for-different-tasks">Explainers for different tasks</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.data.html">omnixai.explainers.data package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.tabular.html">omnixai.explainers.tabular package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.vision.html">omnixai.explainers.vision package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.nlp.html">omnixai.explainers.nlp package</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">omnixai.explainers.timeseries package</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.timeseries.auto">omnixai.explainers.timeseries.auto module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.timeseries.agnostic.html">omnixai.explainers.timeseries.agnostic package</a></li>
+<li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.timeseries.counterfactual.html">omnixai.explainers.timeseries.counterfactual package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.ranking.html">omnixai.explainers.ranking package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-explanation-results">Modules for Explanation Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#dashboard-for-visualization">Dashboard for Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OmniXAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a> &raquo;</li>
+          <li><a href="omnixai.explainers.html">omnixai.explainers package</a> &raquo;</li>
+      <li>omnixai.explainers.timeseries package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/omnixai.explainers.timeseries.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="omnixai-explainers-timeseries-package">
+<h1>omnixai.explainers.timeseries package<a class="headerlink" href="#omnixai-explainers-timeseries-package" title="Permalink to this heading"></a></h1>
+<section id="module-omnixai.explainers.timeseries.auto">
+<span id="omnixai-explainers-timeseries-auto-module"></span><h2>omnixai.explainers.timeseries.auto module<a class="headerlink" href="#module-omnixai.explainers.timeseries.auto" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explainers.timeseries.auto.TimeseriesExplainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.timeseries.auto.</span></span><span class="sig-name descname"><span class="pre">TimeseriesExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.timeseries.auto.TimeseriesExplainer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.AutoExplainerBase" title="omnixai.explainers.base.AutoExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code></a></p>
+<p>The class derived from <cite>AutoExplainerBase</cite> for time series tasks,
+allowing users to choose multiple explainers and generate
+different explanations at the same time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">explainers</span> <span class="o">=</span> <span class="n">TimeseriesExplainer</span><span class="p">(</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;anomaly_detection&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">preprocess</span><span class="o">=</span><span class="n">preprocess_function</span><span class="p">,</span>
+    <span class="n">postprocess</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+<span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>explainers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code>) – The names or alias of the explainers to use.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>anomaly_detection</cite> or <cite>forecasting</cite>.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timeseries</span></code></a>) – The training time series data used to initialize explainers. <code class="docutils literal notranslate"><span class="pre">data</span></code>
+can be the training dataset for training the machine learning model.</p></li>
+<li><p><strong>model</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – The machine learning model to explain, which can be a scikit-learn model,
+a tensorflow model, a torch model, or a black=box prediction function.</p></li>
+<li><p><strong>preprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The preprocessing function that converts the raw features
+into the inputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><strong>postprocess</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – The postprocessing function that transforms the outputs of <code class="docutils literal notranslate"><span class="pre">model</span></code>
+to a user-specific form.</p></li>
+<li><p><strong>params</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A dict containing the additional parameters for initializing each explainer,
+e.g., <cite>params[“shap”] = {“param_1”: param_1, …}</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explainers.timeseries.auto.TimeseriesExplainer.list_explainers">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_explainers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.timeseries.auto.TimeseriesExplainer.list_explainers" title="Permalink to this definition"></a></dt>
+<dd><p>List the supported explainers.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.timeseries.agnostic.html">omnixai.explainers.timeseries.agnostic package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.timeseries.agnostic.html#module-omnixai.explainers.timeseries.agnostic.shap">omnixai.explainers.timeseries.agnostic.shap module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.timeseries.counterfactual.html">omnixai.explainers.timeseries.counterfactual package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.timeseries.counterfactual.html#module-omnixai.explainers.timeseries.counterfactual.ce">omnixai.explainers.timeseries.counterfactual.ce module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.timeseries.counterfactual.html#module-omnixai.explainers.timeseries.counterfactual.mace">omnixai.explainers.timeseries.counterfactual.mace module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="omnixai.explainers.nlp.counterfactual.html" class="btn btn-neutral float-left" title="omnixai.explainers.nlp.counterfactual package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="omnixai.explainers.timeseries.agnostic.html" class="btn btn-neutral float-right" title="omnixai.explainers.timeseries.agnostic package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, salesforce.com, inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Versions</span>
+      v1.1.4
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Versions</dt>
+        
+          
+          <dd><a href="">latest</a></dd>
+          
+        
+           <strong> 
+          <dd><a href="">v1.1.4</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="">v1.1.3</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.2</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.1</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.0</a></dd>
+          
+        
+          
+          <dd><a href="">v1.0.0</a></dd>
+          
+        
+      </dl>
+      
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
