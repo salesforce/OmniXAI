@@ -338,11 +338,14 @@ The returned dict has the following format: <cite>{“features”: a list of fea
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate_long_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots feature importance scores.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>num_features</strong> – The maximum number of features to plot.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_features</strong> – The maximum number of features to plot.</p></li>
+<li><p><strong>truncate_long_features</strong> – Flag to truncate long feature names</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A matplotlib figure plotting feature importance scores.</p>
@@ -352,11 +355,14 @@ The returned dict has the following format: <cite>{“features”: a list of fea
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plotly_plot">
-<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plotly_plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate_long_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots feature importance scores for one specific instance using Dash.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>num_features</strong> – The maximum number of features to plot.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_features</strong> – The maximum number of features to plot.</p></li>
+<li><p><strong>truncate_long_features</strong> – Flag to truncate long feature names</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting feature importance scores.</p>
@@ -366,11 +372,14 @@ The returned dict has the following format: <cite>{“features”: a list of fea
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.ipython_plot">
-<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.ipython_plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate_long_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the feature importance scores in IPython.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>num_features</strong> – The maximum number of features to plot.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_features</strong> – The maximum number of features to plot.</p></li>
+<li><p><strong>truncate_long_features</strong> – Flag to truncate long feature names</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

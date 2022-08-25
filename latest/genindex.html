@@ -166,6 +166,8 @@
 </li>
         <li><a href="omnixai.explainers.prediction.html#omnixai.explainers.prediction.PredictionAnalyzer.alias">(omnixai.explainers.prediction.PredictionAnalyzer attribute)</a>
 </li>
+        <li><a href="omnixai.explainers.ranking.agnostic.html#omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer.alias">(omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer attribute)</a>
+</li>
         <li><a href="omnixai.explainers.ranking.agnostic.html#omnixai.explainers.ranking.agnostic.validity.ValidityRankingExplainer.alias">(omnixai.explainers.ranking.agnostic.validity.ValidityRankingExplainer attribute)</a>
 </li>
         <li><a href="omnixai.explainers.ranking.counterfactual.html#omnixai.explainers.ranking.counterfactual.mace.MACEExplainer.alias">(omnixai.explainers.ranking.counterfactual.mace.MACEExplainer attribute)</a>
@@ -416,6 +418,8 @@
 </li>
         <li><a href="omnixai.explainers.prediction.html#omnixai.explainers.prediction.PredictionAnalyzer.explain">(omnixai.explainers.prediction.PredictionAnalyzer method)</a>
 </li>
+        <li><a href="omnixai.explainers.ranking.agnostic.html#omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer.explain">(omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer method)</a>
+</li>
         <li><a href="omnixai.explainers.ranking.agnostic.html#omnixai.explainers.ranking.agnostic.validity.ValidityRankingExplainer.explain">(omnixai.explainers.ranking.agnostic.validity.ValidityRankingExplainer method)</a>
 </li>
         <li><a href="omnixai.explainers.ranking.counterfactual.html#omnixai.explainers.ranking.counterfactual.mace.MACEExplainer.explain">(omnixai.explainers.ranking.counterfactual.mace.MACEExplainer method)</a>
@@ -509,6 +513,8 @@
         <li><a href="omnixai.explainers.nlp.specific.html#omnixai.explainers.nlp.specific.ig.IntegratedGradientText.explanation_type">(omnixai.explainers.nlp.specific.ig.IntegratedGradientText attribute)</a>
 </li>
         <li><a href="omnixai.explainers.prediction.html#omnixai.explainers.prediction.PredictionAnalyzer.explanation_type">(omnixai.explainers.prediction.PredictionAnalyzer attribute)</a>
+</li>
+        <li><a href="omnixai.explainers.ranking.agnostic.html#omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer.explanation_type">(omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer attribute)</a>
 </li>
         <li><a href="omnixai.explainers.ranking.agnostic.html#omnixai.explainers.ranking.agnostic.validity.ValidityRankingExplainer.explanation_type">(omnixai.explainers.ranking.agnostic.validity.ValidityRankingExplainer attribute)</a>
 </li>
@@ -973,6 +979,8 @@
 </li>
         <li><a href="omnixai.explainers.ranking.agnostic.html#module-omnixai.explainers.ranking.agnostic">omnixai.explainers.ranking.agnostic</a>
 </li>
+        <li><a href="omnixai.explainers.ranking.agnostic.html#module-omnixai.explainers.ranking.agnostic.permutation">omnixai.explainers.ranking.agnostic.permutation</a>
+</li>
         <li><a href="omnixai.explainers.ranking.agnostic.html#module-omnixai.explainers.ranking.agnostic.validity">omnixai.explainers.ranking.agnostic.validity</a>
 </li>
         <li><a href="omnixai.explainers.ranking.counterfactual.html#module-omnixai.explainers.ranking.counterfactual">omnixai.explainers.ranking.counterfactual</a>
@@ -1336,6 +1344,13 @@
 
       <ul>
         <li><a href="omnixai.explainers.ranking.agnostic.html#module-omnixai.explainers.ranking.agnostic">module</a>
+</li>
+      </ul></li>
+      <li>
+    omnixai.explainers.ranking.agnostic.permutation
+
+      <ul>
+        <li><a href="omnixai.explainers.ranking.agnostic.html#module-omnixai.explainers.ranking.agnostic.permutation">module</a>
 </li>
       </ul></li>
       <li>
@@ -1870,6 +1885,8 @@
 </li>
       <li><a href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.pdp.PDPExplanation">PDPExplanation (class in omnixai.explanations.tabular.pdp)</a>
 </li>
+      <li><a href="omnixai.explainers.ranking.agnostic.html#omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer">PermutationRankingExplainer (class in omnixai.explainers.ranking.agnostic.permutation)</a>
+</li>
       <li><a href="omnixai.preprocessing.html#omnixai.preprocessing.pipeline.Pipeline">Pipeline (class in omnixai.preprocessing.pipeline)</a>
 </li>
       <li><a href="omnixai.explanations.image.html#omnixai.explanations.image.pixel_importance.PixelImportance">PixelImportance (class in omnixai.explanations.image.pixel_importance)</a>
@@ -1914,6 +1931,8 @@
         <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.feature_importance.FeatureImportance.plot">(omnixai.explanations.timeseries.feature_importance.FeatureImportance method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.explanations.html#omnixai.explanations.base.ExplanationBase.plotly_plot">plotly_plot() (omnixai.explanations.base.ExplanationBase method)</a>
 
       <ul>
@@ -1954,8 +1973,6 @@
         <li><a href="omnixai.explanations.timeseries.html#omnixai.explanations.timeseries.feature_importance.FeatureImportance.plotly_plot">(omnixai.explanations.timeseries.feature_importance.FeatureImportance method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="omnixai.explainers.vision.specific.html#omnixai.explainers.vision.specific.cem.CEMOptimizer.pn_optimize">pn_optimize() (omnixai.explainers.vision.specific.cem.CEMOptimizer method)</a>
 </li>
       <li><a href="omnixai.explainers.nlp.counterfactual.html#omnixai.explainers.nlp.counterfactual.polyjuice.Polyjuice">Polyjuice (class in omnixai.explainers.nlp.counterfactual.polyjuice)</a>
