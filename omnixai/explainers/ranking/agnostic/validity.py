@@ -136,7 +136,7 @@ class ValidityRankingExplainer(ExplainerBase):
         :param verbose: Flag for verbosity of print statements
         :return: The valid per-query feature-importance explanations for the given items.
         """
-        assert mask in ["median", "mode", "zero"], \
+        assert mask in ["median", "mean", "zero"], \
             f"`mask` should be 'median', 'mean' or 'zero' instead of {mask}."
         if n_items is None or n_items <= 0:
             n_items = X.shape[0]
