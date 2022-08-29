@@ -36,14 +36,13 @@ class FeatureOptimizer:
         self.objectives = objectives if isinstance(objectives, (list, tuple)) \
             else [objectives]
 
-        self.loss_funcs = {
+    def _build_model(self):
+        loss_funcs = {
             "000": self._layer_loss,
             "001": self._neuron_loss,
             "010": self._channel_loss,
             "100": self._direction_loss
         }
-
-    def _build_model(self):
         funcs, masks = [], []
         for obj in self.objectives:
             flag = "".join(
@@ -52,7 +51,7 @@ class FeatureOptimizer:
                      obj.channel_indices is not None,
                      obj.neuron_indices is not None])
             )
-            func, mask = self.loss_funcs[flag](obj)
+            func, mask = loss_funcs[flag](obj)
             funcs.append(func)
             masks.append(mask)
 
@@ -60,7 +59,6 @@ class FeatureOptimizer:
         assert masks.shape[1] == len(self.objectives), \
             f"The shape of `masks` doesn't match the number of objectives, " \
             f"{masks.shape[1]} != {len(self.objectives)}."
-
         masks = [tf.stack(masks[:, i]) for i in range(len(self.objectives))]
         weights = tf.constant([obj.weight for obj in self.objectives])
 
@@ -141,3 +139,6 @@ class FeatureOptimizer:
         cos = tf.maximum(tf.reduce_sum(a * b, axis=axis), 1e-1) ** 2
         dot = tf.reduce_sum(x * y)
         return dot * cos
+
+    def optimize(self):
+        pass
