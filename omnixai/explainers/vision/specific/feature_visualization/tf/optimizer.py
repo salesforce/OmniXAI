@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import itertools
 import numpy as np
 import tensorflow as tf
 from typing import Union, List
@@ -13,7 +14,7 @@ from dataclasses import dataclass
 @dataclass
 class Objective:
     layer: tf.keras.layers.Layer
-    loss: str = "square"
+    weight: float = 1.0
     channel_indices: Union[int, List[int]] = None
     neuron_indices: Union[int, List[int]] = None
     direction_vectors: Union[np.ndarray, List[np.ndarray]] = None
@@ -35,8 +36,44 @@ class FeatureOptimizer:
         self.objectives = objectives if isinstance(objectives, (list, tuple)) \
             else [objectives]
 
+        self.loss_funcs = {
+            "000": self._layer_loss,
+            "001": self._neuron_loss,
+            "010": self._channel_loss,
+            "100": self._direction_loss
+        }
+
     def _build_model(self):
-        pass
+        funcs, masks = [], []
+        for obj in self.objectives:
+            flag = "".join(
+                map(lambda v: str(int(v)),
+                    [obj.direction_vectors is not None,
+                     obj.channel_indices is not None,
+                     obj.neuron_indices is not None])
+            )
+            func, mask = self.loss_funcs[flag](obj)
+            funcs.append(func)
+            masks.append(mask)
+
+        masks = np.array([np.array(m) for m in itertools.product(*masks)]).astype(np.float32)
+        assert masks.shape[1] == len(self.objectives), \
+            f"The shape of `masks` doesn't match the number of objectives, " \
+            f"{masks.shape[1]} != {len(self.objectives)}."
+
+        masks = [tf.stack(masks[:, i]) for i in range(len(self.objectives))]
+        weights = tf.constant([obj.weight for obj in self.objectives])
+
+        def _objective(outputs):
+            loss = 0.0
+            for i in range(len(self.objectives)):
+                loss += funcs[i](outputs[i], masks[i]) * weights[i]
+            return loss
+
+        layers = [obj.layer for obj in self.objectives]
+        model = tf.keras.Model(self.model.input, [*layers])
+        input_shape = (masks[0].shape[0], *model.input.shape[1:])
+        return model, _objective, input_shape
 
     @staticmethod
     def _layer_loss(objective):
@@ -44,10 +81,7 @@ class FeatureOptimizer:
         layer_masks = np.ones((1, *shape[1:]))
 
         def _loss(output, **kwargs):
-            if objective.loss == "square":
-                return tf.reduce_mean(output ** 2)
-            else:
-                return tf.reduce_mean(output)
+            return tf.reduce_mean(output ** 2)
 
         return _loss, layer_masks
 
