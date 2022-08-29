@@ -37,21 +37,17 @@ class FeatureOptimizer:
             else [objectives]
 
     def _build_model(self):
-        loss_funcs = {
-            "000": self._layer_loss,
-            "001": self._neuron_loss,
-            "010": self._channel_loss,
-            "100": self._direction_loss
-        }
         funcs, masks = [], []
         for obj in self.objectives:
-            flag = "".join(
-                map(lambda v: str(int(v)),
-                    [obj.direction_vectors is not None,
-                     obj.channel_indices is not None,
-                     obj.neuron_indices is not None])
-            )
-            func, mask = loss_funcs[flag](obj)
+            if obj.direction_vectors is not None:
+                loss_func = self._direction_loss
+            elif obj.channel_indices is not None:
+                loss_func = self._channel_loss
+            elif obj.neuron_indices is not None:
+                loss_func = self._neuron_loss
+            else:
+                loss_func = self._layer_loss
+            func, mask = loss_func(obj)
             funcs.append(func)
             masks.append(mask)
 
@@ -62,7 +58,7 @@ class FeatureOptimizer:
         masks = [tf.stack(masks[:, i]) for i in range(len(self.objectives))]
         weights = tf.constant([obj.weight for obj in self.objectives])
 
-        def _objective(outputs):
+        def _objective_func(outputs):
             loss = 0.0
             for i in range(len(self.objectives)):
                 loss += funcs[i](outputs[i], masks[i]) * weights[i]
@@ -71,7 +67,7 @@ class FeatureOptimizer:
         layers = [obj.layer for obj in self.objectives]
         model = tf.keras.Model(self.model.input, [*layers])
         input_shape = (masks[0].shape[0], *model.input.shape[1:])
-        return model, _objective, input_shape
+        return model, _objective_func, input_shape
 
     @staticmethod
     def _layer_loss(objective):
