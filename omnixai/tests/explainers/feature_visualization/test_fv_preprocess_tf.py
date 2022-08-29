@@ -5,7 +5,7 @@ from PIL import Image as PilImage
 
 from omnixai.data.image import Image
 from omnixai.explainers.vision.specific.feature_visualization.tf.preprocess import \
-    RandomBlur, RandomCrop, RandomResize, RandomFlip
+    RandomBlur, RandomCrop, RandomResize, RandomFlip, Padding
 
 
 class TestPreprocess(unittest.TestCase):
@@ -16,8 +16,10 @@ class TestPreprocess(unittest.TestCase):
         self.img = tf.expand_dims(tf.keras.preprocessing.image.img_to_array(img.to_pil()), axis=0)
 
     @staticmethod
-    def _tensor_to_numpy(x):
-        return x.numpy()
+    def _plot(x):
+        import matplotlib.pyplot as plt
+        plt.imshow(x.numpy()[0] / 255)
+        plt.show()
 
     def test_blur(self):
         transform = RandomBlur(kernel_size=9)
@@ -38,6 +40,11 @@ class TestPreprocess(unittest.TestCase):
         transform = RandomFlip(horizontal=True, vertical=True)
         y = transform.transform(self.img)
         self.assertEqual(y.shape, (1, 450, 450, 3))
+
+    def test_padding(self):
+        transform = Padding(size=10)
+        y = transform.transform(self.img)
+        self.assertEqual(y.shape, (1, 470, 470, 3))
 
 
 if __name__ == "__main__":

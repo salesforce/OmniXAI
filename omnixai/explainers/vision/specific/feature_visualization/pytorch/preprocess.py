@@ -90,3 +90,28 @@ class RandomFlip(TransformBase):
 
     def invert(self, x):
         raise RuntimeError("`RandomFlip` doesn't support the `invert` function.")
+
+
+class Padding(TransformBase):
+    """
+    Pads constant values on a batch of images.
+    """
+
+    def __init__(self, size, value=0):
+        super().__init__()
+        self.size = size
+        self.value = value
+        self.transformer = torchvision.transforms.Pad(
+            padding=(size, size),
+            fill=value,
+            padding_mode="constant"
+        )
+
+    def fit(self, x):
+        return self
+
+    def transform(self, x):
+        return self.transformer(x)
+
+    def invert(self, x):
+        raise RuntimeError("`Padding` doesn't support the `invert` function.")

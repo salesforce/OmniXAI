@@ -117,3 +117,30 @@ class RandomFlip(TransformBase):
 
     def invert(self, x):
         raise RuntimeError("`RandomFlip` doesn't support the `invert` function.")
+
+
+class Padding(TransformBase):
+    """
+    Pads constant values on a batch of images.
+    """
+
+    def __init__(self, size, value=0):
+        super().__init__()
+        self.value = value
+        self.paddings = [(0, 0), (size, size), (size, size), (0, 0)]
+
+    def fit(self, x):
+        return self
+
+    def transform(self, x):
+        assert len(x.shape) == 4, \
+            "`x` must be 4-dimensional."
+        return tf.pad(
+            x,
+            paddings=self.paddings,
+            mode="CONSTANT",
+            constant_values=tf.cast(self.value, tf.float32)
+        )
+
+    def invert(self, x):
+        raise RuntimeError("`Padding` doesn't support the `invert` function.")

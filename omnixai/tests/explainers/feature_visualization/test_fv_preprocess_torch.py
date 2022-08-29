@@ -6,7 +6,7 @@ from PIL import Image as PilImage
 
 from omnixai.data.image import Image
 from omnixai.explainers.vision.specific.feature_visualization.pytorch.preprocess import \
-    RandomBlur, RandomCrop, RandomResize, RandomFlip
+    RandomBlur, RandomCrop, RandomResize, RandomFlip, Padding
 
 
 class TestPreprocess(unittest.TestCase):
@@ -27,6 +27,12 @@ class TestPreprocess(unittest.TestCase):
         x = np.swapaxes(np.swapaxes(x, 0, 1), 1, 2)
         return x
 
+    @staticmethod
+    def _plot(x):
+        import matplotlib.pyplot as plt
+        plt.imshow(TestPreprocess._tensor_to_numpy(x))
+        plt.show()
+
     def test_blur(self):
         transform = RandomBlur(kernel_size=9)
         y = transform.transform(self.img)
@@ -37,12 +43,6 @@ class TestPreprocess(unittest.TestCase):
         y = transform.transform(self.img)
         self.assertEqual(y.shape, (3, 350, 350))
 
-        import matplotlib.pyplot as plt
-        plt.imshow(self._tensor_to_numpy(self.img))
-        plt.show()
-        plt.imshow(self._tensor_to_numpy(y))
-        plt.show()
-
     def test_resize(self):
         transform = RandomResize(scale=(0.5, 0.5))
         y = transform.transform(self.img)
@@ -52,6 +52,11 @@ class TestPreprocess(unittest.TestCase):
         transform = RandomFlip(horizontal=True, vertical=True)
         y = transform.transform(self.img)
         self.assertEqual(y.shape, (3, 450, 450))
+
+    def test_padding(self):
+        transform = Padding(size=10)
+        y = transform.transform(self.img)
+        self.assertEqual(y.shape, (3, 470, 470))
 
 
 if __name__ == "__main__":
