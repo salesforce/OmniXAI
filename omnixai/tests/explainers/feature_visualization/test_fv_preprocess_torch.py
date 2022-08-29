@@ -16,8 +16,6 @@ class TestPreprocess(unittest.TestCase):
         img = Image(PilImage.open(os.path.join(directory, "images/dog_cat.png")).convert("RGB"))
         transform = transforms.Compose(
             [
-                transforms.Resize(256),
-                transforms.CenterCrop(224),
                 transforms.ToTensor()
             ]
         )
@@ -32,26 +30,28 @@ class TestPreprocess(unittest.TestCase):
     def test_blur(self):
         transform = RandomBlur(kernel_size=9)
         y = transform.transform(self.img)
+        self.assertEqual(y.shape, (3, 450, 450))
 
     def test_crop(self):
         transform = RandomCrop(shift=100)
         y = transform.transform(self.img)
-
-    def test_resize(self):
-        transform = RandomResize(scale=(0.5, 0.5))
-        y = transform.transform(self.img)
-        print(self.img.shape)
-        print(y.shape)
-
-    def test_flip(self):
-        transform = RandomFlip(horizontal=True, vertical=True)
-        y = transform.transform(self.img)
+        self.assertEqual(y.shape, (3, 350, 350))
 
         import matplotlib.pyplot as plt
         plt.imshow(self._tensor_to_numpy(self.img))
         plt.show()
         plt.imshow(self._tensor_to_numpy(y))
         plt.show()
+
+    def test_resize(self):
+        transform = RandomResize(scale=(0.5, 0.5))
+        y = transform.transform(self.img)
+        self.assertEqual(y.shape, (3, 225, 225))
+
+    def test_flip(self):
+        transform = RandomFlip(horizontal=True, vertical=True)
+        y = transform.transform(self.img)
+        self.assertEqual(y.shape, (3, 450, 450))
 
 
 if __name__ == "__main__":
