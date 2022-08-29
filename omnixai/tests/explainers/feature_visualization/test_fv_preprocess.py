@@ -5,7 +5,8 @@ from torchvision import transforms
 from PIL import Image as PilImage
 
 from omnixai.data.image import Image
-from omnixai.explainers.vision.specific.feature_visualization.pytorch.preprocess import RandomBlur
+from omnixai.explainers.vision.specific.feature_visualization.pytorch.preprocess import \
+    RandomBlur, RandomCrop, RandomResize, RandomFlip
 
 
 class TestPreprocess(unittest.TestCase):
@@ -30,6 +31,20 @@ class TestPreprocess(unittest.TestCase):
 
     def test_blur(self):
         transform = RandomBlur(kernel_size=9)
+        y = transform.transform(self.img)
+
+    def test_crop(self):
+        transform = RandomCrop(shift=100)
+        y = transform.transform(self.img)
+
+    def test_resize(self):
+        transform = RandomResize(scale=(0.5, 0.5))
+        y = transform.transform(self.img)
+        print(self.img.shape)
+        print(y.shape)
+
+    def test_flip(self):
+        transform = RandomFlip(horizontal=True, vertical=True)
         y = transform.transform(self.img)
 
         import matplotlib.pyplot as plt
