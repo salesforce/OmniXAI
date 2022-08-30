@@ -25,8 +25,8 @@ class TestExplainer(unittest.TestCase):
     def test(self):
         objectives = [
             Objective(
-                layer=self.model.layers[-1],
-                channel_indices=1
+                layer=self.model.layers[-5],
+                channel_indices=0
             )
         ]
         optimizer = FeatureOptimizer(
