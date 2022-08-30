@@ -165,6 +165,19 @@ class FeatureOptimizer:
         x = x / (tf.reduce_max(x, (1, 2, 3), keepdims=True) + 1e-8)
         return x * (max_value - min_value) + min_value
 
+    @staticmethod
+    def _regularization_func(reg_type, weight):
+        if reg_type is None or reg_type == "":
+            return lambda x: 0
+        elif reg_type == "l1":
+            return lambda x: tf.reduce_mean(tf.abs(x), (1, 2, 3)) * weight
+        elif reg_type == "l2":
+            return lambda x: tf.sqrt(tf.reduce_mean(x ** 2, (1, 2, 3))) * weight
+        elif reg_type == "tv":
+            return lambda x: tf.image.total_variation(x) * weight
+        else:
+            raise ValueError(f"Unknown regularization type: {reg_type}")
+
     def optimize(
             self,
             num_iterations=200,
@@ -196,9 +209,16 @@ class FeatureOptimizer:
             min_value=pixel_range[0],
             max_value=pixel_range[1]
         )
-        bar = ProgressBar(num_iterations) if verbose else None
+        if regularizers is not None:
+            if not isinstance(regularizers, (list, tuple)):
+                regularizers = [regularizers]
+            regularizers = [
+                self._regularization_func(reg_type, weight)
+                for reg_type, weight in regularizers
+            ]
 
         results = []
+        bar = ProgressBar(num_iterations) if verbose else None
         for i in range(num_iterations):
             with tf.GradientTape() as tape:
                 tape.watch(inputs)
@@ -207,10 +227,14 @@ class FeatureOptimizer:
                 outputs = model(images)
                 if len(model.outputs) == 1:
                     outputs = tf.expand_dims(outputs, 0)
+
                 loss = objective_func(outputs)
+                if regularizers is not None:
+                    for func in regularizers:
+                        loss -= func(images)
                 grads = tape.gradient(loss, inputs)
                 if verbose:
-                    bar.print(i, prefix=f"Step: {i + 1}, Loss: {loss}", suffix="")
+                    bar.print(i, prefix="Step: {}, Objective: {:.4f}".format(i + 1, loss), suffix="")
 
             optimizer.apply_gradients([(-grads, inputs)])
             if save_all_images or i == num_iterations - 1:
