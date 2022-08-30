@@ -141,6 +141,16 @@ class TestFeatureOptimizer(unittest.TestCase):
         self.assertEqual(model.outputs[0].name, self.model.layers[1].output.name)
         self.assertEqual(input_shape, (1, 28, 28, 3))
 
+    def test_optimize(self):
+        objective = Objective(
+            layer=self.model.layers[-1]
+        )
+        optimizer = FeatureOptimizer(
+            model=self.model,
+            objectives=objective
+        )
+        results = optimizer.optimize(num_iterations=1)
+
 
 if __name__ == "__main__":
     unittest.main()
