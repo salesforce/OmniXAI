@@ -75,8 +75,7 @@ class FeatureOptimizer:
         layer_masks = np.ones((1, *shape[1:]))
 
         def _loss(output, masks, **kwargs):
-            return tf.reduce_mean(
-                output ** 2, axis=list(range(1, len(shape))))
+            return tf.reduce_mean(output ** 2)
 
         return _loss, layer_masks
 
