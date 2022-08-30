@@ -74,7 +74,7 @@ class FeatureOptimizer:
         shape = objective.layer.output.shape
         layer_masks = np.ones((1, *shape[1:]))
 
-        def _loss(output, **kwargs):
+        def _loss(output, masks, **kwargs):
             return tf.reduce_mean(output ** 2)
 
         return _loss, layer_masks
@@ -169,19 +169,22 @@ class FeatureOptimizer:
             self,
             num_iterations=200,
             learning_rate=0.05,
-            transforms=None,
+            transformer=None,
             regularizers=None,
             pixel_normalizer="sigmoid",
             pixel_range=(0, 1),
             image_shape=None,
-            save_all_images=False
+            save_all_images=False,
+            verbose=False
     ):
+        from omnixai.utils.misc import ProgressBar
+
         model, objective_func, input_shape = self._build_model()
         optimizer = tf.keras.optimizers.Adam(learning_rate)
         shape = input_shape if image_shape is None \
             else (input_shape[0], *image_shape, input_shape[-1])
-        if transforms is None:
-            transforms = self._default_transform(min(shape[1], shape[2]))
+        if transformer is None:
+            transformer = self._default_transform(min(shape[1], shape[2]))
 
         inputs = tf.Variable(
             tf.random.normal(shape, stddev=0.01, dtype=tf.float32),
@@ -193,18 +196,21 @@ class FeatureOptimizer:
             min_value=pixel_range[0],
             max_value=pixel_range[1]
         )
+        bar = ProgressBar(num_iterations) if verbose else None
 
         results = []
         for i in range(num_iterations):
             with tf.GradientTape() as tape:
                 tape.watch(inputs)
-                images = transforms(normalize(inputs))
+                images = transformer.transform(normalize(inputs))
                 images = tf.image.resize(images, (input_shape[1], input_shape[2]))
                 outputs = model(images)
                 if len(model.outputs) == 1:
                     outputs = tf.expand_dims(outputs, 0)
                 loss = objective_func(outputs)
                 grads = tape.gradient(loss, inputs)
+                if verbose:
+                    bar.print(i, prefix=f"Step: {i + 1}, Loss: {loss}", suffix="")
 
             optimizer.apply_gradients([(-grads, inputs)])
             if save_all_images or i == num_iterations - 1:

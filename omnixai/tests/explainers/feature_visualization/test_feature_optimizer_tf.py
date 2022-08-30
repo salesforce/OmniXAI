@@ -149,7 +149,10 @@ class TestFeatureOptimizer(unittest.TestCase):
             model=self.model,
             objectives=objective
         )
-        results = optimizer.optimize(num_iterations=1)
+        results = optimizer.optimize(
+            num_iterations=1,
+            verbose=True
+        )
 
 
 if __name__ == "__main__":
