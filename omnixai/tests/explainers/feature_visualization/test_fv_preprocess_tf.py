@@ -12,6 +12,7 @@ from PIL import Image as PilImage
 from omnixai.data.image import Image
 from omnixai.explainers.vision.specific.feature_visualization.tf.preprocess import \
     RandomBlur, RandomCrop, RandomResize, RandomFlip, Padding
+from omnixai.preprocessing.pipeline import Pipeline
 
 
 class TestPreprocess(unittest.TestCase):
@@ -51,6 +52,22 @@ class TestPreprocess(unittest.TestCase):
         transform = Padding(size=10)
         y = transform.transform(self.img)
         self.assertEqual(y.shape, (1, 470, 470, 3))
+
+    def test_pipeline(self):
+        unit = max(int(self.img.shape[1] / 16), 1)
+        pipeline = Pipeline() \
+            .step(Padding(size=unit * 4)) \
+            .step(RandomCrop(unit * 2)) \
+            .step(RandomCrop(unit * 2)) \
+            .step(RandomCrop(unit * 4)) \
+            .step(RandomCrop(unit * 4)) \
+            .step(RandomCrop(unit * 4)) \
+            .step(RandomBlur(kernel_size=9, sigma=(1.0, 1.1))) \
+            .step(RandomCrop(unit)) \
+            .step(RandomCrop(unit)) \
+            .step(RandomFlip())
+        y = pipeline.transform(self.img)
+        self.assertEqual(y.shape, (1, 170, 170, 3))
 
 
 if __name__ == "__main__":
