@@ -64,7 +64,7 @@ class FeatureOptimizer:
                 loss += funcs[i](outputs[i], masks[i]) * weights[i]
             return loss
 
-        layers = [obj.layer for obj in self.objectives]
+        layers = [obj.layer.output for obj in self.objectives]
         model = tf.keras.Model(self.model.input, [*layers])
         input_shape = (masks[0].shape[0], *model.input.shape[1:])
         return model, _objective_func, input_shape
