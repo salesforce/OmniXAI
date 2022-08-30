@@ -51,11 +51,11 @@ class FeatureOptimizer:
             funcs.append(func)
             masks.append(mask)
 
-        masks = np.array([np.array(m) for m in itertools.product(*masks)]).astype(np.float32)
+        masks = np.array([np.array(m) for m in itertools.product(*masks)])
         assert masks.shape[1] == len(self.objectives), \
             f"The shape of `masks` doesn't match the number of objectives, " \
             f"{masks.shape[1]} != {len(self.objectives)}."
-        masks = [tf.stack(masks[:, i]) for i in range(len(self.objectives))]
+        masks = [tf.cast(tf.stack(masks[:, i]), tf.float32) for i in range(len(self.objectives))]
         weights = tf.constant([obj.weight for obj in self.objectives])
 
         def _objective_func(outputs):
