@@ -28,21 +28,14 @@ class TestFeatureOptimizer(unittest.TestCase):
         self.model.compile()
 
     def test_build_model(self):
-        layer_masks = np.ones(self.model.layers[-1].output.shape[1:])
-        vector = np.random.random(self.model.layers[-2].output.shape[1:])
-        channel_masks = np.zeros(self.model.layers[1].output.shape[1:])
-        channel_masks[:, :, 0] = 1
-        neuron_masks = np.zeros((3,) + self.model.layers[4].output.shape[1:])
-        for i in range(3):
-            neuron_masks[i, 0, i // neuron_masks.shape[3], i % neuron_masks.shape[3]] = 1.0
-
         objectives = [
             Objective(
                 layer=self.model.layers[-1]
             ),
             Objective(
                 layer=self.model.layers[-2],
-                direction_vectors=vector
+                direction_vectors=np.random.random(
+                    self.model.layers[-2].output.shape[1:])
             ),
             Objective(
                 layer=self.model.layers[1],
@@ -142,12 +135,27 @@ class TestFeatureOptimizer(unittest.TestCase):
         self.assertEqual(input_shape, (1, 28, 28, 3))
 
     def test_optimize(self):
-        objective = Objective(
-            layer=self.model.layers[-1]
-        )
+        objectives = [
+            Objective(
+                layer=self.model.layers[-1]
+            ),
+            Objective(
+                layer=self.model.layers[-2],
+                direction_vectors=np.random.random(
+                    self.model.layers[-2].output.shape[1:])
+            ),
+            Objective(
+                layer=self.model.layers[1],
+                channel_indices=list(range(5))
+            ),
+            Objective(
+                layer=self.model.layers[4],
+                neuron_indices=list(range(3))
+            )
+        ]
         optimizer = FeatureOptimizer(
             model=self.model,
-            objectives=objective
+            objectives=objectives
         )
         results = optimizer.optimize(
             num_iterations=100,
