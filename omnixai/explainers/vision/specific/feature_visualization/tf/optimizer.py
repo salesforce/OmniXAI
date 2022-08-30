@@ -185,8 +185,8 @@ class FeatureOptimizer:
             learning_rate=0.05,
             transformer=None,
             regularizers=None,
-            pixel_normalizer="sigmoid",
-            pixel_range=(0, 1),
+            pixel_value_normalizer="sigmoid",
+            pixel_value_range=(0, 1),
             image_shape=None,
             save_all_images=False,
             verbose=False
@@ -206,9 +206,9 @@ class FeatureOptimizer:
         )
         normalize = lambda x: self._normalize(
             x=x,
-            normalizer=pixel_normalizer,
-            min_value=pixel_range[0],
-            max_value=pixel_range[1]
+            normalizer=pixel_value_normalizer,
+            min_value=pixel_value_range[0],
+            max_value=pixel_value_range[1]
         )
         if regularizers is not None:
             if not isinstance(regularizers, list):
