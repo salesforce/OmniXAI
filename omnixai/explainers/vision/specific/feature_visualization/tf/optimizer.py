@@ -142,21 +142,37 @@ class FeatureOptimizer:
         from .preprocess import RandomBlur, RandomCrop, \
             RandomResize, RandomFlip, Padding
 
-        unit = max(int(size / 16), 1)
+        unit = int(size / 16)
         pipeline = Pipeline() \
             .step(Padding(size=unit * 4)) \
             .step(RandomCrop(unit * 2)) \
             .step(RandomCrop(unit * 2)) \
             .step(RandomCrop(unit * 4)) \
-            .step(RandomResize((0.92, 0.96))) \
-            .step(RandomBlur(kernel_size=9, sigma=(1.0, 1.1))) \
+            .step(RandomCrop(unit * 4)) \
+            .step(RandomCrop(unit * 4)) \
+            .step(RandomResize((0.9, 1.0))) \
+            .step(RandomBlur(kernel_size=9, sigma=(0.9, 1.0))) \
             .step(RandomCrop(unit)) \
             .step(RandomCrop(unit)) \
             .step(RandomFlip())
         return pipeline
 
     @staticmethod
-    def _normalize(x, normalizer, min_value, max_value):
+    def _normal_color(x):
+        mat = tf.cast(
+            [[0.56282854, 0.58447580, 0.58447580],
+             [0.19482528, 0.00000000, -0.19482528],
+             [0.04329450, -0.10823626, 0.06494176]],
+            dtype=tf.float32
+        )
+        y = tf.matmul(tf.reshape(x, [-1, 3]), mat)
+        return tf.reshape(y, tf.shape(x))
+
+    @staticmethod
+    def _normalize(x, normalizer, value_range, normal_color=True):
+        if normal_color:
+            x = FeatureOptimizer._normal_color(x)
+        min_value, max_value = value_range
         x = tf.nn.sigmoid(x) if normalizer == "sigmoid" \
             else tf.clip_by_value(x, min_value, max_value)
         x = x - tf.reduce_min(x, (1, 2, 3), keepdims=True)
@@ -180,44 +196,39 @@ class FeatureOptimizer:
             self,
             num_iterations=200,
             learning_rate=0.05,
-            transformer=None,
+            transformers=None,
             regularizers=None,
-            pixel_value_normalizer="sigmoid",
-            pixel_value_range=(0, 1),
             image_shape=None,
+            value_normalizer="sigmoid",
+            value_range=(0, 1),
+            init_std=0.01,
+            normal_color=True,
             save_all_images=False,
             verbose=False
     ):
         from omnixai.utils.misc import ProgressBar
         bar = ProgressBar(num_iterations) if verbose else None
-
         model, objective_func, input_shape = self._build_model()
-        optimizer = tf.keras.optimizers.Adam(learning_rate)
+
         shape = input_shape if image_shape is None \
             else (input_shape[0], *image_shape, input_shape[-1])
-        if transformer is None:
-            transformer = self._default_transform(min(shape[1], shape[2]))
+        if transformers is None:
+            transformers = self._default_transform(min(shape[1], shape[2]))
         if regularizers is not None:
             if not isinstance(regularizers, list):
                 regularizers = [regularizers]
             regularizers = [self._regularize(reg, w) for reg, w in regularizers]
 
         inputs = tf.Variable(
-            tf.random.normal(shape, stddev=0.01, dtype=tf.float32),
-            trainable=True
-        )
-        normalize = lambda x: self._normalize(
-            x=x,
-            normalizer=pixel_value_normalizer,
-            min_value=pixel_value_range[0],
-            max_value=pixel_value_range[1]
-        )
+            tf.random.normal(shape, stddev=init_std, dtype=tf.float32), trainable=True)
+        normalize = lambda x: self._normalize(x, value_normalizer, value_range, normal_color)
+        optimizer = tf.keras.optimizers.Adam(learning_rate)
 
         @tf.function
         def step(x):
             with tf.GradientTape() as tape:
                 tape.watch(x)
-                images = transformer.transform(normalize(x))
+                images = transformers.transform(normalize(x))
                 images = tf.image.resize(images, (input_shape[1], input_shape[2]))
                 outputs = model(images)
                 if len(model.outputs) == 1:
