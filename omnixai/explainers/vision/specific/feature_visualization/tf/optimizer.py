@@ -143,8 +143,8 @@ class FeatureOptimizer:
             RandomResize, RandomFlip, Padding
 
         unit = max(int(size / 16), 1)
-        pipeline = Pipeline()\
-            .step(Padding(size=unit * 4))\
+        pipeline = Pipeline() \
+            .step(Padding(size=unit * 4)) \
             .step(RandomCrop(unit * 2)) \
             .step(RandomCrop(unit * 2)) \
             .step(RandomCrop(unit * 4)) \
@@ -157,6 +157,14 @@ class FeatureOptimizer:
             .step(RandomFlip())
         return pipeline
 
+    @staticmethod
+    def _normalize(x, normalizer, min_value, max_value):
+        x = tf.nn.sigmoid(x) if normalizer == "sigmoid" \
+            else tf.clip_by_value(x, min_value, max_value)
+        x = x - tf.reduce_min(x, (1, 2, 3), keepdims=True)
+        x = x / (tf.reduce_max(x, (1, 2, 3), keepdims=True) + 1e-8)
+        return x * (max_value - min_value) + min_value
+
     def optimize(
             self,
             num_iterations=200,
@@ -166,10 +174,39 @@ class FeatureOptimizer:
             pixel_normalizer="sigmoid",
             pixel_range=(0, 1),
             image_shape=None,
+            save_all_images=False
     ):
         model, objective_func, input_shape = self._build_model()
         optimizer = tf.keras.optimizers.Adam(learning_rate)
-        image_shape = input_shape if image_shape is None \
+        shape = input_shape if image_shape is None \
             else (input_shape[0], *image_shape, input_shape[-1])
         if transforms is None:
-            transforms = self._default_transform(min(image_shape[1], image_shape[2]))
+            transforms = self._default_transform(min(shape[1], shape[2]))
+
+        inputs = tf.Variable(
+            tf.random.normal(shape, stddev=0.01, dtype=tf.float32),
+            trainable=True
+        )
+        normalize = lambda x: self._normalize(
+            x=x,
+            normalizer=pixel_normalizer,
+            min_value=pixel_range[0],
+            max_value=pixel_range[1]
+        )
+
+        results = []
+        for i in range(num_iterations):
+            with tf.GradientTape() as tape:
+                tape.watch(inputs)
+                images = transforms(normalize(inputs))
+                images = tf.image.resize(images, (input_shape[1], input_shape[2]))
+                outputs = model(images)
+                if len(model.outputs) == 1:
+                    outputs = tf.expand_dims(outputs, 0)
+                loss = objective_func(outputs)
+                grads = tape.gradient(loss, inputs)
+
+            optimizer.apply_gradients([(-grads, inputs)])
+            if save_all_images or i == num_iterations - 1:
+                results.append(normalize(inputs))
+        return results
