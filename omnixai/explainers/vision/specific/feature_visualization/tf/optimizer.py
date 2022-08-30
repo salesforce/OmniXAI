@@ -234,7 +234,7 @@ class FeatureOptimizer:
                         loss -= func(images)
                 grads = tape.gradient(loss, inputs)
                 if verbose:
-                    bar.print(i, prefix="Step: {}, Objective: {:.4f}".format(i + 1, loss), suffix="")
+                    bar.print(i + 1, prefix=f"Step: {i + 1}", suffix="")
 
             optimizer.apply_gradients([(-grads, inputs)])
             if save_all_images or i == num_iterations - 1:

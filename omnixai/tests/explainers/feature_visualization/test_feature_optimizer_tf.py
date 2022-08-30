@@ -151,6 +151,7 @@ class TestFeatureOptimizer(unittest.TestCase):
         )
         results = optimizer.optimize(
             num_iterations=100,
+            regularizers=("l1", 0.001),
             verbose=True
         )
 
