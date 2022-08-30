@@ -136,5 +136,40 @@ class FeatureOptimizer:
         dot = tf.reduce_sum(x * y)
         return dot * cos
 
-    def optimize(self):
-        pass
+    @staticmethod
+    def _default_transform(size):
+        from omnixai.preprocessing.pipeline import Pipeline
+        from .preprocess import RandomBlur, RandomCrop, \
+            RandomResize, RandomFlip, Padding
+
+        unit = max(int(size / 16), 1)
+        pipeline = Pipeline()\
+            .step(Padding(size=unit * 4))\
+            .step(RandomCrop(unit * 2)) \
+            .step(RandomCrop(unit * 2)) \
+            .step(RandomCrop(unit * 4)) \
+            .step(RandomCrop(unit * 4)) \
+            .step(RandomCrop(unit * 4)) \
+            .step(RandomResize((0.92, 0.96))) \
+            .step(RandomBlur(kernel_size=9, sigma=(1.0, 1.1))) \
+            .step(RandomCrop(unit)) \
+            .step(RandomCrop(unit)) \
+            .step(RandomFlip())
+        return pipeline
+
+    def optimize(
+            self,
+            num_iterations=200,
+            learning_rate=0.05,
+            transforms=None,
+            regularizers=None,
+            pixel_normalizer="sigmoid",
+            pixel_range=(0, 1),
+            image_shape=None,
+    ):
+        model, objective_func, input_shape = self._build_model()
+        optimizer = tf.keras.optimizers.Adam(learning_rate)
+        image_shape = input_shape if image_shape is None \
+            else (input_shape[0], *image_shape, input_shape[-1])
+        if transforms is None:
+            transforms = self._default_transform(min(image_shape[1], image_shape[2]))
