@@ -61,7 +61,7 @@ class RandomCrop(TransformBase):
     def transform(self, x):
         assert len(x.shape) == 4, \
             "`x` must be 4-dimensional."
-        shape = x.shape
+        shape = tf.shape(x)
         return tf.image.random_crop(
             x, (shape[0], shape[1] - self.shift, shape[2] - self.shift, shape[-1]))
 

@@ -148,8 +148,6 @@ class FeatureOptimizer:
             .step(RandomCrop(unit * 2)) \
             .step(RandomCrop(unit * 2)) \
             .step(RandomCrop(unit * 4)) \
-            .step(RandomCrop(unit * 4)) \
-            .step(RandomCrop(unit * 4)) \
             .step(RandomResize((0.92, 0.96))) \
             .step(RandomBlur(kernel_size=9, sigma=(1.0, 1.1))) \
             .step(RandomCrop(unit)) \
@@ -162,11 +160,11 @@ class FeatureOptimizer:
         x = tf.nn.sigmoid(x) if normalizer == "sigmoid" \
             else tf.clip_by_value(x, min_value, max_value)
         x = x - tf.reduce_min(x, (1, 2, 3), keepdims=True)
-        x = x / (tf.reduce_max(x, (1, 2, 3), keepdims=True) + 1e-8)
+        x = x / (tf.reduce_max(x, (1, 2, 3), keepdims=True) + 1e-6)
         return x * (max_value - min_value) + min_value
 
     @staticmethod
-    def _regularization_func(reg_type, weight):
+    def _regularize(reg_type, weight):
         if reg_type is None or reg_type == "":
             return lambda x: 0
         elif reg_type == "l1":
@@ -191,6 +189,7 @@ class FeatureOptimizer:
             verbose=False
     ):
         from omnixai.utils.misc import ProgressBar
+        bar = ProgressBar(num_iterations) if verbose else None
 
         model, objective_func, input_shape = self._build_model()
         optimizer = tf.keras.optimizers.Adam(learning_rate)
@@ -198,6 +197,10 @@ class FeatureOptimizer:
             else (input_shape[0], *image_shape, input_shape[-1])
         if transformer is None:
             transformer = self._default_transform(min(shape[1], shape[2]))
+        if regularizers is not None:
+            if not isinstance(regularizers, list):
+                regularizers = [regularizers]
+            regularizers = [self._regularize(reg, w) for reg, w in regularizers]
 
         inputs = tf.Variable(
             tf.random.normal(shape, stddev=0.01, dtype=tf.float32),
@@ -209,34 +212,28 @@ class FeatureOptimizer:
             min_value=pixel_value_range[0],
             max_value=pixel_value_range[1]
         )
-        if regularizers is not None:
-            if not isinstance(regularizers, list):
-                regularizers = [regularizers]
-            regularizers = [
-                self._regularization_func(reg_type, weight)
-                for reg_type, weight in regularizers
-            ]
 
-        results = []
-        bar = ProgressBar(num_iterations) if verbose else None
-        for i in range(num_iterations):
+        @tf.function
+        def step(x):
             with tf.GradientTape() as tape:
-                tape.watch(inputs)
-                images = transformer.transform(normalize(inputs))
+                tape.watch(x)
+                images = transformer.transform(normalize(x))
                 images = tf.image.resize(images, (input_shape[1], input_shape[2]))
                 outputs = model(images)
                 if len(model.outputs) == 1:
                     outputs = tf.expand_dims(outputs, 0)
-
                 loss = objective_func(outputs)
                 if regularizers is not None:
                     for func in regularizers:
                         loss -= func(images)
-                grads = tape.gradient(loss, inputs)
-                if verbose:
-                    bar.print(i + 1, prefix=f"Step: {i + 1}", suffix="")
+                return tape.gradient(loss, x)
 
+        results = []
+        for i in range(num_iterations):
+            grads = step(inputs)
             optimizer.apply_gradients([(-grads, inputs)])
             if save_all_images or i == num_iterations - 1:
-                results.append(normalize(inputs))
+                results.append(normalize(inputs).numpy())
+            if verbose:
+                bar.print(i + 1, prefix=f"Step: {i + 1}", suffix="")
         return results
