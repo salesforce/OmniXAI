@@ -210,7 +210,7 @@ class FeatureOptimizer:
             max_value=pixel_range[1]
         )
         if regularizers is not None:
-            if not isinstance(regularizers, (list, tuple)):
+            if not isinstance(regularizers, list):
                 regularizers = [regularizers]
             regularizers = [
                 self._regularization_func(reg_type, weight)
