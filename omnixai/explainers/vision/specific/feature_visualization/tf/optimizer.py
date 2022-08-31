@@ -56,7 +56,7 @@ class FeatureOptimizer:
             f"The shape of `masks` doesn't match the number of objectives, " \
             f"{masks.shape[1]} != {len(self.objectives)}."
         masks = [tf.cast(tf.stack(masks[:, i]), tf.float32) for i in range(len(self.objectives))]
-        weights = tf.constant([obj.weight for obj in self.objectives])
+        weights = tf.constant([obj.weight for obj in self.objectives], dtype=tf.float32)
 
         def _objective_func(outputs):
             loss = 0.0
