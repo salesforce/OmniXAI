@@ -191,7 +191,7 @@ class FeatureOptimizer:
     def optimize(
             self,
             num_iterations=200,
-            learning_rate=0.02,
+            learning_rate=0.04,
             transformers=None,
             regularizers=None,
             image_shape=None,
