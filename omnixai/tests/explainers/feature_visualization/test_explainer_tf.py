@@ -14,8 +14,6 @@ class TestExplainer(unittest.TestCase):
 
     def setUp(self) -> None:
         self.model = vgg16.VGG16()
-        for layer in self.model.layers:
-            print(layer)
 
     @staticmethod
     def _plot(x):
@@ -27,7 +25,7 @@ class TestExplainer(unittest.TestCase):
         objectives = [
             Objective(
                 layer=self.model.layers[15],
-                channel_indices=[0, 1, 2, 3, 4, 5]
+                channel_indices=list(range(5))
             )
         ]
         optimizer = FeatureOptimizer(
