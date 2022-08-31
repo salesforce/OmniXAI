@@ -35,7 +35,7 @@ class TestExplainer(unittest.TestCase):
             objectives=objectives
         )
         results = optimizer.optimize(
-            num_iterations=256,
+            num_iterations=500,
             verbose=True
         )
         for res in results[-1]:

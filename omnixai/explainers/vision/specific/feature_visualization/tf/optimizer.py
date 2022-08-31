@@ -172,7 +172,7 @@ class FeatureOptimizer:
         x = tf.nn.sigmoid(x) if normalizer == "sigmoid" \
             else tf.clip_by_value(x, min_value, max_value)
         x = x - tf.reduce_min(x, (1, 2, 3), keepdims=True)
-        x = x / (tf.reduce_max(x, (1, 2, 3), keepdims=True) + 1e-6)
+        x = x / (tf.reduce_max(x, (1, 2, 3), keepdims=True) + 1e-8)
         return x * (max_value - min_value) + min_value
 
     @staticmethod
@@ -190,13 +190,13 @@ class FeatureOptimizer:
 
     def optimize(
             self,
-            num_iterations=200,
-            learning_rate=0.04,
+            num_iterations=500,
+            learning_rate=0.05,
             transformers=None,
             regularizers=None,
             image_shape=None,
             value_normalizer="sigmoid",
-            value_range=(0, 1),
+            value_range=(0.1, 0.9),
             init_std=0.01,
             normal_color=False,
             save_all_images=False,
