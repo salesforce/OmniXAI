@@ -14,7 +14,7 @@ class RandomBlur(TransformBase):
     Blurs image with randomly chosen Gaussian blur
     """
 
-    def __init__(self, kernel_size, sigma=(0.9, 1.1)):
+    def __init__(self, kernel_size, sigma=(0.8, 1.2)):
         super().__init__()
         assert isinstance(sigma, (list, tuple)), \
             "`sigma` should be a list or a tuple with size 2, e.g., (min_sigma, max_sigma)."

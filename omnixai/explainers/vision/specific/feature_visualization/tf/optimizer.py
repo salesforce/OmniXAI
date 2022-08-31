@@ -142,12 +142,12 @@ class FeatureOptimizer:
         from .preprocess import RandomBlur, RandomCrop, \
             RandomResize, RandomFlip, Padding
 
-        unit = int(size / 16)
+        unit = max(int(size / 32), 2)
         pipeline = Pipeline() \
             .step(Padding(size=unit * 4)) \
             .step(RandomCrop(unit * 2)) \
             .step(RandomCrop(unit * 4)) \
-            .step(RandomResize((0.9, 1.0))) \
+            .step(RandomResize((0.8, 1.2))) \
             .step(RandomBlur(kernel_size=9)) \
             .step(RandomCrop(unit)) \
             .step(RandomCrop(unit)) \
