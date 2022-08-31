@@ -33,10 +33,8 @@ class TestExplainer(unittest.TestCase):
             objectives=objectives
         )
         results = optimizer.optimize(
-            num_iterations=300
+            num_iterations=10
         )
-        for res in results[-1]:
-            self._plot(res)
 
 
 if __name__ == "__main__":
