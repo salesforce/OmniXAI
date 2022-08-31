@@ -148,7 +148,8 @@ class FeatureOptimizer:
             .step(RandomCrop(unit * 2)) \
             .step(RandomCrop(unit * 4)) \
             .step(RandomResize((0.9, 1.0))) \
-            .step(RandomBlur(kernel_size=9, sigma=(0.9, 1.0))) \
+            .step(RandomBlur(kernel_size=9)) \
+            .step(RandomCrop(unit)) \
             .step(RandomCrop(unit)) \
             .step(RandomFlip())
         return pipeline
@@ -190,17 +191,17 @@ class FeatureOptimizer:
 
     def optimize(
             self,
-            num_iterations=500,
+            num_iterations=300,
             learning_rate=0.05,
             transformers=None,
             regularizers=None,
             image_shape=None,
             value_normalizer="sigmoid",
-            value_range=(0.1, 0.9),
+            value_range=(0.05, 0.95),
             init_std=0.01,
             normal_color=False,
             save_all_images=False,
-            verbose=False
+            verbose=True
     ):
         from omnixai.utils.misc import ProgressBar
         bar = ProgressBar(num_iterations) if verbose else None
