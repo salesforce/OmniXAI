@@ -1,0 +1,40 @@
+#
+# Copyright (c) 2022 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+#
+import torch
+import unittest
+import numpy as np
+import torch.nn as nn
+from omnixai.explainers.vision.specific.feature_visualization.tf.optimizer import \
+    Objective, FeatureOptimizer
+
+
+class TestFeatureOptimizer(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.model = nn.Sequential(
+            nn.Conv2d(3, 16, 3),
+            nn.Conv2d(16, 16, 3),
+            nn.MaxPool2d(2),
+            nn.Conv2d(16, 16, 3),
+            nn.Conv2d(16, 16, 3),
+            nn.MaxPool2d(2),
+            nn.Flatten()
+        )
+        print(self.model)
+
+    def test_layer(self):
+        objective = Objective(
+            layer=self.model[4]
+        )
+        optimizer = FeatureOptimizer(
+            model=self.model,
+            objectives=objective
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()

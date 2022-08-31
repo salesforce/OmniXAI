@@ -20,10 +20,10 @@ class TestFeatureOptimizer(unittest.TestCase):
             tf.keras.layers.Conv2D(16, (3, 3)),
             tf.keras.layers.MaxPool2D((2, 2)),
             tf.keras.layers.Conv2D(16, (3, 3)),
-            tf.keras.layers.Conv2D(16, (3, 3), name="features"),
+            tf.keras.layers.Conv2D(16, (3, 3)),
             tf.keras.layers.MaxPool2D((2, 2)),
-            tf.keras.layers.Flatten(name="pre-logits"),
-            tf.keras.layers.Dense(10, name="logits")
+            tf.keras.layers.Flatten(),
+            tf.keras.layers.Dense(10)
         ])
         self.model.compile()
 
@@ -158,7 +158,7 @@ class TestFeatureOptimizer(unittest.TestCase):
             objectives=objectives
         )
         results = optimizer.optimize(
-            num_iterations=10,
+            num_iterations=2,
             regularizers=("l1", 0.001),
             verbose=True
         )
