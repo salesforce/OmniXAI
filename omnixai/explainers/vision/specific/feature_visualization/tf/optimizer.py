@@ -146,13 +146,9 @@ class FeatureOptimizer:
         pipeline = Pipeline() \
             .step(Padding(size=unit * 4)) \
             .step(RandomCrop(unit * 2)) \
-            .step(RandomCrop(unit * 2)) \
-            .step(RandomCrop(unit * 4)) \
-            .step(RandomCrop(unit * 4)) \
             .step(RandomCrop(unit * 4)) \
             .step(RandomResize((0.9, 1.0))) \
             .step(RandomBlur(kernel_size=9, sigma=(0.9, 1.0))) \
-            .step(RandomCrop(unit)) \
             .step(RandomCrop(unit)) \
             .step(RandomFlip())
         return pipeline
@@ -202,7 +198,7 @@ class FeatureOptimizer:
             value_normalizer="sigmoid",
             value_range=(0, 1),
             init_std=0.01,
-            normal_color=True,
+            normal_color=False,
             save_all_images=False,
             verbose=False
     ):

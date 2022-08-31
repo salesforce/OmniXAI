@@ -5,7 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 import unittest
-from tensorflow.keras.applications import mobilenet_v2
+from tensorflow.keras.applications import vgg16
 from omnixai.explainers.vision.specific.feature_visualization.tf.optimizer import \
     Objective, FeatureOptimizer
 
@@ -13,8 +13,9 @@ from omnixai.explainers.vision.specific.feature_visualization.tf.optimizer impor
 class TestExplainer(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.model = mobilenet_v2.MobileNetV2(
-            include_top=True, weights="imagenet", classes=1000)
+        self.model = vgg16.VGG16()
+        for layer in self.model.layers:
+            print(layer)
 
     @staticmethod
     def _plot(x):
@@ -25,7 +26,8 @@ class TestExplainer(unittest.TestCase):
     def test(self):
         objectives = [
             Objective(
-                layer=self.model.layers[-5]
+                layer=self.model.layers[15],
+                channel_indices=[0, 1, 2, 3, 4, 5]
             )
         ]
         optimizer = FeatureOptimizer(
@@ -36,7 +38,8 @@ class TestExplainer(unittest.TestCase):
             num_iterations=256,
             verbose=True
         )
-        self._plot(results[-1][0])
+        for res in results[-1]:
+            self._plot(res)
 
 
 if __name__ == "__main__":
