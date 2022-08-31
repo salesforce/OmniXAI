@@ -201,7 +201,8 @@ class FeatureOptimizer:
             init_std=0.01,
             normal_color=False,
             save_all_images=False,
-            verbose=True
+            verbose=True,
+            **kwargs
     ):
         from omnixai.utils.misc import ProgressBar
         bar = ProgressBar(num_iterations) if verbose else None

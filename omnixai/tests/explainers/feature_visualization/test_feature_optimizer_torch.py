@@ -8,14 +8,15 @@ import torch
 import unittest
 import numpy as np
 import torch.nn as nn
-from omnixai.explainers.vision.specific.feature_visualization.tf.optimizer import \
+from omnixai.explainers.vision.specific.feature_visualization.pytorch.optimizer import \
     Objective, FeatureOptimizer
 
 
-class TestFeatureOptimizer(unittest.TestCase):
+class Model(nn.Module):
 
-    def setUp(self) -> None:
-        self.model = nn.Sequential(
+    def __init__(self):
+        super(Model, self).__init__()
+        self.layers = nn.Sequential(
             nn.Conv2d(3, 16, 3),
             nn.Conv2d(16, 16, 3),
             nn.MaxPool2d(2),
@@ -24,15 +25,26 @@ class TestFeatureOptimizer(unittest.TestCase):
             nn.MaxPool2d(2),
             nn.Flatten()
         )
-        print(self.model)
+
+    def forward(self, x):
+        return self.layers(x)
+
+
+class TestFeatureOptimizer(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.model = Model()
 
     def test_layer(self):
         objective = Objective(
-            layer=self.model[4]
+            layer=self.model.layers[4]
         )
         optimizer = FeatureOptimizer(
             model=self.model,
             objectives=objective
+        )
+        optimizer.optimize(
+            image_shape=(64, 64)
         )
 
 
