@@ -131,7 +131,8 @@ class FeatureOptimizer:
 
     @staticmethod
     def _dot_cos(x, y):
-        return 0
+        dot = torch.sum(x * y)
+        return dot
 
     @staticmethod
     def _default_transform(size):
