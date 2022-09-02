@@ -10,6 +10,7 @@ import torch.nn as nn
 import numpy as np
 from typing import Union, List
 from dataclasses import dataclass
+from collections import defaultdict
 
 
 @dataclass
@@ -51,8 +52,11 @@ class FeatureOptimizer:
         return _activation_hook
 
     def _register_hooks(self):
+        indices = defaultdict(list)
         for i, obj in enumerate(self.objectives):
-            self.hooks.append(obj.layer.register_forward_hook(self._get_hook(i)))
+            indices[obj.layer].append(i)
+        for layer, index in indices.items():
+            self.hooks.append(layer.register_forward_hook(self._get_hook(index)))
 
     def _unregister_hooks(self):
         for hooks in self.hooks:
