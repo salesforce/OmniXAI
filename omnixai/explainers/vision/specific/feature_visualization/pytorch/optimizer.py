@@ -105,7 +105,15 @@ class FeatureOptimizer:
         loss = 0
         for i, obj in enumerate(self.formatted_objectives):
             outputs = self.layer_outputs[i]
+            # Layer loss
             if obj["type"] == "layer":
+                loss += -torch.mean(
+                    outputs, dim=list(range(1, len(outputs.shape)))
+                ) * obj["weight"]
+            # Channel loss
+            elif obj["type"] == "channel":
+                idx = torch.arange(outputs.shape[0])
+                outputs = outputs[idx, obj["batch_indices"]]
                 loss += -torch.mean(
                     outputs, dim=list(range(1, len(outputs.shape)))
                 ) * obj["weight"]
@@ -221,8 +229,10 @@ class FeatureOptimizer:
             if regularizers is not None:
                 for func in regularizers:
                     loss += func(images)
+
             optimizer.zero_grad()
-            loss.backward()
+            grad = torch.autograd.grad(torch.unbind(loss), inputs)[0]
+            inputs.grad = grad
             optimizer.step()
 
             if save_all_images or i == num_iterations - 1:
