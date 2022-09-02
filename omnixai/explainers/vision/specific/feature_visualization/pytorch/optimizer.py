@@ -117,6 +117,14 @@ class FeatureOptimizer:
                 loss += -torch.mean(
                     outputs, dim=list(range(1, len(outputs.shape)))
                 ) * obj["weight"]
+            # Neuron loss
+            elif obj["type"] == "neuron":
+                idx = torch.arange(outputs.shape[0])
+                y = outputs.reshape((outputs.shape[0], -1))
+                loss += -y[idx, obj["batch_indices"]] * obj["weight"]
+            # Direction loss
+            elif obj["type"] == "direction":
+                pass
         return loss
 
     @staticmethod
