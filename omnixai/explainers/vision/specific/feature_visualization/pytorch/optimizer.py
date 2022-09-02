@@ -126,8 +126,12 @@ class FeatureOptimizer:
                 loss += -y[idx, obj["batch_indices"]] * obj["weight"]
             # Direction loss
             elif obj["type"] == "direction":
-                pass
+                loss += -self._dot_cos(outputs, obj["vector"])
         return loss
+
+    @staticmethod
+    def _dot_cos(x, y):
+        return 0
 
     @staticmethod
     def _default_transform(size):
