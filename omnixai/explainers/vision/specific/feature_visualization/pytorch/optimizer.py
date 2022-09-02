@@ -5,6 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 import torch
+import torchvision
 import torch.nn as nn
 import numpy as np
 from typing import Union, List
@@ -31,7 +32,7 @@ class FeatureOptimizer:
             objectives: Union[Objective, List[Objective]],
             **kwargs
     ):
-        self.model = model
+        self.model = model.eval()
         self.objectives = objectives if isinstance(objectives, (list, tuple)) \
             else [objectives]
 
@@ -55,24 +56,126 @@ class FeatureOptimizer:
     def __del__(self):
         self._unregister_hooks()
 
+    def _loss(self):
+        output = self.layer_outputs[0]
+        return -torch.mean(output, dim=list(range(1, len(output.shape))))
+
+    @staticmethod
+    def _default_transform(size):
+        from omnixai.preprocessing.pipeline import Pipeline
+        from .preprocess import RandomBlur, RandomCrop, \
+            RandomResize, RandomFlip, Padding
+
+        unit = max(int(size / 32), 2)
+        pipeline = Pipeline() \
+            .step(Padding(size=unit * 4)) \
+            .step(RandomCrop(unit * 2)) \
+            .step(RandomCrop(unit * 4)) \
+            .step(RandomResize((0.8, 1.2))) \
+            .step(RandomBlur(kernel_size=9)) \
+            .step(RandomCrop(unit)) \
+            .step(RandomCrop(unit)) \
+            .step(RandomFlip())
+        return pipeline
+
+    @staticmethod
+    def _normal_color(x):
+        mat = torch.tensor(
+            [[0.56282854, 0.58447580, 0.58447580],
+             [0.19482528, 0.00000000, -0.19482528],
+             [0.04329450, -0.10823626, 0.06494176]],
+            dtype=x.dtype,
+            device=x.device
+        )
+        y = torch.transpose(torch.transpose(x, 1, 2), 2, 3)
+        y = torch.matmul(y.reshape((-1, 3)), mat).reshape(y.shape)
+        return torch.transpose(torch.transpose(y, 2, 3), 1, 2)
+
+    @staticmethod
+    def _normalize(x, normalizer, value_range, normal_color=True):
+        if normal_color:
+            x = FeatureOptimizer._normal_color(x)
+        min_value, max_value = value_range
+        x = torch.sigmoid(x) if normalizer == "sigmoid" \
+            else torch.clip(x, min_value, max_value)
+        y = x.reshape((x.shape[0], -1))
+        y = y - torch.min(y, dim=1, keepdim=True)[0]
+        y = y / (torch.max(y, dim=1, keepdim=True)[0] + 1e-8)
+        y = y * (max_value - min_value) + min_value
+        return y.reshape(x.shape)
+
+    @staticmethod
+    def total_variation(x):
+        b, c, h, w = x.shape
+        tv_h = torch.pow(x[:, :, 1:, :] - x[:, :, :-1, :], 2).sum()
+        tv_w = torch.pow(x[:, :, :, 1:] - x[:, :, :, :-1], 2).sum()
+        return (tv_h + tv_w) / (b * c * h * w)
+
+    @staticmethod
+    def _regularize(reg_type, weight):
+        if reg_type is None or reg_type == "":
+            return lambda x: 0
+        elif reg_type == "l1":
+            return lambda x: torch.mean(torch.abs(x), dim=(1, 2, 3)) * weight
+        elif reg_type == "l2":
+            return lambda x: torch.sqrt(torch.mean(x ** 2, dim=(1, 2, 3))) * weight
+        elif reg_type == "tv":
+            return lambda x: FeatureOptimizer.total_variation(x) * weight
+        else:
+            raise ValueError(f"Unknown regularization type: {reg_type}")
+
     def optimize(
             self,
-            image_shape,
-            num_channels=None,
+            *,
+            num_iterations=300,
+            learning_rate=0.05,
+            transformers=None,
+            regularizers=None,
+            image_shape=None,
+            value_normalizer="sigmoid",
+            value_range=(0.05, 0.95),
+            init_std=0.01,
+            normal_color=False,
+            save_all_images=False,
+            verbose=True,
     ):
-        if num_channels is None:
-            num_channels = 3
+        from omnixai.utils.misc import ProgressBar
+        bar = ProgressBar(num_iterations) if verbose else None
+
+        if image_shape is None:
+            image_shape = (224, 224)
+        if transformers is None:
+            transformers = self._default_transform(min(image_shape[0], image_shape[1]))
+        if regularizers is not None:
+            if not isinstance(regularizers, list):
+                regularizers = [regularizers]
+            regularizers = [self._regularize(reg, w) for reg, w in regularizers]
+
         device = next(self.model.parameters()).device
-        values = np.zeros((1, num_channels, *image_shape))
         inputs = torch.tensor(
-            values, dtype=torch.float32, requires_grad=True, device=device)
-        optimizer = torch.optim.Adam([inputs], lr=0.1)
+            np.random.randn(*(1, 3, *image_shape)) * init_std,
+            dtype=torch.float32,
+            requires_grad=True,
+            device=device
+        )
+        optimizer = torch.optim.Adam([inputs], lr=learning_rate)
+        normalize = lambda x: self._normalize(x, value_normalizer, value_range, normal_color)
 
-        outputs = self.model(inputs)
-        print(outputs.shape)
-        print(self.layer_outputs[0].shape)
+        results = []
+        for i in range(num_iterations):
+            images = transformers.transform(normalize(inputs))
+            images = torchvision.transforms.Resize((image_shape[0], image_shape[1]))(images)
+            self.model(images)
+            loss = self._loss()
+            if regularizers is not None:
+                for func in regularizers:
+                    loss += func(images)
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
 
-        loss = torch.mean(self.layer_outputs[0])
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+            if save_all_images or i == num_iterations - 1:
+                results.append(normalize(inputs).detach().cpu().numpy())
+            if verbose:
+                bar.print(i + 1, prefix=f"Step: {i + 1}", suffix="")
+        return results

@@ -6,47 +6,40 @@
 #
 import torch
 import unittest
-import torch.nn as nn
+import numpy as np
+from torchvision import models
 from omnixai.explainers.vision.specific.feature_visualization.pytorch.optimizer import \
     Objective, FeatureOptimizer
 
 
-class Model(nn.Module):
-
-    def __init__(self):
-        super(Model, self).__init__()
-        self.layers = nn.Sequential(
-            nn.Conv2d(3, 16, 3),
-            nn.Conv2d(16, 16, 3),
-            nn.MaxPool2d(2),
-            nn.Conv2d(16, 16, 3),
-            nn.Conv2d(16, 16, 3),
-            nn.MaxPool2d(2),
-            nn.Flatten()
-        )
-
-    def forward(self, x):
-        return self.layers(x)
-
-
-class TestFeatureOptimizer(unittest.TestCase):
+class TestExplainer(unittest.TestCase):
 
     def setUp(self) -> None:
         device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model = Model().to(device)
+        self.model = models.vgg16(pretrained=True).to(device)
+        print(self.model.features)
+
+    @staticmethod
+    def _plot(x):
+        import matplotlib.pyplot as plt
+        x = np.swapaxes(np.swapaxes(x, 0, 1), 1, 2)
+        plt.imshow(x)
+        plt.show()
 
     def test_layer(self):
         objective = Objective(
-            layer=self.model.layers[4]
+            layer=self.model.features[17]
         )
         optimizer = FeatureOptimizer(
             model=self.model,
             objectives=objective
         )
-        optimizer.optimize(
-            num_iterations=10,
-            image_shape=(64, 64)
+        results = optimizer.optimize(
+            num_iterations=300,
+            image_shape=(224, 224)
         )
+        for res in results[-1]:
+            self._plot(res)
 
 
 if __name__ == "__main__":
