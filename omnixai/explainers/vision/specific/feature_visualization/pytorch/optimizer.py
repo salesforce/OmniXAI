@@ -37,6 +37,8 @@ class FeatureOptimizer:
         self.model = model.eval()
         self.objectives = objectives if isinstance(objectives, (list, tuple)) \
             else [objectives]
+        self.formatted_objectives, self.num_combinations = \
+            self._process_objectives()
 
         self.hooks = []
         self.layer_outputs = {}
@@ -69,7 +71,7 @@ class FeatureOptimizer:
     def _process_objectives(self):
         results = []
         for obj in self.objectives:
-            r = {"layer": obj.layer, "weight": obj.weight}
+            r = {"weight": obj.weight}
             if obj.direction_vectors is not None:
                 r["type"] = "direction"
                 vectors = obj.direction_vectors \
@@ -91,11 +93,21 @@ class FeatureOptimizer:
                 r["type"] = "layer"
                 r["indices"] = (0,)
             results.append(r)
-        return results
+
+        indices = np.array(
+            [m for m in itertools.product(*[r["indices"] for r in results])], dtype=int)
+        assert indices.shape[1] == len(self.objectives)
+        for i, r in enumerate(results):
+            r["batch_indices"] = indices[:, i]
+        return results, indices.shape[0]
 
     def _loss(self):
-        output = self.layer_outputs[0]
-        return -torch.mean(output, dim=list(range(1, len(output.shape))))
+        loss = 0
+        for i, obj in enumerate(self.formatted_objectives):
+            outputs = self.layer_outputs[i]
+            if obj["type"] == "layer":
+                loss += -torch.mean(outputs, dim=list(range(1, len(outputs.shape)))) * obj["weight"]
+        return loss
 
     @staticmethod
     def _default_transform(size):
@@ -190,7 +202,7 @@ class FeatureOptimizer:
 
         device = next(self.model.parameters()).device
         inputs = torch.tensor(
-            np.random.randn(*(1, 3, *image_shape)) * init_std,
+            np.random.randn(*(self.num_combinations, 3, *image_shape)) * init_std,
             dtype=torch.float32,
             requires_grad=True,
             device=device
