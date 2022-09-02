@@ -29,7 +29,7 @@ class TestExplainer(unittest.TestCase):
     def test_layer(self):
         objectives = [
             Objective(
-                layer=self.model.features[28],
+                layer=self.model.features[20],
                 channel_indices=list(range(5))
             )
         ]
