@@ -106,7 +106,9 @@ class FeatureOptimizer:
         for i, obj in enumerate(self.formatted_objectives):
             outputs = self.layer_outputs[i]
             if obj["type"] == "layer":
-                loss += -torch.mean(outputs, dim=list(range(1, len(outputs.shape)))) * obj["weight"]
+                loss += -torch.mean(
+                    outputs, dim=list(range(1, len(outputs.shape)))
+                ) * obj["weight"]
         return loss
 
     @staticmethod
