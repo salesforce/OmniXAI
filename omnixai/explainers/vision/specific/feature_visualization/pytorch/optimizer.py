@@ -41,8 +41,13 @@ class FeatureOptimizer:
         self._register_hooks()
 
     def _get_hook(self, index):
+        if isinstance(index, int):
+            index = [index]
+
         def _activation_hook(module, inputs, outputs):
-            self.layer_outputs[index] = outputs
+            for i in index:
+                self.layer_outputs[i] = outputs
+
         return _activation_hook
 
     def _register_hooks(self):
