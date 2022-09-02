@@ -27,13 +27,15 @@ class TestExplainer(unittest.TestCase):
         plt.show()
 
     def test_layer(self):
-        objective = Objective(
-            layer=self.model.features[19],
-            channel_indices=[0, 1, 2, 3, 4]
-        )
+        objectives = [
+            Objective(
+                layer=self.model.features[28],
+                channel_indices=list(range(5))
+            )
+        ]
         optimizer = FeatureOptimizer(
             model=self.model,
-            objectives=objective
+            objectives=objectives
         )
         results = optimizer.optimize(
             num_iterations=300,
