@@ -78,7 +78,7 @@ class FeatureOptimizer:
                     if isinstance(obj.direction_vectors, list) \
                     else [obj.direction_vectors]
                 r["indices"] = list(range(len(vectors)))
-                r["vector"] = vectors
+                r["vector"] = np.array(vectors, dtype=np.float32)
             elif obj.channel_indices is not None:
                 r["type"] = "channel"
                 r["indices"] = [obj.channel_indices] \
@@ -99,6 +99,8 @@ class FeatureOptimizer:
         assert indices.shape[1] == len(self.objectives)
         for i, r in enumerate(results):
             r["batch_indices"] = indices[:, i]
+            if r["type"] == "direction":
+                r["vector"] = r["vector"][r["batch_indices"], ...]
         return results, indices.shape[0]
 
     def _loss(self):
