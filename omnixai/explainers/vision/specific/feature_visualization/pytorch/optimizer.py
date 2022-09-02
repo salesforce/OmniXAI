@@ -131,10 +131,11 @@ class FeatureOptimizer:
 
     @staticmethod
     def _dot_cos(x, y):
-        dim = list(range(1, len(x.shape)))
-        a = x / torch.norm(x, dim=dim, keepdim=True)
-        b = y / torch.norm(y, dim=dim, keepdim=True)
-        cos = torch.clamp(torch.sum(a * b, dim), min=1e-1) ** 2
+        x = x.view((x.shape[0], -1))
+        y = y.view((y.shape[0], -1))
+        a = x / torch.norm(x, dim=1, keepdim=True)
+        b = y / torch.norm(y, dim=1, keepdim=True)
+        cos = torch.clamp(torch.sum(a * b, dim=1), min=1e-1) ** 2
         dot = torch.sum(x * y)
         return dot * cos
 
