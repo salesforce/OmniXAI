@@ -8,19 +8,10 @@ import itertools
 import numpy as np
 import tensorflow as tf
 from typing import Union, List
-from dataclasses import dataclass
+from ..utils import Objective, FeatureOptimizerMixin
 
 
-@dataclass
-class Objective:
-    layer: tf.keras.layers.Layer
-    weight: float = 1.0
-    channel_indices: Union[int, List[int]] = None
-    neuron_indices: Union[int, List[int]] = None
-    direction_vectors: Union[np.ndarray, List[np.ndarray]] = None
-
-
-class FeatureOptimizer:
+class FeatureOptimizer(FeatureOptimizerMixin):
     """
     The optimizer for feature visualization. The implementation is adapted from:
     https://github.com/deel-ai/xplique/tree/master/xplique/features_visualizations
