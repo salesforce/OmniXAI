@@ -4,26 +4,16 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
-import itertools
 import torch
 import torchvision
 import torch.nn as nn
 import numpy as np
 from typing import Union, List
-from dataclasses import dataclass
 from collections import defaultdict
+from ..utils import Objective, FeatureOptimizerMixin
 
 
-@dataclass
-class Objective:
-    layer: nn.Module
-    weight: float = 1.0
-    channel_indices: Union[int, List[int]] = None
-    neuron_indices: Union[int, List[int]] = None
-    direction_vectors: Union[np.ndarray, List[np.ndarray]] = None
-
-
-class FeatureOptimizer:
+class FeatureOptimizer(FeatureOptimizerMixin):
     """
     The optimizer for feature visualization.
     """
@@ -38,7 +28,7 @@ class FeatureOptimizer:
         self.objectives = objectives if isinstance(objectives, (list, tuple)) \
             else [objectives]
         self.formatted_objectives, self.num_combinations = \
-            self._process_objectives()
+            self._process_objectives(objectives)
 
         self.hooks = []
         self.layer_outputs = {}
@@ -68,41 +58,6 @@ class FeatureOptimizer:
     def __del__(self):
         self._unregister_hooks()
 
-    def _process_objectives(self):
-        results = []
-        for obj in self.objectives:
-            r = {"weight": obj.weight}
-            if obj.direction_vectors is not None:
-                r["type"] = "direction"
-                vectors = obj.direction_vectors \
-                    if isinstance(obj.direction_vectors, list) \
-                    else [obj.direction_vectors]
-                r["indices"] = list(range(len(vectors)))
-                r["vector"] = np.array(vectors, dtype=np.float32)
-            elif obj.channel_indices is not None:
-                r["type"] = "channel"
-                r["indices"] = [obj.channel_indices] \
-                    if isinstance(obj.channel_indices, int) \
-                    else obj.channel_indices
-            elif obj.neuron_indices is not None:
-                r["type"] = "neuron"
-                r["indices"] = [obj.neuron_indices] \
-                    if isinstance(obj.neuron_indices, int) \
-                    else obj.neuron_indices
-            else:
-                r["type"] = "layer"
-                r["indices"] = (0,)
-            results.append(r)
-
-        indices = np.array(
-            [m for m in itertools.product(*[r["indices"] for r in results])], dtype=int)
-        assert indices.shape[1] == len(self.objectives)
-        for i, r in enumerate(results):
-            r["batch_indices"] = indices[:, i]
-            if r["type"] == "direction":
-                r["vector"] = torch.tensor(r["vector"][r["batch_indices"], ...])
-        return results, indices.shape[0]
-
     def _loss(self):
         loss = 0
         for i, obj in enumerate(self.formatted_objectives):
@@ -126,7 +81,9 @@ class FeatureOptimizer:
                 loss += -y[idx, obj["batch_indices"]] * obj["weight"]
             # Direction loss
             elif obj["type"] == "direction":
-                loss += -self._dot_cos(outputs, obj["vector"].to(outputs.device))
+                if isinstance(obj["vector"], np.ndarray):
+                    obj["vector"] = torch.tensor(obj["vector"], device=outputs.device)
+                loss += -self._dot_cos(outputs, obj["vector"])
         return loss
 
     @staticmethod
