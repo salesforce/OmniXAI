@@ -4,7 +4,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
-import torch
 import unittest
 import torch.nn as nn
 from omnixai.explainers.vision.specific.feature_visualization.pytorch.optimizer import \
@@ -32,8 +31,7 @@ class Model(nn.Module):
 class TestFeatureOptimizer(unittest.TestCase):
 
     def setUp(self) -> None:
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model = Model().to(device)
+        self.model = Model()
 
     def test_layer(self):
         objective = Objective(

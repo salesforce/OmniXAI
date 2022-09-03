@@ -28,7 +28,7 @@ class FeatureOptimizer(FeatureOptimizerMixin):
         self.objectives = objectives if isinstance(objectives, (list, tuple)) \
             else [objectives]
         self.formatted_objectives, self.num_combinations = \
-            self._process_objectives(objectives)
+            self._process_objectives(self.objectives)
 
         self.hooks = []
         self.layer_outputs = {}
