@@ -100,7 +100,7 @@ class FeatureOptimizer:
         for i, r in enumerate(results):
             r["batch_indices"] = indices[:, i]
             if r["type"] == "direction":
-                r["vector"] = r["vector"][r["batch_indices"], ...]
+                r["vector"] = torch.tensor(r["vector"][r["batch_indices"], ...])
         return results, indices.shape[0]
 
     def _loss(self):
@@ -126,7 +126,7 @@ class FeatureOptimizer:
                 loss += -y[idx, obj["batch_indices"]] * obj["weight"]
             # Direction loss
             elif obj["type"] == "direction":
-                loss += -self._dot_cos(outputs, obj["vector"])
+                loss += -self._dot_cos(outputs, obj["vector"].to(outputs.device))
         return loss
 
     @staticmethod
