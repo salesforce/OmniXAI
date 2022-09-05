@@ -11,6 +11,7 @@ from typing import Dict, List, Union, Tuple
 from ....base import ExplainerBase
 from .....data.image import Image
 from .....preprocessing.pipeline import Pipeline
+from .....explanations.image.plain import PlainExplanation
 
 
 class FeatureVisualizer(ExplainerBase):
@@ -117,6 +118,7 @@ class FeatureVisualizer(ExplainerBase):
         from .....utils.misc import is_torch_available, is_tf_available
         if not is_tf_available() and not is_torch_available():
             raise EnvironmentError("Both Torch and TensorFlow cannot be found.")
+        explanations = PlainExplanation()
 
         value_normalizer = kwargs.get("value_normalizer", "sigmoid")
         value_range = kwargs.get("value_range", (0.05, 0.95))
@@ -161,4 +163,12 @@ class FeatureVisualizer(ExplainerBase):
             batched=True,
             channel_last=model_type == "tf"
         )
-        return images
+        new_names = []
+        for labels in names:
+            new_names.append("|".join([
+                f"{label['layer_name']}_{label['type']}" if label['type'] in ["layer", "direction"]
+                else f"{label['layer_name']}_{label['type']}_{label['index']}"
+                for label in labels])
+            )
+        explanations.add(images, new_names)
+        return explanations

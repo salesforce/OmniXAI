@@ -20,23 +20,16 @@ class TestExplainer(unittest.TestCase):
         # self.model = vgg16.VGG16()
         # self.target_layer = self.model.layers[15]
 
-    @staticmethod
-    def _plot(x):
-        import matplotlib.pyplot as plt
-        plt.imshow(x)
-        plt.show()
-
-    def test_layer(self):
+    def test(self):
         optimizer = FeatureVisualizer(
             model=self.model,
             objectives=[{"layer": self.target_layer, "type": "channel", "index": list(range(5))}]
         )
-        results = optimizer.explain(
+        explanations = optimizer.explain(
             num_iterations=300,
             image_shape=(224, 224)
         )
-        for res in results.to_pil():
-            self._plot(res)
+        explanations.ipython_plot()
 
 
 if __name__ == "__main__":

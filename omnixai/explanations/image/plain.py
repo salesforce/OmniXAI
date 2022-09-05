@@ -7,7 +7,6 @@
 """
 Plain image explanations for vision tasks.
 """
-import numpy as np
 from ..base import ExplanationBase, DashFigure
 
 
@@ -53,7 +52,7 @@ class PlainExplanation(ExplanationBase):
         fig, axes = plt.subplots(num_rows, num_cols, squeeze=False)
 
         for i in range(len(images)):
-            r, c = i // num_cols, i % num_cols
+            r, c = divmod(i, num_cols)
             plt.sca(axes[r, c])
             plt.imshow(images[i].to_pil())
             plt.title(names[i])
@@ -64,6 +63,27 @@ class PlainExplanation(ExplanationBase):
     def _plotly_figure(self, num_figures_per_row=2, **kwargs):
         import plotly.express as px
         from plotly.subplots import make_subplots
+
+        names = self.explanations["name"]
+        images = self.explanations["image"]
+        num_cols = num_figures_per_row
+        num_rows = len(images) // num_cols
+        if num_rows * num_cols != len(images):
+            num_rows += 1
+
+        fig = make_subplots(
+            rows=num_rows,
+            cols=num_cols,
+            subplot_titles=[name for name in names],
+        )
+        for i in range(len(images)):
+            r, c = divmod(i, num_cols)
+            img_figure = px.imshow(images[i].to_pil())
+            fig.add_trace(img_figure.data[0], row=r + 1, col=c + 1)
+
+        fig.update_xaxes(visible=False, showticklabels=False)
+        fig.update_yaxes(visible=False, showticklabels=False)
+        return fig
 
     def plotly_plot(self, num_figures_per_row=2, **kwargs):
         """
