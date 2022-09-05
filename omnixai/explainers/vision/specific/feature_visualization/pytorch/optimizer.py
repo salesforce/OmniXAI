@@ -27,7 +27,7 @@ class FeatureOptimizer(FeatureOptimizerMixin):
         self.model = model.eval()
         self.objectives = objectives if isinstance(objectives, (list, tuple)) \
             else [objectives]
-        self.formatted_objectives, self.num_combinations = \
+        self.formatted_objectives, self.num_combinations, self.names = \
             self._process_objectives(self.objectives)
 
         self.hooks = []
@@ -216,4 +216,4 @@ class FeatureOptimizer(FeatureOptimizerMixin):
                 results.append(normalize(inputs).detach().cpu().numpy())
             if verbose:
                 bar.print(i + 1, prefix=f"Step: {i + 1}", suffix="")
-        return results
+        return results, self.names

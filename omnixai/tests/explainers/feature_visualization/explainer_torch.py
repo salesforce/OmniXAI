@@ -37,11 +37,12 @@ class TestExplainer(unittest.TestCase):
             model=self.model,
             objectives=objectives
         )
-        results = optimizer.optimize(
+        results, names = optimizer.optimize(
             num_iterations=300,
             image_shape=(224, 224)
         )
-        for res in results[-1]:
+        for res, name in zip(results[-1], names):
+            print(name)
             self._plot(res)
 
 

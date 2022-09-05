@@ -48,11 +48,24 @@ class FeatureOptimizerMixin:
                 r["indices"] = (0,)
             results.append(r)
 
+        # Combinations of different objectives
         indices = np.array(
             [m for m in itertools.product(*[r["indices"] for r in results])], dtype=int)
         assert indices.shape[1] == len(objectives)
+        # Set new indices for each combination
         for i, r in enumerate(results):
             r["batch_indices"] = indices[:, i]
             if r["type"] == "direction":
                 r["vector"] = r["vector"][r["batch_indices"], ...]
-        return results, indices.shape[0]
+        # Set names
+        names = []
+        for i in range(indices.shape[0]):
+            labels = []
+            for j, r in enumerate(results):
+                try:
+                    layer_name = objectives[j].layer.name
+                except:
+                    layer_name = type(objectives[j].layer).__name__
+                labels.append({"type": r["type"], "layer_name": layer_name, "index": indices[i, j]})
+            names.append(labels)
+        return results, indices.shape[0], names

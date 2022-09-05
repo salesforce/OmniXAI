@@ -26,6 +26,8 @@ class FeatureOptimizer(FeatureOptimizerMixin):
         self.model = model
         self.objectives = objectives if isinstance(objectives, (list, tuple)) \
             else [objectives]
+        _, _, self.names = \
+            self._process_objectives(self.objectives)
 
     def _build_model(self):
         funcs, masks = [], []
@@ -238,4 +240,4 @@ class FeatureOptimizer(FeatureOptimizerMixin):
                 results.append(normalize(inputs).numpy())
             if verbose:
                 bar.print(i + 1, prefix=f"Step: {i + 1}", suffix="")
-        return results
+        return results, self.names

@@ -32,10 +32,11 @@ class TestExplainer(unittest.TestCase):
             model=self.model,
             objectives=objectives
         )
-        results = optimizer.optimize(
+        results, names = optimizer.optimize(
             num_iterations=300
         )
-        for res in results[-1]:
+        for res, name in zip(results[-1], names):
+            print(name)
             self._plot(res)
 
 
