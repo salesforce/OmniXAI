@@ -39,7 +39,7 @@ class PlainExplanation(ExplanationBase):
         n = max(width // height, height // width) * num_images
         return 1 if n == 1 else min(max((n + t - 1) // t, 2), 8)
 
-    def plot(self, index=0, num_figures_per_row=None, **kwargs):
+    def plot(self, index=None, num_figures_per_row=None, **kwargs):
         """
         Returns a matplotlib figure plotting the stored images.
 
@@ -50,6 +50,7 @@ class PlainExplanation(ExplanationBase):
         import matplotlib.pyplot as plt
         if num_figures_per_row is None:
             num_figures_per_row = self._estimate_num_per_row()
+        index = index if index is not None else 0
 
         exp = self.explanations[index]
         names, images = exp["name"], exp["image"]
@@ -97,7 +98,7 @@ class PlainExplanation(ExplanationBase):
         fig.update_layout(height=400 * num_rows)
         return fig
 
-    def plotly_plot(self, index=0, num_figures_per_row=None, **kwargs):
+    def plotly_plot(self, index=None, num_figures_per_row=None, **kwargs):
         """
         Returns a plotly dash figure plotting the stored images.
 
@@ -105,10 +106,11 @@ class PlainExplanation(ExplanationBase):
         :param num_figures_per_row: The number of figures for each row.
         :return: A plotly dash figure plotting the stored images.
         """
+        index = index if index is not None else 0
         return DashFigure(self._plotly_figure(
             index=index, num_figures_per_row=num_figures_per_row, **kwargs))
 
-    def ipython_plot(self, index=0, num_figures_per_row=None, **kwargs):
+    def ipython_plot(self, index=None, num_figures_per_row=None, **kwargs):
         """
         Plots the stored images in IPython.
 
@@ -117,5 +119,6 @@ class PlainExplanation(ExplanationBase):
         """
         import plotly
 
+        index = index if index is not None else 0
         return plotly.offline.iplot(self._plotly_figure(
             index=index, num_figures_per_row=num_figures_per_row, **kwargs))
