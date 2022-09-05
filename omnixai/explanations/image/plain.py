@@ -83,6 +83,7 @@ class PlainExplanation(ExplanationBase):
 
         fig.update_xaxes(visible=False, showticklabels=False)
         fig.update_yaxes(visible=False, showticklabels=False)
+        fig.update_layout(height=400 * num_rows)
         return fig
 
     def plotly_plot(self, num_figures_per_row=2, **kwargs):

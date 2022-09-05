@@ -13,6 +13,7 @@ from .specific.ig import IntegratedGradientImage
 from .specific.gradcam import GradCAM, GradCAMPlus
 from .specific.cem import ContrastiveExplainer
 from .counterfactual.ce import CounterfactualExplainer
+from .specific.feature_visualization.visualizer import FeatureVisualizer
 
 __all__ = [
     "VisionExplainer",
@@ -25,4 +26,5 @@ __all__ = [
     "GradCAMPlus",
     "ContrastiveExplainer",
     "CounterfactualExplainer",
+    "FeatureVisualizer",
 ]
