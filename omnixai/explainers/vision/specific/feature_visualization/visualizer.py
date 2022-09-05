@@ -7,9 +7,7 @@
 """
 The feature visualizer for vision models.
 """
-import warnings
-import numpy as np
-
+from typing import Dict, List, Union
 from ....base import ExplainerBase
 from .....data.image import Image
 
@@ -27,9 +25,85 @@ class FeatureVisualizer(ExplainerBase):
     def __init__(
             self,
             model,
+            objectives: Union[Dict, List],
             **kwargs,
     ):
         super().__init__()
+        self.model = model
+        self.objectives = self._check_objectives(objectives)
 
-    def explain(self, **kwargs):
+    @staticmethod
+    def _check_objectives(objectives):
         pass
+
+    def explain(
+            self,
+            *,
+            num_iterations=300,
+            learning_rate=0.05,
+            transformers=None,
+            regularizers=None,
+            image_shape=None,
+            normal_color=False,
+            verbose=True,
+            **kwargs
+    ):
+        """
+
+        :param num_iterations:
+        :param learning_rate:
+        :param transformers:
+        :param regularizers:
+        :param image_shape:
+        :param normal_color:
+        :param verbose:
+        :param kwargs:
+        :return:
+        """
+        from .....utils.misc import is_torch_available, is_tf_available
+        if not is_tf_available() and not is_torch_available():
+            raise EnvironmentError("Both Torch and TensorFlow cannot be found.")
+
+        value_normalizer = kwargs.get("value_normalizer", "sigmoid")
+        value_range = kwargs.get("value_range", (0.05, 0.95))
+        init_std = kwargs.get("init_std", 0.01)
+
+        optimizer, model_type = None, None
+        if is_torch_available():
+            import torch.nn as nn
+
+            if isinstance(self.model, nn.Module):
+                from .pytorch.optimizer import FeatureOptimizer
+                optimizer = FeatureOptimizer(self.model, self.objectives)
+                model_type = "torch"
+
+        if optimizer is None and is_tf_available():
+            import tensorflow as tf
+
+            if isinstance(self.model, tf.keras.Model):
+                from .tf.optimizer import FeatureOptimizer
+                optimizer = FeatureOptimizer(self.model, self.objectives)
+                model_type = "tf"
+
+        if optimizer is None:
+            raise TypeError(
+                f"The model ({type(self.model)}) is neither a PyTorch model nor a TensorFlow model.")
+
+        results, names = optimizer.optimize(
+            num_iterations=num_iterations,
+            learning_rate=learning_rate,
+            transformers=transformers,
+            regularizers=regularizers,
+            image_shape=image_shape,
+            value_normalizer=value_normalizer,
+            value_range=value_range,
+            init_std=init_std,
+            normal_color=normal_color,
+            save_all_images=False,
+            verbose=verbose
+        )
+        results = Image(
+            data=results[-1],
+            batched=True,
+            channel_last=model_type == "tf"
+        )
