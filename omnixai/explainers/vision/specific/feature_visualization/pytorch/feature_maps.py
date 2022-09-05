@@ -20,6 +20,7 @@ class FeatureMapExtractor:
 
         self.hooks = []
         self.layer_outputs = None
+        self._register_hooks()
 
     def _get_hook(self):
         def _activation_hook(module, inputs, outputs):
