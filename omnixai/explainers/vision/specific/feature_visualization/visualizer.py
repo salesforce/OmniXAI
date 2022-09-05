@@ -156,8 +156,9 @@ class FeatureVisualizer(ExplainerBase):
             save_all_images=False,
             verbose=verbose
         )
-        results = Image(
+        images = Image(
             data=results[-1] * 255,
             batched=True,
             channel_last=model_type == "tf"
         )
+        return images
