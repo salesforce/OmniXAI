@@ -18,41 +18,41 @@ class PlainExplanation(ExplanationBase):
 
     def __init__(self):
         super().__init__()
-        self.explanations = None
+        self.explanations = []
 
     def __repr__(self):
         return repr(self.explanations)
 
     def add(self, images, names=None):
-        self.explanations = {"image": images, "name": names}
+        self.explanations.append({"image": images, "name": names})
 
     def get_explanations(self):
         """
         Gets the generated explanations.
         """
-        return self.explanations
+        return self.explanations if len(self.explanations) > 1 else self.explanations[0]
 
-    def _estimate_num_per_row(self, t=8):
-        num_images = len(self.explanations["image"])
-        width, height = self.explanations["image"][0].size
+    def _estimate_num_per_row(self, index=0, t=8):
+        exp = self.explanations[index]
+        num_images = len(exp["image"])
+        width, height = exp["image"][0].size
         n = max(width // height, height // width) * num_images
         return 1 if n == 1 else min(max((n + t - 1) // t, 2), 8)
 
-    def plot(self, num_figures_per_row=None, **kwargs):
+    def plot(self, index=0, num_figures_per_row=None, **kwargs):
         """
         Returns a matplotlib figure plotting the stored images.
 
+        :param index: The index of the stored results.
         :param num_figures_per_row: The number of figures for each row.
         :return: A matplotlib figure plotting the stored images.
         """
         import matplotlib.pyplot as plt
-        if self.explanations is None:
-            return
         if num_figures_per_row is None:
             num_figures_per_row = self._estimate_num_per_row()
 
-        names = self.explanations["name"]
-        images = self.explanations["image"]
+        exp = self.explanations[index]
+        names, images = exp["name"], exp["image"]
         num_cols = num_figures_per_row
         num_rows = len(images) // num_cols
         if num_rows * num_cols != len(images):
@@ -69,14 +69,14 @@ class PlainExplanation(ExplanationBase):
             plt.yticks([])
         return fig
 
-    def _plotly_figure(self, num_figures_per_row=None, **kwargs):
+    def _plotly_figure(self, index, num_figures_per_row, **kwargs):
         import plotly.express as px
         from plotly.subplots import make_subplots
         if num_figures_per_row is None:
             num_figures_per_row = self._estimate_num_per_row()
 
-        names = self.explanations["name"]
-        images = self.explanations["image"]
+        exp = self.explanations[index]
+        names, images = exp["name"], exp["image"]
         num_cols = num_figures_per_row
         num_rows = len(images) // num_cols
         if num_rows * num_cols != len(images):
@@ -97,23 +97,25 @@ class PlainExplanation(ExplanationBase):
         fig.update_layout(height=400 * num_rows)
         return fig
 
-    def plotly_plot(self, num_figures_per_row=None, **kwargs):
+    def plotly_plot(self, index=0, num_figures_per_row=None, **kwargs):
         """
         Returns a plotly dash figure plotting the stored images.
 
+        :param index: The index of the stored results.
         :param num_figures_per_row: The number of figures for each row.
         :return: A plotly dash figure plotting the stored images.
         """
         return DashFigure(self._plotly_figure(
-            num_figures_per_row=num_figures_per_row, **kwargs))
+            index=index, num_figures_per_row=num_figures_per_row, **kwargs))
 
-    def ipython_plot(self, num_figures_per_row=None, **kwargs):
+    def ipython_plot(self, index=0, num_figures_per_row=None, **kwargs):
         """
         Plots the stored images in IPython.
 
+        :param index: The index of the stored results.
         :param num_figures_per_row: The number of figures for each row.
         """
         import plotly
 
         return plotly.offline.iplot(self._plotly_figure(
-            num_figures_per_row=num_figures_per_row, **kwargs))
+            index=index, num_figures_per_row=num_figures_per_row, **kwargs))

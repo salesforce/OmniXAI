@@ -7,11 +7,12 @@
 """
 The feature visualizer for vision models.
 """
-from typing import Dict, List, Union, Tuple
+from typing import Dict, List, Union, Tuple, Callable
 from ....base import ExplainerBase
 from .....data.image import Image
 from .....preprocessing.pipeline import Pipeline
 from .....explanations.image.plain import PlainExplanation
+from .....utils.misc import is_torch_available, is_tf_available
 
 
 class FeatureVisualizer(ExplainerBase):
@@ -100,7 +101,7 @@ class FeatureVisualizer(ExplainerBase):
             **kwargs
     ):
         """
-        Generates feature visulizations for the specified model and objectives.
+        Generates feature visualizations for the specified model and objectives.
 
         :param num_iterations: The number of iterations during optimization.
         :param learning_rate: The learning rate during optimization.
@@ -115,7 +116,6 @@ class FeatureVisualizer(ExplainerBase):
         :param verbose: Whether to print the optimization progress.
         :return: The optimized images for the objectives.
         """
-        from .....utils.misc import is_torch_available, is_tf_available
         if not is_tf_available() and not is_torch_available():
             raise EnvironmentError("Both Torch and TensorFlow cannot be found.")
         explanations = PlainExplanation()
@@ -175,3 +175,63 @@ class FeatureVisualizer(ExplainerBase):
             images = [images]
         explanations.add(images, new_names)
         return explanations
+
+
+class FeatureMapVisualizer(ExplainerBase):
+    """
+    The class for feature map visualization.
+    """
+    explanation_type = "local"
+    alias = ["fm", "feature_map"]
+
+    def __init__(
+            self,
+            model,
+            layer,
+            preprocess_function: Callable,
+            **kwargs,
+    ):
+        """
+        :param model: The model to explain.
+        :param layer: The target layer for feature map visualization.
+        :param preprocess_function: The preprocessing function that converts the raw data
+            into the inputs of ``model``.
+        """
+        super().__init__()
+        if not is_tf_available() and not is_torch_available():
+            raise EnvironmentError("Both Torch and Tensorflow cannot be found.")
+
+        self.model = model
+        self.layer = layer
+        self.preprocess = preprocess_function
+
+        extractor = None
+        if is_torch_available():
+            import torch.nn as nn
+
+            if isinstance(self.model, nn.Module):
+                from .pytorch.feature_maps import FeatureMapExtractor
+                extractor = FeatureMapExtractor(self.model, self.layer)
+
+        if extractor is None and is_tf_available():
+            import tensorflow as tf
+
+            if isinstance(self.model, tf.keras.Model):
+                from .tf.feature_maps import FeatureMapExtractor
+                extractor = FeatureMapExtractor(self.model, self.layer)
+
+        if extractor is None:
+            raise TypeError(
+                f"The model ({type(self.model)}) is neither a PyTorch model nor a TensorFlow model.")
+        self.extractor = extractor
+
+    def explain(self, X: Image, **kwargs):
+        """
+        Generates feature map visualizations for the specified layer and inputs.
+
+        :param X: A batch of input images.
+        :return: The feature maps.
+        """
+        explanations = PlainExplanation()
+        inputs = self.preprocess(X) if self.preprocess is not None else X.to_numpy()
+        outputs = self.extractor.extract(inputs)
