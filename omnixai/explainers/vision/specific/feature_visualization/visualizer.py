@@ -29,6 +29,16 @@ class FeatureVisualizer(ExplainerBase):
             objectives: Union[Dict, List],
             **kwargs,
     ):
+        """
+        :param model: The model to explain.
+        :param objectives: A list of objectives for visualization. Each objective has the following format:
+            `{"layer": layer, "type": "layer", "channel", "neuron" or "direction", "index": channel_idx,
+            neuron_idx or direction_vector}`. For example, `{"layer": layer, "type": channel, "index": [0, 1, 2]}`.
+            Here, "layer" indicates the target layer and "type" is the objective type. If "type" is
+            "channel" or "neuron", please set the channel indices or neuron indices. If "type" is
+            "direction", please set the direction vector who shape is the same as the layer output shape
+            (without batch-size dimension).
+        """
         super().__init__()
         self.model = model
         self.objectives = self._check_objectives(objectives)
