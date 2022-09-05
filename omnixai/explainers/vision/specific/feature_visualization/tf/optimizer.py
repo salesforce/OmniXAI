@@ -179,7 +179,8 @@ class FeatureOptimizer(FeatureOptimizerMixin):
         elif reg_type == "l2":
             return lambda x: tf.sqrt(tf.reduce_mean(x ** 2, (1, 2, 3))) * weight
         elif reg_type == "tv":
-            return lambda x: tf.image.total_variation(x) * weight
+            return lambda x: tf.image.total_variation(x) / \
+                             (x.shape[1] * x.shape[2] * x.shape[3]) * weight
         else:
             raise ValueError(f"Unknown regularization type: {reg_type}")
 

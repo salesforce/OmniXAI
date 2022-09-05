@@ -143,9 +143,9 @@ class FeatureOptimizer(FeatureOptimizerMixin):
     @staticmethod
     def total_variation(x):
         b, c, h, w = x.shape
-        tv_h = torch.pow(x[:, :, 1:, :] - x[:, :, :-1, :], 2).sum()
-        tv_w = torch.pow(x[:, :, :, 1:] - x[:, :, :, :-1], 2).sum()
-        return (tv_h + tv_w) / (b * c * h * w)
+        tv_h = torch.sum(torch.pow(x[:, :, 1:, :] - x[:, :, :-1, :], 2), dim=(1, 2, 3))
+        tv_w = torch.sum(torch.pow(x[:, :, :, 1:] - x[:, :, :, :-1], 2), dim=(1, 2, 3))
+        return (tv_h + tv_w) / (c * h * w)
 
     @staticmethod
     def _regularize(reg_type, weight):
