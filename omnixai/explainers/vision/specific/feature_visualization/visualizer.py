@@ -170,5 +170,8 @@ class FeatureVisualizer(ExplainerBase):
                 else f"{label['layer_name']}_{label['type']}_{label['index']}"
                 for label in labels])
             )
+        images = images.to_pil()
+        if not isinstance(images, list):
+            images = [images]
         explanations.add(images, new_names)
         return explanations

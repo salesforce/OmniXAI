@@ -32,7 +32,13 @@ class PlainExplanation(ExplanationBase):
         """
         return self.explanations
 
-    def plot(self, num_figures_per_row=2, **kwargs):
+    def _estimate_num_per_row(self, t=8):
+        num_images = len(self.explanations["image"])
+        width, height = self.explanations["image"][0].size
+        n = max(width // height, height // width) * num_images
+        return 1 if n == 1 else min(max((n + t - 1) // t, 2), 8)
+
+    def plot(self, num_figures_per_row=None, **kwargs):
         """
         Returns a matplotlib figure plotting the stored images.
 
@@ -42,6 +48,8 @@ class PlainExplanation(ExplanationBase):
         import matplotlib.pyplot as plt
         if self.explanations is None:
             return
+        if num_figures_per_row is None:
+            num_figures_per_row = self._estimate_num_per_row()
 
         names = self.explanations["name"]
         images = self.explanations["image"]
@@ -54,16 +62,18 @@ class PlainExplanation(ExplanationBase):
         for i in range(len(images)):
             r, c = divmod(i, num_cols)
             plt.sca(axes[r, c])
-            plt.imshow(images[i].to_pil())
+            plt.imshow(images[i])
             if names is not None:
                 plt.title(names[i])
             plt.xticks([])
             plt.yticks([])
         return fig
 
-    def _plotly_figure(self, num_figures_per_row=2, **kwargs):
+    def _plotly_figure(self, num_figures_per_row=None, **kwargs):
         import plotly.express as px
         from plotly.subplots import make_subplots
+        if num_figures_per_row is None:
+            num_figures_per_row = self._estimate_num_per_row()
 
         names = self.explanations["name"]
         images = self.explanations["image"]
@@ -79,7 +89,7 @@ class PlainExplanation(ExplanationBase):
         )
         for i in range(len(images)):
             r, c = divmod(i, num_cols)
-            img_figure = px.imshow(images[i].to_pil())
+            img_figure = px.imshow(images[i])
             fig.add_trace(img_figure.data[0], row=r + 1, col=c + 1)
 
         fig.update_xaxes(visible=False, showticklabels=False)
@@ -87,7 +97,7 @@ class PlainExplanation(ExplanationBase):
         fig.update_layout(height=400 * num_rows)
         return fig
 
-    def plotly_plot(self, num_figures_per_row=2, **kwargs):
+    def plotly_plot(self, num_figures_per_row=None, **kwargs):
         """
         Returns a plotly dash figure plotting the stored images.
 
@@ -97,7 +107,7 @@ class PlainExplanation(ExplanationBase):
         return DashFigure(self._plotly_figure(
             num_figures_per_row=num_figures_per_row, **kwargs))
 
-    def ipython_plot(self, num_figures_per_row=2, **kwargs):
+    def ipython_plot(self, num_figures_per_row=None, **kwargs):
         """
         Plots the stored images in IPython.
 
