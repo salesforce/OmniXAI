@@ -7,9 +7,10 @@
 """
 The feature visualizer for vision models.
 """
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Tuple
 from ....base import ExplainerBase
 from .....data.image import Image
+from .....preprocessing.pipeline import Pipeline
 
 
 class FeatureVisualizer(ExplainerBase):
@@ -39,26 +40,30 @@ class FeatureVisualizer(ExplainerBase):
     def explain(
             self,
             *,
-            num_iterations=300,
-            learning_rate=0.05,
-            transformers=None,
-            regularizers=None,
-            image_shape=None,
-            normal_color=False,
-            verbose=True,
+            num_iterations: int = 300,
+            learning_rate: float = 0.05,
+            transformers: Pipeline = None,
+            regularizers: List = None,
+            image_shape: Tuple = None,
+            normal_color: bool = False,
+            verbose: bool = True,
             **kwargs
     ):
         """
+        Generates feature visulizations for the specified model and objectives.
 
-        :param num_iterations:
-        :param learning_rate:
-        :param transformers:
-        :param regularizers:
-        :param image_shape:
-        :param normal_color:
-        :param verbose:
-        :param kwargs:
-        :return:
+        :param num_iterations: The number of iterations during optimization.
+        :param learning_rate: The learning rate during optimization.
+        :param transformers: The transformations applied on images during optimization.
+            `transformers` is an object of `Pipeline` defined in the `preprocessing` package.
+            The available transform functions can be found in `.pytorch.preprocess` and
+            `.tf.preprocess`. When `transformers` is None, a default transformation will be applied.
+        :param regularizers: A list of regularizers applied on images. Each regularizer is a tupe
+            `(regularizer_type, weight)` where `regularizer_type` is "l1", "l2" or "tv".
+        :param image_shape: The customized image shape. If None, the default shape is (224, 224).
+        :param normal_color: Whether to map uncorrelated colors to normal colors.
+        :param verbose: Whether to print the optimization progress.
+        :return: The optimized images for the objectives.
         """
         from .....utils.misc import is_torch_available, is_tf_available
         if not is_tf_available() and not is_torch_available():
@@ -103,7 +108,7 @@ class FeatureVisualizer(ExplainerBase):
             verbose=verbose
         )
         results = Image(
-            data=results[-1],
+            data=results[-1] * 255,
             batched=True,
             channel_last=model_type == "tf"
         )
