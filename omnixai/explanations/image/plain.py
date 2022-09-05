@@ -41,6 +41,25 @@ class PlainExplanation(ExplanationBase):
         :return: A matplotlib figure plotting the stored images.
         """
         import matplotlib.pyplot as plt
+        if self.explanations is None:
+            return
+
+        names = self.explanations["name"]
+        images = self.explanations["image"]
+        num_cols = num_figures_per_row
+        num_rows = len(images) // num_cols
+        if num_rows * num_cols != len(images):
+            num_rows += 1
+        fig, axes = plt.subplots(num_rows, num_cols, squeeze=False)
+
+        for i in range(len(images)):
+            r, c = i // num_cols, i % num_cols
+            plt.sca(axes[r, c])
+            plt.imshow(images[i].to_pil())
+            plt.title(names[i])
+            plt.xticks([])
+            plt.yticks([])
+        return fig
 
     def _plotly_figure(self, num_figures_per_row=2, **kwargs):
         import plotly.express as px
