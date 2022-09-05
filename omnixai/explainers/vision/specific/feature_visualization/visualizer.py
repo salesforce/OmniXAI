@@ -32,10 +32,10 @@ class FeatureVisualizer(ExplainerBase):
         """
         :param model: The model to explain.
         :param objectives: A list of objectives for visualization. Each objective has the following format:
-            `{"layer": layer, "type": "layer", "channel", "neuron" or "direction", "index": channel_idx,
-            neuron_idx or direction_vector}`. For example, `{"layer": layer, "type": channel, "index": [0, 1, 2]}`.
-            Here, "layer" indicates the target layer and "type" is the objective type. If "type" is
-            "channel" or "neuron", please set the channel indices or neuron indices. If "type" is
+            `{"layer": layer, "weight": 1.0, "type": "layer", "channel", "neuron" or "direction", "index": channel_idx,
+            neuron_idx or direction_vector}`. For example, `{"layer": layer, "weight": 1.0, "type": channel,
+            "index": [0, 1, 2]}`. Here, "layer" indicates the target layer and "type" is the objective type.
+            If "type" is "channel" or "neuron", please set the channel indices or neuron indices. If "type" is
             "direction", please set the direction vector who shape is the same as the layer output shape
             (without batch-size dimension).
         """
@@ -45,7 +45,46 @@ class FeatureVisualizer(ExplainerBase):
 
     @staticmethod
     def _check_objectives(objectives):
-        pass
+        from .utils import Objective
+        if not isinstance(objectives, (list, tuple)):
+            objectives = [objectives]
+
+        objs = []
+        for obj in objectives:
+            assert "layer" in obj, \
+                "Please set the target layer, e.g., 'layer': target_layer"
+            assert "type" in obj, \
+                "Please set the objective type, e.g., 'layer', 'channel', 'neuron' or 'direction'"
+            assert obj["type"] in ["layer", "channel", "neuron", "direction"], \
+                "Please choose from 'layer', 'channel', 'neuron' or 'direction'."
+            if obj["type"] in ["channel", "neuron", "direction"]:
+                assert "index" in obj, \
+                    "Please set the index, e.g., 'index': [0, 1, 2]."
+
+            if obj["type"] == "layer":
+                objs.append(Objective(
+                    layer=obj["layer"],
+                    weight=obj.get("weight", 1.0)
+                ))
+            elif obj["type"] == "channel":
+                objs.append(Objective(
+                    layer=obj["layer"],
+                    channel_indices=obj["index"],
+                    weight=obj.get("weight", 1.0)
+                ))
+            elif obj["type"] == "neuron":
+                objs.append(Objective(
+                    layer=obj["layer"],
+                    neuron_indices=obj["index"],
+                    weight=obj.get("weight", 1.0)
+                ))
+            else:
+                objs.append(Objective(
+                    layer=obj["layer"],
+                    direction_vectors=obj["index"],
+                    weight=obj.get("weight", 1.0)
+                ))
+        return objs
 
     def explain(
             self,
