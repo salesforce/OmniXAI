@@ -187,13 +187,13 @@ class FeatureMapVisualizer(ExplainerBase):
     def __init__(
             self,
             model,
-            layer,
+            target_layer,
             preprocess_function: Callable,
             **kwargs,
     ):
         """
         :param model: The model to explain.
-        :param layer: The target layer for feature map visualization.
+        :param target_layer: The target layer for feature map visualization.
         :param preprocess_function: The preprocessing function that converts the raw data
             into the inputs of ``model``.
         """
@@ -202,7 +202,7 @@ class FeatureMapVisualizer(ExplainerBase):
             raise EnvironmentError("Both Torch and Tensorflow cannot be found.")
 
         self.model = model
-        self.layer = layer
+        self.layer = target_layer
         self.preprocess = preprocess_function
 
         extractor = None
@@ -225,6 +225,10 @@ class FeatureMapVisualizer(ExplainerBase):
                 f"The model ({type(self.model)}) is neither a PyTorch model nor a TensorFlow model.")
         self.extractor = extractor
 
+    @staticmethod
+    def _normalize(x, mode="minmax"):
+        pass
+
     def explain(self, X: Image, **kwargs):
         """
         Generates feature map visualizations for the specified layer and inputs.
@@ -235,3 +239,8 @@ class FeatureMapVisualizer(ExplainerBase):
         explanations = PlainExplanation()
         inputs = self.preprocess(X) if self.preprocess is not None else X.to_numpy()
         outputs = self.extractor.extract(inputs)
+        if len(outputs.shape) <= 2:
+            raise RuntimeError("The dimension of the layer outputs <= 2. Please try a different layer.")
+
+        for feature_map in outputs:
+            pass
