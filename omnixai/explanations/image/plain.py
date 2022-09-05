@@ -23,7 +23,7 @@ class PlainExplanation(ExplanationBase):
     def __repr__(self):
         return repr(self.explanations)
 
-    def add(self, images, names):
+    def add(self, images, names=None):
         self.explanations = {"image": images, "name": names}
 
     def get_explanations(self):
@@ -55,7 +55,8 @@ class PlainExplanation(ExplanationBase):
             r, c = divmod(i, num_cols)
             plt.sca(axes[r, c])
             plt.imshow(images[i].to_pil())
-            plt.title(names[i])
+            if names is not None:
+                plt.title(names[i])
             plt.xticks([])
             plt.yticks([])
         return fig
@@ -74,7 +75,7 @@ class PlainExplanation(ExplanationBase):
         fig = make_subplots(
             rows=num_rows,
             cols=num_cols,
-            subplot_titles=[name for name in names],
+            subplot_titles=[name for name in names] if names is not None else None,
         )
         for i in range(len(images)):
             r, c = divmod(i, num_cols)
