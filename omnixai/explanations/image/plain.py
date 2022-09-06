@@ -98,7 +98,7 @@ class PlainExplanation(ExplanationBase):
                 img_figure = px.imshow(images[i])
                 fig.add_trace(img_figure.data[0], row=r + 1, col=c + 1)
                 max_height = max(max_height, images[i].size[1])
-            fig.update_layout(height=max(max_height * 2 * num_rows, 250))
+            fig.update_layout(height=max(max_height * num_rows, 300 * num_rows))
 
         fig.update_xaxes(visible=False, showticklabels=False)
         fig.update_yaxes(visible=False, showticklabels=False)
