@@ -84,8 +84,8 @@ class PlainExplanation(ExplanationBase):
             num_rows += 1
 
         if num_rows == 1 and num_cols == 1:
-            labels = {} if names is None else dict(x=names[0])
-            fig = px.imshow(images[0], labels=labels)
+            title = None if names is None else names[0]
+            fig = px.imshow(images[0], title=title)
         else:
             fig = make_subplots(
                 rows=num_rows,

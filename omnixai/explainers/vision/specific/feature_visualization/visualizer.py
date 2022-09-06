@@ -268,10 +268,10 @@ class FeatureMapVisualizer(ExplainerBase):
                     x = np.pad(feature_map[..., i], (pad, pad))
                     r, c = divmod(i, num_cols)
                     image[r * height: (r + 1) * height, c * width: (c + 1) * width] = x
-                image = Image(image[::-1, ...], batched=False)
+                image = Image(image, batched=False)
 
             image = image.to_pil()
             if not isinstance(image, list):
                 image = [image]
-            explanations.add(image)
+            explanations.add(image, names=["abc"])
         return explanations
