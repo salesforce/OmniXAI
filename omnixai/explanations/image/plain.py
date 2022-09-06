@@ -33,10 +33,7 @@ class PlainExplanation(ExplanationBase):
         return self.explanations if len(self.explanations) > 1 else self.explanations[0]
 
     def _estimate_num_per_row(self, index=0, t=8):
-        exp = self.explanations[index]
-        num_images = len(exp["image"])
-        width, height = exp["image"][0].size
-        n = max(width // height, height // width) * num_images
+        n = len(self.explanations[index]["image"])
         return 1 if n == 1 else min(max((n + t - 1) // t, 2), 8)
 
     def plot(self, index=None, num_figures_per_row=None, **kwargs):

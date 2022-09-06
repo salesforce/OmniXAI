@@ -33,7 +33,7 @@ class TestGradCAM(unittest.TestCase):
     def test_explain(self):
         explainer = FeatureMapVisualizer(
             model=self.model,
-            target_layer=self.model.layer2[-1],
+            target_layer=self.model.layer1[-1],
             preprocess_function=self.preprocess
         )
         explanations = explainer.explain(self.img)
