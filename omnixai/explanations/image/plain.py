@@ -83,19 +83,25 @@ class PlainExplanation(ExplanationBase):
         if num_rows * num_cols != len(images):
             num_rows += 1
 
-        fig = make_subplots(
-            rows=num_rows,
-            cols=num_cols,
-            subplot_titles=[name for name in names] if names is not None else None,
-        )
-        for i in range(len(images)):
-            r, c = divmod(i, num_cols)
-            img_figure = px.imshow(images[i])
-            fig.add_trace(img_figure.data[0], row=r + 1, col=c + 1)
+        if num_rows == 1 and num_cols == 1:
+            labels = {} if names is None else dict(x=names[0])
+            fig = px.imshow(images[0], labels=labels)
+        else:
+            fig = make_subplots(
+                rows=num_rows,
+                cols=num_cols,
+                subplot_titles=[name for name in names] if names is not None else None,
+            )
+            max_height = 0
+            for i in range(len(images)):
+                r, c = divmod(i, num_cols)
+                img_figure = px.imshow(images[i])
+                fig.add_trace(img_figure.data[0], row=r + 1, col=c + 1)
+                max_height = max(max_height, images[i].size[1])
+            fig.update_layout(height=max(max_height * 2 * num_rows, 250))
 
         fig.update_xaxes(visible=False, showticklabels=False)
         fig.update_yaxes(visible=False, showticklabels=False)
-        fig.update_layout(height=400 * num_rows)
         return fig
 
     def plotly_plot(self, index=None, num_figures_per_row=None, **kwargs):

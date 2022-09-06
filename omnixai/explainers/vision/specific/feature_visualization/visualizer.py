@@ -7,6 +7,7 @@
 """
 The feature visualizer for vision models.
 """
+import numpy as np
 from typing import Dict, List, Union, Tuple, Callable
 from ....base import ExplainerBase
 from .....data.image import Image
@@ -227,7 +228,17 @@ class FeatureMapVisualizer(ExplainerBase):
 
     @staticmethod
     def _normalize(x, mode="minmax"):
-        pass
+        if len(x.shape) == 3:
+            if mode == "minmax":
+                min_val = x.min(axis=(0, 1), keepdims=True)
+                max_val = x.max(axis=(0, 1), keepdims=True)
+                x = (x - min_val) / (max_val - min_val + 1e-8)
+        else:
+            if mode == "minmax":
+                min_val = x.min()
+                max_val = x.max()
+                x = (x - min_val) / (max_val - min_val + 1e-8)
+        return (x * 255).astype(int)
 
     def explain(self, X: Image, **kwargs):
         """
@@ -242,5 +253,25 @@ class FeatureMapVisualizer(ExplainerBase):
         if len(outputs.shape) <= 2:
             raise RuntimeError("The dimension of the layer outputs <= 2. Please try a different layer.")
 
+        image_width, pad = 512, 1
         for feature_map in outputs:
-            pass
+            feature_map = self._normalize(feature_map)
+            if len(feature_map.shape) == 2:
+                image = Image(feature_map, batched=False)
+            else:
+                height = feature_map.shape[0] + pad * 2
+                width = feature_map.shape[1] + pad * 2
+                num_cols = image_width // width
+                num_rows = int(np.ceil(feature_map.shape[-1] / num_cols))
+                image = np.zeros((height * num_rows, width * num_cols), dtype=int)
+                for i in range(feature_map.shape[-1]):
+                    x = np.pad(feature_map[..., i], (pad, pad))
+                    r, c = divmod(i, num_cols)
+                    image[r * height: (r + 1) * height, c * width: (c + 1) * width] = x
+                image = Image(image[::-1, ...], batched=False)
+
+            image = image.to_pil()
+            if not isinstance(image, list):
+                image = [image]
+            explanations.add(image)
+        return explanations
