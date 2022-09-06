@@ -37,7 +37,7 @@ class TestGradCAM(unittest.TestCase):
             preprocess_function=self.preprocess
         )
         explanations = explainer.explain(self.img)
-        explanations.ipython_plot()
+        explanations.plotly_plot().show()
 
 
 if __name__ == "__main__":
