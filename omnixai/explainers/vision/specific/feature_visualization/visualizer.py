@@ -273,5 +273,5 @@ class FeatureMapVisualizer(ExplainerBase):
             image = image.to_pil()
             if not isinstance(image, list):
                 image = [image]
-            explanations.add(image, names=["abc"])
+            explanations.add(image)
         return explanations
