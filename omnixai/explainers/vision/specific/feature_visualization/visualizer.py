@@ -227,17 +227,15 @@ class FeatureMapVisualizer(ExplainerBase):
         self.extractor = extractor
 
     @staticmethod
-    def _normalize(x, mode="minmax"):
+    def _normalize(x):
         if len(x.shape) == 3:
-            if mode == "minmax":
-                min_val = x.min(axis=(0, 1), keepdims=True)
-                max_val = x.max(axis=(0, 1), keepdims=True)
-                x = (x - min_val) / (max_val - min_val + 1e-8)
+            min_val = x.min(axis=(0, 1), keepdims=True)
+            max_val = x.max(axis=(0, 1), keepdims=True)
+            x = (x - min_val) / (max_val - min_val + 1e-8)
         else:
-            if mode == "minmax":
-                min_val = x.min()
-                max_val = x.max()
-                x = (x - min_val) / (max_val - min_val + 1e-8)
+            min_val = x.min()
+            max_val = x.max()
+            x = (x - min_val) / (max_val - min_val + 1e-8)
         return (x * 255).astype(int)
 
     def explain(self, X: Image, **kwargs):
