@@ -7,6 +7,7 @@
 """
 Plain image explanations for vision tasks.
 """
+import warnings
 from ..base import ExplanationBase, DashFigure
 
 
@@ -51,6 +52,8 @@ class PlainExplanation(ExplanationBase):
 
         exp = self.explanations[index]
         names, images = exp["name"], exp["image"]
+        if len(images) < num_figures_per_row:
+            warnings.warn("`num_figures_per_row` is greater than the number of images.")
         num_cols = num_figures_per_row
         num_rows = len(images) // num_cols
         if num_rows * num_cols != len(images):
@@ -75,6 +78,8 @@ class PlainExplanation(ExplanationBase):
 
         exp = self.explanations[index]
         names, images = exp["name"], exp["image"]
+        if len(images) < num_figures_per_row:
+            warnings.warn("`num_figures_per_row` is greater than the number of images.")
         num_cols = num_figures_per_row
         num_rows = len(images) // num_cols
         if num_rows * num_cols != len(images):
