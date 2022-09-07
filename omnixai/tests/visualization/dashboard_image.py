@@ -53,7 +53,7 @@ class TestDashboard(unittest.TestCase):
                 "gradcam": {"target_layer": self.model.layer4[-1]},
                 "ce": {"binary_search_steps": 2, "num_iterations": 100},
                 "fv": {"objectives": [
-                    {"layer": self.model.layer4[-3], "type": "channel", "index": list(range(5))}]}
+                    {"layer": self.model.layer4[-3], "type": "channel", "index": list(range(6))}]}
             },
         )
         local_explanations = explainer.explain(self.img)
