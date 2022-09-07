@@ -15,7 +15,7 @@ from omnixai.explainers.vision.specific.feature_visualization.visualizer import 
     FeatureMapVisualizer
 
 
-class TestGradCAM(unittest.TestCase):
+class TestFeatureMap(unittest.TestCase):
     def setUp(self) -> None:
         directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets")
         self.img = Image(PilImage.open(os.path.join(directory, "images/dog_cat.png")).convert("RGB"))

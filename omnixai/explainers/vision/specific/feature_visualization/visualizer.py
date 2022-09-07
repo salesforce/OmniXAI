@@ -238,6 +238,16 @@ class FeatureMapVisualizer(ExplainerBase):
             x = (x - min_val) / (max_val - min_val + 1e-8)
         return (x * 255).astype(int)
 
+    @staticmethod
+    def _resize(x, min_size=20):
+        if min(x.shape[0], x.shape[1]) >= min_size:
+            return x
+        else:
+            from omnixai.preprocessing.image import Resize
+            im = Image(x, batched=False)
+            im = Resize(min_size).transform(im)
+            return im.to_numpy(keepdim=False)[0]
+
     def explain(self, X: Image, **kwargs):
         """
         Generates feature map visualizations for the specified layer and inputs.
@@ -255,17 +265,20 @@ class FeatureMapVisualizer(ExplainerBase):
         for feature_map in outputs:
             feature_map = self._normalize(feature_map)
             if len(feature_map.shape) == 2:
+                feature_map = self._resize(feature_map)
                 image = Image(feature_map, batched=False)
             else:
-                height = feature_map.shape[0] + pad * 2
-                width = feature_map.shape[1] + pad * 2
-                num_cols = image_width // width
+                x = self._resize(feature_map[..., 0])
+                h = x.shape[0] + pad * 2
+                w = x.shape[1] + pad * 2
+                num_cols = image_width // w
                 num_rows = int(np.ceil(feature_map.shape[-1] / num_cols))
-                image = np.zeros((height * num_rows, width * num_cols), dtype=int)
+                image = np.zeros((h * num_rows, w * num_cols), dtype=int)
                 for i in range(feature_map.shape[-1]):
-                    x = np.pad(feature_map[..., i], (pad, pad))
+                    x = self._resize(feature_map[..., i])
+                    x = np.pad(x, (pad, pad))
                     r, c = divmod(i, num_cols)
-                    image[r * height: (r + 1) * height, c * width: (c + 1) * width] = x
+                    image[r * h: (r + 1) * h, c * w: (c + 1) * w] = x
                 image = Image(image, batched=False)
 
             image = image.to_pil()
