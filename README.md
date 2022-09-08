@@ -113,6 +113,7 @@ Some examples:
 6. [Vision-language tasks](https://github.com/salesforce/OmniXAI/blob/main/tutorials/vision/gradcam_vlm.ipynb)
 7. [Ranking tasks](https://github.com/salesforce/OmniXAI/blob/main/tutorials/tabular/ranking.ipynb)
 8. Feature visualization
+9. Check feature maps
 
 To get started, we recommend the linked tutorials in [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
