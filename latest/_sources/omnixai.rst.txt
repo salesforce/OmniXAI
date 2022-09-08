@@ -55,6 +55,9 @@ OmniXAI has five key subpackages:
     Grad-CAM, contrastive explanation, counterfactual explanation.
   - :py:mod:`omnixai.explainers.nlp`: It contains the explainers for NLP tasks, e.g., LIME, integrated-gradient.
   - :py:mod:`omnixai.explainers.timeseries`: It contains the explainers for time series tasks, e.g., SHAP, MACE.
+  - :py:mod:`omnixai.explainers.vision_language`: It contains the explainers for vision-language tasks, e.g., IG, GradCAM.
+  - :py:mod:`omnixai.explainers.ranking`: It contains the explainers for ranking tasks, e.g., ValidityRankingExplainer,
+    PermutationRankingExplainer, MACE.
 
 For "tabular", "vision", "nlp" and "timeseries", the explainers are further categorized into "model-agnostic", "model-specific" and "counterfactual".
 A "model-agnostic" explainer can handle black-box ML models, i.e., only requiring a prediction function without

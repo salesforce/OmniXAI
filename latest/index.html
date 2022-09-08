@@ -208,7 +208,16 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>LIME</p></td>
+<tr class="row-even"><td><p>Feature visualization</p></td>
+<td><p>Torch or TF</p></td>
+<td><p>Global</p></td>
+<td></td>
+<td></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LIME</p></td>
 <td><p>Black box</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -217,7 +226,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>SHAP</p></td>
+<tr class="row-even"><td><p>SHAP</p></td>
 <td><p>Black box*</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -226,7 +235,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 </tr>
-<tr class="row-even"><td><p>Integrated gradient</p></td>
+<tr class="row-odd"><td><p>Integrated gradient</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -235,7 +244,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Counterfactual</p></td>
+<tr class="row-even"><td><p>Counterfactual</p></td>
 <td><p>Black box*</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -244,7 +253,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 </tr>
-<tr class="row-even"><td><p>Contrastive explanation</p></td>
+<tr class="row-odd"><td><p>Contrastive explanation</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -253,7 +262,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Grad-CAM, Grad-CAM++</p></td>
+<tr class="row-even"><td><p>Grad-CAM, Grad-CAM++</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -262,7 +271,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>Learning to explain</p></td>
+<tr class="row-odd"><td><p>Learning to explain</p></td>
 <td><p>Black box</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -271,7 +280,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Linear models</p></td>
+<tr class="row-even"><td><p>Linear models</p></td>
 <td><p>Linear models</p></td>
 <td><p>Global and Local</p></td>
 <td></td>
@@ -280,12 +289,21 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>Tree models</p></td>
+<tr class="row-odd"><td><p>Tree models</p></td>
 <td><p>Tree models</p></td>
 <td><p>Global and Local</p></td>
 <td></td>
 <td><p>✓</p></td>
 <td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Feature maps</p></td>
+<td><p>Torch or TF</p></td>
+<td><p>Local</p></td>
+<td></td>
+<td></td>
+<td><p>✓</p></td>
 <td></td>
 <td></td>
 </tr>
@@ -302,7 +320,7 @@ in literature:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 13%" />
-<col style="width: 26%" />
+<col style="width: 27%" />
 <col style="width: 9%" />
 <col style="width: 14%" />
 <col style="width: 8%" />
@@ -494,7 +512,17 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p>Text</p></td>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Feature visualization</p></td>
+<td><p>✓</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+<td><p>✘</p></td>
+</tr>
+<tr class="row-even"><td><p>Text</p></td>
 <td><p>LIME</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -504,7 +532,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>SHAP</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -514,7 +542,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>Integrated gradient</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -524,7 +552,7 @@ in literature:</p>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>L2X</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -534,7 +562,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>Counterfactual</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -544,7 +572,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-even"><td><p>Timeseries</p></td>
+<tr class="row-odd"><td><p>Timeseries</p></td>
 <td><p>SHAP</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -554,7 +582,7 @@ in literature:</p>
 <td><p>✘</p></td>
 <td><p>✘</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>Counterfactual</p></td>
 <td><p>✓</p></td>
 <td><p>✘</p></td>
@@ -879,6 +907,10 @@ by specifying one of the names defined in <code class="docutils literal notransl
 <li class="toctree-l3"><a class="reference internal" href="tutorials/vision/ce_torch.html">Counterfactual explanation on MNIST (PyTorch)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/vision/cem_tf.html">Contrastive explanation on MNIST (Tensorflow)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/vision/cem_torch.html">Contrastive explanation on MNIST (PyTorch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/feature_map_tf.html">Feature map visualization (Tensorflow)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/feature_map_torch.html">Feature map visualization (PyTorch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/feature_visualization_tf.html">Feature visualization (Tensorflow)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vision/feature_visualization_torch.html">Feature visualization (PyTorch)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/vision/gradcam_tf.html">Grad-CAM for image classification (Tensorflow)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/vision/gradcam_torch.html">Grad-CAM for image classification (PyTorch)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/vision/gradcam_vlm.html">Grad-CAM for visual language tasks</a></li>
