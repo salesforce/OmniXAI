@@ -308,10 +308,12 @@ dashboard.show()
 ```
 
 The following figure shows the dashboard of these explanations:
+![alt text](https://github.com/salesforce/OmniXAI/raw/main/docs/_static/demo_vision.gif)
 
 For NLP tasks and time-series forecasting/anomaly detection, OmniXAI also provides the same interface
 to generate and visualize explanations. This figure shows a dashboard example of text classification
 and time-series anomaly detection:
+![alt text](https://github.com/salesforce/OmniXAI/raw/main/docs/_static/demo_nlp_ts.gif)
 
 ## How to Contribute
 
