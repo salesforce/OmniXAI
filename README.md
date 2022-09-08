@@ -47,13 +47,12 @@ OmniXAI includes a rich family of explanation methods integrated in a unified in
 supports multiple data types (tabular data, images, texts, time-series), multiple types of ML models 
 (traditional ML in Scikit-learn and deep learning models in PyTorch/TensorFlow), and a range of diverse explaination 
 methods including "model-specific" and "model-agnostic" methods (such as feature-attribution explanation, 
-counterfactual explanation, gradient-based explanation, etc). For practitioners, OmniXAI provides an easy-to-use 
+counterfactual explanation, gradient-based explanation, feature visualization, etc). For practitioners, OmniXAI provides an easy-to-use 
 unified interface to generate the explanations for their applications by only writing a few lines of 
 codes, and also a GUI dashboard for visualization for obtaining more insights about decisions.
 
 The following table shows the supported explanation methods and features in our library.
-We will continue improving this library to make it more comprehensive in the future, e.g., supporting more
-explanation methods for vision, NLP and time-series tasks.
+We will continue improving this library to make it more comprehensive in the future.
 
 |          Method           |  Model Type   | Explanation Type | EDA | Tabular | Image | Text | Timeseries | 
 :-------------------------:|:-------------:|:----------------:|:---:|:-------:|:-----:| :---: | :---:
@@ -119,17 +118,21 @@ To get started, we recommend the linked tutorials in [tutorials](https://opensou
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
 `NLPExplainer` and `TimeseriesExplainer` for tabular, vision, NLP and time-series tasks, respectively, and using
 `DataAnalyzer` and `PredictionAnalyzer` for feature analysis and prediction result analysis.
-To generate explanations, one only needs to specify
+These classes act as the factories of the individual explainers supported in OmniXAI, providing a simpler
+interface to generate multiple explanations. To generate explanations, you only need to specify
 
 - **The ML model to explain**: e.g., a scikit-learn model, a tensorflow model, a pytorch model or a black-box prediction function.
 - **The pre-processing function**: i.e., converting raw input features into the model inputs.
 - **The post-processing function (optional)**: e.g., converting the model outputs into class probabilities.
 - **The explainers to apply**: e.g., SHAP, MACE, Grad-CAM.
 
+Besides using these classes, you can also create a single explainer defined in the `omnixai.explainers` package, e.g.,
+`ShapTabular`, `GradCAM`, `IntegratedGradient` or `FeatureVisualizer`.
+
 Let's take the income prediction task as an example.
 The [dataset](https://archive.ics.uci.edu/ml/datasets/adult) used in this example is for income prediction.
 We recommend using data class `Tabular` to represent a tabular dataset. To create a `Tabular` instance given a pandas
-dataframe, one needs to specify the dataframe, the categorical feature names (if exists) and the target/label
+dataframe, you need to specify the dataframe, the categorical feature names (if exists) and the target/label
 column name (if exists).
 
 ```python
@@ -157,8 +160,8 @@ for a `Tabular` instance. `TabularTransform` is a special transform designed for
 By default, it converts categorical features into one-hot encoding, and keeps continuous-valued features.
 The  method ``transform`` of `TabularTransform` transforms a `Tabular` instance to a numpy array.
 If the `Tabular` instance has a target/label column, the last column of the numpy array
-will be the target/label. One can also apply any customized preprocessing functions instead of using `TabularTransform`. 
-After data preprocessing, we train a XGBoost classifier for this task.
+will be the target/label. You can apply any customized preprocessing functions instead of using `TabularTransform`. 
+After data preprocessing, let's train a XGBoost classifier for this task.
 
 ```python
 from omnixai.preprocessing.tabular import TabularTransform
@@ -177,7 +180,7 @@ train_data = transformer.invert(train)
 test_data = transformer.invert(test)
 ```
 
-To initialize `TabularExplainer`, we need to set the following parameters:
+To initialize `TabularExplainer`, the following parameters need to be set:
 
 - ``explainers``: The names of the explainers to apply, e.g., ["lime", "shap", "mace", "pdp"].
 - ``data``: The data used to initialize explainers. ``data`` is the training dataset for training the
@@ -190,8 +193,8 @@ To initialize `TabularExplainer`, we need to set the following parameters:
 - ``mode``: The task type, e.g., "classification" or "regression".
 
 The preprocessing function takes a `Tabular` instance as its input and outputs the processed features that
-the ML model consumes. In this example, we simply call ``transformer.transform``. If one uses some customized transforms 
-on pandas dataframes, the preprocess function has format: `lambda z: some_transform(z.to_pd())`. If the output of ``model``
+the ML model consumes. In this example, we simply call ``transformer.transform``. If you use some customized transforms 
+on pandas dataframes, the preprocess function has this format: `lambda z: some_transform(z.to_pd())`. If the output of ``model``
 is not a numpy array, ``postprocess`` needs to be set to convert it into a numpy array.
 
 ```python
@@ -227,7 +230,7 @@ global_explanations = explainers.explain_global(
 ```
 
 Similarly, we create a `PredictionAnalyzer` for computing performance metrics for this classification task. 
-To initialize `PredictionAnalyzer`, we set the following parameters:
+To initialize `PredictionAnalyzer`, the following parameters need to be set:
 
 - `mode`: The task type, e.g., "classification" or "regression".
 - `test_data`: The test dataset, which should be a `Tabular` instance.
