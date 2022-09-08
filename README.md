@@ -73,7 +73,7 @@ explanation methods for vision, NLP and time-series tasks.
 |    Learning to explain    |   Black box   |      Local       |     |    ✅    |   ✅   | ✅   |      |
 |       Linear models       | Linear models | Global and Local |     |    ✅    |       |      |      |
 |        Tree models        |  Tree models  | Global and Local |     |    ✅    |       |      |      |
-|       Feature maps        |  Torch or TF  |       Loal       |     |         |   ✅   |      |      |
+|       Feature maps        |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
 
 *SHAP* accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
 for text data. *Counterfactual* accepts black box models for tabular, text and time-series data, and PyTorch/Tensorflow models for
