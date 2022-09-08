@@ -34,3 +34,11 @@ omnixai.explainers.vision.specific.cem module
    :members:
    :undoc-members:
    :show-inheritance:
+
+omnixai.explainers.vision.specific.feature_visualization.visualizer module
+--------------------------------------------------------------------------
+
+.. automodule:: omnixai.explainers.vision.specific.feature_visualization.visualizer
+   :members:
+   :undoc-members:
+   :show-inheritance:
