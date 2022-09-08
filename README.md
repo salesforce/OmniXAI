@@ -55,23 +55,25 @@ The following table shows the supported explanation methods and features in our 
 We will continue improving this library to make it more comprehensive in the future, e.g., supporting more
 explanation methods for vision, NLP and time-series tasks.
 
-|         Method          | Model Type    | Explanation Type | EDA | Tabular | Image | Text | Timeseries | 
-:-----------------------:| :---:         | :---:            |:---:| :---:   | :---: | :---: | :---:
-|    Feature analysis     | NA            | Global           |  ✅  |         |       |      |      |
-|    Feature selection    | NA            | Global           |  ✅  |         |       |      |      |
-|   Prediction metrics    | Black box     | Global           |     | ✅      | ✅     | ✅   |  ✅  |
-|   Partial dependence plots | Black box     | Global           |     | ✅      |       |      |      |
-|  Accumulated local effects | Black box     | Global           |     | ✅      |       |      |      |
-|  Sensitivity analysis   | Black box     | Global           |     | ✅      |       |      |      |
-|          LIME           | Black box     | Local            |     | ✅      | ✅     | ✅   |      |
-|          SHAP           | Black box*    | Local            |     | ✅      | ✅     | ✅   |  ✅  |
-|   Integrated gradient   | Torch or TF   | Local            |     | ✅      | ✅     | ✅   |      |
-|     Counterfactual      | Black box*    | Local            |     | ✅      | ✅     | ✅   |  ✅  |
-| Contrastive explanation | Torch or TF   | Local            |     |         | ✅    |      |      |
-|  Grad-CAM, Grad-CAM++   | Torch or TF   | Local            |     |         | ✅    |      |      |
-|   Learning to explain   | Black box     | Local            |     | ✅      | ✅     | ✅   |      |
-|      Linear models      | Linear models | Global and Local |     | ✅      |       |      |      |
-|       Tree models       | Tree models   | Global and Local |     | ✅      |       |      |      |
+|          Method           |  Model Type   | Explanation Type | EDA | Tabular | Image | Text | Timeseries | 
+:-------------------------:|:-------------:|:----------------:|:---:|:-------:|:-----:| :---: | :---:
+|     Feature analysis      |      NA       |      Global      |  ✅  |         |       |      |      |
+|     Feature selection     |      NA       |      Global      |  ✅  |         |       |      |      |
+|    Prediction metrics     |   Black box   |      Global      |     |    ✅    |   ✅   | ✅   |  ✅  |
+| Partial dependence plots  |   Black box   |      Global      |     |    ✅    |       |      |      |
+| Accumulated local effects |   Black box   |      Global      |     |    ✅    |       |      |      |
+|   Sensitivity analysis    |   Black box   |      Global      |     |    ✅    |       |      |      |
+|   Feature visualization   |  Torch or TF  |      Global      |     |         |   ✅   |      |      |
+|           LIME            |   Black box   |      Local       |     |    ✅    |   ✅   | ✅   |      |
+|           SHAP            |  Black box*   |      Local       |     |    ✅    |   ✅   | ✅   |  ✅  |
+|    Integrated gradient    |  Torch or TF  |      Local       |     |    ✅    |   ✅   | ✅   |      |
+|      Counterfactual       |  Black box*   |      Local       |     |    ✅    |   ✅   | ✅   |  ✅  |
+|  Contrastive explanation  |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
+|   Grad-CAM, Grad-CAM++    |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
+|    Learning to explain    |   Black box   |      Local       |     |    ✅    |   ✅   | ✅   |      |
+|       Linear models       | Linear models | Global and Local |     |    ✅    |       |      |      |
+|        Tree models        |  Tree models  | Global and Local |     |    ✅    |       |      |      |
+|       Feature maps        |  Torch or TF  |       Loal       |     |         |   ✅   |      |      |
 
 *SHAP* accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
 for text data. *Counterfactual* accepts black box models for tabular, text and time-series data, and PyTorch/Tensorflow models for
@@ -109,6 +111,8 @@ Some examples:
 4. [Text classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/nlp_imdb.ipynb)
 5. [Time-series anomaly detection](https://github.com/salesforce/OmniXAI/blob/main/tutorials/timeseries.ipynb)
 6. [Vision-language tasks](https://github.com/salesforce/OmniXAI/blob/main/tutorials/vision/gradcam_vlm.ipynb)
+7. [Ranking tasks](https://github.com/salesforce/OmniXAI/blob/main/tutorials/tabular/ranking.ipynb)
+8. Feature visualization
 
 To get started, we recommend the linked tutorials in [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
@@ -264,6 +268,46 @@ dashboard.show()                                    # Launch the dashboard
 
 After opening the Dash app in the browser, we will see a dashboard showing the explanations:
 ![alt text](https://github.com/salesforce/OmniXAI/raw/main/docs/_static/demo.gif)
+
+For vision tasks, the same interface is used to create explainers and generate explanations. 
+Let's take an image classification model as an example.
+
+```python
+from omnixai.explainers.vision import VisionExplainer
+from omnixai.visualization.dashboard import Dashboard
+
+explainer = VisionExplainer(
+    explainers=["gradcam", "lime", "ig", "ce", "feature_visualization"],
+    mode="classification",
+    model=model,                   # An image classification model, e.g., ResNet50
+    preprocess=preprocess,         # The preprocessing function
+    postprocess=postprocess,       # The postprocessing function
+    params={
+        # Set the target layer for GradCAM
+        "gradcam": {"target_layer": model.layer4[-1]},
+        # Set the objective for feature visualization
+        "feature_visualization": 
+          {"objectives": [{"layer": model.layer4[-3], "type": "channel", "index": list(range(6))}]}
+    },
+)
+# Generate explanations of GradCAM, LIME, IG and CE
+local_explanations = explainer.explain(test_img)
+# Generate explanations of feature visualization
+global_explanations = explainer.explain_global()
+# Launch the dashboard
+dashboard = Dashboard(
+    instances=test_img,
+    local_explanations=local_explanations,
+    global_explanations=global_explanations
+)
+dashboard.show()
+```
+
+The following figure shows the dashboard of these explanations:
+
+For NLP tasks and time-series forecasting/anomaly detection, OmniXAI also provides the same interface
+to generate and visualize explanations. This figure shows a dashboard example of text classification
+and time-series anomaly detection:
 
 ## How to Contribute
 
