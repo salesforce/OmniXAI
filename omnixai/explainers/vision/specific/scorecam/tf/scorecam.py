@@ -6,7 +6,6 @@
 #
 import numpy as np
 from typing import Callable
-from abc import abstractmethod
 
 from omnixai.data.image import Image
 from omnixai.preprocessing.image import Resize
@@ -39,3 +38,7 @@ class ScoreCAM:
         self.target_layer = target_layer
         self.preprocess = preprocess_function
         self.mode = mode
+
+    def explain(self, X: Image, y=None, **kwargs):
+        assert min(X.shape[1:3]) > 4, f"The image size ({X.shape[1]}, {X.shape[2]}) is too small."
+        explanations = PixelImportance(self.mode, use_heatmap=True)
