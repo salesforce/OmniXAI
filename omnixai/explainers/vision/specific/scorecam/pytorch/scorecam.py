@@ -77,9 +77,11 @@ class ScoreCAM(ScoreCAMMixin):
 
         device = next(self.model.parameters()).device
         inputs = self.preprocess(X) if self.preprocess is not None else X.to_numpy()
-        inputs = inputs if isinstance(inputs, torch.Tensor) else torch.tensor(inputs, dtype=torch.get_default_dtype())
+        inputs = inputs if isinstance(inputs, torch.Tensor) else \
+            torch.tensor(inputs, dtype=torch.get_default_dtype())
+        inputs = inputs.to(device)
 
-        outputs = self.model(inputs.to(device))
+        outputs = self.model(inputs)
         if self.mode == "classification":
             if y is not None:
                 if type(y) == int:
