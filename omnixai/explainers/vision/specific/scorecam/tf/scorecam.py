@@ -83,7 +83,9 @@ class ScoreCAM(ScoreCAMMixin):
                 if self.mode == "classification" else w.flatten()
             weights.append(np.expand_dims(w, axis=-1))
 
-        weights = softmax(np.concatenate(weights, axis=1), axis=1)
+        weights = np.concatenate(weights, axis=1)
+        if not (np.max(weights) <= 1.0 and np.min(weights) >= 0.0):
+            weights = softmax(weights, axis=1)
         targets = activations.numpy()
         assert targets.shape[-1] == weights.shape[1]
 

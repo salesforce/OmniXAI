@@ -43,11 +43,11 @@ class TestScoreCAM(unittest.TestCase):
             return
         explainer = ScoreCAM(
             model=self.model,
-            target_layer=self.model.layers[-5],
+            target_layer=self.model.layers[-6],
             preprocess_function=self.preprocess
         )
         explanations = explainer.explain(self.img)
-        explanations.ipython_plot(class_names=self.idx2label)
+        explanations.plot(class_names=self.idx2label)
 
 
 if __name__ == "__main__":
