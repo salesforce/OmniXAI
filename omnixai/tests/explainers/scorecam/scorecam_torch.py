@@ -44,7 +44,7 @@ class TestScoreCAM(unittest.TestCase):
             preprocess_function=self.preprocess
         )
         explanations = explainer.explain(self.img, y=281)
-        explanations.plot(class_names=self.idx2label)
+        explanations.ipython_plot(class_names=self.idx2label)
 
 
 if __name__ == "__main__":
