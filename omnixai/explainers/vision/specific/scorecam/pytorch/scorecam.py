@@ -10,9 +10,9 @@ from typing import Callable
 from tqdm import trange
 
 from omnixai.data.image import Image
-from omnixai.preprocessing.image import Resize
 from omnixai.utils.misc import is_torch_available
 from omnixai.explanations.image.pixel_importance import PixelImportance
+from ..utils import ScoreCAMMixin
 
 if not is_torch_available():
     raise EnvironmentError("Torch cannot be found.")
@@ -21,7 +21,7 @@ else:
     import torch.nn as nn
 
 
-class ScoreCAM:
+class ScoreCAM(ScoreCAMMixin):
 
     def __init__(
             self,
@@ -70,31 +70,6 @@ class ScoreCAM:
         max_value, _ = torch.max(y, dim=1, keepdim=True)
         y = (y - min_value) / (max_value - min_value + 1e-6)
         return y.view(*x.shape)
-
-    @staticmethod
-    def _resize_scores(inputs, scores):
-        size = inputs.shape[2:] if inputs.shape[1] == 3 else inputs.shape[1:3]
-        for i in range(scores.shape[0]):
-            min_val, max_val = np.min(scores[i]), np.max(scores[i])
-            scores[i] = (scores[i] - min_val) / (max_val - min_val + 1e-8) * 255
-        im = Resize(size).transform(Image(data=scores, batched=True))
-        return im.to_numpy() / 255.0
-
-    @staticmethod
-    def _resize_image(image, inputs):
-        assert image.shape[0] == 1, "`image` can contain one instance only."
-        y = image.to_numpy()
-        x = inputs
-        if not isinstance(x, np.ndarray):
-            x = x.detach().cpu().numpy()
-        x = x.squeeze()
-        if x.shape[0] == 3:
-            x = np.transpose(x, (1, 2, 0))
-
-        min_a, max_a = np.min(y), np.max(y)
-        min_b, max_b = np.min(x), np.max(x)
-        r = (max_a - min_a) / (max_b - min_b + 1e-8)
-        return Image(data=(r * x + min_a - r * min_b).astype(int), batched=False, channel_last=True)
 
     def explain(self, X: Image, y=None, **kwargs):
         assert min(X.shape[1:3]) > 4, f"The image size ({X.shape[1]}, {X.shape[2]}) is too small."

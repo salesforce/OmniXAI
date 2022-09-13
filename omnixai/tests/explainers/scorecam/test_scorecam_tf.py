@@ -39,13 +39,15 @@ class TestScoreCAM(unittest.TestCase):
             self.idx2label = [class_idx[str(k)][1] for k in range(len(class_idx))]
 
     def test_explain(self):
+        if not tf.test.is_gpu_available():
+            return
         explainer = ScoreCAM(
             model=self.model,
             target_layer=self.model.layers[-5],
             preprocess_function=self.preprocess
         )
         explanations = explainer.explain(self.img)
-        # explanations.plot(class_names=self.idx2label)
+        explanations.ipython_plot(class_names=self.idx2label)
 
 
 if __name__ == "__main__":
