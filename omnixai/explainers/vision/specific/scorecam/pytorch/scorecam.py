@@ -57,7 +57,7 @@ class ScoreCAM(ScoreCAMMixin):
         self._unregister_hooks()
 
     def _activation_hook(self, module, inputs, outputs):
-        self.layer_output = outputs.detach().cpu()
+        self.layer_output = outputs.detach()
 
     @staticmethod
     def _normalize(x):

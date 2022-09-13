@@ -11,6 +11,7 @@ from .agnostic.pdp import PartialDependenceImage
 from .agnostic.l2x import L2XImage
 from .specific.ig import IntegratedGradientImage
 from .specific.gradcam import GradCAM, GradCAMPlus
+from .specific.scorecam import ScoreCAM
 from .specific.cem import ContrastiveExplainer
 from .counterfactual.ce import CounterfactualExplainer
 from .specific.feature_visualization.visualizer import \
@@ -25,6 +26,7 @@ __all__ = [
     "L2XImage",
     "GradCAM",
     "GradCAMPlus",
+    "ScoreCAM",
     "ContrastiveExplainer",
     "CounterfactualExplainer",
     "FeatureVisualizer",

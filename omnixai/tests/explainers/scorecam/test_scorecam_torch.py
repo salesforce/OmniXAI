@@ -12,7 +12,7 @@ from torchvision import models, transforms
 from PIL import Image as PilImage
 
 from omnixai.data.image import Image
-from omnixai.explainers.vision.specific.scorecam.pytorch.scorecam import ScoreCAM
+from omnixai.explainers.vision.specific.scorecam import ScoreCAM
 
 
 class TestScoreCAM(unittest.TestCase):

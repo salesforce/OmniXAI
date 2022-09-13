@@ -14,7 +14,7 @@ from PIL import Image as PilImage
 
 from omnixai.data.image import Image
 from omnixai.preprocessing.image import Resize
-from omnixai.explainers.vision.specific.scorecam.tf.scorecam import ScoreCAM
+from omnixai.explainers.vision.specific.scorecam import ScoreCAM
 
 
 class TestScoreCAM(unittest.TestCase):
