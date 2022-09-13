@@ -44,7 +44,7 @@ class CounterfactualExplainer(ExplainerBase):
         kappa=10.0,
         binary_search_steps=5,
         learning_rate=1e-2,
-        num_iterations=1000,
+        num_iterations=100,
         grad_clip=1e3,
         **kwargs,
     ):
