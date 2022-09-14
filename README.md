@@ -63,6 +63,7 @@ We will continue improving this library to make it more comprehensive in the fut
 | Accumulated local effects |   Black box   |      Global      |     |    ✅    |       |      |      |
 |   Sensitivity analysis    |   Black box   |      Global      |     |    ✅    |       |      |      |
 |   Feature visualization   |  Torch or TF  |      Global      |     |         |   ✅   |      |      |
+|       Feature maps        |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
 |           LIME            |   Black box   |      Local       |     |    ✅    |   ✅   | ✅   |      |
 |           SHAP            |  Black box*   |      Local       |     |    ✅    |   ✅   | ✅   |  ✅  |
 |    Integrated gradient    |  Torch or TF  |      Local       |     |    ✅    |   ✅   | ✅   |      |
@@ -74,7 +75,6 @@ We will continue improving this library to make it more comprehensive in the fut
 |    Learning to explain    |   Black box   |      Local       |     |    ✅    |   ✅   | ✅   |      |
 |       Linear models       | Linear models | Global and Local |     |    ✅    |       |      |      |
 |        Tree models        |  Tree models  | Global and Local |     |    ✅    |       |      |      |
-|       Feature maps        |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
 
 *SHAP* accepts black box models for tabular data, PyTorch/Tensorflow models for image data, transformer models
 for text data. *Counterfactual* accepts black box models for tabular, text and time-series data, and PyTorch/Tensorflow models for
