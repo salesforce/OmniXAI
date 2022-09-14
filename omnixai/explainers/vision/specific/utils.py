@@ -186,3 +186,58 @@ def smooth_grad(
 
     raise ValueError(f"`model` should be a tf.keras.Model "
                      f"or a torch.nn.Module instead of {type(model)}")
+
+
+def _guided_bp_torch(
+        X,
+        y,
+        model,
+        preprocess_function,
+        mode: str,
+        num_samples: int,
+        sigma: float
+):
+    import torch
+
+    model.eval()
+    device = next(model.parameters()).device
+    inputs = preprocess_function(X) if preprocess_function is not None else X.to_numpy()
+    inputs = inputs if isinstance(inputs, torch.Tensor) else \
+        torch.tensor(inputs, dtype=torch.get_default_dtype())
+
+    outputs = model(inputs.to(device))
+    if mode == "classification":
+        if y is not None:
+            if type(y) == int:
+                y = [y for _ in range(len(X))]
+            else:
+                assert len(X) == len(y), (
+                    f"Parameter ``y`` is a {type(y)}, the length of y "
+                    f"should be the same as the number of images in X."
+                )
+        else:
+            scores = outputs.detach().cpu().numpy()
+            y = np.argmax(scores, axis=1).astype(int)
+    else:
+        y = None
+
+    hooks = []
+    relu_outputs = []
+
+    def _forward_hook(_module, _inputs, _outputs):
+        relu_outputs.append(_outputs)
+
+    def _backward_hook(_module, _inputs, _outputs):
+        activations = relu_outputs[-1]
+        activations[activations > 0] = 1
+        modified_grad_out = activations * torch.clamp(_inputs[0], min=0.0)
+        del relu_outputs[-1]
+        return (modified_grad_out,)
+
+    try:
+        pass
+    except Exception as e:
+        raise e
+    finally:
+        for hook in hooks:
+            hook.remove()
