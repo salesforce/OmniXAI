@@ -15,9 +15,10 @@ from ...base import ExplainerBase
 from ...tabular.specific.ig import IntegratedGradient
 from ....data.image import Image
 from ....explanations.image.pixel_importance import PixelImportance
+from .utils import GradMixin
 
 
-class IntegratedGradientImage(ExplainerBase, IntegratedGradient):
+class IntegratedGradientImage(ExplainerBase, IntegratedGradient, GradMixin):
     """
     The integrated-gradient explainer for vision tasks.
     If using this explainer, please cite the original work: https://github.com/ankurtaly/Integrated-Gradients.
@@ -102,33 +103,6 @@ class IntegratedGradientImage(ExplainerBase, IntegratedGradient):
         y = np.argmax(scores, axis=1).astype(int)
         return y
 
-    def _resize(self, image):
-        """
-        Rescales the raw input image to the input size of the model.
-
-        :param image: The raw input image.
-        :return: The resized image.
-        """
-        assert image.shape[0] == 1, "`image` can contain one instance only."
-        if self.preprocess_function is None:
-            return image
-
-        y = image.to_numpy()
-        x = self.preprocess_function(image)
-        if not isinstance(x, np.ndarray):
-            try:
-                x = x.detach().cpu().numpy()
-            except:
-                x = x.numpy()
-        x = x.squeeze()
-        if x.shape[0] == 3:
-            x = np.transpose(x, (1, 2, 0))
-
-        min_a, max_a = np.min(y), np.max(y)
-        min_b, max_b = np.min(x), np.max(x)
-        r = (max_a - min_a) / (max_b - min_b + 1e-8)
-        return Image(data=(r * x + min_a - r * min_b).astype(int), batched=False, channel_last=True)
-
     def explain(self, X: Image, y=None, baseline=None, **kwargs) -> PixelImportance:
         """
         Generates the pixel-importance explanations for the input instances.
@@ -193,6 +167,8 @@ class IntegratedGradientImage(ExplainerBase, IntegratedGradient):
             if scores.ndim == 3 and scores.shape[0] == 3:
                 scores = np.transpose(scores, (1, 2, 0))
             explanations.add(
-                image=self._resize(X[i]).to_numpy()[0], target_label=output_index, importance_scores=scores
+                image=self._resize(self.preprocess_function, X[i]).to_numpy()[0],
+                target_label=output_index,
+                importance_scores=scores
             )
         return explanations
