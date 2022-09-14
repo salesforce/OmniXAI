@@ -18,9 +18,8 @@ from omnixai.explainers.vision.specific.smoothgrad import SmoothGrad
 class TestSmoothGrad(unittest.TestCase):
     def setUp(self) -> None:
         directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets")
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.img = Image(PilImage.open(os.path.join(directory, "images/dog_cat_2.png")).convert("RGB"))
-        self.model = models.resnet50(pretrained=True).to(self.device)
+        self.model = models.resnet50(pretrained=True)
         self.transform = transforms.Compose(
             [
                 transforms.Resize(256),
