@@ -69,6 +69,8 @@ We will continue improving this library to make it more comprehensive in the fut
 |      Counterfactual       |  Black box*   |      Local       |     |    ✅    |   ✅   | ✅   |  ✅  |
 |  Contrastive explanation  |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
 |   Grad-CAM, Grad-CAM++    |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
+|   Score-CAM               |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
+|   Smooth gradient         |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
 |    Learning to explain    |   Black box   |      Local       |     |    ✅    |   ✅   | ✅   |      |
 |       Linear models       | Linear models | Global and Local |     |    ✅    |       |      |      |
 |        Tree models        |  Tree models  | Global and Local |     |    ✅    |       |      |      |
