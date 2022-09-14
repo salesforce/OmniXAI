@@ -198,6 +198,7 @@ def _guided_bp_torch(
         sigma: float
 ):
     import torch
+    import torch.nn as nn
 
     model.eval()
     device = next(model.parameters()).device
@@ -222,6 +223,7 @@ def _guided_bp_torch(
         y = None
 
     hooks = []
+    layers = []
     relu_outputs = []
 
     def _forward_hook(_module, _inputs, _outputs):
@@ -234,10 +236,98 @@ def _guided_bp_torch(
         del relu_outputs[-1]
         return (modified_grad_out,)
 
+    def _get_all_layers(_module):
+        children = dict(_module.named_children())
+        if children == {}:
+            layers.append(_module)
+        else:
+            for name, child in children.items():
+                _get_all_layers(child)
+
+    gradients = 0
+    idx = torch.arange(outputs.shape[0])
+    input_images = inputs.detach().cpu().numpy()
+    sigma = sigma * (np.max(input_images) - np.min(input_images))
+
     try:
-        pass
+        _get_all_layers(model)
+        for layer in layers:
+            if isinstance(layer, nn.ReLU):
+                hooks.append(layer.register_forward_hook(_forward_hook))
+                hooks.append(layer.register_backward_hook(_backward_hook))
+
+        for i in range(num_samples):
+            noise = np.random.randn(*inputs.shape) * sigma
+            x = torch.tensor(
+                input_images + noise,
+                dtype=torch.get_default_dtype(),
+                device=device,
+                requires_grad=True
+            )
+            outputs = model(x.to(device))
+            if y is not None:
+                outputs = outputs[idx, y]
+            grad = torch.autograd.grad(torch.unbind(outputs), x)[0]
+            gradients += grad.detach().cpu().numpy()
     except Exception as e:
         raise e
     finally:
         for hook in hooks:
             hook.remove()
+
+    gradients = gradients / num_samples
+    gradients = np.transpose(gradients, (0, 2, 3, 1))
+    return gradients, y
+
+
+def _guided_bp_tf(
+        X,
+        y,
+        model,
+        preprocess_function,
+        mode: str,
+        num_samples: int,
+        sigma: float
+):
+    return None
+
+
+def guided_bp(
+        X,
+        y,
+        model,
+        preprocess_function,
+        mode: str,
+        num_samples: int,
+        sigma: float
+):
+    if is_torch_available():
+        import torch.nn as nn
+
+        if isinstance(model, nn.Module):
+            return _guided_bp_torch(
+                X=X,
+                y=y,
+                model=model,
+                preprocess_function=preprocess_function,
+                mode=mode,
+                num_samples=num_samples,
+                sigma=sigma
+            )
+
+    if is_tf_available():
+        import tensorflow as tf
+
+        if isinstance(model, tf.keras.Model):
+            return _guided_bp_tf(
+                X=X,
+                y=y,
+                model=model,
+                preprocess_function=preprocess_function,
+                mode=mode,
+                num_samples=num_samples,
+                sigma=sigma
+            )
+
+    raise ValueError(f"`model` should be a tf.keras.Model "
+                     f"or a torch.nn.Module instead of {type(model)}")
