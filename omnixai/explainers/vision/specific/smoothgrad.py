@@ -9,7 +9,7 @@ from omnixai.utils.misc import is_tf_available, is_torch_available
 from omnixai.explainers.base import ExplainerBase
 from omnixai.data.image import Image
 from omnixai.explanations.image.pixel_importance import PixelImportance
-from .utils import GradMixin, smooth_grad
+from .utils import GradMixin, smooth_grad, guided_bp
 
 
 class SmoothGrad(ExplainerBase, GradMixin):
@@ -27,6 +27,7 @@ class SmoothGrad(ExplainerBase, GradMixin):
             model,
             preprocess_function: Callable,
             mode: str = "classification",
+            use_guided_bp: bool = False,
             **kwargs
     ):
         """
@@ -34,6 +35,7 @@ class SmoothGrad(ExplainerBase, GradMixin):
         :param preprocess_function: The preprocessing function that converts the raw data
             into the inputs of ``model``.
         :param mode: The task type, e.g., `classification` or `regression`.
+        :param use_guided_bp: Whether to use guided back propagation when computing gradients.
         """
         super().__init__()
         if not is_tf_available() and not is_torch_available():
@@ -42,6 +44,7 @@ class SmoothGrad(ExplainerBase, GradMixin):
         self.model = model
         self.preprocess_function = preprocess_function
         self.mode = mode
+        self.use_guided_bp = use_guided_bp
 
     def explain(self, X: Image, y=None, num_samples=50, sigma=0.1, **kwargs):
         """
@@ -59,15 +62,26 @@ class SmoothGrad(ExplainerBase, GradMixin):
         """
         explanations = PixelImportance(self.mode)
 
-        gradients, y = smooth_grad(
-            X=X,
-            y=y,
-            model=self.model,
-            preprocess_function=self.preprocess_function,
-            mode=self.mode,
-            num_samples=num_samples,
-            sigma=sigma
-        )
+        if not self.use_guided_bp:
+            gradients, y = smooth_grad(
+                X=X,
+                y=y,
+                model=self.model,
+                preprocess_function=self.preprocess_function,
+                mode=self.mode,
+                num_samples=num_samples,
+                sigma=sigma
+            )
+        else:
+            gradients, y = guided_bp(
+                X=X,
+                y=y,
+                model=self.model,
+                preprocess_function=self.preprocess_function,
+                mode=self.mode,
+                num_samples=num_samples,
+                sigma=sigma
+            )
         for i in range(len(X)):
             label = y[i] if y is not None else None
             explanations.add(
