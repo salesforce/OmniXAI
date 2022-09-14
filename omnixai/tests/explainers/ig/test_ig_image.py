@@ -18,9 +18,8 @@ from omnixai.explainers.vision import IntegratedGradientImage
 class TestImageClassification(unittest.TestCase):
     def setUp(self) -> None:
         directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets")
-        device = "cuda" if torch.cuda.is_available() else "cpu"
         self.img = Image(PilImage.open(os.path.join(directory, "images/boat.jpg")).convert("RGB"))
-        self.model = models.inception_v3(pretrained=True).to(device)
+        self.model = models.inception_v3(pretrained=True)
         self.transform = transforms.Compose(
             [
                 transforms.Resize((256, 256)),
