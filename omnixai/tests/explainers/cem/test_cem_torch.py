@@ -12,7 +12,6 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
-import matplotlib.pyplot as plt
 
 from omnixai.data.image import Image
 from omnixai.explainers.vision import ContrastiveExplainer
