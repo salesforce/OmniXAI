@@ -14,6 +14,7 @@ from .specific.gradcam import GradCAM, GradCAMPlus
 from .specific.scorecam import ScoreCAM
 from .specific.cem import ContrastiveExplainer
 from .specific.smoothgrad import SmoothGrad
+from .specific.guided_bp import GuidedBP
 from .counterfactual.ce import CounterfactualExplainer
 from .specific.feature_visualization.visualizer import \
     FeatureVisualizer, FeatureMapVisualizer
@@ -30,6 +31,7 @@ __all__ = [
     "ScoreCAM",
     "ContrastiveExplainer",
     "SmoothGrad",
+    "GuidedBP",
     "CounterfactualExplainer",
     "FeatureVisualizer",
     "FeatureMapVisualizer"
