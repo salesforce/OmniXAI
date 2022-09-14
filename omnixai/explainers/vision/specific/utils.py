@@ -289,7 +289,76 @@ def _guided_bp_tf(
         num_samples: int,
         sigma: float
 ):
-    return None
+    import tensorflow as tf
+    from tensorflow.keras.models import clone_model
+
+    inputs = preprocess_function(X) if preprocess_function is not None else X.to_numpy()
+    inputs = tf.convert_to_tensor(inputs)
+    if mode == "classification":
+        if y is not None:
+            if type(y) == int:
+                y = [y for _ in range(len(X))]
+            else:
+                assert len(X) == len(y), (
+                    f"Parameter ``y`` is a {type(y)}, the length of y "
+                    f"should be the same as the number of images in X."
+                )
+        else:
+            predictions = model(inputs)
+            y = tf.argmax(predictions, axis=-1).numpy().astype(int)
+    else:
+        y = None
+
+    def _has_relu_activation(_layer):
+        if not hasattr(_layer, "activation"):
+            return False
+        return _layer.activation in [tf.nn.relu, tf.keras.activations.relu]
+
+    def _guided_relu(max_value=None, threshold=0):
+        relu = tf.keras.layers.ReLU(max_value=max_value, threshold=threshold)
+
+        @tf.custom_gradient
+        def _relu(_inputs):
+            def _grad_function(_grads):
+                gate_activation = tf.cast(_inputs > 0.0, tf.float32)
+                return tf.nn.relu(_grads) * gate_activation
+
+            return relu(_inputs), _grad_function
+
+        return _relu
+
+    new_model = clone_model(model)
+    new_model.set_weights(model.get_weights())
+
+    for layer_id in range(len(new_model.layers)):
+        layer = new_model.layers[layer_id]
+        if _has_relu_activation(layer):
+            layer.activation = _guided_relu()
+        elif isinstance(layer, tf.keras.layers.ReLU):
+            max_value = layer.max_value if hasattr(layer, "max_value") else None
+            threshold = layer.threshold if hasattr(layer, "threshold") else 0
+            new_model.layers[layer_id].call = _guided_relu(max_value, threshold)
+
+    gradients = 0
+    input_images = inputs.numpy()
+    sigma = sigma * (np.max(input_images) - np.min(input_images))
+    for i in range(num_samples):
+        noise = np.random.randn(*inputs.shape) * sigma
+        x = tf.Variable(
+            noise + input_images,
+            dtype=tf.float32,
+            trainable=True
+        )
+        with tf.GradientTape() as tape:
+            tape.watch(x)
+            outputs = new_model(x)
+            if y is not None:
+                outputs = tf.reshape(tf.gather(outputs, y, axis=1), shape=(-1,))
+            grad = tape.gradient(outputs, x)
+            gradients += grad.numpy()
+
+    gradients = gradients / num_samples
+    return gradients, y
 
 
 def guided_bp(
