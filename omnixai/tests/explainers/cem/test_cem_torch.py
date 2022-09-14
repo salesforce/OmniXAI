@@ -59,7 +59,7 @@ class MNISTNet(nn.Module):
 class TestCEM(unittest.TestCase):
     def setUp(self) -> None:
         directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets/tmp")
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = "cpu"
         train_data = torchvision.datasets.MNIST(root=directory, train=True, download=True)
         test_data = torchvision.datasets.MNIST(root=directory, train=False, download=True)
         train_data.data = train_data.data.numpy()
@@ -75,7 +75,7 @@ class TestCEM(unittest.TestCase):
         self.train(learning_rate=1e-3, batch_size=128, num_epochs=5)
 
     def train(self, learning_rate=1e-3, batch_size=32, num_epochs=5):
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        device = "cpu"
         train_loader = DataLoader(
             dataset=InputData(self.transform(self.x_train), self.y_train), batch_size=batch_size, shuffle=True
         )
