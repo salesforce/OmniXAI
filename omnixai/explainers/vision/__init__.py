@@ -13,6 +13,7 @@ from .specific.ig import IntegratedGradientImage
 from .specific.gradcam import GradCAM, GradCAMPlus
 from .specific.scorecam import ScoreCAM
 from .specific.cem import ContrastiveExplainer
+from .specific.smoothgrad import SmoothGrad
 from .counterfactual.ce import CounterfactualExplainer
 from .specific.feature_visualization.visualizer import \
     FeatureVisualizer, FeatureMapVisualizer
@@ -28,6 +29,7 @@ __all__ = [
     "GradCAMPlus",
     "ScoreCAM",
     "ContrastiveExplainer",
+    "SmoothGrad",
     "CounterfactualExplainer",
     "FeatureVisualizer",
     "FeatureMapVisualizer"

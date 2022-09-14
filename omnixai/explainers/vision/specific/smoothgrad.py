@@ -48,7 +48,7 @@ def _smooth_grad_torch(
     gradients = 0
     idx = torch.arange(outputs.shape[0])
     input_images = inputs.detach().cpu().numpy()
-    sigma = sigma / (torch.max(outputs) - torch.min(outputs)).detach().cpu().numpy()
+    sigma = sigma * (np.max(input_images) - np.min(input_images))
     for i in range(num_samples):
         noise = np.random.randn(*inputs.shape) * sigma
         x = torch.tensor(
@@ -77,7 +77,45 @@ def _smooth_grad_tf(
         num_samples,
         sigma: float
 ):
-    return None
+    import tensorflow as tf
+
+    inputs = preprocess_function(X) if preprocess_function is not None else X.to_numpy()
+    inputs = tf.convert_to_tensor(inputs)
+    if mode == "classification":
+        if y is not None:
+            if type(y) == int:
+                y = [y for _ in range(len(X))]
+            else:
+                assert len(X) == len(y), (
+                    f"Parameter ``y`` is a {type(y)}, the length of y "
+                    f"should be the same as the number of images in X."
+                )
+        else:
+            predictions = model(inputs)
+            y = tf.argmax(predictions, axis=-1).numpy().astype(int)
+    else:
+        y = None
+
+    gradients = 0
+    input_images = inputs.numpy()
+    sigma = sigma * (np.max(input_images) - np.min(input_images))
+    for i in range(num_samples):
+        noise = np.random.randn(*inputs.shape) * sigma
+        x = tf.Variable(
+            noise + input_images,
+            dtype=tf.float32,
+            trainable=True
+        )
+        with tf.GradientTape() as tape:
+            tape.watch(x)
+            outputs = model(x)
+            if y is not None:
+                outputs = tf.reshape(tf.gather(outputs, y, axis=1), shape=(-1,))
+            grad = tape.gradient(outputs, x)
+            gradients += grad.numpy()
+
+    gradients = gradients / num_samples
+    return gradients, y
 
 
 def _smooth_grad(
@@ -179,7 +217,7 @@ class SmoothGrad(ExplainerBase):
         r = (max_a - min_a) / (max_b - min_b + 1e-8)
         return Image(data=(r * x + min_a - r * min_b).astype(int), batched=False, channel_last=True)
 
-    def explain(self, X: Image, y=None, num_samples=50, sigma=4.0, **kwargs):
+    def explain(self, X: Image, y=None, num_samples=50, sigma=0.1, **kwargs):
         """
         Generates the explanations for the input instances.
 
