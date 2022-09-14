@@ -4,16 +4,15 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
-import numpy as np
 from typing import Callable
 from omnixai.utils.misc import is_tf_available, is_torch_available
 from omnixai.explainers.base import ExplainerBase
 from omnixai.data.image import Image
 from omnixai.explanations.image.pixel_importance import PixelImportance
-from .utils import smooth_grad
+from .utils import GradMixin, smooth_grad
 
 
-class SmoothGrad(ExplainerBase):
+class SmoothGrad(ExplainerBase, GradMixin):
     """
     The Smooth-Grad method for generating visual explanations.
     If using this explainer, please cite `SmoothGrad: removing noise by adding noise,
@@ -44,33 +43,6 @@ class SmoothGrad(ExplainerBase):
         self.preprocess_function = preprocess_function
         self.mode = mode
 
-    def _resize(self, image):
-        """
-        Rescales the raw input image to the input size of the model.
-
-        :param image: The raw input image.
-        :return: The resized image.
-        """
-        assert image.shape[0] == 1, "`image` can contain one instance only."
-        if self.preprocess_function is None:
-            return image
-
-        y = image.to_numpy()
-        x = self.preprocess_function(image)
-        if not isinstance(x, np.ndarray):
-            try:
-                x = x.detach().cpu().numpy()
-            except:
-                x = x.numpy()
-        x = x.squeeze()
-        if x.shape[0] == 3:
-            x = np.transpose(x, (1, 2, 0))
-
-        min_a, max_a = np.min(y), np.max(y)
-        min_b, max_b = np.min(x), np.max(x)
-        r = (max_a - min_a) / (max_b - min_b + 1e-8)
-        return Image(data=(r * x + min_a - r * min_b).astype(int), batched=False, channel_last=True)
-
     def explain(self, X: Image, y=None, num_samples=50, sigma=0.1, **kwargs):
         """
         Generates the explanations for the input instances.
@@ -99,7 +71,7 @@ class SmoothGrad(ExplainerBase):
         for i in range(len(X)):
             label = y[i] if y is not None else None
             explanations.add(
-                image=self._resize(X[i]).to_numpy()[0],
+                image=self._resize(self.preprocess_function, X[i]).to_numpy()[0],
                 target_label=label,
                 importance_scores=gradients[i]
             )

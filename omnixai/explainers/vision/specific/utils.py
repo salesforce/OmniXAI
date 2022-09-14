@@ -6,6 +6,39 @@
 #
 import numpy as np
 from omnixai.utils.misc import is_tf_available, is_torch_available
+from omnixai.data.image import Image
+
+
+class GradMixin:
+
+    @staticmethod
+    def _resize(preprocess_function, image):
+        """
+        Rescales the raw input image to the input size of the model.
+
+        :param preprocess_function: The preprocessing function.
+        :param image: The raw input image.
+        :return: The resized image.
+        """
+        assert image.shape[0] == 1, "`image` can contain one instance only."
+        if preprocess_function is None:
+            return image
+
+        y = image.to_numpy()
+        x = preprocess_function(image)
+        if not isinstance(x, np.ndarray):
+            try:
+                x = x.detach().cpu().numpy()
+            except:
+                x = x.numpy()
+        x = x.squeeze()
+        if x.shape[0] == 3:
+            x = np.transpose(x, (1, 2, 0))
+
+        min_a, max_a = np.min(y), np.max(y)
+        min_b, max_b = np.min(x), np.max(x)
+        r = (max_a - min_a) / (max_b - min_b + 1e-8)
+        return Image(data=(r * x + min_a - r * min_b).astype(int), batched=False, channel_last=True)
 
 
 def _smooth_grad_torch(
