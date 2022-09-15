@@ -10,9 +10,11 @@ from .agnostic.shap import ShapImage
 from .agnostic.pdp import PartialDependenceImage
 from .agnostic.l2x import L2XImage
 from .specific.ig import IntegratedGradientImage
-from .specific.gradcam import GradCAM, GradCAMPlus
+from .specific.gradcam import GradCAM, GradCAMPlus, LayerCAM
 from .specific.scorecam import ScoreCAM
 from .specific.cem import ContrastiveExplainer
+from .specific.smoothgrad import SmoothGrad
+from .specific.guided_bp import GuidedBP
 from .counterfactual.ce import CounterfactualExplainer
 from .specific.feature_visualization.visualizer import \
     FeatureVisualizer, FeatureMapVisualizer
@@ -27,7 +29,10 @@ __all__ = [
     "GradCAM",
     "GradCAMPlus",
     "ScoreCAM",
+    "LayerCAM",
     "ContrastiveExplainer",
+    "SmoothGrad",
+    "GuidedBP",
     "CounterfactualExplainer",
     "FeatureVisualizer",
     "FeatureMapVisualizer"

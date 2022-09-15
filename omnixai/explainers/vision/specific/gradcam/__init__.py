@@ -4,6 +4,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
-from .gradcam import GradCAM, GradCAMPlus
+from .gradcam import GradCAM, GradCAMPlus, LayerCAM
 
-__all__ = ["GradCAM", "GradCAMPlus"]
+__all__ = ["GradCAM", "GradCAMPlus", "LayerCAM"]

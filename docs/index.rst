@@ -59,6 +59,10 @@ Integrated gradient      Torch or TF           Local                            
 Counterfactual           Black box*            Local                            ✓        ✓        ✓       ✓
 Contrastive explanation  Torch or TF           Local                                     ✓
 Grad-CAM, Grad-CAM++     Torch or TF           Local                                     ✓
+Score-CAM                Torch or TF           Local                                     ✓
+Layer-CAM                Torch or TF           Local                                     ✓
+Smooth gradient          Torch or TF           Local                                     ✓
+Guided backpropagation   Torch or TF           Local                                     ✓
 Learning to explain      Black box             Local                            ✓        ✓        ✓
 Linear models            Linear models         Global and Local                 ✓
 Tree models              Tree models           Global and Local                 ✓
