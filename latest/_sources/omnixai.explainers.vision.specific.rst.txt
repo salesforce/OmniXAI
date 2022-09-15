@@ -42,3 +42,19 @@ omnixai.explainers.vision.specific.feature_visualization.visualizer module
    :members:
    :undoc-members:
    :show-inheritance:
+
+omnixai.explainers.vision.specific.guided_bp module
+---------------------------------------------------
+
+.. automodule:: omnixai.explainers.vision.specific.guided_bp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+omnixai.explainers.vision.specific.smoothgrad module
+----------------------------------------------------
+
+.. automodule:: omnixai.explainers.vision.specific.smoothgrad
+   :members:
+   :undoc-members:
+   :show-inheritance:
