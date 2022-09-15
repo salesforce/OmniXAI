@@ -45,7 +45,7 @@ class TestDashboard(unittest.TestCase):
     def test(self):
         explainer = VisionExplainer(
             explainers=["gradcam", "lime", "ig", "pdp", "ce", "fv",
-                        "scorecam", "smoothgrad", "guidedbp"],
+                        "scorecam", "smoothgrad", "guidedbp", "layercam"],
             mode="classification",
             model=self.model,
             preprocess=self.preprocess,
@@ -56,6 +56,7 @@ class TestDashboard(unittest.TestCase):
                 "fv": {"objectives": [
                     {"layer": self.model.layer4[-3], "type": "channel", "index": list(range(6))}]},
                 "scorecam": {"target_layer": self.model.layer4[-1]},
+                "layercam": {"target_layer": self.model.layer3[-3]},
             },
         )
         local_explanations = explainer.explain(self.img)
