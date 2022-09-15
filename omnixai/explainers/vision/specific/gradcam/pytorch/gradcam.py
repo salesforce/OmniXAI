@@ -183,3 +183,27 @@ class GradCAMPlus(Base):
         mat = a / (2 * a + sum_activations[:, :, None, None] * b + 1e-8)
         mat = np.where(gradients != 0, mat, 0)
         return np.sum(np.maximum(gradients, 0) * mat, axis=(2, 3))
+
+
+class LayerCAM(Base):
+    def __init__(
+        self, model: nn.Module, target_layer: nn.Module, preprocess_function: Callable, mode: str = "classification"
+    ):
+        super().__init__(model=model, target_layer=target_layer, preprocess_function=preprocess_function, mode=mode)
+
+    def _compute_weights(self, activations, gradients):
+        assert len(gradients.shape) == 4, f"The ndim of `gradients` should be 4 instead of {len(gradients.shape)}"
+        gradients[gradients < 0] = 0
+        return gradients
+
+    def _compute_scores(self):
+        scores = []
+        activations = [activation.numpy() for activation in self.activations]
+        gradients = [gradient.numpy() for gradient in self.gradients]
+        for layer, activation, gradient in zip(self.target_layers, activations, gradients):
+            weights = self._compute_weights(activation, gradient)
+            combination = weights * activation
+            score = combination.sum(axis=1)
+            score[score < 0] = 0
+            scores.append(score)
+        return scores

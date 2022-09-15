@@ -10,7 +10,7 @@ from .agnostic.shap import ShapImage
 from .agnostic.pdp import PartialDependenceImage
 from .agnostic.l2x import L2XImage
 from .specific.ig import IntegratedGradientImage
-from .specific.gradcam import GradCAM, GradCAMPlus
+from .specific.gradcam import GradCAM, GradCAMPlus, LayerCAM
 from .specific.scorecam import ScoreCAM
 from .specific.cem import ContrastiveExplainer
 from .specific.smoothgrad import SmoothGrad
@@ -29,6 +29,7 @@ __all__ = [
     "GradCAM",
     "GradCAMPlus",
     "ScoreCAM",
+    "LayerCAM",
     "ContrastiveExplainer",
     "SmoothGrad",
     "GuidedBP",
