@@ -6,6 +6,7 @@
 #
 import torch
 import torchvision
+from packaging import version
 from omnixai.preprocessing.base import TransformBase
 
 
@@ -121,3 +122,14 @@ class Padding(TransformBase):
 
     def invert(self, x):
         raise RuntimeError("`Padding` doesn't support the `invert` function.")
+
+
+def fft_images(width, height, inputs, scale):
+    spectrum = torch.complex(inputs[0], inputs[1]) * scale[None, None, :, :]
+    # Torch 1.7
+    if version.parse(torch.__version__) < version.parse("1.8"):
+        x = torch.cat([spectrum.real.unsqueeze(dim=-1), spectrum.imag.unsqueeze(dim=-1)], dim=-1)
+        image = torch.irfft(x, signal_ndim=2, normalized=False, onesided=False)
+    else:
+        image = torch.fft.ifft2(spectrum)
+    return image / 4.0
