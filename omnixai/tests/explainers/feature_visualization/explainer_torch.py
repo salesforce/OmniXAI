@@ -29,7 +29,7 @@ class TestExplainer(unittest.TestCase):
     def test_layer(self):
         objectives = [
             Objective(
-                layer=self.model.features[20],
+                layer=self.model.features[-6],
                 channel_indices=list(range(5))
             )
         ]
@@ -39,7 +39,8 @@ class TestExplainer(unittest.TestCase):
         )
         results, names = optimizer.optimize(
             num_iterations=300,
-            image_shape=(224, 224)
+            image_shape=(224, 224),
+            use_fft=True
         )
         for res, name in zip(results[-1], names):
             print(name)

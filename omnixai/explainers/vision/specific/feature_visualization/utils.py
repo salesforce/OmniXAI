@@ -69,3 +69,27 @@ class FeatureOptimizerMixin:
                 labels.append({"type": r["type"], "layer_name": layer_name, "index": indices[i, j]})
             names.append(labels)
         return results, indices.shape[0], names
+
+
+def fft_freq(width, height, mode):
+    freq_x = np.fft.fftfreq(width)[:, None]
+    if mode == "tf":
+        cut_off = int(height % 2 == 1)
+        freq_y = np.fft.fftfreq(height)[:height // 2 + 1 + cut_off]
+        return np.sqrt(freq_y ** 2 + freq_x ** 2)
+    else:
+        freq_y = np.fft.fftfreq(height)
+        return np.sqrt(freq_y ** 2 + freq_x ** 2)
+
+
+def fft_scale(width, height, mode, decay_power=1.0):
+    frequencies = fft_freq(width, height, mode)
+    scale = 1.0 / np.maximum(frequencies, 1.0 / max(width, height)) ** decay_power
+    scale = scale * np.sqrt(width * height)
+    return scale
+
+
+def fft_inputs(batch_size, channel, width, height, mode, std=0.01):
+    freq = fft_freq(width, height, mode)
+    inputs = np.random.randn(*((2, batch_size, channel) + freq.shape)) * std
+    return inputs.astype(np.float32)

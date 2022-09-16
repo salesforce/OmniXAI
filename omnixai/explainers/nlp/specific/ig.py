@@ -186,6 +186,7 @@ class IntegratedGradientText(ExplainerBase):
             preprocess_function: Callable,
             mode: str = "classification",
             id2token: Dict = None,
+            tokenizer: Callable = None,
             **kwargs,
     ):
         """
@@ -196,7 +197,8 @@ class IntegratedGradientText(ExplainerBase):
             into the inputs of ``model``. The first output of ``preprocess_function`` must
             be the token ids.
         :param mode: The task type, e.g., `classification` or `regression`.
-        :param id2token: The mapping from token ids to tokens.
+        :param id2token: The mapping from token ids to tokens. If `tokenizer` is set, `id2token` will be ignored.
+        :param tokenizer: The tokenizer for processing text inputs, i.e., tokenizers in HuggingFace.
         """
         super().__init__()
         assert preprocess_function is not None, (
@@ -207,6 +209,7 @@ class IntegratedGradientText(ExplainerBase):
         self.embedding_layer = embedding_layer
         self.preprocess_function = preprocess_function
         self.id2token = id2token
+        self.tokenizer = tokenizer
 
         ig_class = None
         if is_torch_available():
@@ -293,11 +296,19 @@ class IntegratedGradientText(ExplainerBase):
                 steps=steps,
                 batch_size=batch_size
             )
-            tokens = inputs[0].detach().cpu().numpy() if self.model_type == "torch" else inputs[0].numpy()
+            tokens = inputs[0].detach().cpu().numpy() if self.model_type == "torch" \
+                else inputs[0].numpy()
+
+            if self.tokenizer is not None:
+                input_tokens = [self.tokenizer.decode([t]) for t in tokens[0]]
+            elif self.id2token is not None:
+                input_tokens = [self.id2token[t] for t in tokens[0]]
+            else:
+                input_tokens = tokens[0]
             explanations.add(
                 instance=instance.to_str(),
                 target_label=y[i] if y is not None else None,
-                tokens=tokens[0] if self.id2token is None else [self.id2token[t] for t in tokens[0]],
+                tokens=input_tokens,
                 importance_scores=scores,
             )
         return explanations

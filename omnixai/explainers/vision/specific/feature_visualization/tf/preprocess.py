@@ -150,3 +150,11 @@ class Padding(TransformBase):
 
     def invert(self, x):
         raise RuntimeError("`Padding` doesn't support the `invert` function.")
+
+
+def fft_images(width, height, inputs, scale):
+    spectrum = tf.complex(inputs[0], inputs[1]) * scale
+    image = tf.signal.irfft2d(spectrum)
+    image = tf.transpose(image, (0, 2, 3, 1))
+    image = image[:, :width, :height, :]
+    return image / 4.0

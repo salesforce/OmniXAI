@@ -15,10 +15,10 @@ class TestExplainer(unittest.TestCase):
 
     def setUp(self) -> None:
         device = "cuda" if torch.cuda.is_available() else "cpu"
-        # self.model = models.vgg16(pretrained=True).to(device)
-        # self.target_layer = self.model.features[20]
-        self.model = vgg16.VGG16()
-        self.target_layer = self.model.layers[15]
+        self.model = models.vgg16(pretrained=True).to(device)
+        self.target_layer = self.model.features[-6]
+        # self.model = vgg16.VGG16()
+        # self.target_layer = self.model.layers[15]
 
     def test(self):
         optimizer = FeatureVisualizer(
@@ -27,7 +27,8 @@ class TestExplainer(unittest.TestCase):
         )
         explanations = optimizer.explain(
             num_iterations=300,
-            image_shape=(224, 224)
+            image_shape=(224, 224),
+            use_fft=True
         )
         explanations.ipython_plot()
 

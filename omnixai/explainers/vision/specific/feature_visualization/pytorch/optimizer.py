@@ -11,6 +11,8 @@ import numpy as np
 from typing import Union, List
 from collections import defaultdict
 from ..utils import Objective, FeatureOptimizerMixin
+from ..utils import fft_inputs, fft_scale
+from .preprocess import fft_images
 
 
 class FeatureOptimizer(FeatureOptimizerMixin):
@@ -171,6 +173,8 @@ class FeatureOptimizer(FeatureOptimizerMixin):
             value_normalizer="sigmoid",
             value_range=(0.05, 0.95),
             init_std=0.01,
+            use_fft=False,
+            fft_decay=1.0,
             normal_color=False,
             save_all_images=False,
             verbose=True,
@@ -186,16 +190,36 @@ class FeatureOptimizer(FeatureOptimizerMixin):
             if not isinstance(regularizers, list):
                 regularizers = [regularizers]
             regularizers = [self._regularize(reg, w) for reg, w in regularizers]
+        if use_fft:
+            # Using "normal color" for FFT preconditioning
+            normal_color = True
 
         device = next(self.model.parameters()).device
-        inputs = torch.tensor(
-            np.random.randn(*(self.num_combinations, 3, *image_shape)) * init_std,
-            dtype=torch.float32,
-            requires_grad=True,
-            device=device
-        )
+        shape = (self.num_combinations, 3, *image_shape)
+        if not use_fft:
+            inputs = torch.tensor(
+                np.random.randn(*shape) * init_std,
+                dtype=torch.float32,
+                requires_grad=True,
+                device=device
+            )
+            normalize = lambda x: self._normalize(
+                x, value_normalizer, value_range, normal_color)
+        else:
+            inputs = torch.tensor(
+                fft_inputs(*shape, mode="torch", std=init_std),
+                dtype=torch.float32,
+                requires_grad=True,
+                device=device
+            )
+            scales = fft_scale(
+                image_shape[0], image_shape[1], mode="torch", decay_power=fft_decay)
+            scales = torch.tensor(scales, dtype=torch.complex64, device=device)
+            normalize = lambda x: self._normalize(
+                fft_images(image_shape[0], image_shape[1], inputs, scales),
+                value_normalizer, value_range, normal_color
+            )
         optimizer = torch.optim.Adam([inputs], lr=learning_rate)
-        normalize = lambda x: self._normalize(x, value_normalizer, value_range, normal_color)
 
         results = []
         for i in range(num_iterations):

@@ -97,6 +97,8 @@ class FeatureVisualizer(ExplainerBase):
             transformers: Pipeline = None,
             regularizers: List = None,
             image_shape: Tuple = None,
+            use_fft=False,
+            fft_decay=1.0,
             normal_color: bool = False,
             verbose: bool = True,
             **kwargs
@@ -113,6 +115,8 @@ class FeatureVisualizer(ExplainerBase):
         :param regularizers: A list of regularizers applied on images. Each regularizer is a tupe
             `(regularizer_type, weight)` where `regularizer_type` is "l1", "l2" or "tv".
         :param image_shape: The customized image shape. If None, the default shape is (224, 224).
+        :param use_fft: Whether to use fourier preconditioning.
+        :param fft_decay: The value controlling the allowed energy of the high frequency.
         :param normal_color: Whether to map uncorrelated colors to normal colors.
         :param verbose: Whether to print the optimization progress.
         :return: The optimized images for the objectives.
@@ -155,6 +159,8 @@ class FeatureVisualizer(ExplainerBase):
             value_normalizer=value_normalizer,
             value_range=value_range,
             init_std=init_std,
+            use_fft=use_fft,
+            fft_decay=fft_decay,
             normal_color=normal_color,
             save_all_images=False,
             verbose=verbose

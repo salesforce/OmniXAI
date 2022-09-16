@@ -9,6 +9,8 @@ import numpy as np
 import tensorflow as tf
 from typing import Union, List
 from ..utils import Objective, FeatureOptimizerMixin
+from ..utils import fft_inputs, fft_scale
+from .preprocess import fft_images
 
 
 class FeatureOptimizer(FeatureOptimizerMixin):
@@ -195,6 +197,8 @@ class FeatureOptimizer(FeatureOptimizerMixin):
             value_normalizer="sigmoid",
             value_range=(0.05, 0.95),
             init_std=0.01,
+            use_fft=False,
+            fft_decay=1.0,
             normal_color=False,
             save_all_images=False,
             verbose=True,
@@ -212,10 +216,25 @@ class FeatureOptimizer(FeatureOptimizerMixin):
             if not isinstance(regularizers, list):
                 regularizers = [regularizers]
             regularizers = [self._regularize(reg, w) for reg, w in regularizers]
+        if use_fft:
+            # Using "normal color" for FFT preconditioning
+            normal_color = True
 
-        inputs = tf.Variable(
-            tf.random.normal(shape, stddev=init_std, dtype=tf.float32), trainable=True)
-        normalize = lambda x: self._normalize(x, value_normalizer, value_range, normal_color)
+        if not use_fft:
+            inputs = tf.Variable(
+                tf.random.normal(shape, stddev=init_std, dtype=tf.float32), trainable=True)
+            normalize = lambda x: self._normalize(
+                x, value_normalizer, value_range, normal_color)
+        else:
+            inputs = tf.Variable(
+                fft_inputs(shape[0], shape[3], shape[1], shape[2], mode="tf", std=init_std),
+                trainable=True)
+            scales = fft_scale(shape[1], shape[2], mode="tf", decay_power=fft_decay)
+            scales = tf.convert_to_tensor(scales, dtype=tf.complex64)
+            normalize = lambda x: self._normalize(
+                fft_images(shape[1], shape[2], inputs, scales),
+                value_normalizer, value_range, normal_color
+            )
         optimizer = tf.keras.optimizers.Adam(learning_rate)
 
         @tf.function
