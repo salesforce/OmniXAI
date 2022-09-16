@@ -475,14 +475,17 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Initialize a VisionExplainer</span>
 <span class="n">explainer</span> <span class="o">=</span> <span class="n">VisionExplainer</span><span class="p">(</span>
-    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;gradcam&quot;</span><span class="p">,</span> <span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;ig&quot;</span><span class="p">,</span> <span class="s2">&quot;ce&quot;</span><span class="p">],</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;gradcam&quot;</span><span class="p">,</span> <span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;ig&quot;</span><span class="p">,</span> <span class="s2">&quot;ce&quot;</span><span class="p">,</span> <span class="s2">&quot;scorecam&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;smoothgrad&quot;</span><span class="p">,</span> <span class="s2">&quot;guidedbp&quot;</span><span class="p">,</span> <span class="s2">&quot;layercam&quot;</span><span class="p">],</span>
     <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
     <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
     <span class="n">preprocess</span><span class="o">=</span><span class="n">preprocess</span><span class="p">,</span>
     <span class="n">postprocess</span><span class="o">=</span><span class="n">postprocess</span><span class="p">,</span>
     <span class="n">params</span><span class="o">=</span><span class="p">{</span>
         <span class="s2">&quot;gradcam&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;target_layer&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">layer4</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]},</span>
-        <span class="s2">&quot;ce&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;binary_search_steps&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;num_iterations&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">}</span>
+        <span class="s2">&quot;ce&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;binary_search_steps&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;num_iterations&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span>
+        <span class="s2">&quot;scorecam&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;target_layer&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">layer4</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]},</span>
+        <span class="s2">&quot;layercam&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;target_layer&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">layer3</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]},</span>
     <span class="p">}</span>
 <span class="p">)</span>
 <span class="c1"># Generate explanations</span>
@@ -494,26 +497,34 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "67b310f6ebd04fdebcb716e36ac14a51", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0cdf2d333b21470fb0f3661a404fee57", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d48c0f05ac38483ca618641430afd14a", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c222d2ba14b8453f80bbdb2abfe69f2f", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "67ce38968b6e4bb4b40f4c7065fa5025", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "77503c5237cd421cbfc3a4b8a3b0fac8", "version_major": 2, "version_minor": 0}</script></div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Binary step: 2 |███████████████████████████████████████-| 99.0%
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+100%|██████████| 2048/2048 [00:18&lt;00:00, 112.44it/s]
 </pre></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ipython_plot</span></code> plots the generated explanations in IPython. Parameter <code class="docutils literal notranslate"><span class="pre">index</span></code> indicates which instance to plot, e.g., <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code> means plotting the first instance in <code class="docutils literal notranslate"><span class="pre">img</span></code>.</p>
@@ -523,14 +534,9 @@ Binary step: 2 |█████████████████████�
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">index</span><span class="o">=</span><span class="mi">2</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Grad-CAM results:&quot;</span><span class="p">)</span>
-<span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;gradcam&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">idx2label</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LIME results:&quot;</span><span class="p">)</span>
-<span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">idx2label</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Integrated-gradient results:&quot;</span><span class="p">)</span>
-<span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;ig&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">idx2label</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Counterfactual results:&quot;</span><span class="p">)</span>
-<span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;ce&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">idx2label</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">explanations</span> <span class="ow">in</span> <span class="n">local_explanations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="n">explanations</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">idx2label</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -539,7 +545,7 @@ Binary step: 2 |█████████████████████�
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Grad-CAM results:
+predict:
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -554,7 +560,7 @@ Grad-CAM results:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-LIME results:
+gradcam:
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -569,7 +575,7 @@ LIME results:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Integrated-gradient results:
+lime:
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -584,14 +590,89 @@ Integrated-gradient results:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Counterfactual results:
+ig:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_vision_13_7.png" src="../_images/tutorials_vision_13_7.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ce:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_vision_13_9.png" src="../_images/tutorials_vision_13_9.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+scorecam:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_vision_13_11.png" src="../_images/tutorials_vision_13_11.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+smoothgrad:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_vision_13_13.png" src="../_images/tutorials_vision_13_13.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+guidedbp:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_vision_13_15.png" src="../_images/tutorials_vision_13_15.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+layercam:
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_vision_13_7.png" src="../_images/tutorials_vision_13_7.png" />
+<img alt="../_images/tutorials_vision_13_17.png" src="../_images/tutorials_vision_13_17.png" />
 </div>
 </div>
 <p>Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test instance, the generated local explanations, and the class names.</p>
@@ -619,7 +700,7 @@ Dash is running on http://127.0.0.1:8050/
 
  * Serving Flask app &#34;omnixai.visualization.dashboard&#34; (lazy loading)
  * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
+<span class="ansi-red-fg">   WARNING: This is a development server. Do not use it in a production deployment.</span>
    Use a production WSGI server instead.
  * Debug mode: off
 </pre></div></div>

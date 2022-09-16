@@ -59,12 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="linear.html">Logistic regression for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mace.html">MACE counterfactual explanation for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pdp.html">Paritial dependence plots</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Learning to Rank Expanations Demo</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Key-Takeaways">Key Takeaways</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Learning-to-Rank">Learning to Rank</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Per-Query-Valid-Explanations">Per Query Valid Explanations</a></li>
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Learning to Rank Expanations Demo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sensitivity.html">Morris sensitivity analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="shap.html">SHAP for income prediction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tree.html">Decision tree for income prediction</a></li>
@@ -375,19 +370,8 @@ div.rendered_html tbody tr:hover {
 <section id="Learning-to-Rank-Expanations-Demo">
 <h1>Learning to Rank Expanations Demo<a class="headerlink" href="#Learning-to-Rank-Expanations-Demo" title="Permalink to this heading"></a></h1>
 <p>In this notebook, we will explore how to explain the scores of a Learning to Rank model using OmniXAI</p>
-<section id="Key-Takeaways">
-<h2>Key Takeaways<a class="headerlink" href="#Key-Takeaways" title="Permalink to this heading"></a></h2>
-<ul class="simple">
-<li><p>How to install and get started with ml4ir as a script</p></li>
-<li><p>Explaining the rank scores using OmniXAI</p></li>
-</ul>
-</section>
-<section id="Learning-to-Rank">
-<h2>Learning to Rank<a class="headerlink" href="#Learning-to-Rank" title="Permalink to this heading"></a></h2>
+<p><strong>Key Takeaways:</strong> - How to install and get started with ml4ir as a script - Explaining the rank scores using OmniXAI</p>
 <p>The goal of Learning to Rank (LTR) is to come up with a ranking function to generate an optimal ordering of a list of documents. In this notebook, we will learn a simple <strong>pointwise ranking function</strong> using a <strong>listwise loss</strong> which will predict the ranking scores for all records of a given query. These scores can then be used at inference to determine the optimal ordering.</p>
-</section>
-<section id="Per-Query-Valid-Explanations">
-<h2>Per Query Valid Explanations<a class="headerlink" href="#Per-Query-Valid-Explanations" title="Permalink to this heading"></a></h2>
 <p>We explore the per-query Valid explanations using Omnixai’s ValidityRankingExplainer</p>
 <p>Reference for algorithm: Singh, J., Khosla, M., &amp; Anand, A. (2020). Valid Explanations for Learning to Rank Models. ArXiv, abs/2004.13972.</p>
 <p>Install ml4ir and omnixai:</p>
@@ -1491,7 +1475,6 @@ if (outputEl) {{
 
                         })                };                });            </script>        </div></div>
 </div>
-</section>
 </section>
 
 

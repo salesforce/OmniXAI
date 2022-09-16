@@ -513,6 +513,51 @@ Step: 300 |███████████████████████
 <img alt="../../_images/tutorials_vision_feature_visualization_torch_11_1.png" src="../../_images/tutorials_vision_feature_visualization_torch_11_1.png" />
 </div>
 </div>
+<p>Let’s try another target layer and use FFT preconditioning:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">target_layer</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">FeatureVisualizer</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">objectives</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;layer&quot;</span><span class="p">:</span> <span class="n">target_layer</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;channel&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">))}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">explanations</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span>
+    <span class="n">num_iterations</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+    <span class="n">image_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+    <span class="n">use_fft</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">explanations</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+The function torch.irfft is deprecated and will be removed in a future PyTorch release. Use the new torch.fft module functions, instead, by importing torch.fft and calling torch.fft.ifft or torch.fft.irfft. (Triggered internally at  /pytorch/aten/src/ATen/native/SpectralOps.cpp:602.)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Step: 300 |████████████████████████████████████████| 100.0%
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorials_vision_feature_visualization_torch_13_2.png" src="../../_images/tutorials_vision_feature_visualization_torch_13_2.png" />
+</div>
+</div>
 </section>
 
 
