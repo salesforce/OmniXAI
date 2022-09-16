@@ -216,11 +216,15 @@ class FeatureOptimizer(FeatureOptimizerMixin):
             if not isinstance(regularizers, list):
                 regularizers = [regularizers]
             regularizers = [self._regularize(reg, w) for reg, w in regularizers]
+        if use_fft:
+            # Using "normal color" for FFT preconditioning
+            normal_color = True
 
         if not use_fft:
             inputs = tf.Variable(
                 tf.random.normal(shape, stddev=init_std, dtype=tf.float32), trainable=True)
-            normalize = lambda x: self._normalize(x, value_normalizer, value_range, normal_color)
+            normalize = lambda x: self._normalize(
+                x, value_normalizer, value_range, normal_color)
         else:
             inputs = tf.Variable(
                 fft_inputs(shape[0], shape[3], shape[1], shape[2], mode="tf", std=init_std),
