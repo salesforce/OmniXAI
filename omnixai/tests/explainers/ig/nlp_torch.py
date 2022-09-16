@@ -109,7 +109,8 @@ class TestIG(unittest.TestCase):
         self.evaluate()
 
     def train(self):
-        Trainer(optimizer_class=torch.optim.AdamW, learning_rate=1e-3, batch_size=128, num_epochs=10).train(
+        Trainer(optimizer_class=torch.optim.AdamW, learning_rate=1e-3,
+                batch_size=128, num_epochs=10).train(
             model=self.model,
             loss_func=nn.CrossEntropyLoss(),
             train_x=self.transform.transform(self.x_train),
@@ -137,7 +138,8 @@ class TestIG(unittest.TestCase):
             outputs.append(y.detach().cpu().numpy())
         outputs = np.concatenate(outputs, axis=0)
         predictions = np.argmax(outputs, axis=1)
-        print("Test accuracy: {}".format(sklearn.metrics.f1_score(self.y_test, predictions, average="binary")))
+        print("Test accuracy: {}".format(
+            sklearn.metrics.f1_score(self.y_test, predictions, average="binary")))
 
     def test_explain(self):
         idx = 83
