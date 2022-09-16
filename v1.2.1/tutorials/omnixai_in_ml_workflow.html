@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniXAI in a ML workflow &mdash; OmniXAI  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Accumulated local effects (ALE)" href="tabular/ale.html" />
+    <link rel="prev" title="TimeseriesExplainer for time series anomaly detection" href="timeseries.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OmniXAI
+          </a>
+              <div class="version">
+                v1.2.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials &amp; Example Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#basics">Basics</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#applications">Applications</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="data_analysis.html">DataAnalyzer for feature analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tabular_classification.html">TabularExplainer for income prediction (classification)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tabular_regression.html">TabularExplainer for house-price prediction (regression)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vision.html">VisionExplainer for image classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nlp.html">NLPExplainer for sentiment analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nlp_imdb.html">NLPExplainer on IMDB dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timeseries.html">TimeseriesExplainer for time series anomaly detection</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">OmniXAI in a ML workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#tabular-explainers">Tabular Explainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#vision-explainers">Vision Explainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#nlp-explainers">NLP Explainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#timeseries-explainers">Timeseries Explainers</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OmniXAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../tutorials.html">Tutorials &amp; Example Code</a> &raquo;</li>
+      <li>OmniXAI in a ML workflow</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/omnixai_in_ml_workflow.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="OmniXAI-in-a-ML-workflow">
+<h1>OmniXAI in a ML workflow<a class="headerlink" href="#OmniXAI-in-a-ML-workflow" title="Permalink to this heading"></a></h1>
+<p>This tutorial shows how to apply OmniXAI in different stages in a standard ML workflow.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># This default renderer is used for sphinx docs only. Please delete this cell in IPython.</span>
+<span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
+<span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>The dataset used in this example is for income prediction (<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/adult">https://archive.ics.uci.edu/ml/datasets/adult</a>).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Load the dataset</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Workclass&quot;</span><span class="p">,</span> <span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Country&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span>
+<span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;adult.data&#39;</span><span class="p">),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">feature_names</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+      Age         Workclass  fnlwgt   Education Education-Num  \
+0      39         State-gov   77516   Bachelors            13
+1      50  Self-emp-not-inc   83311   Bachelors            13
+2      38           Private  215646     HS-grad             9
+3      53           Private  234721        11th             7
+4      28           Private  338409   Bachelors            13
+...    ..               ...     ...         ...           ...
+32556  27           Private  257302  Assoc-acdm            12
+32557  40           Private  154374     HS-grad             9
+32558  58           Private  151910     HS-grad             9
+32559  22           Private  201490     HS-grad             9
+32560  52      Self-emp-inc  287927     HS-grad             9
+
+           Marital Status         Occupation   Relationship   Race     Sex  \
+0           Never-married       Adm-clerical  Not-in-family  White    Male
+1      Married-civ-spouse    Exec-managerial        Husband  White    Male
+2                Divorced  Handlers-cleaners  Not-in-family  White    Male
+3      Married-civ-spouse  Handlers-cleaners        Husband  Black    Male
+4      Married-civ-spouse     Prof-specialty           Wife  Black  Female
+...                   ...                ...            ...    ...     ...
+32556  Married-civ-spouse       Tech-support           Wife  White  Female
+32557  Married-civ-spouse  Machine-op-inspct        Husband  White    Male
+32558             Widowed       Adm-clerical      Unmarried  White  Female
+32559       Never-married       Adm-clerical      Own-child  White    Male
+32560  Married-civ-spouse    Exec-managerial           Wife  White  Female
+
+      Capital Gain Capital Loss Hours per week        Country  label
+0             2174            0             40  United-States  &lt;=50K
+1                0            0             13  United-States  &lt;=50K
+2                0            0             40  United-States  &lt;=50K
+3                0            0             40  United-States  &lt;=50K
+4                0            0             40           Cuba  &lt;=50K
+...            ...          ...            ...            ...    ...
+32556            0            0             38  United-States  &lt;=50K
+32557            0            0             40  United-States   &gt;50K
+32558            0            0             40  United-States  &lt;=50K
+32559            0            0             20  United-States  &lt;=50K
+32560        15024            0             40  United-States   &gt;50K
+
+[32561 rows x 15 columns]
+</pre></div></div>
+</div>
+<p>Let’s first check if some features are correlated and if there exists data imbalance issues that leads potential sociological bias. We can create an <code class="docutils literal notranslate"><span class="pre">DataAnalyzer</span></code> explainer to do this task.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">omnixai.data.tabular</span> <span class="kn">import</span> <span class="n">Tabular</span>
+<span class="kn">from</span> <span class="nn">omnixai.explainers.data</span> <span class="kn">import</span> <span class="n">DataAnalyzer</span>
+
+<span class="n">tabular_data</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Workclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Education&#39;</span><span class="p">,</span> <span class="s1">&#39;Marital Status&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;Occupation&#39;</span><span class="p">,</span> <span class="s1">&#39;Relationship&#39;</span><span class="p">,</span> <span class="s1">&#39;Race&#39;</span><span class="p">,</span> <span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="s1">&#39;Country&#39;</span><span class="p">],</span>
+    <span class="n">target_column</span><span class="o">=</span><span class="s1">&#39;label&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Initialize a `DataAnalyzer` explainer.</span>
+<span class="c1"># We can choose multiple explainers/analyzers by specifying analyzer names.</span>
+<span class="c1"># In this example, the first explainer is for feature correlation analysis and</span>
+<span class="c1"># the others are for feature imbalance analysis (the same explainer with different parameters).</span>
+<span class="n">explainer</span> <span class="o">=</span> <span class="n">DataAnalyzer</span><span class="p">(</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;correlation&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#0&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#1&quot;</span><span class="p">,</span> <span class="s2">&quot;imbalance#2&quot;</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">tabular_data</span>
+<span class="p">)</span>
+<span class="c1"># Generate explanations by calling `explain_global`.</span>
+<span class="n">explanations</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain_global</span><span class="p">(</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;imbalance#0&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]},</span>
+            <span class="s2">&quot;imbalance#1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Race&quot;</span><span class="p">]},</span>
+            <span class="s2">&quot;imbalance#2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">]}}</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correlation:&quot;</span><span class="p">)</span>
+<span class="n">explanations</span><span class="p">[</span><span class="s2">&quot;correlation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Imbalance#0:&quot;</span><span class="p">)</span>
+<span class="n">explanations</span><span class="p">[</span><span class="s2">&quot;imbalance#0&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Imbalance#1:&quot;</span><span class="p">)</span>
+<span class="n">explanations</span><span class="p">[</span><span class="s2">&quot;imbalance#1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Imbalance#1:&quot;</span><span class="p">)</span>
+<span class="n">explanations</span><span class="p">[</span><span class="s2">&quot;imbalance#1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Correlation:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_6_1.png" src="../_images/tutorials_omnixai_in_ml_workflow_6_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Imbalance#0:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_6_3.png" src="../_images/tutorials_omnixai_in_ml_workflow_6_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Imbalance#1:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_6_5.png" src="../_images/tutorials_omnixai_in_ml_workflow_6_5.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Imbalance#1:
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_6_7.png" src="../_images/tutorials_omnixai_in_ml_workflow_6_7.png" />
+</div>
+</div>
+<p>From the correlation plot we can observe that “Relationship” has strong correlations with “Matrital Status” and “Sex”, so we may remove this feature. From the data imbalance plots we can see that the class labels are highly imbalanced among different “Sex” and “Race”. Therefore, we must ignore these features when building a machine learning model to avoid sociological bias.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Relationship&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+      Age         Workclass  fnlwgt   Education Education-Num  \
+0      39         State-gov   77516   Bachelors            13
+1      50  Self-emp-not-inc   83311   Bachelors            13
+2      38           Private  215646     HS-grad             9
+3      53           Private  234721        11th             7
+4      28           Private  338409   Bachelors            13
+...    ..               ...     ...         ...           ...
+32556  27           Private  257302  Assoc-acdm            12
+32557  40           Private  154374     HS-grad             9
+32558  58           Private  151910     HS-grad             9
+32559  22           Private  201490     HS-grad             9
+32560  52      Self-emp-inc  287927     HS-grad             9
+
+           Marital Status         Occupation Capital Gain Capital Loss  \
+0           Never-married       Adm-clerical         2174            0
+1      Married-civ-spouse    Exec-managerial            0            0
+2                Divorced  Handlers-cleaners            0            0
+3      Married-civ-spouse  Handlers-cleaners            0            0
+4      Married-civ-spouse     Prof-specialty            0            0
+...                   ...                ...          ...          ...
+32556  Married-civ-spouse       Tech-support            0            0
+32557  Married-civ-spouse  Machine-op-inspct            0            0
+32558             Widowed       Adm-clerical            0            0
+32559       Never-married       Adm-clerical            0            0
+32560  Married-civ-spouse    Exec-managerial        15024            0
+
+      Hours per week        Country  label
+0                 40  United-States  &lt;=50K
+1                 13  United-States  &lt;=50K
+2                 40  United-States  &lt;=50K
+3                 40  United-States  &lt;=50K
+4                 40           Cuba  &lt;=50K
+...              ...            ...    ...
+32556             38  United-States  &lt;=50K
+32557             40  United-States   &gt;50K
+32558             40  United-States  &lt;=50K
+32559             20  United-States  &lt;=50K
+32560             40  United-States   &gt;50K
+
+[32561 rows x 12 columns]
+</pre></div></div>
+</div>
+<p>In the next step, we do a rough feature selection by analyzing the information gain and chi-squared stats between features and targets.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">tabular_data</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Workclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Education&#39;</span><span class="p">,</span> <span class="s1">&#39;Marital Status&#39;</span><span class="p">,</span> <span class="s1">&#39;Occupation&#39;</span><span class="p">,</span> <span class="s1">&#39;Country&#39;</span><span class="p">],</span>
+    <span class="n">target_column</span><span class="o">=</span><span class="s1">&#39;label&#39;</span>
+<span class="p">)</span>
+<span class="n">explainer</span> <span class="o">=</span> <span class="n">DataAnalyzer</span><span class="p">(</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mutual&quot;</span><span class="p">,</span> <span class="s2">&quot;chi2&quot;</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">tabular_data</span>
+<span class="p">)</span>
+<span class="n">data_explanations</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain_global</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mutual information:&quot;</span><span class="p">)</span>
+<span class="n">data_explanations</span><span class="p">[</span><span class="s2">&quot;mutual&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Chi square:&quot;</span><span class="p">)</span>
+<span class="n">data_explanations</span><span class="p">[</span><span class="s2">&quot;chi2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Mutual information:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_10_1.png" src="../_images/tutorials_omnixai_in_ml_workflow_10_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Chi square:
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_10_3.png" src="../_images/tutorials_omnixai_in_ml_workflow_10_3.png" />
+</div>
+</div>
+<p>Clearly, the most important features showed above are “Age”, “Marital Statues”, “Eduction-Num”, “Hours per week”, “Occupation” and “Education”. “Capital Gain” is not consistent among these two methods, while “Workclass”, “Capital Loss”, “fnlwgt”, and “Country” are the least important features, so we may consider to remove them or do further analysis.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># We drop these three features because they have relatively low importance scores.</span>
+<span class="n">tabular_data</span> <span class="o">=</span> <span class="n">Tabular</span><span class="p">(</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span> <span class="s2">&quot;Country&quot;</span><span class="p">]),</span>
+    <span class="n">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Workclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Education&#39;</span><span class="p">,</span> <span class="s1">&#39;Marital Status&#39;</span><span class="p">,</span> <span class="s1">&#39;Occupation&#39;</span><span class="p">],</span>
+    <span class="n">target_column</span><span class="o">=</span><span class="s1">&#39;label&#39;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+      Age         Workclass   Education Education-Num      Marital Status  \
+0      39         State-gov   Bachelors            13       Never-married
+1      50  Self-emp-not-inc   Bachelors            13  Married-civ-spouse
+2      38           Private     HS-grad             9            Divorced
+3      53           Private        11th             7  Married-civ-spouse
+4      28           Private   Bachelors            13  Married-civ-spouse
+...    ..               ...         ...           ...                 ...
+32556  27           Private  Assoc-acdm            12  Married-civ-spouse
+32557  40           Private     HS-grad             9  Married-civ-spouse
+32558  58           Private     HS-grad             9             Widowed
+32559  22           Private     HS-grad             9       Never-married
+32560  52      Self-emp-inc     HS-grad             9  Married-civ-spouse
+
+              Occupation Capital Gain Hours per week  label
+0           Adm-clerical         2174             40  &lt;=50K
+1        Exec-managerial            0             13  &lt;=50K
+2      Handlers-cleaners            0             40  &lt;=50K
+3      Handlers-cleaners            0             40  &lt;=50K
+4         Prof-specialty            0             40  &lt;=50K
+...                  ...          ...            ...    ...
+32556       Tech-support            0             38  &lt;=50K
+32557  Machine-op-inspct            0             40   &gt;50K
+32558       Adm-clerical            0             40  &lt;=50K
+32559       Adm-clerical            0             20  &lt;=50K
+32560    Exec-managerial        15024             40   &gt;50K
+
+[32561 rows x 9 columns]
+</pre></div></div>
+</div>
+<p>We now train a XGBoost classifier for this task.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">import</span> <span class="nn">xgboost</span>
+<span class="kn">from</span> <span class="nn">omnixai.preprocessing.tabular</span> <span class="kn">import</span> <span class="n">TabularTransform</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="c1"># Train an XGBoost model</span>
+<span class="n">transformer</span> <span class="o">=</span> <span class="n">TabularTransform</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">tabular_data</span><span class="p">)</span>
+<span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">test_labels</span> <span class="o">=</span> \
+    <span class="n">sklearn</span><span class="o">.</span><span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Training data shape: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test data shape:     </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+<span class="n">class_names</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">class_names</span>
+<span class="n">gbtree</span> <span class="o">=</span> <span class="n">xgboost</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">gbtree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test accuracy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="n">sklearn</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">gbtree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">))))</span>
+
+<span class="c1"># Convert the transformed data back to Tabular instances</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Training data shape: (26048, 51)
+Test data shape:     (6513, 51)
+Test accuracy: 0.8593582066635959
+</pre></div></div>
+</div>
+<p>We then create an <code class="docutils literal notranslate"><span class="pre">TabularExplainer</span></code> explainer to generate local and global explanations.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">omnixai.explainers.tabular</span> <span class="kn">import</span> <span class="n">TabularExplainer</span>
+
+<span class="c1"># Initialize a TabularExplainer</span>
+<span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
+    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">,</span> <span class="s2">&quot;ale&quot;</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">gbtree</span><span class="p">,</span>
+    <span class="n">preprocess</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">),</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;lime&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;kernel_width&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+        <span class="s2">&quot;shap&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;nsamples&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span>
+        <span class="s2">&quot;mace&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;ignored_features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Marital Status&quot;</span><span class="p">]}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Generate global explanations</span>
+<span class="n">global_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain_global</span><span class="p">()</span>
+<span class="n">global_explanations</span><span class="p">[</span><span class="s2">&quot;pdp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+<span class="n">global_explanations</span><span class="p">[</span><span class="s2">&quot;ale&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_17_0.png" src="../_images/tutorials_omnixai_in_ml_workflow_17_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_17_1.png" src="../_images/tutorials_omnixai_in_ml_workflow_17_1.png" />
+</div>
+</div>
+<p>The global explanations generated by PDP describe the general behavior of this classifier. For example, the income increases when “Age” increases from 20 to 50 and then decreases a bit after 50. A large number of educations or a longer working time implies a higher income for the model prediction. But note that these results only show how a model makes predictions but don’t show causal relationships between each feature and the income, e.g., whether a longer working time is the cause of a higher
+income or a higher income is the cause of more working hours is unclear.</p>
+<p>For some specific test instances, we can generate local explanations to analyze the predictions.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Generate local explanations</span>
+<span class="n">test_instances</span> <span class="o">=</span> <span class="n">test_data</span><span class="p">[</span><span class="mi">1653</span><span class="p">:</span><span class="mi">1658</span><span class="p">]</span>
+<span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">test_instances</span><span class="p">)</span>
+
+<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LIME results:&quot;</span><span class="p">)</span>
+<span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SHAP results:&quot;</span><span class="p">)</span>
+<span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;shap&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MACE results:&quot;</span><span class="p">)</span>
+<span class="n">local_explanations</span><span class="p">[</span><span class="s2">&quot;mace&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "da652701859d457cb707ba4bf2c7443b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+LIME results:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_20_2.png" src="../_images/tutorials_omnixai_in_ml_workflow_20_2.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SHAP results:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_20_4.png" src="../_images/tutorials_omnixai_in_ml_workflow_20_4.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MACE results:
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_20_6.png" src="../_images/tutorials_omnixai_in_ml_workflow_20_6.png" />
+</div>
+</div>
+<p>The results of LIME and SHAP show the feature importance scores for this prediction (the predicted label is &gt; 50k), e.g., the positive features (features making income &gt; 50k) are “Marital Status”, “Education-Num”, “Age” and “Hours per week”, the negative features are “Capital Gain” and “Ocupation”. MACE generates several counterfactual examples, e.g., if “Education-Num” is 12 instead of 13 (“Education-Num” decreases) or “Hours per week” decreases to 40, the predicted label will become “&gt;= 50k”.</p>
+<p>We we create a <code class="docutils literal notranslate"><span class="pre">PredictionAnalyzer</span></code> for computing performance metrics for this task:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Compute metrics</span>
+<span class="kn">from</span> <span class="nn">omnixai.explainers.prediction</span> <span class="kn">import</span> <span class="n">PredictionAnalyzer</span>
+
+<span class="n">analyzer</span> <span class="o">=</span> <span class="n">PredictionAnalyzer</span><span class="p">(</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+    <span class="n">test_data</span><span class="o">=</span><span class="n">test_data</span><span class="p">,</span>
+    <span class="n">test_targets</span><span class="o">=</span><span class="n">test_labels</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">gbtree</span><span class="p">,</span>
+    <span class="n">preprocess</span><span class="o">=</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">prediction_explanations</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">explain</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="n">prediction_explanations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="n">ipython_plot</span><span class="p">(</span><span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+metric:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_24_1.png" src="../_images/tutorials_omnixai_in_ml_workflow_24_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+confusion_matrix:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_24_3.png" src="../_images/tutorials_omnixai_in_ml_workflow_24_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+roc:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_24_5.png" src="../_images/tutorials_omnixai_in_ml_workflow_24_5.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+precision_recall:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_24_7.png" src="../_images/tutorials_omnixai_in_ml_workflow_24_7.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+cumulative_gain:
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_24_9.png" src="../_images/tutorials_omnixai_in_ml_workflow_24_9.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+lift_curve:
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_omnixai_in_ml_workflow_24_11.png" src="../_images/tutorials_omnixai_in_ml_workflow_24_11.png" />
+</div>
+</div>
+<p>We can launch a dashboard to examine all the explanations:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">omnixai.visualization.dashboard</span> <span class="kn">import</span> <span class="n">Dashboard</span>
+
+<span class="c1"># Launch a dashboard for visualization</span>
+<span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span>
+    <span class="n">instances</span><span class="o">=</span><span class="n">test_instances</span><span class="p">,</span>
+    <span class="n">data_explanations</span><span class="o">=</span><span class="n">data_explanations</span><span class="p">,</span>
+    <span class="n">local_explanations</span><span class="o">=</span><span class="n">local_explanations</span><span class="p">,</span>
+    <span class="n">global_explanations</span><span class="o">=</span><span class="n">global_explanations</span><span class="p">,</span>
+    <span class="n">prediction_explanations</span><span class="o">=</span><span class="n">prediction_explanations</span><span class="p">,</span>
+    <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span>
+<span class="p">)</span>
+<span class="n">dashboard</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Dash is running on http://127.0.0.1:8050/
+
+ * Serving Flask app &#34;omnixai.visualization.dashboard&#34; (lazy loading)
+ * Environment: production
+<span class="ansi-red-fg">   WARNING: This is a development server. Do not use it in a production deployment.</span>
+   Use a production WSGI server instead.
+ * Debug mode: off
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+ * Running on http://127.0.0.1:8050/ (Press CTRL+C to quit)
+</pre></div></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="timeseries.html" class="btn btn-neutral float-left" title="TimeseriesExplainer for time series anomaly detection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tabular/ale.html" class="btn btn-neutral float-right" title="Accumulated local effects (ALE)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, salesforce.com, inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Versions</span>
+      v1.2.1
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Versions</dt>
+        
+          
+          <dd><a href="">latest</a></dd>
+          
+        
+           <strong> 
+          <dd><a href="">v1.2.1</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="">v1.2.0</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.4</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.3</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.2</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.1</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.0</a></dd>
+          
+        
+          
+          <dd><a href="">v1.0.0</a></dd>
+          
+        
+      </dl>
+      
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>omnixai.explanations package &mdash; OmniXAI  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="omnixai.explanations.tabular package" href="omnixai.explanations.tabular.html" />
+    <link rel="prev" title="omnixai.explainers.ranking.counterfactual package" href="omnixai.explainers.ranking.counterfactual.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> OmniXAI
+          </a>
+              <div class="version">
+                v1.2.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="omnixai.html">OmniXAI: An Explanation Toolbox</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#library-design">Library Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#more-examples">More Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#how-to-contribute">How to Contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-different-data-types">Modules for Different Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#preprocessing-functions">Preprocessing Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#supported-explanation-methods">Supported Explanation Methods</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="omnixai.html#modules-for-explanation-results">Modules for Explanation Results</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">omnixai.explanations package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#three-categories-of-explanation-results">Three categories of explanation results</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.tabular.html">omnixai.explanations.tabular package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.image.html">omnixai.explanations.image package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.text.html">omnixai.explanations.text package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.timeseries.html">omnixai.explanations.timeseries package</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.explanations.base">omnixai.explanations.base module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#dashboard-for-visualization">Dashboard for Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OmniXAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a> &raquo;</li>
+      <li>omnixai.explanations package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/omnixai.explanations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="module-omnixai.explanations">
+<span id="omnixai-explanations-package"></span><h1>omnixai.explanations package<a class="headerlink" href="#module-omnixai.explanations" title="Permalink to this heading"></a></h1>
+<p>This package contains the classes for explanation results. All of these classes provide plotting functions
+for visualization, e.g.,</p>
+<ul class="simple">
+<li><p><strong>plot</strong>: Using <em>Matplotlib</em> to plot figures for visualizing explanation results.</p></li>
+<li><p><strong>plotly_plot</strong>: Using <em>Plotly Dash</em> to plot figures for visualizing explanation results.</p></li>
+<li><p><strong>ipython_plot</strong>: Showing explanation results in IPython.</p></li>
+</ul>
+<section id="three-categories-of-explanation-results">
+<h2>Three categories of explanation results<a class="headerlink" href="#three-categories-of-explanation-results" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="omnixai.explanations.tabular.html">omnixai.explanations.tabular package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular.feature_importance">omnixai.explanations.tabular.feature_importance module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular.counterfactual">omnixai.explanations.tabular.counterfactual module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular.pdp">omnixai.explanations.tabular.pdp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular.sensitivity">omnixai.explanations.tabular.sensitivity module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular.linear">omnixai.explanations.tabular.linear module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular.tree">omnixai.explanations.tabular.tree module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular.correlation">omnixai.explanations.tabular.correlation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular.imbalance">omnixai.explanations.tabular.imbalance module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.tabular.html#module-omnixai.explanations.tabular.validity">omnixai.explanations.tabular.validity module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="omnixai.explanations.image.html">omnixai.explanations.image package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.image.html#module-omnixai.explanations.image.pixel_importance">omnixai.explanations.image.pixel_importance module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.image.html#module-omnixai.explanations.image.mask">omnixai.explanations.image.mask module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.image.html#module-omnixai.explanations.image.contrast">omnixai.explanations.image.contrast module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.image.html#module-omnixai.explanations.image.counterfactual">omnixai.explanations.image.counterfactual module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="omnixai.explanations.text.html">omnixai.explanations.text package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.text.html#module-omnixai.explanations.text.word_importance">omnixai.explanations.text.word_importance module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="omnixai.explanations.timeseries.html">omnixai.explanations.timeseries package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries.feature_importance">omnixai.explanations.timeseries.feature_importance module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explanations.timeseries.html#module-omnixai.explanations.timeseries.counterfactual">omnixai.explanations.timeseries.counterfactual module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-omnixai.explanations.base">
+<span id="omnixai-explanations-base-module"></span><h2>omnixai.explanations.base module<a class="headerlink" href="#module-omnixai.explanations.base" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explanations.base.ExplanationBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.base.</span></span><span class="sig-name descname"><span class="pre">ExplanationBase</span></span><a class="headerlink" href="#omnixai.explanations.base.ExplanationBase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Abstract base class for explanation results.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.ExplanationBase.get_explanations">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.ExplanationBase.get_explanations" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the generated explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dict or a list containing the explanations.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.ExplanationBase.plot">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.ExplanationBase.plot" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a matplotlib figure showing the explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A matplotlib figure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.ExplanationBase.plotly_plot">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.ExplanationBase.plotly_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a plotly dash component showing the explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A plotly dash component.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.ExplanationBase.ipython_plot">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.ExplanationBase.ipython_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots figures in IPython.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.ExplanationBase.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.ExplanationBase.dump" title="Permalink to this definition"></a></dt>
+<dd><p>Pickles an explanation object to a file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.ExplanationBase.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.ExplanationBase.load" title="Permalink to this definition"></a></dt>
+<dd><p>Unpickle an explanation object from a file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.ExplanationBase.dumps">
+<span class="sig-name descname"><span class="pre">dumps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.ExplanationBase.dumps" title="Permalink to this definition"></a></dt>
+<dd><p>Pickles a explanation object into a byte string.
+:return: The pickled explanation object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.ExplanationBase.loads">
+<span class="sig-name descname"><span class="pre">loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">byte_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.ExplanationBase.loads" title="Permalink to this definition"></a></dt>
+<dd><p>Loads an explanation object from a byte string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>byte_string</strong> – A byte string.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The loaded explanation object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explanations.base.DashFigure">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.base.</span></span><span class="sig-name descname"><span class="pre">DashFigure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.DashFigure" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.DashFigure.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.DashFigure.show" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.DashFigure.to_html_div">
+<span class="sig-name descname"><span class="pre">to_html_div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.DashFigure.to_html_div" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.DashFigure.to_html">
+<span class="sig-name descname"><span class="pre">to_html</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.DashFigure.to_html" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PredictedResults">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.base.</span></span><span class="sig-name descname"><span class="pre">PredictedResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PredictedResults" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
+<p>The class for prediction results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>predictions</strong> – For classfication, <code class="docutils literal notranslate"><span class="pre">predictions</span></code> are the predicted class probabilities.
+For regression, <code class="docutils literal notranslate"><span class="pre">predictions</span></code> are the predicted values.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PredictedResults.get_explanations">
+<span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PredictedResults.get_explanations" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the prediction results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The prediction results.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PredictedResults.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_subplots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PredictedResults.plot" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a matplotlib figure showing the predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – The index of the instance. When it is None,
+it returns a figure with <code class="docutils literal notranslate"><span class="pre">max_num_subplots</span></code> subplots where each subplot
+plots the feature importance scores for one instance.</p></li>
+<li><p><strong>class_names</strong> – The class names.</p></li>
+<li><p><strong>max_num_subplots</strong> – The maximum number of subplots in the figure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A matplotlib figure plotting the predictions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PredictedResults.plotly_plot">
+<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PredictedResults.plotly_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a plotly dash figure showing the predictions for one specific instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – The index of the instance which cannot be None.</p></li>
+<li><p><strong>class_names</strong> – The class names.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A plotly dash figure plotting the predictions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PredictedResults.ipython_plot">
+<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PredictedResults.ipython_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots prediction results in IPython.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – The index of the instance which cannot be None.</p></li>
+<li><p><strong>class_names</strong> – The class names.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="omnixai.explainers.ranking.counterfactual.html" class="btn btn-neutral float-left" title="omnixai.explainers.ranking.counterfactual package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="omnixai.explanations.tabular.html" class="btn btn-neutral float-right" title="omnixai.explanations.tabular package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, salesforce.com, inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Versions</span>
+      v1.2.1
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Versions</dt>
+        
+          
+          <dd><a href="">latest</a></dd>
+          
+        
+           <strong> 
+          <dd><a href="">v1.2.1</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="">v1.2.0</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.4</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.3</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.2</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.1</a></dd>
+          
+        
+          
+          <dd><a href="">v1.1.0</a></dd>
+          
+        
+          
+          <dd><a href="">v1.0.0</a></dd>
+          
+        
+      </dl>
+      
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
