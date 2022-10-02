@@ -15,7 +15,6 @@ from bentoml.models import Model
 from bentoml.models import ModelContext
 from bentoml.exceptions import NotFound
 from bentoml.exceptions import BentoMLException
-from bentoml._internal.models.model import ModelSignaturesType
 from omnixai.explainers.base import AutoExplainerBase
 from omnixai.utils.misc import get_pkg_version
 
@@ -58,7 +57,7 @@ def save_model(
         name: str,
         model: AutoExplainerBase,
         *,
-        signatures: ModelSignaturesType | None = None,
+        signatures: t.Dict = None,
         labels: t.Dict[str, str] | None = None,
         custom_objects: t.Dict[str, t.Any] | None = None,
         external_modules: t.List[ModuleType] | None = None,
