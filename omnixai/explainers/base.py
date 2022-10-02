@@ -347,7 +347,8 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             "model": self.model,
             "preprocess": self.preprocess,
             "postprocess": self.postprocess,
-            "params": self.params
+            "params": self.params,
+            "explainer_class": self.__class__
         }
         if mode == "model_and_data":
             params["data"] = self.data
@@ -373,9 +374,10 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         """
         with open(os.path.join(directory, "params.pkl"), "rb") as f:
             params = dill.load(f)
+        explainer_cls = params["explainer_class"]
 
         if params["save_mode"] == "model_and_data":
-            return cls(
+            return explainer_cls(
                 explainers=params["names"],
                 mode=params["mode"],
                 data=params["data"],
@@ -386,7 +388,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             )
         else:
             explainers = {}
-            name_to_class = cls._name_to_class(cls._MODELS)
+            name_to_class = explainer_cls._name_to_class(explainer_cls._MODELS)
             with open(os.path.join(directory, "explainers.pkl"), "rb") as f:
                 explainer_names = dill.load(f)
                 for name in explainer_names:
@@ -396,7 +398,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             params["explainers"] = explainers
             params["predict_function"] = None
 
-            self = super(AutoExplainerBase, cls).__new__(cls)
+            self = explainer_cls.__new__(explainer_cls)
             for name, value in params.items():
                 setattr(self, name, value)
             return self

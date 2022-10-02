@@ -57,6 +57,7 @@ def save_model(
         name: str,
         model: AutoExplainerBase,
         *,
+        mode: str,
         signatures: t.Dict = None,
         labels: t.Dict[str, str] | None = None,
         custom_objects: t.Dict[str, t.Any] | None = None,
@@ -68,6 +69,12 @@ def save_model(
 
     :param name: The name for given model instance. This should pass Python identifier check.
     :param model: The explainer to be saved.
+    :param mode: How to save the explainers, i.e., "model_and_data" and "individual".
+        "model_and_data" for saving the model, preprocessing function, postprocessing function
+        and dataset for initialization, or "individual" for saving each initialized explainer
+        in the AutoExplainer. When there is no explainer that needs to train a post-hoc
+        explanation model (e.g., L2X) and the dataset for initialization is not too large,
+        "model_and_data" is a better option. Otherwise, "individual" is a proper option.
     :param signatures: The methods to expose for running inference on the target model.
     :param labels: User-defined labels for managing models, e.g. team=nlp, stage=dev.
     :param custom_objects: User-defined additional python objects to be saved alongside the model.
@@ -105,3 +112,32 @@ def save_model(
     ) as bento_model:
         model.save(bento_model.path_of(MODEL_PATH))
         return bento_model
+
+
+def get_runnable(bento_model: Model):
+
+    class OmniXAIRunnable(bentoml.Runnable):
+        SUPPORTED_RESOURCES = ("cpu", "gpu")
+        SUPPORTS_CPU_MULTI_THREADING = True
+
+        def __init__(self):
+            super().__init__()
+            self.model = load_model(bento_model)
+
+    def add_runnable_method(method_name, options):
+        def _run(self, input_data):
+            pass
+
+        OmniXAIRunnable.add_method(
+            _run,
+            name=method_name,
+            batchable=options.batchable,
+            batch_dim=options.batch_dim,
+            input_spec=options.input_spec,
+            output_spec=options.output_spec,
+        )
+
+    for method_name, options in bento_model.info.signatures.items():
+        add_runnable_method(method_name, options)
+
+    return OmniXAIRunnable

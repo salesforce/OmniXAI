@@ -14,7 +14,7 @@ import numpy as np
 from omnixai.data.tabular import Tabular
 from omnixai.preprocessing.tabular import TabularTransform
 from omnixai.explainers.tabular import TabularExplainer
-from omnixai.deployment.bentoml.omnixai import save_model
+from omnixai.deployment.bentoml.omnixai import save_model, load_model
 
 
 class TestBentoML(unittest.TestCase):
@@ -86,6 +86,9 @@ class TestBentoML(unittest.TestCase):
         )
         save_model("tabular_explainer", explainer)
         print("Save explainer successfully.")
+        explainer = load_model("tabular_explainer:latest")
+        print(explainer)
+        print("Load explainer successfully.")
 
 
 if __name__ == "__main__":
