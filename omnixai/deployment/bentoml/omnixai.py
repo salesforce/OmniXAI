@@ -57,7 +57,7 @@ def save_model(
         name: str,
         model: AutoExplainerBase,
         *,
-        mode: str,
+        mode: str = "model_and_data",
         signatures: t.Dict = None,
         labels: t.Dict[str, str] | None = None,
         custom_objects: t.Dict[str, t.Any] | None = None,
