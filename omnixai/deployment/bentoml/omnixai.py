@@ -94,7 +94,7 @@ def save_model(
 
     if signatures is None:
         signatures = {
-            "predict": {"batchable": False},
+            "predict": {"batchable": True},
             "explain": {"batchable": False},
             "explain_global": {"batchable": False}
         }
