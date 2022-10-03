@@ -82,8 +82,12 @@ class TabularExplainer(AutoExplainerBase):
             }
 
     def _convert_data(self, X):
-        if len(self.data_info) == 0 or isinstance(X, Tabular):
+        if isinstance(X, Tabular):
             return X
+        if len(self.data_info) == 0:
+            raise TypeError(f"The input X is not a `Tabular` instance, "
+                            f"please convert {type(X)} into `Tabular`")
+
         cate_columns = self.data_info["categorical_columns"]
         target_column = self.data_info["target_column"]
         feature_columns = self.data_info["feature_columns"]
