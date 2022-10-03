@@ -12,6 +12,7 @@ import pandas as pd
 from typing import List, Callable, Union
 
 from ...base import ExplainerBase
+from ....tabular.base import TabularExplainerMixin
 from .....data.tabular import Tabular
 
 from .retrieval import CFRetrieval
@@ -23,7 +24,7 @@ from .refine import BinarySearchRefinement
 from .....explanations.tabular.counterfactual import CFExplanation
 
 
-class MACEExplainer(ExplainerBase):
+class MACEExplainer(ExplainerBase, TabularExplainerMixin):
     """
     The Model-Agnostic Counterfactual Explanation (MACE) developed by Yang et al. Please
     cite the paper `MACE: An Efficient Model-Agnostic Framework for Counterfactual Explanation`.
@@ -63,6 +64,10 @@ class MACEExplainer(ExplainerBase):
         self.predict_function = predict_function
         self.ignored_features = ignored_features
 
+        self.categorical_columns = training_data.categorical_columns
+        self.target_column = training_data.target_column
+        self.original_feature_columns = training_data.columns
+
         self.recall = CFRetrieval(training_data, predict_function, ignored_features, **kwargs)
         self.diversity = DiversityModule(training_data)
         self.refinement = BinarySearchRefinement(training_data)
@@ -81,7 +86,8 @@ class MACEExplainer(ExplainerBase):
         """
         Generates counterfactual explanations.
 
-        :param X: A batch of input instances.
+        :param X: A batch of input instances. When ``X`` is `pd.DataFrame`
+            or `np.ndarray`, ``X`` will be converted into `Tabular` automatically.
         :param y: A batch of the desired labels, which should be different from the predicted labels of ``X``.
             If ``y = None``, the desired labels will be the labels different from the predicted labels of ``X``.
         :param max_number_examples: The maximum number of the generated counterfactual
@@ -93,7 +99,7 @@ class MACEExplainer(ExplainerBase):
                 f"The length of `y` should equal the number of instances in `X`, " f"got {len(y)} != {X.shape[0]}"
             )
 
-        X = X.remove_target_column()
+        X = self._to_tabular(X).remove_target_column()
         scores = self.predict_function(X)
         labels = np.argmax(scores, axis=1)
         num_classes = scores.shape[1]

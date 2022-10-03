@@ -163,6 +163,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         self.params = params
         self.predict_function = None
         self.explainers = self._build_explainers(params)
+        self.data_info = {}
 
     @staticmethod
     def _name_to_class(models):
@@ -236,6 +237,9 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
                 raise type(e)(f"Explainer {name} -- {str(e)}")
         return explainers
 
+    def _convert_data(self, X):
+        return X
+
     def predict(self, X):
         """
         Gets the predictions given input instances.
@@ -245,7 +249,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         """
         if self.predict_function is None:
             self.predict_function = self._build_predict_function()
-        predictions = self.predict_function(X)
+        predictions = self.predict_function(self._convert_data(X))
         if not isinstance(predictions, np.ndarray):
             try:
                 predictions = predictions.detach().cpu().numpy()
@@ -264,6 +268,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             e.g. `{"lime": lime_explanations, "shap": shap_explanations, ...}`.
         :rtype: OrderedDict
         """
+        X = self._convert_data(X)
         if params is None:
             params = {}
         if self.mode != "data_analysis":
@@ -348,6 +353,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             "preprocess": self.preprocess,
             "postprocess": self.postprocess,
             "params": self.params,
+            "data_info": self.data_info,
             "explainer_class": self.__class__
         }
         if mode == "model_and_data":

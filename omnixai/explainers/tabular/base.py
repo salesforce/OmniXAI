@@ -19,7 +19,64 @@ from ...preprocessing.tabular import TabularTransform
 from ..base import ExplainerBase
 
 
-class TabularExplainer(ExplainerBase):
+class TabularExplainerMixin:
+
+    def _to_tabular(self, X):
+        """
+        Converts a pandas dataframe or a numpy array into a `Tabular` object.
+
+        :param X: The data to convert.
+        :return: A `Tabular` object.
+        :rtype: Tabular
+        """
+        if isinstance(X, Tabular):
+            pass
+        elif isinstance(X, pd.DataFrame):
+            target_column = self.target_column if self.target_column is not None and self.target_column in X \
+                else None
+            X = Tabular(
+                data=X,
+                categorical_columns=self.categorical_columns,
+                target_column=target_column
+            )
+        elif isinstance(X, np.ndarray):
+            if X.ndim == 1:
+                X = np.expand_dims(X, axis=0)
+            target_column = self.target_column
+            feature_columns = self.original_feature_columns
+            if self.target_column is not None:
+                if X.shape[1] != len(self.original_feature_columns):
+                    target_column = None
+                    feature_columns = [c for c in self.original_feature_columns if c != self.target_column]
+            X = Tabular(
+                data=X,
+                feature_columns=feature_columns,
+                categorical_columns=self.categorical_columns,
+                target_column=target_column,
+            )
+        else:
+            raise ValueError(f"Unsupported data type for TabularExplainer: {type(X)}")
+        return X
+
+    def _to_numpy(self, X):
+        """
+        Converts a `Tabular` object into a numpy array.
+
+        :param X: The data to convert.
+        :return: A numpy array.
+        :rtype: np.ndarray
+        """
+        if isinstance(X, Tabular):
+            return X.to_numpy(copy=False)
+        elif isinstance(X, pd.DataFrame):
+            return X.values
+        elif isinstance(X, np.ndarray):
+            return X
+        else:
+            raise ValueError(f"Unsupported data type for TabularExplainer: {type(X)}")
+
+
+class TabularExplainer(ExplainerBase, TabularExplainerMixin):
     """
     The base class of model-agnostic explainers for tabular data.
     """
@@ -70,55 +127,6 @@ class TabularExplainer(ExplainerBase):
             self.predict_fn = lambda x: predict_function(self.transformer.invert(x))
         else:
             self.predict_fn = lambda x: predict_function(self.transformer.invert(x)).flatten()
-
-    def _to_tabular(self, X):
-        """
-        Converts a pandas dataframe or a numpy array into a `Tabular` object.
-
-        :param X: The data to convert.
-        :return: A `Tabular` object.
-        :rtype: Tabular
-        """
-        if isinstance(X, Tabular):
-            pass
-        elif isinstance(X, pd.DataFrame):
-            target_column = self.target_column if self.target_column is not None and self.target_column in X else None
-            X = Tabular(data=X, categorical_columns=self.categorical_columns, target_column=target_column)
-        elif isinstance(X, np.ndarray):
-            if X.ndim == 1:
-                X = np.expand_dims(X, axis=0)
-            target_column = self.target_column
-            feature_columns = self.original_feature_columns
-            if self.target_column is not None:
-                if X.shape[1] != self.dim + 1:
-                    target_column = None
-                    feature_columns = [c for c in self.original_feature_columns if c != self.target_column]
-            X = Tabular(
-                data=X,
-                feature_columns=feature_columns,
-                categorical_columns=self.categorical_columns,
-                target_column=target_column,
-            )
-        else:
-            raise ValueError(f"Unsupported data type for TabularExplainer: {type(X)}")
-        return X
-
-    def _to_numpy(self, X):
-        """
-        Converts a `Tabular` object into a numpy array.
-
-        :param X: The data to convert.
-        :return: A numpy array.
-        :rtype: np.ndarray
-        """
-        if isinstance(X, Tabular):
-            return X.to_numpy(copy=False)
-        elif isinstance(X, pd.DataFrame):
-            return X.values
-        elif isinstance(X, np.ndarray):
-            return X
-        else:
-            raise ValueError(f"Unsupported data type for TabularExplainer: {type(X)}")
 
 
 class SklearnBase(ExplainerBase, BaseEstimator):
