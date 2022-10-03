@@ -110,7 +110,7 @@ def save_model(
             context=context,
             signatures=signatures,
     ) as bento_model:
-        model.save(bento_model.path_of(MODEL_PATH))
+        model.save(bento_model.path_of(MODEL_PATH), mode=mode)
         return bento_model
 
 
@@ -125,7 +125,7 @@ def get_runnable(bento_model: Model):
             self.model = load_model(bento_model)
 
     def add_runnable_method(method_name, options):
-        def _run(self, input_data):
+        def _run(self, input_data, params):
             pass
 
         OmniXAIRunnable.add_method(
