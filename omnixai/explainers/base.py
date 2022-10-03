@@ -236,7 +236,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
                 raise type(e)(f"Explainer {name} -- {str(e)}")
         return explainers
 
-    def _predict(self, X):
+    def predict(self, X):
         """
         Gets the predictions given input instances.
 
@@ -267,7 +267,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         if params is None:
             params = {}
         if self.mode != "data_analysis":
-            explanations = OrderedDict({"predict": self._predict(X)})
+            explanations = OrderedDict({"predict": self.predict(X)})
         else:
             explanations = OrderedDict()
 
