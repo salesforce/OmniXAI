@@ -41,7 +41,7 @@ class TestService(unittest.TestCase):
             runner.init_local()
 
         predictions = svc.apis["predict"].func(self.test_instances)
-        print(predictions.get_explanations())
+        print(predictions)
         local_explanations = svc.apis["explain"].func(self.test_instances, {})
         print(local_explanations)
         global_explanations = svc.apis["explain_global"].func({})

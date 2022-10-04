@@ -6,6 +6,7 @@
 #
 from __future__ import annotations
 
+import json
 import typing as t
 from types import ModuleType
 
@@ -17,6 +18,7 @@ from bentoml.exceptions import NotFound
 from bentoml.exceptions import BentoMLException
 from omnixai.explainers.base import AutoExplainerBase
 from omnixai.utils.misc import get_pkg_version
+from omnixai.explanations.utils import DefaultJsonEncoder
 
 MODULE_NAME = "omnixai.deployment.bentoml.omnixai"
 MODEL_PATH = "saved_model"
@@ -124,17 +126,17 @@ def init_service(model, service_name):
     @svc.api(input=NumpyNdarray(), output=JSON())
     def predict(data):
         result = runner.predict.run(data)
-        return result
+        return result.to_json()
 
     @svc.api(input=input_spec, output=JSON())
     def explain(data, params):
         result = runner.explain.run(data, params)
-        return result
+        return json.dumps(result, cls=DefaultJsonEncoder)
 
     @svc.api(input=JSON(), output=JSON())
     def explain_global(params):
         result = runner.explain_global.run(params)
-        return result
+        return json.dumps(result, cls=DefaultJsonEncoder)
 
     return svc
 
