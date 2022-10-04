@@ -114,6 +114,31 @@ def save_model(
         return bento_model
 
 
+def init_service(model, service_name):
+    from bentoml.io import NumpyNdarray, JSON, Multipart
+
+    runner = model.to_runner()
+    svc = bentoml.Service(service_name, runners=[runner])
+    input_spec = Multipart(data=NumpyNdarray(), params=JSON())
+
+    @svc.api(input=NumpyNdarray(), output=JSON())
+    def predict(data):
+        result = runner.predict.run(data)
+        return result
+
+    @svc.api(input=input_spec, output=JSON())
+    def explain(data, params):
+        result = runner.explain.run(data, params)
+        return result
+
+    @svc.api(input=JSON(), output=JSON())
+    def explain_global(params):
+        result = runner.explain_global.run(params)
+        return result
+
+    return svc
+
+
 def get_runnable(bento_model: Model):
 
     class OmniXAIRunnable(bentoml.Runnable):
@@ -125,8 +150,9 @@ def get_runnable(bento_model: Model):
             self.model = load_model(bento_model)
 
     def add_runnable_method(method_name, options):
-        def _run(self, input_data, params):
-            pass
+        def _run(self, *args):
+            results = getattr(self.model, method_name)(*args)
+            return results
 
         OmniXAIRunnable.add_method(
             _run,

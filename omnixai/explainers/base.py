@@ -240,7 +240,7 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
     def _convert_data(self, X):
         return X
 
-    def predict(self, X):
+    def predict(self, X, **kwargs):
         """
         Gets the predictions given input instances.
 

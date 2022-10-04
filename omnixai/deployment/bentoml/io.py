@@ -1,2 +1,0 @@
-from pydantic import BaseModel
-
