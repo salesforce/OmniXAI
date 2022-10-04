@@ -86,6 +86,24 @@ class ExplanationBase(metaclass=AutodocABCMeta):
         else:
             return s
 
+    def to_json(self):
+        import json
+        from .utils import DefaultJsonEncoder
+        return json.dumps(self, cls=DefaultJsonEncoder)
+
+    @classmethod
+    def from_json(cls, s):
+        import json
+        import importlib
+        d = json.loads(s)
+        module = importlib.import_module(d["module"])
+        explanation_class = getattr(module, d["class"])
+        return explanation_class.json_object_hook(d)
+
+    @classmethod
+    def json_object_hook(cls, s):
+        raise NotImplementedError
+
 
 class DashFigure:
     def __init__(self, component):
