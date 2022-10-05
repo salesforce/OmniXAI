@@ -97,8 +97,7 @@ def save_model(
     if signatures is None:
         signatures = {
             "predict": {"batchable": True},
-            "explain": {"batchable": False},
-            "explain_global": {"batchable": False}
+            "explain": {"batchable": False}
         }
 
     with bentoml.models.create(
@@ -131,11 +130,6 @@ def init_service(model, service_name):
     @svc.api(input=input_spec, output=JSON())
     def explain(data, params):
         result = runner.explain.run(data, params)
-        return json.dumps(result, cls=DefaultJsonEncoder)
-
-    @svc.api(input=JSON(), output=JSON())
-    def explain_global(params):
-        result = runner.explain_global.run(params)
         return json.dumps(result, cls=DefaultJsonEncoder)
 
     return svc

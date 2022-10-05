@@ -44,8 +44,6 @@ class TestService(unittest.TestCase):
         print(predictions)
         local_explanations = svc.apis["explain"].func(self.test_instances, {})
         print(local_explanations)
-        global_explanations = svc.apis["explain_global"].func({})
-        print(global_explanations)
 
 
 if __name__ == "__main__":
