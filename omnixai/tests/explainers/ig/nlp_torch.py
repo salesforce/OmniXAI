@@ -16,6 +16,7 @@ from omnixai.data.text import Text
 from omnixai.preprocessing.text import Word2Id
 from omnixai.explainers.tabular.agnostic.L2X.utils import Trainer, InputData, DataLoader
 from omnixai.explainers.nlp.specific.ig import IntegratedGradientText
+from omnixai.explanations.base import ExplanationBase
 
 
 class _ModelBase(nn.Module):
@@ -159,6 +160,9 @@ class TestIG(unittest.TestCase):
         explanations = explainer.explain(self.x_test[idx: idx + 9])
         explanations.plot(class_names=self.class_names, max_num_subplots=9)
         '''
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
 
 
 if __name__ == "__main__":
