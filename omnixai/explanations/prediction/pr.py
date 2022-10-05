@@ -27,9 +27,9 @@ class PrecisionRecallExplanation(ExplanationBase):
         """
         Adds the precision and recall.
 
-        :param precision: The precision. ``fpr`` is a dict with the following format
+        :param precision: The precision. ``precision`` is a dict with the following format
             `{0: precision for class 0, ...}`.
-        :param recall: The recall. ``tpr`` is a dict with the following format
+        :param recall: The recall. ``recall`` is a dict with the following format
             `{0: recall for label 0, ...}`.
         """
         self.explanations = {"precision": precision, "recall": recall}
@@ -119,3 +119,12 @@ class PrecisionRecallExplanation(ExplanationBase):
         import plotly
 
         plotly.offline.iplot(self._plotly_figure(class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        e = d["explanations"]
+        for metric in ["precision", "recall"]:
+            e[metric] = {int(key): value for key, value in e[metric].items()}
+        exp = PrecisionRecallExplanation()
+        exp.explanations = e
+        return exp

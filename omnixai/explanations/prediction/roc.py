@@ -157,3 +157,19 @@ class ROCExplanation(ExplanationBase):
         import plotly
 
         plotly.offline.iplot(self._plotly_figure(class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        e = d["explanations"]
+        for metric in ["fpr", "tpr", "auc"]:
+            r = {}
+            for key, value in e[metric].items():
+                try:
+                    key = int(key)
+                except:
+                    pass
+                r[key] = value
+            e[metric] = r
+        exp = ROCExplanation()
+        exp.explanations = e
+        return exp

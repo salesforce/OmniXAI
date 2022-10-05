@@ -149,3 +149,13 @@ class CumulativeGainExplanation(ExplanationBase):
         import plotly
 
         plotly.offline.iplot(self._plotly_figure(class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        e = d["explanations"]
+        e["gains"] = {int(key): np.array(value) for key, value in e["gains"].items()}
+        e["percentages"] = np.array(e["percentages"])
+        e["num_samples"] = {int(key): value for key, value in e["num_samples"].items()}
+        exp = CumulativeGainExplanation()
+        exp.explanations = e
+        return exp

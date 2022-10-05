@@ -60,6 +60,7 @@ class TestLinearTabular(unittest.TestCase):
         s = explanations.to_json()
         e = ExplanationBase.from_json(s)
         self.assertEqual(s, e.to_json())
+        e.plotly_plot()
 
     def test_2(self):
         iris = sklearn.datasets.load_iris()

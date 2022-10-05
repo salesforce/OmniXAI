@@ -112,3 +112,14 @@ class MetricExplanation(ExplanationBase):
         import plotly
 
         plotly.offline.iplot(self._plotly_figure(class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        metrics = {}
+        for key, value in d["metrics"].items():
+            try:
+                key = int(key)
+            except:
+                pass
+            metrics[key] = value
+        return MetricExplanation(metrics=metrics, mode=d["mode"])

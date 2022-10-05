@@ -26,6 +26,7 @@ class TestPDPTabular(unittest.TestCase):
         s = explanations.to_json()
         e = ExplanationBase.from_json(s)
         self.assertEqual(s, e.to_json())
+        e.plotly_plot()
 
     def test_2(self):
         set_random_seed()

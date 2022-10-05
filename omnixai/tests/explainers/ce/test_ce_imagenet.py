@@ -55,8 +55,7 @@ class TestCE(unittest.TestCase):
         s = explanations.to_json()
         e = ExplanationBase.from_json(s)
         self.assertEqual(s, e.to_json())
-
-        e.ipython_plot()
+        e.plotly_plot()
 
 
 if __name__ == "__main__":
