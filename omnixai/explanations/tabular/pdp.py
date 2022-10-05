@@ -163,3 +163,16 @@ class PDPExplanation(ExplanationBase):
         import plotly
 
         plotly.offline.iplot(self._plotly_figure(class_names=class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        explanations = {}
+        for name, e in d["explanations"].items():
+            e["values"] = np.array(e["values"])
+            e["scores"] = np.array(e["scores"])
+            e["sampled_scores"] = np.array(e["sampled_scores"]) \
+                if e["sampled_scores"] is not None else None
+            explanations[name] = e
+        exp = PDPExplanation(mode=d["mode"])
+        exp.explanations = explanations
+        return exp

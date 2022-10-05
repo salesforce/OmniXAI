@@ -84,3 +84,11 @@ class CorrelationExplanation(ExplanationBase):
         import plotly
 
         plotly.offline.iplot(self._plotly_figure(**kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        e = d["explanations"]
+        e["correlation"] = np.array(e["correlation"])
+        exp = CorrelationExplanation()
+        exp.explanations = e
+        return exp

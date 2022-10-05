@@ -6,11 +6,9 @@
 #
 import os
 import unittest
-import pandas as pd
 from omnixai.explainers.ranking.agnostic.validity import ValidityRankingExplainer
 from omnixai.tests.explainers.tasks import TabularClassification
-
-pd.set_option("display.max_columns", None)
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestRanking(unittest.TestCase):
@@ -32,10 +30,13 @@ class TestRanking(unittest.TestCase):
             weighted=True,
             k=8
         )
-        print(explanations)
         e = explanations.get_explanations(index=0)
         self.assertAlmostEqual(e["top_features"]["Marital Status"], 5.621, delta=1e-3)
         self.assertAlmostEqual(e["top_features"]["Capital Loss"], 9.580, delta=1e-3)
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
 
 
 if __name__ == "__main__":

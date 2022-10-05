@@ -10,6 +10,7 @@ import pprint
 from omnixai.utils.misc import set_random_seed
 from omnixai.explainers.tabular import PartialDependenceTabular
 from omnixai.tests.explainers.tasks import TabularClassification
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestPDPTabular(unittest.TestCase):
@@ -21,6 +22,10 @@ class TestPDPTabular(unittest.TestCase):
         explainer = PartialDependenceTabular(training_data=task.train_data, predict_function=predict_function)
         explanations = explainer.explain()
         pprint.pprint(explanations.get_explanations())
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
 
     def test_2(self):
         set_random_seed()

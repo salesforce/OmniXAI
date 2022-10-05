@@ -188,3 +188,11 @@ class LinearExplanation(ExplanationBase):
 
         assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
         plotly.offline.iplot(self._plotly_figure(index, class_names=class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        exp = LinearExplanation(mode=d["mode"])
+        e = d["explanations"]
+        e["outputs"] = np.array(e["outputs"])
+        exp.explanations = e
+        return exp

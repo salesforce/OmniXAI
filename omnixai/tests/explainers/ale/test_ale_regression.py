@@ -9,6 +9,7 @@ import pprint
 from omnixai.utils.misc import set_random_seed
 from omnixai.explainers.tabular.agnostic.ale import ALE
 from omnixai.tests.explainers.tasks import TabularRegression
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestALE(unittest.TestCase):
@@ -22,6 +23,10 @@ class TestALE(unittest.TestCase):
         )
         explanations = explainer.explain()
         pprint.pprint(explanations.get_explanations())
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
 
 
 if __name__ == "__main__":

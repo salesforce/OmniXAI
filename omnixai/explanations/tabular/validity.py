@@ -197,3 +197,14 @@ class ValidityRankingExplanation(ExplanationBase):
     def rearrange_columns(df, top_features):
         return ["#Rank"] + list(top_features) + \
                [c for c in df.columns if c not in top_features and c != "#Rank"]
+
+    @classmethod
+    def from_dict(cls, d):
+        import pandas as pd
+        explanations = []
+        for e in d["explanations"]:
+            e["item"] = pd.DataFrame.from_dict(e["item"])
+            explanations.append(e)
+        exp = ValidityRankingExplanation()
+        exp.explanations = explanations
+        return exp

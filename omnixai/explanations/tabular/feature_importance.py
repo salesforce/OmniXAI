@@ -321,3 +321,9 @@ class GlobalFeatureImportance(ExplanationBase):
         plotly.offline.iplot(self._plotly_figure(num_features=num_features,
                                                  truncate_long_features=truncate_long_features,
                                                  **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        exp = GlobalFeatureImportance()
+        exp.explanations = d["explanations"]
+        return exp

@@ -108,3 +108,9 @@ class ImbalanceExplanation(ExplanationBase):
         import plotly
 
         plotly.offline.iplot(self._plotly_figure(**kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        exp = ImbalanceExplanation()
+        exp.explanations = d["explanations"]
+        return exp

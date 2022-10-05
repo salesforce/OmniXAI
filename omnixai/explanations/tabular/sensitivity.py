@@ -104,3 +104,9 @@ class SensitivityExplanation(ExplanationBase):
         import plotly
 
         plotly.offline.iplot(self._plotly_figure(**kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        exp = SensitivityExplanation()
+        exp.explanations = d["explanations"]
+        return exp

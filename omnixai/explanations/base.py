@@ -87,12 +87,20 @@ class ExplanationBase(metaclass=AutodocABCMeta):
             return s
 
     def to_json(self):
+        """
+        Converts the explanation result into JSON format.
+        """
         import json
         from .utils import DefaultJsonEncoder
         return json.dumps(self, cls=DefaultJsonEncoder)
 
     @classmethod
     def from_json(cls, s):
+        """
+        Loads the explanation result from a JSON input.
+        :param s: The input in JSON format.
+        :return: The loaded explanation object.
+        """
         import json
         import importlib
         d = json.loads(s)

@@ -9,6 +9,7 @@ import unittest
 import numpy as np
 from omnixai.data.tabular import Tabular
 from omnixai.explainers.data.correlation import CorrelationAnalyzer
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestImbalance(unittest.TestCase):
@@ -41,6 +42,10 @@ class TestImbalance(unittest.TestCase):
         explainer = CorrelationAnalyzer(tabular_data)
         explanations = explainer.explain()
         explanations.plot()
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
 
 
 if __name__ == "__main__":
