@@ -94,15 +94,14 @@ class ExplanationBase(metaclass=AutodocABCMeta):
     @classmethod
     def from_json(cls, s):
         import json
-        import importlib
-        d = json.loads(s)
-        module = importlib.import_module(d["module"])
-        explanation_class = getattr(module, d["class"])
-        return explanation_class.json_object_hook(d)
+        return ExplanationBase.from_dict(json.loads(s))
 
     @classmethod
-    def json_object_hook(cls, s):
-        raise NotImplementedError
+    def from_dict(cls, d):
+        import importlib
+        module = importlib.import_module(d["module"])
+        explanation_class = getattr(module, d["class"])
+        return explanation_class.from_dict(d["data"])
 
 
 class DashFigure:

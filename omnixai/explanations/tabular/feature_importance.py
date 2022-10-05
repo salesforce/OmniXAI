@@ -197,13 +197,13 @@ class FeatureImportance(ExplanationBase):
         plotly.offline.iplot(self._plotly_figure(index, class_names=class_names, num_features=num_features, **kwargs))
 
     @classmethod
-    def json_object_hook(cls, d):
+    def from_dict(cls, d):
         import pandas as pd
         explanations = []
-        for e in d["data"]["explanations"]:
+        for e in d["explanations"]:
             e["instance"] = pd.DataFrame.from_dict(e["instance"])
             explanations.append(e)
-        return FeatureImportance(mode=d["data"]["mode"], explanations=explanations)
+        return FeatureImportance(mode=d["mode"], explanations=explanations)
 
 
 class GlobalFeatureImportance(ExplanationBase):
