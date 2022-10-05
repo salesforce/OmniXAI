@@ -151,3 +151,15 @@ class MaskExplanation(ExplanationBase):
 
         assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
         return plotly.offline.iplot(self._plotly_figure(index, class_names=class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        explanations = []
+        for e in d["explanations"]:
+            e["images"] = np.array(e["images"])
+            e["masks"] = np.array(e["masks"])
+            e["boundary"] = [np.array(b) for b in e["boundary"]]
+            explanations.append(e)
+        exp = MaskExplanation()
+        exp.explanations = explanations
+        return exp

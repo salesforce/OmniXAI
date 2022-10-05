@@ -13,6 +13,7 @@ from PIL import Image as PilImage
 
 from omnixai.data.image import Image
 from omnixai.explainers.vision import CounterfactualExplainer
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestCE(unittest.TestCase):
@@ -50,6 +51,12 @@ class TestCE(unittest.TestCase):
         )
         explanations = explainer.explain(self.img)
         explanations.plot(class_names=self.idx2label)
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
+
+        e.ipython_plot()
 
 
 if __name__ == "__main__":

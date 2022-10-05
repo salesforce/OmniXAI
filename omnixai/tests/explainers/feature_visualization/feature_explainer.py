@@ -9,6 +9,7 @@ import unittest
 from torchvision import models
 from tensorflow.keras.applications import vgg16
 from omnixai.explainers.vision.specific.feature_visualization.visualizer import FeatureVisualizer
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestExplainer(unittest.TestCase):
@@ -30,7 +31,11 @@ class TestExplainer(unittest.TestCase):
             image_shape=(224, 224),
             use_fft=True
         )
-        explanations.ipython_plot()
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
+        e.ipython_plot()
 
 
 if __name__ == "__main__":

@@ -15,6 +15,7 @@ from PIL import Image as PilImage
 from omnixai.data.image import Image
 from omnixai.explainers.vision import LimeImage
 from omnixai.utils.misc import set_random_seed
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestImageClassification(unittest.TestCase):
@@ -62,6 +63,10 @@ class TestImageClassification(unittest.TestCase):
 
         self.assertAlmostEqual(np.sum(explanations.get_explanations(0)["masks"][0]), 9309, delta=10)
         self.assertAlmostEqual(np.sum(explanations.get_explanations(0)["masks"][1]), 988, delta=10)
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
 
 
 if __name__ == "__main__":

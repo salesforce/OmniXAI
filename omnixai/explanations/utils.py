@@ -2,6 +2,7 @@ import json
 import numpy as np
 import pandas as pd
 from copy import deepcopy
+from PIL import Image as PilImage
 from .base import ExplanationBase
 
 
@@ -29,6 +30,8 @@ class DefaultJsonEncoder(json.JSONEncoder):
             return o.item()
         if isinstance(o, pd.DataFrame) or isinstance(o, pd.Series):
             return o.to_dict()
+        if isinstance(o, PilImage.Image):
+            return np.array(o).tolist()
         if isinstance(o, ExplanationBase):
             return {
                 "module": o.__class__.__module__,

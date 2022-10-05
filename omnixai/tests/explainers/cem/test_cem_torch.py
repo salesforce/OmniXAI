@@ -15,6 +15,7 @@ from torch.utils.data import DataLoader
 
 from omnixai.data.image import Image
 from omnixai.explainers.vision import ContrastiveExplainer
+from omnixai.explanations.base import ExplanationBase
 
 
 class InputData(Dataset):
@@ -119,6 +120,10 @@ class TestCEM(unittest.TestCase):
         explainer = ContrastiveExplainer(model=self.model, preprocess_function=self.transform)
         explanations = explainer.explain(self.x_test[0])
         explanations.plot()
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
 
 
 if __name__ == "__main__":

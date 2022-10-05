@@ -176,3 +176,17 @@ class ContrastiveExplanation(ExplanationBase):
 
         assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
         return plotly.offline.iplot(self._plotly_figure(index, class_names=class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        explanations = []
+        for e in d["explanations"]:
+            e["image"] = np.array(e["image"])
+            if e["pn"] is not None:
+                e["pn"] = np.array(e["pn"])
+            if e["pp"] is not None:
+                e["pp"] = np.array(e["pp"])
+            explanations.append(e)
+        exp = ContrastiveExplanation()
+        exp.explanations = explanations
+        return exp

@@ -167,3 +167,14 @@ class CFExplanation(ExplanationBase):
 
         assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
         return plotly.offline.iplot(self._plotly_figure(index, class_names=class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        explanations = []
+        for e in d["explanations"]:
+            e["image"] = np.array(e["image"])
+            e["cf"] = np.array(e["cf"])
+            explanations.append(e)
+        exp = CFExplanation()
+        exp.explanations = explanations
+        return exp
