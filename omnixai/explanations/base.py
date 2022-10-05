@@ -94,14 +94,15 @@ class ExplanationBase(metaclass=AutodocABCMeta):
     @classmethod
     def from_json(cls, s):
         import json
-        return ExplanationBase.from_dict(json.loads(s))
-
-    @classmethod
-    def from_dict(cls, d):
         import importlib
+        d = json.loads(s)
         module = importlib.import_module(d["module"])
         explanation_class = getattr(module, d["class"])
         return explanation_class.from_dict(d["data"])
+
+    @classmethod
+    def from_dict(cls, d):
+        raise NotImplementedError
 
 
 class DashFigure:
@@ -260,3 +261,9 @@ class PredictedResults(ExplanationBase):
 
         assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
         return plotly.offline.iplot(self._plotly_figure(index, class_names=class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        self = cls.__new__(PredictedResults)
+        self.results = d["results"]
+        return self
