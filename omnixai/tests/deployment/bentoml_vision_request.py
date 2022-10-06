@@ -7,16 +7,20 @@
 import os
 import unittest
 import requests
-import numpy as np
 
 
 class TestVisionRequest(unittest.TestCase):
 
     def setUp(self) -> None:
-        pass
+        self.directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../datasets/images/")
 
     def test(self):
-        pass
+        result = requests.post(
+            "http://0.0.0.0:3000/predict",
+            files={"upload_file": open(os.path.join(self.directory, 'dog_cat.png'), 'rb')},
+            headers={"content-type": "multipart/form-data"}
+        ).text
+        print(result)
 
 
 if __name__ == "__main__":
