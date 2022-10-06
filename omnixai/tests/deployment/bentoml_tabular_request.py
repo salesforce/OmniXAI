@@ -12,7 +12,7 @@ from omnixai.data.tabular import Tabular
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 
-class TestSklearnRequest(unittest.TestCase):
+class TestTabularRequest(unittest.TestCase):
 
     def setUp(self) -> None:
         # Load the dataset
