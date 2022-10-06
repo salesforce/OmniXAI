@@ -6,6 +6,8 @@
 #
 from typing import Collection, Callable, Any, Dict
 
+import numpy as np
+
 from ...data.image import Image
 from ..base import AutoExplainerBase
 
@@ -65,6 +67,17 @@ class VisionExplainer(AutoExplainerBase):
             postprocess=postprocess,
             params=params,
         )
+
+    def _convert_data(self, X):
+        from PIL import Image as PilImage
+        if isinstance(X, Image):
+            return X
+        elif isinstance(X, PilImage.Image):
+            return Image(X)
+        elif isinstance(X, np.ndarray):
+            pass
+        else:
+            raise ValueError(f"Unsupported data type for VisionExplainer: {type(X)}")
 
     @staticmethod
     def list_explainers():
