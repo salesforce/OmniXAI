@@ -1,5 +1,8 @@
-from omnixai.deployment.bentoml.omnixai import get, init_service
+from omnixai.deployment.bentoml.omnixai import init_service
 
 
-model = get("tabular_explainer:latest")
-svc = init_service(model, "tabular_explainer")
+svc = init_service(
+    model_tag="tabular_explainer:latest",
+    task_type="tabular",
+    service_name="tabular_explainer"
+)

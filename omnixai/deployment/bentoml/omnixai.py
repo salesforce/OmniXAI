@@ -116,52 +116,6 @@ def save_model(
         return bento_model
 
 
-def init_service(model, service_name, api_name=None, api_doc=None, api_route=None):
-    from bentoml.io import NumpyNdarray, JSON, Multipart
-
-    runner = model.to_runner()
-    svc = bentoml.Service(service_name, runners=[runner])
-
-    if api_doc is None:
-        predict_doc, explain_doc = None, None
-    elif isinstance(api_doc, str):
-        predict_doc, explain_doc = api_doc, api_doc
-    elif isinstance(api_doc, (list, tuple)):
-        assert len(api_doc) == 2, \
-            f"`api_doc` is a {type(api_doc)} but has {len(api_doc)} element(s), " \
-            f"which can only have 2 elements."
-        predict_doc, explain_doc = api_doc[0], api_doc[1]
-    else:
-        raise TypeError(f"`api_doc` should be str, list or tuple instead of {type(api_doc)}.")
-
-    predict_input_spec = NumpyNdarray()
-    explain_input_spec = Multipart(data=NumpyNdarray(), params=JSON())
-
-    @svc.api(
-        input=predict_input_spec,
-        output=JSON(),
-        name=f"{api_name}_predict" if api_name is not None else None,
-        doc=predict_doc,
-        route=os.path.join(api_route, "predict") if api_route is not None else None
-    )
-    def predict(data):
-        result = runner.predict.run(data)
-        return result.to_json()
-
-    @svc.api(
-        input=explain_input_spec,
-        output=JSON(),
-        name=f"{api_name}_explain" if api_name is not None else None,
-        doc=explain_doc,
-        route=os.path.join(api_route, "explain") if api_route is not None else None
-    )
-    def explain(data, params):
-        result = runner.explain.run(data, params, run_predict=False)
-        return json.dumps(result, cls=DefaultJsonEncoder)
-
-    return svc
-
-
 def get_runnable(bento_model: Model):
 
     class OmniXAIRunnable(bentoml.Runnable):
@@ -190,3 +144,95 @@ def get_runnable(bento_model: Model):
         add_runnable_method(method_name, options)
 
     return OmniXAIRunnable
+
+
+def init_service(
+        model_tag,
+        task_type,
+        service_name,
+        api_name=None,
+        api_doc=None,
+        api_route=None,
+        async_api=False
+):
+    from bentoml.io import JSON, Multipart
+    assert task_type in ["tabular", "vision", "nlp"], \
+        f"`task_type` should be 'tabular', 'vision' or 'nlp' other than {task_type}."
+
+    model = get(model_tag)
+    runner = model.to_runner()
+    svc = bentoml.Service(service_name, runners=[runner])
+
+    if api_doc is None:
+        predict_doc, explain_doc = None, None
+    elif isinstance(api_doc, str):
+        predict_doc, explain_doc = api_doc, api_doc
+    elif isinstance(api_doc, (list, tuple)):
+        assert len(api_doc) == 2, \
+            f"`api_doc` is a {type(api_doc)} but has {len(api_doc)} element(s), " \
+            f"which can only have 2 elements."
+        predict_doc, explain_doc = api_doc[0], api_doc[1]
+    else:
+        raise TypeError(f"`api_doc` should be str, list or tuple instead of {type(api_doc)}.")
+
+    if task_type == "tabular":
+        from bentoml.io import NumpyNdarray
+        predict_input_spec = NumpyNdarray()
+        explain_input_spec = Multipart(data=NumpyNdarray(), params=JSON())
+    elif task_type == "vision":
+        from bentoml.io import Image
+        predict_input_spec = Image()
+        explain_input_spec = Multipart(data=Image(), params=JSON())
+    elif task_type == "nlp":
+        from bentoml.io import Text
+        predict_input_spec = Text()
+        explain_input_spec = Multipart(data=Text(), params=JSON())
+    else:
+        raise ValueError(f"Unknown `task_type`: {task_type}")
+
+    if not async_api:
+        @svc.api(
+            input=predict_input_spec,
+            output=JSON(),
+            name=f"{api_name}_predict" if api_name is not None else None,
+            doc=predict_doc,
+            route=os.path.join(api_route, "predict") if api_route is not None else None
+        )
+        def predict(data):
+            result = runner.predict.run(data)
+            return result.to_json()
+
+        @svc.api(
+            input=explain_input_spec,
+            output=JSON(),
+            name=f"{api_name}_explain" if api_name is not None else None,
+            doc=explain_doc,
+            route=os.path.join(api_route, "explain") if api_route is not None else None
+        )
+        def explain(data, params):
+            result = runner.explain.run(data, params, run_predict=False)
+            return json.dumps(result, cls=DefaultJsonEncoder)
+    else:
+        @svc.api(
+            input=predict_input_spec,
+            output=JSON(),
+            name=f"{api_name}_predict" if api_name is not None else None,
+            doc=predict_doc,
+            route=os.path.join(api_route, "predict") if api_route is not None else None
+        )
+        async def predict(data):
+            result = await runner.predict.run(data)
+            return result.to_json()
+
+        @svc.api(
+            input=explain_input_spec,
+            output=JSON(),
+            name=f"{api_name}_explain" if api_name is not None else None,
+            doc=explain_doc,
+            route=os.path.join(api_route, "explain") if api_route is not None else None
+        )
+        async def explain(data, params):
+            result = await runner.explain.run(data, params, run_predict=False)
+            return json.dumps(result, cls=DefaultJsonEncoder)
+
+    return svc
