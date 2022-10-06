@@ -6,6 +6,8 @@
 #
 from omnixai.deployment.bentoml.omnixai import init_service
 
+print("Loading tabular service...")
+
 
 svc = init_service(
     model_tag="tabular_explainer:latest",

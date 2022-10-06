@@ -4,8 +4,10 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import torch
 from omnixai.deployment.bentoml.omnixai import init_service
 
+print("Loading vision service...")
 
 svc = init_service(
     model_tag="vision_explainer:latest",
