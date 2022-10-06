@@ -152,8 +152,7 @@ def init_service(
         service_name,
         api_name=None,
         api_doc=None,
-        api_route=None,
-        async_api=False
+        api_route=None
 ):
     from bentoml.io import JSON, Multipart
     assert task_type in ["tabular", "vision", "nlp"], \
@@ -190,49 +189,26 @@ def init_service(
     else:
         raise ValueError(f"Unknown `task_type`: {task_type}")
 
-    if not async_api:
-        @svc.api(
-            input=predict_input_spec,
-            output=JSON(),
-            name=f"{api_name}_predict" if api_name is not None else None,
-            doc=predict_doc,
-            route=os.path.join(api_route, "predict") if api_route is not None else None
-        )
-        def predict(data):
-            result = runner.predict.run(data)
-            return result.to_json()
+    @svc.api(
+        input=predict_input_spec,
+        output=JSON(),
+        name=f"{api_name}_predict" if api_name is not None else None,
+        doc=predict_doc,
+        route=os.path.join(api_route, "predict") if api_route is not None else None
+    )
+    def predict(data):
+        result = runner.predict.run(data)
+        return result.to_json()
 
-        @svc.api(
-            input=explain_input_spec,
-            output=JSON(),
-            name=f"{api_name}_explain" if api_name is not None else None,
-            doc=explain_doc,
-            route=os.path.join(api_route, "explain") if api_route is not None else None
-        )
-        def explain(data, params):
-            result = runner.explain.run(data, params, run_predict=False)
-            return json.dumps(result, cls=DefaultJsonEncoder)
-    else:
-        @svc.api(
-            input=predict_input_spec,
-            output=JSON(),
-            name=f"{api_name}_predict" if api_name is not None else None,
-            doc=predict_doc,
-            route=os.path.join(api_route, "predict") if api_route is not None else None
-        )
-        async def predict(data):
-            result = await runner.predict.run(data)
-            return result.to_json()
-
-        @svc.api(
-            input=explain_input_spec,
-            output=JSON(),
-            name=f"{api_name}_explain" if api_name is not None else None,
-            doc=explain_doc,
-            route=os.path.join(api_route, "explain") if api_route is not None else None
-        )
-        async def explain(data, params):
-            result = await runner.explain.run(data, params, run_predict=False)
-            return json.dumps(result, cls=DefaultJsonEncoder)
+    @svc.api(
+        input=explain_input_spec,
+        output=JSON(),
+        name=f"{api_name}_explain" if api_name is not None else None,
+        doc=explain_doc,
+        route=os.path.join(api_route, "explain") if api_route is not None else None
+    )
+    def explain(data, params):
+        result = runner.explain.run(data, params, run_predict=False)
+        return json.dumps(result, cls=DefaultJsonEncoder)
 
     return svc
