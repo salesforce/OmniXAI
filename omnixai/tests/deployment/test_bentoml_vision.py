@@ -45,7 +45,7 @@ class TestBentoML(unittest.TestCase):
 
     def test_save_and_load(self):
         explainer = VisionExplainer(
-            explainers=["gradcam", "ig", "layercam"],
+            explainers=["gradcam", "layercam"],
             mode="classification",
             model=self.model,
             preprocess=self.preprocess,

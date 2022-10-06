@@ -8,7 +8,7 @@ import os
 import unittest
 import numpy as np
 from omnixai.data.tabular import Tabular
-from omnixai.deployment.bentoml.omnixai import get, init_service
+from omnixai.deployment.bentoml.omnixai import init_service
 
 
 class TestService(unittest.TestCase):
@@ -41,8 +41,11 @@ class TestService(unittest.TestCase):
         self.test_instances = tabular_data[0:2].to_numpy()
 
     def test(self):
-        model = get("tabular_explainer:latest")
-        svc = init_service(model, "tabular_explainer")
+        svc = init_service(
+            model_tag="tabular_explainer:latest",
+            task_type="tabular",
+            service_name="tabular_explainer"
+        )
         for runner in svc.runners:
             runner.init_local()
 
