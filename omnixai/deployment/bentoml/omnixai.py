@@ -119,7 +119,7 @@ def save_model(
 def get_runnable(bento_model: Model):
 
     class OmniXAIRunnable(bentoml.Runnable):
-        SUPPORTED_RESOURCES = ("cpu", "gpu")
+        SUPPORTED_RESOURCES = ("cpu", "nvidia.com/gpu")
         SUPPORTS_CPU_MULTI_THREADING = True
 
         def __init__(self):
