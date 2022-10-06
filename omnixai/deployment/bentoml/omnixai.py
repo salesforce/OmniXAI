@@ -154,6 +154,17 @@ def init_service(
         api_doc=None,
         api_route=None
 ):
+    """
+    :param model_tag: The tag of the model.
+    :param task_type: The task type, e.g., tabular, vision or nlp.
+    :param service_name: The name of the service.
+    :param api_name: The base api name. For example, if `api_name = 'abc'`,
+        the name of the "predict" and "explain" apis will be "abc_predict" and "abc_explain", respectively.
+    :param api_doc: The api docs. It can either be a string or a tuple (list) of length 2. If it is a tuple (list),
+        the first element will be the doc of the "predict" api, and the second one will be the doc of the "explain" api.
+    :param api_route: The base api route. For example, if `api_route = '/abc'`,
+        the name of the "predict" and "explain" apis will be "/abc/predict" and "/abc/explain", respectively.
+    """
     from bentoml.io import JSON, Multipart
     assert task_type in ["tabular", "vision", "nlp"], \
         f"`task_type` should be 'tabular', 'vision' or 'nlp' other than {task_type}."
