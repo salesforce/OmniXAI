@@ -50,7 +50,7 @@ class TestSklearnRequest(unittest.TestCase):
         m = MultipartEncoder(
             fields={
                 "data": data,
-                "params": '{}',
+                "params": '{"lime": {"y": [0]}}',
             }
         )
         result = requests.post(

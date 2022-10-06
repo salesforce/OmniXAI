@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+import os.path
 import typing as t
 from types import ModuleType
 
@@ -115,21 +116,47 @@ def save_model(
         return bento_model
 
 
-def init_service(model, service_name):
+def init_service(model, service_name, api_name=None, api_doc=None, api_route=None):
     from bentoml.io import NumpyNdarray, JSON, Multipart
 
     runner = model.to_runner()
     svc = bentoml.Service(service_name, runners=[runner])
-    input_spec = Multipart(data=NumpyNdarray(), params=JSON())
 
-    @svc.api(input=NumpyNdarray(), output=JSON())
+    if api_doc is None:
+        predict_doc, explain_doc = None, None
+    elif isinstance(api_doc, str):
+        predict_doc, explain_doc = api_doc, api_doc
+    elif isinstance(api_doc, (list, tuple)):
+        assert len(api_doc) == 2, \
+            f"`api_doc` is a {type(api_doc)} but has {len(api_doc)} element(s), " \
+            f"which can only have 2 elements."
+        predict_doc, explain_doc = api_doc[0], api_doc[1]
+    else:
+        raise TypeError(f"`api_doc` should be str, list or tuple instead of {type(api_doc)}.")
+
+    predict_input_spec = NumpyNdarray()
+    explain_input_spec = Multipart(data=NumpyNdarray(), params=JSON())
+
+    @svc.api(
+        input=predict_input_spec,
+        output=JSON(),
+        name=f"{api_name}_predict" if api_name is not None else None,
+        doc=predict_doc,
+        route=os.path.join(api_route, "predict") if api_route is not None else None
+    )
     def predict(data):
         result = runner.predict.run(data)
         return result.to_json()
 
-    @svc.api(input=input_spec, output=JSON())
+    @svc.api(
+        input=explain_input_spec,
+        output=JSON(),
+        name=f"{api_name}_explain" if api_name is not None else None,
+        doc=explain_doc,
+        route=os.path.join(api_route, "explain") if api_route is not None else None
+    )
     def explain(data, params):
-        result = runner.explain.run(data, params)
+        result = runner.explain.run(data, params, run_predict=False)
         return json.dumps(result, cls=DefaultJsonEncoder)
 
     return svc
@@ -146,8 +173,8 @@ def get_runnable(bento_model: Model):
             self.model = load_model(bento_model)
 
     def add_runnable_method(method_name, options):
-        def _run(self, *args):
-            results = getattr(self.model, method_name)(*args)
+        def _run(self, *args, **kwargs):
+            results = getattr(self.model, method_name)(*args, **kwargs)
             return results
 
         OmniXAIRunnable.add_method(
