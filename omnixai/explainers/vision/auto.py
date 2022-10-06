@@ -34,14 +34,14 @@ class VisionExplainer(AutoExplainerBase):
     _MODELS = AutoExplainerBase._EXPLAINERS[__name__.split(".")[2]]
 
     def __init__(
-        self,
-        explainers: Collection,
-        mode: str,
-        model: Any,
-        data: Image = Image(),
-        preprocess: Callable = None,
-        postprocess: Callable = None,
-        params: Dict = None,
+            self,
+            explainers: Collection,
+            mode: str,
+            model: Any,
+            data: Image = Image(),
+            preprocess: Callable = None,
+            postprocess: Callable = None,
+            params: Dict = None,
     ):
         """
         :param explainers: The names or alias of the explainers to use.
@@ -68,6 +68,7 @@ class VisionExplainer(AutoExplainerBase):
             params=params,
         )
 
+    # Only supports (h, w, c), (h, w), (b, h, w, c) or (b, h, w)
     def _convert_data(self, X):
         from PIL import Image as PilImage
         if isinstance(X, Image):
@@ -79,7 +80,7 @@ class VisionExplainer(AutoExplainerBase):
                 raise ValueError("The data dimension is <= 1.")
             elif X.ndim == 2:
                 # Single greyscale image
-                return Image(X, batched=False, channel_last=True)
+                return Image(X, batched=False)
             elif X.ndim == 3:
                 # Single color image
                 if X.shape[-1] <= 4:
@@ -87,7 +88,7 @@ class VisionExplainer(AutoExplainerBase):
                     return Image(X, batched=False, channel_last=True)
                 else:
                     # Multiple greyscale images
-                    return Image(X, batched=True, channel_last=True)
+                    return Image(X, batched=True)
             elif X.ndim == 4:
                 # Multiple color images
                 return Image(X, batched=True, channel_last=True)
