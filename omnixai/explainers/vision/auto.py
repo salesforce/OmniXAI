@@ -75,7 +75,22 @@ class VisionExplainer(AutoExplainerBase):
         elif isinstance(X, PilImage.Image):
             return Image(X)
         elif isinstance(X, np.ndarray):
-            pass
+            if X.ndim <= 1:
+                raise ValueError("The data dimension is <= 1.")
+            elif X.ndim == 2:
+                # Single greyscale image
+                return Image(X, batched=False, channel_last=True)
+            elif X.ndim == 3:
+                # Single color image
+                if X.shape[-1] <= 4:
+                    # Single color image
+                    return Image(X, batched=False, channel_last=True)
+                else:
+                    # Multiple greyscale images
+                    return Image(X, batched=True, channel_last=True)
+            elif X.ndim == 4:
+                # Multiple color images
+                return Image(X, batched=True, channel_last=True)
         else:
             raise ValueError(f"Unsupported data type for VisionExplainer: {type(X)}")
 
