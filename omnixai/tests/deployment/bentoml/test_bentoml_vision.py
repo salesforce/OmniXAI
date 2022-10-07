@@ -8,12 +8,8 @@ import os
 import json
 import unittest
 import torch
-import numpy as np
 from torchvision import models, transforms
-from PIL import Image as PilImage
 
-from omnixai.preprocessing.image import Resize
-from omnixai.data.image import Image
 from omnixai.explainers.vision import VisionExplainer
 from omnixai.deployment.bentoml.omnixai import save_model, load_model
 
@@ -31,9 +27,18 @@ class TestBentoML(unittest.TestCase):
                 transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
             ]
         )
-        self.preprocess = lambda ims: torch.stack([self.transform(im.to_pil()) for im in ims]).to(device)
+
+        def _preprocess(ims):
+            import torch
+            return torch.stack([self.transform(im.to_pil()) for im in ims]).to(device)
+
+        def _postprocess(logits):
+            import torch
+            return torch.nn.functional.softmax(logits, dim=1)
+
+        self.preprocess = _preprocess
         self.model = models.resnet50(pretrained=True).to(device)
-        self.postprocess = lambda logits: torch.nn.functional.softmax(logits, dim=1)
+        self.postprocess = _postprocess
 
         with open(directory + "imagenet_class_index.json", "r") as read_file:
             class_idx = json.load(read_file)
