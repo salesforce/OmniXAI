@@ -6,6 +6,7 @@
 #
 import os
 import json
+import torch
 import unittest
 import requests
 from PIL import Image as PilImage
