@@ -210,7 +210,7 @@ def init_service(
 
     @svc.api(
         input=explain_input_spec,
-        output=JSON(),
+        output=Text(),
         name=f"{api_name}_explain" if api_name is not None else None,
         doc=explain_doc,
         route=os.path.join(api_route, "explain") if api_route is not None else None
