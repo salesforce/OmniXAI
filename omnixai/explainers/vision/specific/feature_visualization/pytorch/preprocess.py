@@ -131,5 +131,5 @@ def fft_images(width, height, inputs, scale):
         x = torch.cat([spectrum.real.unsqueeze(dim=-1), spectrum.imag.unsqueeze(dim=-1)], dim=-1)
         image = torch.irfft(x, signal_ndim=2, normalized=False, onesided=False)
     else:
-        image = torch.fft.ifft2(spectrum)
-    return image / 4.0
+        image = torch.fft.irfft2(spectrum)
+    return image[:, :, :width, :height] / 4.0
