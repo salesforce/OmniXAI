@@ -165,7 +165,7 @@ def init_service(
     :param api_route: The base api route. For example, if `api_route = '/abc'`,
         the name of the "predict" and "explain" apis will be "/abc/predict" and "/abc/explain", respectively.
     """
-    from bentoml.io import JSON, Multipart
+    from bentoml.io import NumpyNdarray, JSON, Text, Multipart
     assert task_type in ["tabular", "vision", "nlp"], \
         f"`task_type` should be 'tabular', 'vision' or 'nlp' other than {task_type}."
 
@@ -186,15 +186,12 @@ def init_service(
         raise TypeError(f"`api_doc` should be str, list or tuple instead of {type(api_doc)}.")
 
     if task_type == "tabular":
-        from bentoml.io import NumpyNdarray
         predict_input_spec = NumpyNdarray()
         explain_input_spec = Multipart(data=NumpyNdarray(), params=JSON())
     elif task_type == "vision":
-        from bentoml.io import NumpyNdarray
         predict_input_spec = NumpyNdarray()
         explain_input_spec = Multipart(data=NumpyNdarray(), params=JSON())
     elif task_type == "nlp":
-        from bentoml.io import Text
         predict_input_spec = Text()
         explain_input_spec = Multipart(data=Text(), params=JSON())
     else:
@@ -202,7 +199,7 @@ def init_service(
 
     @svc.api(
         input=predict_input_spec,
-        output=JSON(),
+        output=Text(),
         name=f"{api_name}_predict" if api_name is not None else None,
         doc=predict_doc,
         route=os.path.join(api_route, "predict") if api_route is not None else None

@@ -45,7 +45,11 @@ class TestVisionRequest(unittest.TestCase):
         ).text
 
         from omnixai.explanations.base import ExplanationBase
-        d = json.loads(json.loads(result))
+        d = json.loads(result)
+
+        print(type(d))
+        input('xxx')
+
         ExplanationBase.from_json(json.dumps(d["gradcam"])).ipython_plot()
         ExplanationBase.from_json(json.dumps(d["layercam"])).ipython_plot()
 
