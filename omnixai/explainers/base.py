@@ -415,4 +415,4 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
         import json
         from ..explanations.base import ExplanationBase
         d = json.loads(s)
-        return {name: ExplanationBase.from_json(json.dumps(d[name])) for name in d.keys()}
+        return {name: ExplanationBase.from_dict(d[name]) for name in d.keys()}

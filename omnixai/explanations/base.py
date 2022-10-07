@@ -102,15 +102,15 @@ class ExplanationBase(metaclass=AutodocABCMeta):
         :return: The loaded explanation object.
         """
         import json
-        import importlib
         d = json.loads(s)
-        module = importlib.import_module(d["module"])
-        explanation_class = getattr(module, d["class"])
-        return explanation_class.from_dict(d["data"])
+        return ExplanationBase.from_dict(d)
 
     @classmethod
     def from_dict(cls, d):
-        raise NotImplementedError
+        import importlib
+        module = importlib.import_module(d["module"])
+        explanation_class = getattr(module, d["class"])
+        return explanation_class.from_dict(d["data"])
 
 
 class DashFigure:
