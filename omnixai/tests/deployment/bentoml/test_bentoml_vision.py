@@ -21,12 +21,8 @@ from omnixai.deployment.bentoml.omnixai import save_model, load_model
 class TestBentoML(unittest.TestCase):
 
     def setUp(self) -> None:
-        directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../datasets/images/")
+        directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets/images/")
         device = "cuda" if torch.cuda.is_available() else "cpu"
-        img_1 = Resize((256, 256)).transform(Image(PilImage.open(directory + "dog_cat.png").convert("RGB")))
-        img_2 = Resize((256, 256)).transform(Image(PilImage.open(directory + "dog.jpg").convert("RGB")))
-        img_3 = Resize((256, 256)).transform(Image(PilImage.open(directory + "camera.jpg").convert("RGB")))
-        self.img = Image(data=np.concatenate([img_1.to_numpy(), img_2.to_numpy(), img_3.to_numpy()]), batched=True)
         self.transform = transforms.Compose(
             [
                 transforms.Resize(256),

@@ -12,7 +12,7 @@ import requests
 class TestVisionRequest(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../datasets/images/")
+        self.directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets/images/")
 
     def test(self):
         result = requests.post(
