@@ -409,3 +409,10 @@ class AutoExplainerBase(metaclass=AutodocABCMeta):
             for name, value in params.items():
                 setattr(self, name, value)
             return self
+
+    @staticmethod
+    def parse_explanations_from_json(s):
+        import json
+        from ..explanations.base import ExplanationBase
+        d = json.loads(s)
+        return {name: ExplanationBase.from_json(json.dumps(d[name])) for name in d.keys()}

@@ -31,7 +31,7 @@ class TestService(unittest.TestCase):
             "Country",
             "label",
         ]
-        data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../datasets")
+        data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets")
         tabular_data = Tabular(
             np.genfromtxt(os.path.join(data_dir, "adult.data"), delimiter=", ", dtype=str),
             feature_columns=feature_names,

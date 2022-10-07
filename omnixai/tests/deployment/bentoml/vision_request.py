@@ -44,10 +44,10 @@ class TestVisionRequest(unittest.TestCase):
             data=m
         ).text
 
-        from omnixai.explanations.base import ExplanationBase
-        d = json.loads(result)
-        ExplanationBase.from_json(json.dumps(d["gradcam"])).ipython_plot()
-        ExplanationBase.from_json(json.dumps(d["layercam"])).ipython_plot()
+        from omnixai.explainers.base import AutoExplainerBase
+        exp = AutoExplainerBase.parse_explanations_from_json(result)
+        exp["gradcam"].ipython_plot()
+        exp["layercam"].ipython_plot()
 
 
 if __name__ == "__main__":

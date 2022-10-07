@@ -16,7 +16,7 @@ from omnixai.deployment.bentoml.omnixai import init_service
 class TestService(unittest.TestCase):
 
     def setUp(self) -> None:
-        directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../datasets/images/")
+        directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets/images/")
         img = Resize((256, 256)).transform(Image(PilImage.open(directory + "dog_cat.png").convert("RGB")))
         self.test_instance = img.to_numpy()[0]
 
@@ -32,13 +32,11 @@ class TestService(unittest.TestCase):
         predictions = svc.apis["predict"].func(self.test_instance)
         print(predictions)
         local_explanations = svc.apis["explain"].func(self.test_instance, {})
-        print(local_explanations)
 
-        import json
-        from omnixai.explanations.base import ExplanationBase
-        d = json.loads(local_explanations)
-        ExplanationBase.from_json(json.dumps(d["gradcam"])).ipython_plot()
-        ExplanationBase.from_json(json.dumps(d["layercam"])).ipython_plot()
+        from omnixai.explainers.base import AutoExplainerBase
+        exp = AutoExplainerBase.parse_explanations_from_json(local_explanations)
+        exp["gradcam"].ipython_plot()
+        exp["layercam"].ipython_plot()
 
 
 if __name__ == "__main__":
