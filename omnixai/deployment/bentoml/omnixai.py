@@ -190,9 +190,9 @@ def init_service(
         predict_input_spec = NumpyNdarray()
         explain_input_spec = Multipart(data=NumpyNdarray(), params=JSON())
     elif task_type == "vision":
-        from bentoml.io import Image
-        predict_input_spec = Image()
-        explain_input_spec = Multipart(data=Image(), params=JSON())
+        from bentoml.io import NumpyNdarray
+        predict_input_spec = NumpyNdarray()
+        explain_input_spec = Multipart(data=NumpyNdarray(), params=JSON())
     elif task_type == "nlp":
         from bentoml.io import Text
         predict_input_spec = Text()
