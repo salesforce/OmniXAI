@@ -46,8 +46,8 @@ class TestVisionRequest(unittest.TestCase):
 
         from omnixai.explainers.base import AutoExplainerBase
         exp = AutoExplainerBase.parse_explanations_from_json(result)
-        exp["gradcam"].ipython_plot()
-        exp["layercam"].ipython_plot()
+        for name, explanation in exp.items():
+            explanation.ipython_plot()
 
 
 if __name__ == "__main__":
