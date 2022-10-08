@@ -33,7 +33,7 @@ def test_save_and_load():
     model = models.resnet50(pretrained=True).to(device)
 
     explainer = VisionExplainer(
-        explainers=["gradcam", "layercam"],
+        explainers=["gradcam", "layercam", "smoothgrad"],
         mode="classification",
         model=model,
         preprocess=_preprocess,

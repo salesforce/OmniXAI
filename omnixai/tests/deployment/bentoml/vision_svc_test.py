@@ -5,7 +5,6 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 import os
-import torch
 from PIL import Image as PilImage
 from omnixai.preprocessing.image import Resize
 from omnixai.data.image import Image
@@ -31,8 +30,8 @@ def test():
 
     from omnixai.explainers.base import AutoExplainerBase
     exp = AutoExplainerBase.parse_explanations_from_json(local_explanations)
-    exp["gradcam"].ipython_plot()
-    exp["layercam"].ipython_plot()
+    for name, explanation in exp.items():
+        explanation.ipython_plot()
 
 
 if __name__ == "__main__":
