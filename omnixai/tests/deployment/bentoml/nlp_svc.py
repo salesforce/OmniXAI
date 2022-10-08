@@ -6,6 +6,7 @@
 #
 import torch
 import torch.nn as nn
+import numpy as np
 from omnixai.deployment.bentoml.omnixai import init_service
 
 
