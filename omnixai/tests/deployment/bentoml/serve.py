@@ -6,6 +6,7 @@ from circus.watcher import Watcher
 
 SCRIPT_DEV_API_SERVER = "omnixai.tests.deployment.bentoml.api_server"
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 def create_standalone_arbiter(watchers, **kwargs):

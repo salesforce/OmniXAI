@@ -9,6 +9,7 @@ from omnixai.deployment.bentoml.omnixai import init_service
 @click.command()
 @click.option("--fd", type=click.INT, required=False, default=-1)
 def main(fd):
+    print("Starting server...")
     component_context.component_type = "dev_api_server"
     configure_server_logging()
 
@@ -40,6 +41,7 @@ def main(fd):
         uvicorn.Server(config).run(sockets=[sock])
     else:
         uvicorn.Server(config).run()
+    print("finished.")
 
 
 if __name__ == "__main__":
