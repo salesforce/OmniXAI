@@ -1,10 +1,14 @@
 import uvicorn
+import socket
+import click
 from bentoml._internal.log import configure_server_logging
 from bentoml._internal.context import component_context
 from omnixai.deployment.bentoml.omnixai import init_service
 
 
-def main():
+@click.command()
+@click.option("--fd", type=click.INT, required=False, default=-1)
+def main(fd):
     component_context.component_type = "dev_api_server"
     configure_server_logging()
 
@@ -30,7 +34,12 @@ def main():
         "port": 5000
     }
     config = uvicorn.Config(svc.asgi_app, **uvicorn_options)
-    uvicorn.Server(config).run()
+
+    if fd != -1:
+        sock = socket.socket(fileno=fd)
+        uvicorn.Server(config).run(sockets=[sock])
+    else:
+        uvicorn.Server(config).run()
 
 
 if __name__ == "__main__":
