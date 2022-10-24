@@ -16,7 +16,7 @@ from omnixai.explainers.tabular import TabularExplainer
 from omnixai.deployment.bentoml.omnixai import save_model, load_model
 
 
-def test_save_and_load():
+def train():
     # Load the dataset
     feature_names = [
         "Age",
@@ -35,7 +35,7 @@ def test_save_and_load():
         "Country",
         "label",
     ]
-    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets")
+    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../datasets")
     tabular_data = Tabular(
         np.genfromtxt(os.path.join(data_dir, "adult.data"), delimiter=", ", dtype=str),
         feature_columns=feature_names,
@@ -78,4 +78,4 @@ def test_save_and_load():
 
 
 if __name__ == "__main__":
-    test_save_and_load()
+    train()
