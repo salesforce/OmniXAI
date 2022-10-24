@@ -6,6 +6,22 @@ from bentoml._internal.context import component_context
 from omnixai.deployment.bentoml.omnixai import init_service
 
 
+async def app(scope, receive, send):
+    assert scope['type'] == 'http'
+
+    await send({
+        'type': 'http.response.start',
+        'status': 200,
+        'headers': [
+            [b'content-type', b'text/plain'],
+        ],
+    })
+    await send({
+        'type': 'http.response.body',
+        'body': b'Hello, world!',
+    })
+
+
 @click.command()
 @click.option("--fd", type=click.INT, required=False, default=-1)
 def main(fd):
@@ -31,7 +47,7 @@ def main(fd):
         "backlog": 2048,
         "log_config": None,
         "workers": 1,
-        "lifespan": "on",
+        # "lifespan": "on",
         "port": 5000
     }
     config = uvicorn.Config(svc.asgi_app, **uvicorn_options)
