@@ -30,9 +30,9 @@ def main(fd):
     configure_server_logging()
 
     svc = init_service(
-        model_tag="tabular_explainer:latest",
-        task_type="tabular",
-        service_name="tabular_explainer"
+        model_tag="nlp_explainer:latest",
+        task_type="nlp",
+        service_name="nlp_explainer"
     )
 
     component_context.component_name = svc.name

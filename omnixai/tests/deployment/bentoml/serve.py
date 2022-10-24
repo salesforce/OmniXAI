@@ -57,7 +57,7 @@ def serve():
         watchers,
         sockets=circus_sockets,
         debug=True,
-        loglevel="WARNING",
+        loglevel="DEBUG",
     )
     arbiter.start(
         cb=lambda _: logger.info(
