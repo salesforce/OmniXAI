@@ -13,41 +13,12 @@ from omnixai.data.text import Text
 from omnixai.preprocessing.text import Word2Id
 from omnixai.explainers.tabular.agnostic.L2X.utils import Trainer
 from omnixai.explainers.nlp import NLPExplainer
-from omnixai.deployment.bentoml.omnixai import save_model, load_model
+from omnixai.deployment.bentoml.omnixai import save_model
+
+from model import TextModel
 
 
-class TextModel(nn.Module):
-
-    def __init__(self, num_embeddings, num_classes, **kwargs):
-        super().__init__()
-        self.num_embeddings = num_embeddings
-        self.embedding_size = kwargs.get("embedding_size", 50)
-        self.embedding = nn.Embedding(self.num_embeddings, self.embedding_size)
-        self.embedding.weight.data.normal_(mean=0.0, std=0.01)
-
-        hidden_size = kwargs.get("hidden_size", 100)
-        kernel_sizes = kwargs.get("kernel_sizes", [3, 4, 5])
-        if type(kernel_sizes) == int:
-            kernel_sizes = [kernel_sizes]
-
-        self.activation = nn.ReLU()
-        self.conv_layers = nn.ModuleList([
-            nn.Conv1d(self.embedding_size, hidden_size, k, padding=k // 2) for k in kernel_sizes])
-        self.dropout = nn.Dropout(0.2)
-        self.output_layer = nn.Linear(len(kernel_sizes) * hidden_size, num_classes)
-
-    def forward(self, inputs, masks):
-        embeddings = self.embedding(inputs)
-        x = embeddings * masks.unsqueeze(dim=-1)
-        x = x.permute(0, 2, 1)
-        x = [self.activation(layer(x).max(2)[0]) for layer in self.conv_layers]
-        outputs = self.output_layer(self.dropout(torch.cat(x, dim=1)))
-        if outputs.shape[1] == 1:
-            outputs = outputs.squeeze(dim=1)
-        return outputs
-
-
-def test_save_and_load():
+def train():
     train_data = pd.read_csv('/home/ywz/data/imdb/labeledTrainData.tsv', sep='\t')
     n = int(0.8 * len(train_data))
     x_train = Text(train_data["review"].values[:n])
@@ -59,6 +30,7 @@ def test_save_and_load():
     class_names = ["negative", "positive"]
 
     def _preprocess(X: Text):
+        import numpy as np
         samples = transform.transform(X)
         max_len = 0
         for i in range(len(samples)):
@@ -111,10 +83,7 @@ def test_save_and_load():
     )
     save_model("nlp_explainer", explainer)
     print("Save explainer successfully.")
-    explainer = load_model("nlp_explainer:latest")
-    print(explainer)
-    print("Load explainer successfully.")
 
 
 if __name__ == "__main__":
-    test_save_and_load()
+    train()
