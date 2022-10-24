@@ -12,7 +12,7 @@ from omnixai.deployment.bentoml.omnixai import init_service
 
 
 def test():
-    directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../datasets/images/")
+    directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../datasets/images/")
     img = Resize((256, 256)).transform(Image(PilImage.open(directory + "dog_cat.png").convert("RGB")))
     test_instance = img.to_numpy()[0]
 
