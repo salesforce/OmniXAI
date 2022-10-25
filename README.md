@@ -359,7 +359,7 @@ svc = init_service(
 )
 ```
 
-The `init_service` function defines two API endpoints `/predict` for model predictions and `/explain` for
+The `init_service` function defines two API endpoints, i.e., `/predict` for model predictions and `/explain` for
 generating explanations. You can start an API server locally to test the service code above:
 
 ```python
