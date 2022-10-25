@@ -325,9 +325,10 @@ and time-series anomaly detection:
 The explainers in OmniXAI can be easily deployed via [BentoML](https://github.com/bentoml/BentoML). 
 BentoML is a popular open-source unified model serving framework, supporting multiple platforms including
 AWS, GCP, Heroku, etc. We implemented the BentoML-format interfaces for OmniXAI so that users only need
-few lines of code to deploy their selected explainers. Let's take the income prediction task as an example.
-Given the trained model and the initialized explainer, you only need to save the explainer in the BentoML local 
-model store:
+few lines of code to deploy their selected explainers. 
+
+Let's take the income prediction task as an example. Given the trained model and the initialized explainer, 
+you only need to save the explainer in the BentoML local model store:
 
 ```python
 from omnixai.explainers.tabular import TabularExplainer
