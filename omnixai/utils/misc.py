@@ -18,6 +18,8 @@ if sys.version_info < (3, 8):
 else:
     import importlib.metadata as importlib_metadata
 
+get_pkg_version = importlib_metadata.version
+
 
 class AutodocABCMeta(ABCMeta):
     """

@@ -234,6 +234,19 @@ class PixelImportance(ExplanationBase):
         return plotly.offline.iplot(self._plotly_figure(
             index, class_names=class_names, max_num_figures=max_num_figures, **kwargs))
 
+    @classmethod
+    def from_dict(cls, d):
+        explanations = []
+        for e in d["explanations"]:
+            e["image"] = np.array(e["image"])
+            e["scores"] = np.array(e["scores"])
+            explanations.append(e)
+        return PixelImportance(
+            mode=d["mode"],
+            explanations=explanations,
+            use_heatmap=d["use_heatmap"]
+        )
+
 
 def _plot_pixel_importance_heatmap(importance_scores, image, overlay=True):
     import cv2

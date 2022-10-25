@@ -13,6 +13,7 @@ from PIL import Image as PilImage
 
 from omnixai.data.image import Image
 from omnixai.explainers.vision.specific.gradcam import GradCAM
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestGradCAM(unittest.TestCase):
@@ -48,6 +49,11 @@ class TestGradCAM(unittest.TestCase):
         explainer = GradCAM(model=self.model, target_layer=self.model.layer4[-1], preprocess_function=self.preprocess)
         explanations = explainer.explain(self.img)
         explanations.plot(class_names=self.idx2label)
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
+        e.plotly_plot()
 
 
 if __name__ == "__main__":

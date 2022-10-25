@@ -236,3 +236,10 @@ class FeatureImportance(ExplanationBase):
 
         assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
         plotly.offline.iplot(self._plotly_figure(index, **kwargs))
+
+    def to_json(self):
+        raise RuntimeError("`FeatureImportance` for timeseries cannot be converted into JSON format.")
+
+    @classmethod
+    def from_dict(cls, d):
+        raise RuntimeError("`FeatureImportance` for timeseries does not support `from_dict`.")

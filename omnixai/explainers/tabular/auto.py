@@ -4,6 +4,8 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import numpy as np
+import pandas as pd
 from typing import Collection, Callable, Any, Dict
 
 from ...data.tabular import Tabular
@@ -38,14 +40,14 @@ class TabularExplainer(AutoExplainerBase):
     _MODELS = AutoExplainerBase._EXPLAINERS[__name__.split(".")[2]]
 
     def __init__(
-        self,
-        explainers: Collection,
-        mode: str,
-        data: Tabular,
-        model: Any,
-        preprocess: Callable = None,
-        postprocess: Callable = None,
-        params: Dict = None,
+            self,
+            explainers: Collection,
+            mode: str,
+            data: Tabular,
+            model: Any,
+            preprocess: Callable = None,
+            postprocess: Callable = None,
+            params: Dict = None,
     ):
         """
         :param explainers: The names or alias of the explainers to use.
@@ -72,6 +74,48 @@ class TabularExplainer(AutoExplainerBase):
             postprocess=postprocess,
             params=params,
         )
+        if data is not None:
+            self.data_info = {
+                "categorical_columns": data.categorical_columns,
+                "target_column": data.target_column,
+                "feature_columns": data.columns
+            }
+
+    def _convert_data(self, X):
+        if isinstance(X, Tabular):
+            return X
+        if len(self.data_info) == 0:
+            raise TypeError(f"The input X is not a `Tabular` instance, "
+                            f"please convert {type(X)} into `Tabular`")
+
+        cate_columns = self.data_info["categorical_columns"]
+        target_column = self.data_info["target_column"]
+        feature_columns = self.data_info["feature_columns"]
+
+        if isinstance(X, pd.DataFrame):
+            target_column = target_column if target_column is not None and target_column in X \
+                else None
+            X = Tabular(
+                data=X,
+                categorical_columns=cate_columns,
+                target_column=target_column
+            )
+        elif isinstance(X, np.ndarray):
+            if X.ndim == 1:
+                X = np.expand_dims(X, axis=0)
+            if target_column is not None:
+                if X.shape[1] != len(feature_columns):
+                    feature_columns = [c for c in feature_columns if c != target_column]
+                    target_column = None
+            X = Tabular(
+                data=X,
+                feature_columns=feature_columns,
+                categorical_columns=cate_columns,
+                target_column=target_column
+            )
+        else:
+            raise ValueError(f"Unsupported data type for TabularExplainer: {type(X)}")
+        return X
 
     @staticmethod
     def list_explainers():

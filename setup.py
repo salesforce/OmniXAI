@@ -10,12 +10,13 @@ extras_require = {
     "plot": ["plotly>=4", "dash>=2.0", "dash_bootstrap_components>=1.0"],
     "vision": ["torch>=1.7", "torchvision>=0.8.1", "opencv-python-headless>=4.4"],
     "nlp": ["nltk>=3.4.5", "polyjuice_nlp"],
+    "bentoml": ["bentoml>=1.0.0"]
 }
 extras_require["all"] = sum(extras_require.values(), [])
 
 setup(
     name="omnixai",
-    version="1.2.1",
+    version="1.2.2",
     author="Wenzhuo Yang, Hung Le, Tanmay Shivprasad Laud, Silvio Savarese, Steven C.H. Hoi",
     description="OmniXAI: An Explainable AI Toolbox",
     long_description=open("README.md", "r", encoding="utf-8").read(),

@@ -196,6 +196,15 @@ class FeatureImportance(ExplanationBase):
         assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
         plotly.offline.iplot(self._plotly_figure(index, class_names=class_names, num_features=num_features, **kwargs))
 
+    @classmethod
+    def from_dict(cls, d):
+        import pandas as pd
+        explanations = []
+        for e in d["explanations"]:
+            e["instance"] = pd.DataFrame.from_dict(e["instance"])
+            explanations.append(e)
+        return FeatureImportance(mode=d["mode"], explanations=explanations)
+
 
 class GlobalFeatureImportance(ExplanationBase):
     """
@@ -312,3 +321,9 @@ class GlobalFeatureImportance(ExplanationBase):
         plotly.offline.iplot(self._plotly_figure(num_features=num_features,
                                                  truncate_long_features=truncate_long_features,
                                                  **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        exp = GlobalFeatureImportance()
+        exp.explanations = d["explanations"]
+        return exp

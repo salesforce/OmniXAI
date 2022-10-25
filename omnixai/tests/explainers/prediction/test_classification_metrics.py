@@ -4,6 +4,7 @@ from sklearn import svm, datasets
 from sklearn.model_selection import train_test_split
 
 from omnixai.explainers.prediction import PredictionAnalyzer
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestClassificationMetrics(unittest.TestCase):
@@ -32,6 +33,11 @@ class TestClassificationMetrics(unittest.TestCase):
         print(explanations.get_explanations())
         explanations.plotly_plot()
         explanations.plot(class_names=["a", "b", "c"])
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
+        e.plotly_plot()
 
 
 if __name__ == "__main__":

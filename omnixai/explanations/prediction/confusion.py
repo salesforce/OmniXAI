@@ -115,3 +115,7 @@ class ConfusionMatrixExplanation(ExplanationBase):
         import plotly
 
         plotly.offline.iplot(self._plotly_figure(class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        return ConfusionMatrixExplanation(confusion_matrix=np.array(d["confusion_matrix"]))

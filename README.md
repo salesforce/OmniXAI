@@ -29,9 +29,10 @@
 3. [Getting Started](#getting-started)
 4. [Documentation](https://opensource.salesforce.com/OmniXAI/latest/index.html)
 5. [Tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html)
-6. [Dashboard Demo](https://sfr-omnixai-demo.herokuapp.com/)
-7. [How to Contribute](https://opensource.salesforce.com/OmniXAI/latest/omnixai.html#how-to-contribute)
-8. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
+6. [Deployment](#deployment)
+7. [Dashboard Demo](https://sfr-omnixai-demo.herokuapp.com/)
+8. [How to Contribute](https://opensource.salesforce.com/OmniXAI/latest/omnixai.html#how-to-contribute)
+9. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
 
 
 ## Introduction
@@ -318,6 +319,94 @@ For NLP tasks and time-series forecasting/anomaly detection, OmniXAI also provid
 to generate and visualize explanations. This figure shows a dashboard example of text classification
 and time-series anomaly detection:
 ![alt text](https://github.com/salesforce/OmniXAI/raw/main/docs/_static/demo_nlp_ts.gif)
+
+## Deployment
+
+The explainers in OmniXAI can be easily deployed via [BentoML](https://github.com/bentoml/BentoML). 
+BentoML is a popular open-source unified model serving framework, supporting multiple platforms including
+AWS, GCP, Heroku, etc. We implemented the BentoML-format interfaces for OmniXAI so that users only need
+few lines of code to deploy their selected explainers. 
+
+Let's take the income prediction task as an example. Given the trained model and the initialized explainer, 
+you only need to save the explainer in the BentoML local model store:
+
+```python
+from omnixai.explainers.tabular import TabularExplainer
+from omnixai.deployment.bentoml.omnixai import save_model
+
+explainer = TabularExplainer(
+  explainers=["lime", "shap", "mace", "pdp", "ale"],
+  mode="classification",
+  data=train_data,
+  model=model,
+  preprocess=lambda z: transformer.transform(z),
+  params={
+     "mace": {"ignored_features": ["Sex", "Race", "Relationship", "Capital Loss"]}
+  }
+)
+save_model("tabular_explainer", explainer)
+```
+
+And then create a file (e.g., service.py) for the ML service code:
+
+```python
+from omnixai.deployment.bentoml.omnixai import init_service
+
+svc = init_service(
+    model_tag="tabular_explainer:latest",
+    task_type="tabular",
+    service_name="tabular_explainer"
+)
+```
+
+The `init_service` function defines two API endpoints, i.e., `/predict` for model predictions and `/explain` for
+generating explanations. You can start an API server locally to test the service code above:
+
+```python
+bentoml serve service:svc --reload
+```
+
+The endpoints can be accessed locally:
+
+```python
+import requests
+from requests_toolbelt.multipart.encoder import MultipartEncoder
+
+data = '["39", "State-gov", "77516", "Bachelors", "13", "Never-married", ' \
+       '"Adm-clerical", "Not-in-family", "White", "Male", "2174", "0", "40", "United-States"]'
+
+# Test the prediction endpoint
+prediction = requests.post(
+    "http://0.0.0.0:3000/predict",
+    headers={"content-type": "application/json"},
+    data=data
+).text
+
+# Test the explanation endpoint
+m = MultipartEncoder(
+    fields={
+        "data": data,
+        "params": '{"lime": {"y": [0]}}',
+    }
+)
+result = requests.post(
+    "http://0.0.0.0:3000/explain",
+    headers={"Content-Type": m.content_type},
+    data=m
+).text
+
+# Parse the results
+from omnixai.explainers.base import AutoExplainerBase
+exp = AutoExplainerBase.parse_explanations_from_json(result)
+for name, explanation in exp.items():
+    explanation.ipython_plot()
+```
+
+You can build Bento for deployment by following the steps shown in the 
+[BentoML repo](https://github.com/bentoml/BentoML#how-it-works). For more examples, please
+check [Tabular](https://github.com/salesforce/OmniXAI/tree/main/omnixai/tests/deployment/bentoml/tabular), 
+[Vision](https://github.com/salesforce/OmniXAI/tree/main/omnixai/tests/deployment/bentoml/vision), 
+[NLP](https://github.com/salesforce/OmniXAI/tree/main/omnixai/tests/deployment/bentoml/nlp).
 
 ## How to Contribute
 

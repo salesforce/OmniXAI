@@ -306,3 +306,14 @@ class CFExplanation(ExplanationBase):
             style_table={"overflowX": "scroll"},
         )
         return table
+
+    @classmethod
+    def from_dict(cls, d):
+        explanations = []
+        for e in d["explanations"]:
+            e["query"] = pd.DataFrame.from_dict(e["query"])
+            e["counterfactual"] = pd.DataFrame.from_dict(e["counterfactual"])
+            explanations.append(e)
+        exp = CFExplanation()
+        exp.explanations = explanations
+        return exp

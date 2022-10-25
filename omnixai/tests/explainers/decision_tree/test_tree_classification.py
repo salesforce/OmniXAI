@@ -12,11 +12,9 @@ import sklearn.datasets
 import sklearn.ensemble
 
 import numpy as np
-import pandas as pd
 from omnixai.data.tabular import Tabular
 from omnixai.explainers.tabular.specific.decision_tree import TreeClassifier
-
-pd.set_option("display.max_columns", None)
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestTreeTabular(unittest.TestCase):
@@ -53,9 +51,6 @@ class TestTreeTabular(unittest.TestCase):
 
         i = 1653
         test_x = tabular_data.iloc([i, i + 20])
-        print(model.class_names())
-        print(test_x)
-        print(model.predict(test_x))
         explanations = model.explain(test_x)
         for e in explanations.get_explanations()["path"]:
             pprint.pprint([p["text"] for p in e])
@@ -74,9 +69,6 @@ class TestTreeTabular(unittest.TestCase):
 
         i = np.random.randint(0, tabular_data.shape[0])
         test_x = tabular_data.iloc(i)
-        print(model.class_names())
-        print(test_x)
-        print(model.predict(test_x))
         explanations = model.explain(test_x)
         for e in explanations.get_explanations()["path"]:
             pprint.pprint([p["text"] for p in e])
@@ -102,9 +94,6 @@ class TestTreeTabular(unittest.TestCase):
 
         i = 137
         test_x = tabular_data.iloc(i)
-        print(model.class_names())
-        print(test_x)
-        print(model.predict(test_x))
         explanations = model.explain(test_x)
         for e in explanations.get_explanations()["path"]:
             pprint.pprint([p["text"] for p in e])
@@ -128,9 +117,6 @@ class TestTreeTabular(unittest.TestCase):
 
         i = np.random.randint(0, tabular_data.shape[0])
         test_x = tabular_data.iloc(i)
-        print(model.class_names())
-        print(test_x)
-        print(model.predict(test_x))
         explanations = model.explain(test_x)
         for e in explanations.get_explanations()["path"]:
             pprint.pprint([p["text"] for p in e])

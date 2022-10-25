@@ -11,6 +11,7 @@ import pandas as pd
 from sklearn.datasets import fetch_california_housing
 from omnixai.data.tabular import Tabular
 from omnixai.explainers.data.chi_square import ChiSquare
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestChi2(unittest.TestCase):
@@ -44,6 +45,10 @@ class TestChi2(unittest.TestCase):
         explainer = ChiSquare(tabular_data)
         explanations = explainer.explain()
         fig = explanations.plotly_plot()
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
 
     def test_regression(self):
         housing = fetch_california_housing()

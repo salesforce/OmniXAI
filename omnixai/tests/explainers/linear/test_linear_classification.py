@@ -12,12 +12,10 @@ import sklearn.datasets
 import sklearn.ensemble
 
 import numpy as np
-import pandas as pd
 from omnixai.utils.misc import set_random_seed
 from omnixai.data.tabular import Tabular
 from omnixai.explainers.tabular import LogisticRegression
-
-pd.set_option("display.max_columns", None)
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestLinearTabular(unittest.TestCase):
@@ -54,15 +52,15 @@ class TestLinearTabular(unittest.TestCase):
 
         i = 1653
         test_x = tabular_data.iloc(list(range(i, i + 4)))
-        print(model.class_names())
-        print(test_x)
-        print(model.predict(test_x))
         explanations = model.explain(test_x)
         e = explanations.get_explanations()
-        pprint.pprint(e["coefficients"])
-        pprint.pprint(e["scores"])
         self.assertAlmostEqual(e["coefficients"]["Age"], 0.3428, delta=1e-3)
         self.assertAlmostEqual(e["coefficients"]["Capital Gain"], 2.3382, delta=1e-3)
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
+        e.plotly_plot()
 
     def test_2(self):
         iris = sklearn.datasets.load_iris()
@@ -78,13 +76,8 @@ class TestLinearTabular(unittest.TestCase):
 
         i = np.random.randint(0, tabular_data.shape[0])
         test_x = tabular_data.iloc(i)
-        print(model.class_names())
-        print(test_x)
-        print(model.predict(test_x))
         explanations = model.explain(test_x)
         e = explanations.get_explanations()
-        pprint.pprint(e["coefficients"])
-        pprint.pprint(e["scores"])
         self.assertAlmostEqual(e["coefficients"]["petal length (cm)"], -1.8005, delta=1e-3)
         self.assertAlmostEqual(e["coefficients"]["petal width (cm)"], -1.7055, delta=1e-3)
 
@@ -107,13 +100,8 @@ class TestLinearTabular(unittest.TestCase):
 
         i = np.random.randint(0, tabular_data.shape[0])
         test_x = tabular_data.iloc(i)
-        print(model.class_names())
-        print(test_x)
-        print(model.predict(test_x))
         explanations = model.explain(test_x)
         e = explanations.get_explanations()
-        pprint.pprint(e["coefficients"])
-        pprint.pprint(e["scores"])
         self.assertAlmostEqual(e["coefficients"]["petal length (cm)"], -1.8005, delta=1e-3)
         self.assertAlmostEqual(e["coefficients"]["petal width (cm)"], -1.7055, delta=1e-3)
 

@@ -126,3 +126,11 @@ class ResidualExplanation(ExplanationBase):
         import plotly
 
         plotly.offline.iplot(self._plotly_figure(**kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        return ResidualExplanation(
+            predictions=np.array(d["predictions"]),
+            residuals=np.array(d["residuals"]),
+            residual_type=d["residual_type"]
+        )

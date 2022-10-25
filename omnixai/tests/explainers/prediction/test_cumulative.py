@@ -4,6 +4,7 @@ from sklearn import svm, datasets
 from sklearn.model_selection import train_test_split
 
 from omnixai.explainers.prediction import PredictionAnalyzer
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestCumulativeGain(unittest.TestCase):
@@ -36,6 +37,11 @@ class TestCumulativeGain(unittest.TestCase):
         explanations = explainer._cumulative_gain()
         explanations.plot()
         explanations.plotly_plot()
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
+        e.plotly_plot()
 
 
 if __name__ == "__main__":

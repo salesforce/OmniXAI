@@ -464,3 +464,11 @@ Dashboard for Visualization
    :maxdepth: 4
 
    omnixai.visualization
+
+Explainer Deployment
+--------------------
+
+.. toctree::
+   :maxdepth: 4
+
+   omnixai.deployment

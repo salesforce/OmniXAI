@@ -242,3 +242,7 @@ class WordImportance(ExplanationBase):
                 html_text += f"<span style='color:rgb({r},{g},{b})'>{token}</span>"
             content.append(f"<div>{html_text}</div><br>")
         display(HTML("\n".join(content)))
+
+    @classmethod
+    def from_dict(cls, d):
+        return WordImportance(mode=d["mode"], explanations=d["explanations"])

@@ -131,3 +131,16 @@ class PlainExplanation(ExplanationBase):
         index = index if index is not None else 0
         return plotly.offline.iplot(self._plotly_figure(
             index=index, num_figures_per_row=num_figures_per_row, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        import numpy as np
+        from PIL import Image as PilImage
+        explanations = []
+        for e in d["explanations"]:
+            e["image"] = [PilImage.fromarray(np.array(img).astype(np.uint8))
+                          for img in e["image"]]
+            explanations.append(e)
+        exp = PlainExplanation()
+        exp.explanations = explanations
+        return exp

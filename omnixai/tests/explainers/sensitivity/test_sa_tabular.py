@@ -10,6 +10,7 @@ import unittest
 from omnixai.utils.misc import set_random_seed
 from omnixai.explainers.tabular import SensitivityAnalysisTabular
 from omnixai.tests.explainers.tasks import TabularRegression
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestSensitivity(unittest.TestCase):
@@ -20,8 +21,11 @@ class TestSensitivity(unittest.TestCase):
         explainer = SensitivityAnalysisTabular(training_data=task.train_data, predict_function=predict_function)
         explanations = explainer.explain()
         pprint.pprint(explanations.get_explanations())
-        # self.assertAlmostEqual(explanations.get_explanations()["AGE"]["mu"], -0.3059, delta=1e-3)
-        # self.assertAlmostEqual(explanations.get_explanations()["B"]["mu"], 0.3111, delta=1e-3)
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
+        e.plotly_plot()
 
     def test_2(self):
         set_random_seed()

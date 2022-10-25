@@ -195,6 +195,13 @@ class TreeExplanation(ExplanationBase):
             if k not in node_indicator.indices:
                 plt.setp(tree[k], visible=False)
 
+    def to_json(self):
+        raise RuntimeError("`TreeExplanation` cannot be converted into JSON format.")
+
+    @classmethod
+    def from_dict(cls, d):
+        raise RuntimeError("`TreeExplanation` does not support `from_dict`.")
+
 
 def _export_dict(tree, feature_names=None, max_depth=None):
     """

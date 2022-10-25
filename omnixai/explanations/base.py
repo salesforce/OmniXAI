@@ -86,6 +86,32 @@ class ExplanationBase(metaclass=AutodocABCMeta):
         else:
             return s
 
+    def to_json(self):
+        """
+        Converts the explanation result into JSON format.
+        """
+        import json
+        from .utils import DefaultJsonEncoder
+        return json.dumps(self, cls=DefaultJsonEncoder)
+
+    @classmethod
+    def from_json(cls, s):
+        """
+        Loads the explanation result from a JSON input.
+        :param s: The input in JSON format.
+        :return: The loaded explanation object.
+        """
+        import json
+        d = json.loads(s)
+        return ExplanationBase.from_dict(d)
+
+    @classmethod
+    def from_dict(cls, d):
+        import importlib
+        module = importlib.import_module(d["module"])
+        explanation_class = getattr(module, d["class"])
+        return explanation_class.from_dict(d["data"])
+
 
 class DashFigure:
     def __init__(self, component):
@@ -243,3 +269,9 @@ class PredictedResults(ExplanationBase):
 
         assert index is not None, "`index` cannot be None for `ipython_plot`. " "Please specify the instance index."
         return plotly.offline.iplot(self._plotly_figure(index, class_names=class_names, **kwargs))
+
+    @classmethod
+    def from_dict(cls, d):
+        self = cls.__new__(PredictedResults)
+        self.results = d["results"]
+        return self

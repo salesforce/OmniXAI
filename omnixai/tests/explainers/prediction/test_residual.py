@@ -1,6 +1,7 @@
 import unittest
 from omnixai.explainers.prediction import PredictionAnalyzer
 from omnixai.tests.explainers.tasks import TabularRegression
+from omnixai.explanations.base import ExplanationBase
 
 
 class TestResidual(unittest.TestCase):
@@ -18,6 +19,11 @@ class TestResidual(unittest.TestCase):
         explanations = explainer._regression_residual()
         explanations.plotly_plot()
         explanations.plot()
+
+        s = explanations.to_json()
+        e = ExplanationBase.from_json(s)
+        self.assertEqual(s, e.to_json())
+        e.plotly_plot()
 
 
 if __name__ == "__main__":
