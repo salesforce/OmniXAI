@@ -4,7 +4,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
-import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
@@ -29,21 +28,6 @@ def train():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     class_names = ["negative", "positive"]
 
-    def _preprocess(X: Text):
-        import numpy as np
-        samples = transform.transform(X)
-        max_len = 0
-        for i in range(len(samples)):
-            max_len = max(max_len, len(samples[i]))
-        max_len = min(max_len, max_length)
-        inputs = np.zeros((len(samples), max_len), dtype=int)
-        masks = np.zeros((len(samples), max_len), dtype=np.float32)
-        for i in range(len(samples)):
-            x = samples[i][:max_len]
-            inputs[i, :len(x)] = x
-            masks[i, :len(x)] = 1
-        return inputs, masks
-
     model = TextModel(
         num_embeddings=transform.vocab_size,
         num_classes=len(class_names)
@@ -63,6 +47,21 @@ def train():
         max_length=max_length,
         verbose=True
     )
+
+    def _preprocess(X: Text):
+        import numpy as np
+        samples = transform.transform(X)
+        max_len = 0
+        for i in range(len(samples)):
+            max_len = max(max_len, len(samples[i]))
+        max_len = min(max_len, max_length)
+        inputs = np.zeros((len(samples), max_len), dtype=int)
+        masks = np.zeros((len(samples), max_len), dtype=np.float32)
+        for i in range(len(samples)):
+            x = samples[i][:max_len]
+            inputs[i, :len(x)] = x
+            masks[i, :len(x)] = 1
+        return inputs, masks
 
     def preprocess_func(x):
         import torch
