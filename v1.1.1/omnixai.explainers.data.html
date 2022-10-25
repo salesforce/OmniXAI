@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -59,11 +60,79 @@
 <li class="toctree-l4"><a class="reference internal" href="omnixai.explainers.html#module-omnixai.explainers.base">omnixai.explainers.base module</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="omnixai.explainers.html#explainers-for-different-tasks">Explainers for different tasks</a><ul class="current">
 <li class="toctree-l5 current"><a class="current reference internal" href="#">omnixai.explainers.data package</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.auto">omnixai.explainers.data.auto module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.correlation">omnixai.explainers.data.correlation module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.imbalance">omnixai.explainers.data.imbalance module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.mutual_info">omnixai.explainers.data.mutual_info module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.chi_square">omnixai.explainers.data.chi_square module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.data.DataAnalyzer"><code class="docutils literal notranslate"><span class="pre">DataAnalyzer</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.DataAnalyzer.list_explainers"><code class="docutils literal notranslate"><span class="pre">DataAnalyzer.list_explainers()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.DataAnalyzer.explain"><code class="docutils literal notranslate"><span class="pre">DataAnalyzer.explain()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.data.ImbalanceAnalyzer"><code class="docutils literal notranslate"><span class="pre">ImbalanceAnalyzer</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.ImbalanceAnalyzer.explanation_type"><code class="docutils literal notranslate"><span class="pre">ImbalanceAnalyzer.explanation_type</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.ImbalanceAnalyzer.alias"><code class="docutils literal notranslate"><span class="pre">ImbalanceAnalyzer.alias</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.ImbalanceAnalyzer.explain"><code class="docutils literal notranslate"><span class="pre">ImbalanceAnalyzer.explain()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.data.CorrelationAnalyzer"><code class="docutils literal notranslate"><span class="pre">CorrelationAnalyzer</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.CorrelationAnalyzer.explanation_type"><code class="docutils literal notranslate"><span class="pre">CorrelationAnalyzer.explanation_type</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.CorrelationAnalyzer.alias"><code class="docutils literal notranslate"><span class="pre">CorrelationAnalyzer.alias</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.CorrelationAnalyzer.explain"><code class="docutils literal notranslate"><span class="pre">CorrelationAnalyzer.explain()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.data.MutualInformation"><code class="docutils literal notranslate"><span class="pre">MutualInformation</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.MutualInformation.explanation_type"><code class="docutils literal notranslate"><span class="pre">MutualInformation.explanation_type</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.MutualInformation.alias"><code class="docutils literal notranslate"><span class="pre">MutualInformation.alias</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.MutualInformation.explain"><code class="docutils literal notranslate"><span class="pre">MutualInformation.explain()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.data.ChiSquare"><code class="docutils literal notranslate"><span class="pre">ChiSquare</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.ChiSquare.explanation_type"><code class="docutils literal notranslate"><span class="pre">ChiSquare.explanation_type</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.ChiSquare.alias"><code class="docutils literal notranslate"><span class="pre">ChiSquare.alias</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.ChiSquare.explain"><code class="docutils literal notranslate"><span class="pre">ChiSquare.explain()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.auto">omnixai.explainers.data.auto module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.auto.DataAnalyzer"><code class="docutils literal notranslate"><span class="pre">DataAnalyzer</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.auto.DataAnalyzer.list_explainers"><code class="docutils literal notranslate"><span class="pre">DataAnalyzer.list_explainers()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.auto.DataAnalyzer.explain"><code class="docutils literal notranslate"><span class="pre">DataAnalyzer.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.correlation">omnixai.explainers.data.correlation module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.correlation.CorrelationAnalyzer"><code class="docutils literal notranslate"><span class="pre">CorrelationAnalyzer</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.correlation.CorrelationAnalyzer.explanation_type"><code class="docutils literal notranslate"><span class="pre">CorrelationAnalyzer.explanation_type</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.correlation.CorrelationAnalyzer.alias"><code class="docutils literal notranslate"><span class="pre">CorrelationAnalyzer.alias</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.correlation.CorrelationAnalyzer.explain"><code class="docutils literal notranslate"><span class="pre">CorrelationAnalyzer.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.imbalance">omnixai.explainers.data.imbalance module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.imbalance.ImbalanceAnalyzer"><code class="docutils literal notranslate"><span class="pre">ImbalanceAnalyzer</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.imbalance.ImbalanceAnalyzer.explanation_type"><code class="docutils literal notranslate"><span class="pre">ImbalanceAnalyzer.explanation_type</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.imbalance.ImbalanceAnalyzer.alias"><code class="docutils literal notranslate"><span class="pre">ImbalanceAnalyzer.alias</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.imbalance.ImbalanceAnalyzer.explain"><code class="docutils literal notranslate"><span class="pre">ImbalanceAnalyzer.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.mutual_info">omnixai.explainers.data.mutual_info module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.mutual_info.MutualInformation"><code class="docutils literal notranslate"><span class="pre">MutualInformation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.mutual_info.MutualInformation.explanation_type"><code class="docutils literal notranslate"><span class="pre">MutualInformation.explanation_type</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.mutual_info.MutualInformation.alias"><code class="docutils literal notranslate"><span class="pre">MutualInformation.alias</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.mutual_info.MutualInformation.explain"><code class="docutils literal notranslate"><span class="pre">MutualInformation.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.data.chi_square">omnixai.explainers.data.chi_square module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.data.chi_square.ChiSquare"><code class="docutils literal notranslate"><span class="pre">ChiSquare</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.chi_square.ChiSquare.explanation_type"><code class="docutils literal notranslate"><span class="pre">ChiSquare.explanation_type</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.chi_square.ChiSquare.alias"><code class="docutils literal notranslate"><span class="pre">ChiSquare.alias</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.data.chi_square.ChiSquare.explain"><code class="docutils literal notranslate"><span class="pre">ChiSquare.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a></li>

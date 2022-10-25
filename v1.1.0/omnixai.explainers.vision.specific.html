@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -66,9 +67,44 @@
 <li class="toctree-l6 current"><a class="reference internal" href="omnixai.explainers.vision.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.vision.agnostic.html">omnixai.explainers.vision.agnostic package</a></li>
 <li class="toctree-l7 current"><a class="current reference internal" href="#">omnixai.explainers.vision.specific package</a><ul>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.specific.ig">omnixai.explainers.vision.specific.ig module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.specific.gradcam.gradcam">omnixai.explainers.vision.specific.gradcam.gradcam module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.specific.cem">omnixai.explainers.vision.specific.cem module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.specific.ig">omnixai.explainers.vision.specific.ig module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.specific.ig.IntegratedGradientImage"><code class="docutils literal notranslate"><span class="pre">IntegratedGradientImage</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.ig.IntegratedGradientImage.explanation_type"><code class="docutils literal notranslate"><span class="pre">IntegratedGradientImage.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.ig.IntegratedGradientImage.alias"><code class="docutils literal notranslate"><span class="pre">IntegratedGradientImage.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.ig.IntegratedGradientImage.explain"><code class="docutils literal notranslate"><span class="pre">IntegratedGradientImage.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.specific.gradcam.gradcam">omnixai.explainers.vision.specific.gradcam.gradcam module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAM"><code class="docutils literal notranslate"><span class="pre">GradCAM</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAM.explanation_type"><code class="docutils literal notranslate"><span class="pre">GradCAM.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAM.alias"><code class="docutils literal notranslate"><span class="pre">GradCAM.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAM.explain"><code class="docutils literal notranslate"><span class="pre">GradCAM.explain()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAMPlus"><code class="docutils literal notranslate"><span class="pre">GradCAMPlus</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAMPlus.explanation_type"><code class="docutils literal notranslate"><span class="pre">GradCAMPlus.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAMPlus.alias"><code class="docutils literal notranslate"><span class="pre">GradCAMPlus.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAMPlus.explain"><code class="docutils literal notranslate"><span class="pre">GradCAMPlus.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.specific.cem">omnixai.explainers.vision.specific.cem module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.specific.cem.CEMOptimizer"><code class="docutils literal notranslate"><span class="pre">CEMOptimizer</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.cem.CEMOptimizer.pn_optimize"><code class="docutils literal notranslate"><span class="pre">CEMOptimizer.pn_optimize()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.cem.CEMOptimizer.pp_optimize"><code class="docutils literal notranslate"><span class="pre">CEMOptimizer.pp_optimize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.specific.cem.ContrastiveExplainer"><code class="docutils literal notranslate"><span class="pre">ContrastiveExplainer</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.cem.ContrastiveExplainer.explanation_type"><code class="docutils literal notranslate"><span class="pre">ContrastiveExplainer.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.cem.ContrastiveExplainer.alias"><code class="docutils literal notranslate"><span class="pre">ContrastiveExplainer.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.specific.cem.ContrastiveExplainer.explain"><code class="docutils literal notranslate"><span class="pre">ContrastiveExplainer.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.vision.counterfactual.html">omnixai.explainers.vision.counterfactual package</a></li>

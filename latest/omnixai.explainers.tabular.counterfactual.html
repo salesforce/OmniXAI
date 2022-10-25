@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -66,8 +67,29 @@
 <li class="toctree-l6 current"><a class="reference internal" href="omnixai.explainers.tabular.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.tabular.agnostic.html">omnixai.explainers.tabular.agnostic package</a></li>
 <li class="toctree-l7 current"><a class="current reference internal" href="#">omnixai.explainers.tabular.counterfactual package</a><ul>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.counterfactual.mace.mace">omnixai.explainers.tabular.counterfactual.mace.mace module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.counterfactual.ce">omnixai.explainers.tabular.counterfactual.ce module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.counterfactual.mace.mace">omnixai.explainers.tabular.counterfactual.mace.mace module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer"><code class="docutils literal notranslate"><span class="pre">MACEExplainer</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer.explanation_type"><code class="docutils literal notranslate"><span class="pre">MACEExplainer.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer.alias"><code class="docutils literal notranslate"><span class="pre">MACEExplainer.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer.explain"><code class="docutils literal notranslate"><span class="pre">MACEExplainer.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.counterfactual.ce">omnixai.explainers.tabular.counterfactual.ce module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.ce.CounterfactualOptimizer"><code class="docutils literal notranslate"><span class="pre">CounterfactualOptimizer</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.ce.CounterfactualOptimizer.optimize"><code class="docutils literal notranslate"><span class="pre">CounterfactualOptimizer.optimize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer"><code class="docutils literal notranslate"><span class="pre">CounterfactualExplainer</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer.explanation_type"><code class="docutils literal notranslate"><span class="pre">CounterfactualExplainer.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer.alias"><code class="docutils literal notranslate"><span class="pre">CounterfactualExplainer.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer.explain"><code class="docutils literal notranslate"><span class="pre">CounterfactualExplainer.explain()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.counterfactual.ce.CounterfactualExplainer.save"><code class="docutils literal notranslate"><span class="pre">CounterfactualExplainer.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.tabular.specific.html">omnixai.explainers.tabular.specific package</a></li>
@@ -87,6 +109,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-explanation-results">Modules for Explanation Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#dashboard-for-visualization">Dashboard for Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#explainer-deployment">Explainer Deployment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a></li>
@@ -151,7 +174,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.counterfactual.mace.mace.</span></span><span class="sig-name descname"><span class="pre">MACEExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignored_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gld'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.counterfactual.mace.mace.MACEExplainer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a>, <a class="reference internal" href="omnixai.explainers.tabular.html#omnixai.explainers.tabular.base.TabularExplainerMixin" title="omnixai.explainers.tabular.base.TabularExplainerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularExplainerMixin</span></code></a></p>
 <p>The Model-Agnostic Counterfactual Explanation (MACE) developed by Yang et al. Please
 cite the paper <cite>MACE: An Efficient Model-Agnostic Framework for Counterfactual Explanation</cite>.
 It supports most black-box models for classification whose input features can either be
@@ -190,7 +213,8 @@ refer to the classes <cite>mace.retrieval.CFRetrieval</cite> and <cite>mace.gld.
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – A batch of input instances.</p></li>
+<li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – A batch of input instances. When <code class="docutils literal notranslate"><span class="pre">X</span></code> is <cite>pd.DataFrame</cite>
+or <cite>np.ndarray</cite>, <code class="docutils literal notranslate"><span class="pre">X</span></code> will be converted into <cite>Tabular</cite> automatically.</p></li>
 <li><p><strong>y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – A batch of the desired labels, which should be different from the predicted labels of <code class="docutils literal notranslate"><span class="pre">X</span></code>.
 If <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">None</span></code>, the desired labels will be the labels different from the predicted labels of <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p></li>
 <li><p><strong>max_number_examples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The maximum number of the generated counterfactual

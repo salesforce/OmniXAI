@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -65,10 +66,53 @@
 <li class="toctree-l6"><a class="reference internal" href="omnixai.explainers.vision.html#module-omnixai.explainers.vision.auto">omnixai.explainers.vision.auto module</a></li>
 <li class="toctree-l6 current"><a class="reference internal" href="omnixai.explainers.vision.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l7 current"><a class="current reference internal" href="#">omnixai.explainers.vision.agnostic package</a><ul>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.lime">omnixai.explainers.vision.agnostic.lime module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.shap">omnixai.explainers.vision.agnostic.shap module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.pdp">omnixai.explainers.vision.agnostic.pdp module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.l2x">omnixai.explainers.vision.agnostic.l2x module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.lime">omnixai.explainers.vision.agnostic.lime module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.lime.LimeImage"><code class="docutils literal notranslate"><span class="pre">LimeImage</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.lime.LimeImage.explanation_type"><code class="docutils literal notranslate"><span class="pre">LimeImage.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.lime.LimeImage.alias"><code class="docutils literal notranslate"><span class="pre">LimeImage.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.lime.LimeImage.explain"><code class="docutils literal notranslate"><span class="pre">LimeImage.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.shap">omnixai.explainers.vision.agnostic.shap module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.shap.ShapImage"><code class="docutils literal notranslate"><span class="pre">ShapImage</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.shap.ShapImage.explanation_type"><code class="docutils literal notranslate"><span class="pre">ShapImage.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.shap.ShapImage.alias"><code class="docutils literal notranslate"><span class="pre">ShapImage.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.shap.ShapImage.explain"><code class="docutils literal notranslate"><span class="pre">ShapImage.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.pdp">omnixai.explainers.vision.agnostic.pdp module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.pdp.PartialDependenceImage"><code class="docutils literal notranslate"><span class="pre">PartialDependenceImage</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.pdp.PartialDependenceImage.explanation_type"><code class="docutils literal notranslate"><span class="pre">PartialDependenceImage.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.pdp.PartialDependenceImage.alias"><code class="docutils literal notranslate"><span class="pre">PartialDependenceImage.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.pdp.PartialDependenceImage.explain"><code class="docutils literal notranslate"><span class="pre">PartialDependenceImage.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.vision.agnostic.l2x">omnixai.explainers.vision.agnostic.l2x module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.DefaultSelectionModel"><code class="docutils literal notranslate"><span class="pre">DefaultSelectionModel</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.DefaultSelectionModel.forward"><code class="docutils literal notranslate"><span class="pre">DefaultSelectionModel.forward()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.DefaultSelectionModel.postprocess"><code class="docutils literal notranslate"><span class="pre">DefaultSelectionModel.postprocess()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.DefaultSelectionModel.training"><code class="docutils literal notranslate"><span class="pre">DefaultSelectionModel.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.DefaultPredictionModel"><code class="docutils literal notranslate"><span class="pre">DefaultPredictionModel</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.DefaultPredictionModel.forward"><code class="docutils literal notranslate"><span class="pre">DefaultPredictionModel.forward()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.DefaultPredictionModel.training"><code class="docutils literal notranslate"><span class="pre">DefaultPredictionModel.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.L2XImage"><code class="docutils literal notranslate"><span class="pre">L2XImage</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.L2XImage.explanation_type"><code class="docutils literal notranslate"><span class="pre">L2XImage.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.L2XImage.alias"><code class="docutils literal notranslate"><span class="pre">L2XImage.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.vision.agnostic.l2x.L2XImage.explain"><code class="docutils literal notranslate"><span class="pre">L2XImage.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.vision.specific.html">omnixai.explainers.vision.specific package</a></li>

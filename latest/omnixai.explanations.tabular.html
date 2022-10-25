@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -59,15 +60,126 @@
 <li class="toctree-l3 current"><a class="reference internal" href="omnixai.explanations.html">omnixai.explanations package</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="omnixai.explanations.html#three-categories-of-explanation-results">Three categories of explanation results</a><ul class="current">
 <li class="toctree-l5 current"><a class="current reference internal" href="#">omnixai.explanations.tabular package</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.feature_importance">omnixai.explanations.tabular.feature_importance module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.counterfactual">omnixai.explanations.tabular.counterfactual module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.pdp">omnixai.explanations.tabular.pdp module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.sensitivity">omnixai.explanations.tabular.sensitivity module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.linear">omnixai.explanations.tabular.linear module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.tree">omnixai.explanations.tabular.tree module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.correlation">omnixai.explanations.tabular.correlation module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.imbalance">omnixai.explanations.tabular.imbalance module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.validity">omnixai.explanations.tabular.validity module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.feature_importance">omnixai.explanations.tabular.feature_importance module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance"><code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.add"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.get_explanations"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.plot"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.plotly_plot"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.ipython_plot"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.ipython_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.from_dict"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance"><code class="docutils literal notranslate"><span class="pre">GlobalFeatureImportance</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.add"><code class="docutils literal notranslate"><span class="pre">GlobalFeatureImportance.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.get_explanations"><code class="docutils literal notranslate"><span class="pre">GlobalFeatureImportance.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plot"><code class="docutils literal notranslate"><span class="pre">GlobalFeatureImportance.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plotly_plot"><code class="docutils literal notranslate"><span class="pre">GlobalFeatureImportance.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.ipython_plot"><code class="docutils literal notranslate"><span class="pre">GlobalFeatureImportance.ipython_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.from_dict"><code class="docutils literal notranslate"><span class="pre">GlobalFeatureImportance.from_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.counterfactual">omnixai.explanations.tabular.counterfactual module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.tabular.counterfactual.CFExplanation"><code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.add"><code class="docutils literal notranslate"><span class="pre">CFExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">CFExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.plot"><code class="docutils literal notranslate"><span class="pre">CFExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">CFExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">CFExplanation.ipython_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.from_dict"><code class="docutils literal notranslate"><span class="pre">CFExplanation.from_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.pdp">omnixai.explanations.tabular.pdp module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.tabular.pdp.PDPExplanation"><code class="docutils literal notranslate"><span class="pre">PDPExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.pdp.PDPExplanation.add"><code class="docutils literal notranslate"><span class="pre">PDPExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.pdp.PDPExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">PDPExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.pdp.PDPExplanation.plot"><code class="docutils literal notranslate"><span class="pre">PDPExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.pdp.PDPExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">PDPExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.pdp.PDPExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">PDPExplanation.ipython_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.pdp.PDPExplanation.from_dict"><code class="docutils literal notranslate"><span class="pre">PDPExplanation.from_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.sensitivity">omnixai.explanations.tabular.sensitivity module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation"><code class="docutils literal notranslate"><span class="pre">SensitivityExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.add"><code class="docutils literal notranslate"><span class="pre">SensitivityExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">SensitivityExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.plot"><code class="docutils literal notranslate"><span class="pre">SensitivityExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">SensitivityExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">SensitivityExplanation.ipython_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.from_dict"><code class="docutils literal notranslate"><span class="pre">SensitivityExplanation.from_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.linear">omnixai.explanations.tabular.linear module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.tabular.linear.LinearExplanation"><code class="docutils literal notranslate"><span class="pre">LinearExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.linear.LinearExplanation.add"><code class="docutils literal notranslate"><span class="pre">LinearExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.linear.LinearExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">LinearExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.linear.LinearExplanation.plot"><code class="docutils literal notranslate"><span class="pre">LinearExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.linear.LinearExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">LinearExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.linear.LinearExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">LinearExplanation.ipython_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.linear.LinearExplanation.from_dict"><code class="docutils literal notranslate"><span class="pre">LinearExplanation.from_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.tree">omnixai.explanations.tabular.tree module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.tabular.tree.TreeExplanation"><code class="docutils literal notranslate"><span class="pre">TreeExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.tree.TreeExplanation.add_global"><code class="docutils literal notranslate"><span class="pre">TreeExplanation.add_global()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.tree.TreeExplanation.add_local"><code class="docutils literal notranslate"><span class="pre">TreeExplanation.add_local()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.tree.TreeExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">TreeExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.tree.TreeExplanation.plot"><code class="docutils literal notranslate"><span class="pre">TreeExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.tree.TreeExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">TreeExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.tree.TreeExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">TreeExplanation.ipython_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.tree.TreeExplanation.to_json"><code class="docutils literal notranslate"><span class="pre">TreeExplanation.to_json()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.tree.TreeExplanation.from_dict"><code class="docutils literal notranslate"><span class="pre">TreeExplanation.from_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.correlation">omnixai.explanations.tabular.correlation module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation"><code class="docutils literal notranslate"><span class="pre">CorrelationExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.add"><code class="docutils literal notranslate"><span class="pre">CorrelationExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">CorrelationExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.plot"><code class="docutils literal notranslate"><span class="pre">CorrelationExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">CorrelationExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">CorrelationExplanation.ipython_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.from_dict"><code class="docutils literal notranslate"><span class="pre">CorrelationExplanation.from_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.imbalance">omnixai.explanations.tabular.imbalance module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation"><code class="docutils literal notranslate"><span class="pre">ImbalanceExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.add"><code class="docutils literal notranslate"><span class="pre">ImbalanceExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">ImbalanceExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.plot"><code class="docutils literal notranslate"><span class="pre">ImbalanceExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">ImbalanceExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">ImbalanceExplanation.ipython_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.from_dict"><code class="docutils literal notranslate"><span class="pre">ImbalanceExplanation.from_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.tabular.validity">omnixai.explanations.tabular.validity module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.add"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.plot"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation.ipython_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.rearrange_columns"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation.rearrange_columns()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.from_dict"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation.from_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.image.html">omnixai.explanations.image package</a></li>
@@ -81,6 +193,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#dashboard-for-visualization">Dashboard for Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#explainer-deployment">Explainer Deployment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a></li>
@@ -296,6 +409,11 @@ label 1 corresponds to ‘cat’.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.FeatureImportance.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -383,6 +501,11 @@ The returned dict has the following format: <cite>{“features”: a list of fea
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -500,6 +623,11 @@ label 1 corresponds to ‘cat’.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.counterfactual.CFExplanation.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
@@ -596,6 +724,11 @@ label 1 corresponds to ‘cat’.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.pdp.PDPExplanation.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
@@ -667,6 +800,11 @@ Morris mu_star_conf}}</cite>.</p>
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots sensitivity analysis results in IPython.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.sensitivity.SensitivityExplanation.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -778,6 +916,11 @@ label 1 corresponds to ‘cat’.</p></li>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.linear.LinearExplanation.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.linear.LinearExplanation.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -894,6 +1037,17 @@ it will plot the first explanation result when <code class="docutils literal not
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.tree.TreeExplanation.to_json">
+<span class="sig-name descname"><span class="pre">to_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.tree.TreeExplanation.to_json" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the explanation result into JSON format.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.tree.TreeExplanation.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.tree.TreeExplanation.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
@@ -959,6 +1113,11 @@ it will plot the first explanation result when <code class="docutils literal not
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the correlation matrix in IPython.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.correlation.CorrelationExplanation.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -1030,6 +1189,11 @@ class label 2: count 2, …}}</cite>. If there are no class labels, the dict wil
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Shows the imbalance plot in IPython.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.imbalance.ImbalanceExplanation.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -1121,6 +1285,11 @@ explain the ranking, “validity”: The validity metrics for the top features.}
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.tabular.validity.ValidityRankingExplanation.rearrange_columns">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rearrange_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_features</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.rearrange_columns" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.tabular.validity.ValidityRankingExplanation.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.from_dict" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

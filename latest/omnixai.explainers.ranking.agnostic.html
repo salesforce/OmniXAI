@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -67,8 +68,24 @@
 <li class="toctree-l5 current"><a class="reference internal" href="omnixai.explainers.ranking.html">omnixai.explainers.ranking package</a><ul class="current">
 <li class="toctree-l6 current"><a class="reference internal" href="omnixai.explainers.ranking.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l7 current"><a class="current reference internal" href="#">omnixai.explainers.ranking.agnostic package</a><ul>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.ranking.agnostic.validity">omnixai.explainers.ranking.agnostic.validity module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.ranking.agnostic.permutation">omnixai.explainers.ranking.agnostic.permutation module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.ranking.agnostic.validity">omnixai.explainers.ranking.agnostic.validity module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.ranking.agnostic.validity.ValidityRankingExplainer"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplainer</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.ranking.agnostic.validity.ValidityRankingExplainer.explanation_type"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplainer.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.ranking.agnostic.validity.ValidityRankingExplainer.alias"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplainer.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.ranking.agnostic.validity.ValidityRankingExplainer.explain"><code class="docutils literal notranslate"><span class="pre">ValidityRankingExplainer.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.ranking.agnostic.permutation">omnixai.explainers.ranking.agnostic.permutation module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer"><code class="docutils literal notranslate"><span class="pre">PermutationRankingExplainer</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer.explanation_type"><code class="docutils literal notranslate"><span class="pre">PermutationRankingExplainer.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer.alias"><code class="docutils literal notranslate"><span class="pre">PermutationRankingExplainer.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.ranking.agnostic.permutation.PermutationRankingExplainer.explain"><code class="docutils literal notranslate"><span class="pre">PermutationRankingExplainer.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.ranking.counterfactual.html">omnixai.explainers.ranking.counterfactual package</a></li>
@@ -84,6 +101,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-explanation-results">Modules for Explanation Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#dashboard-for-visualization">Dashboard for Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#explainer-deployment">Explainer Deployment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a></li>

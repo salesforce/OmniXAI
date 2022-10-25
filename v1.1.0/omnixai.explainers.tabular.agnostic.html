@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -65,11 +66,61 @@
 <li class="toctree-l6"><a class="reference internal" href="omnixai.explainers.tabular.html#module-omnixai.explainers.tabular.auto">omnixai.explainers.tabular.auto module</a></li>
 <li class="toctree-l6 current"><a class="reference internal" href="omnixai.explainers.tabular.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l7 current"><a class="current reference internal" href="#">omnixai.explainers.tabular.agnostic package</a><ul>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.lime">omnixai.explainers.tabular.agnostic.lime module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.shap">omnixai.explainers.tabular.agnostic.shap module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.pdp">omnixai.explainers.tabular.agnostic.pdp module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.sensitivity">omnixai.explainers.tabular.agnostic.sensitivity module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.L2X.l2x">omnixai.explainers.tabular.agnostic.L2X.l2x module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.lime">omnixai.explainers.tabular.agnostic.lime module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.lime.LimeTabular"><code class="docutils literal notranslate"><span class="pre">LimeTabular</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.lime.LimeTabular.explanation_type"><code class="docutils literal notranslate"><span class="pre">LimeTabular.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.lime.LimeTabular.alias"><code class="docutils literal notranslate"><span class="pre">LimeTabular.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.lime.LimeTabular.explain"><code class="docutils literal notranslate"><span class="pre">LimeTabular.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.shap">omnixai.explainers.tabular.agnostic.shap module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.shap.ShapTabular"><code class="docutils literal notranslate"><span class="pre">ShapTabular</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.shap.ShapTabular.explanation_type"><code class="docutils literal notranslate"><span class="pre">ShapTabular.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.shap.ShapTabular.alias"><code class="docutils literal notranslate"><span class="pre">ShapTabular.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.shap.ShapTabular.explain"><code class="docutils literal notranslate"><span class="pre">ShapTabular.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.pdp">omnixai.explainers.tabular.agnostic.pdp module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular"><code class="docutils literal notranslate"><span class="pre">PartialDependenceTabular</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular.explanation_type"><code class="docutils literal notranslate"><span class="pre">PartialDependenceTabular.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular.alias"><code class="docutils literal notranslate"><span class="pre">PartialDependenceTabular.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular.explain"><code class="docutils literal notranslate"><span class="pre">PartialDependenceTabular.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.sensitivity">omnixai.explainers.tabular.agnostic.sensitivity module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.sensitivity.SensitivityAnalysisTabular"><code class="docutils literal notranslate"><span class="pre">SensitivityAnalysisTabular</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.sensitivity.SensitivityAnalysisTabular.explanation_type"><code class="docutils literal notranslate"><span class="pre">SensitivityAnalysisTabular.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.sensitivity.SensitivityAnalysisTabular.alias"><code class="docutils literal notranslate"><span class="pre">SensitivityAnalysisTabular.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.sensitivity.SensitivityAnalysisTabular.explain"><code class="docutils literal notranslate"><span class="pre">SensitivityAnalysisTabular.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.L2X.l2x">omnixai.explainers.tabular.agnostic.L2X.l2x module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultSelectionModel"><code class="docutils literal notranslate"><span class="pre">DefaultSelectionModel</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultSelectionModel.forward"><code class="docutils literal notranslate"><span class="pre">DefaultSelectionModel.forward()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultSelectionModel.training"><code class="docutils literal notranslate"><span class="pre">DefaultSelectionModel.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultPredictionModel"><code class="docutils literal notranslate"><span class="pre">DefaultPredictionModel</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultPredictionModel.forward"><code class="docutils literal notranslate"><span class="pre">DefaultPredictionModel.forward()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultPredictionModel.training"><code class="docutils literal notranslate"><span class="pre">DefaultPredictionModel.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.L2XTabular"><code class="docutils literal notranslate"><span class="pre">L2XTabular</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.L2XTabular.explanation_type"><code class="docutils literal notranslate"><span class="pre">L2XTabular.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.L2XTabular.alias"><code class="docutils literal notranslate"><span class="pre">L2XTabular.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.L2XTabular.explain"><code class="docutils literal notranslate"><span class="pre">L2XTabular.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.tabular.counterfactual.html">omnixai.explainers.tabular.counterfactual package</a></li>

@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -61,8 +62,25 @@
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.data.html">omnixai.explainers.data package</a></li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">omnixai.explainers.tabular package</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.tabular.base">omnixai.explainers.tabular.base module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.tabular.auto">omnixai.explainers.tabular.auto module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.tabular.base">omnixai.explainers.tabular.base module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.tabular.base.TabularExplainerMixin"><code class="docutils literal notranslate"><span class="pre">TabularExplainerMixin</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.tabular.base.TabularExplainer"><code class="docutils literal notranslate"><span class="pre">TabularExplainer</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.tabular.base.SklearnBase"><code class="docutils literal notranslate"><span class="pre">SklearnBase</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.tabular.base.SklearnBase.fit"><code class="docutils literal notranslate"><span class="pre">SklearnBase.fit()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.tabular.base.SklearnBase.predict"><code class="docutils literal notranslate"><span class="pre">SklearnBase.predict()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.tabular.base.SklearnBase.predict_proba"><code class="docutils literal notranslate"><span class="pre">SklearnBase.predict_proba()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.tabular.base.SklearnBase.class_names"><code class="docutils literal notranslate"><span class="pre">SklearnBase.class_names()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explainers.tabular.auto">omnixai.explainers.tabular.auto module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explainers.tabular.auto.TabularExplainer"><code class="docutils literal notranslate"><span class="pre">TabularExplainer</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explainers.tabular.auto.TabularExplainer.list_explainers"><code class="docutils literal notranslate"><span class="pre">TabularExplainer.list_explainers()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l6"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.tabular.agnostic.html">omnixai.explainers.tabular.agnostic package</a></li>
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.tabular.counterfactual.html">omnixai.explainers.tabular.counterfactual package</a></li>
@@ -83,6 +101,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-explanation-results">Modules for Explanation Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#dashboard-for-visualization">Dashboard for Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#explainer-deployment">Explainer Deployment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a></li>
@@ -143,9 +162,15 @@
 <section id="module-omnixai.explainers.tabular.base">
 <span id="omnixai-explainers-tabular-base-module"></span><h2>omnixai.explainers.tabular.base module<a class="headerlink" href="#module-omnixai.explainers.tabular.base" title="Permalink to this heading"></a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explainers.tabular.base.TabularExplainerMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.base.</span></span><span class="sig-name descname"><span class="pre">TabularExplainerMixin</span></span><a class="headerlink" href="#omnixai.explainers.tabular.base.TabularExplainerMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.base.TabularExplainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.base.</span></span><span class="sig-name descname"><span class="pre">TabularExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.TabularExplainer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a>, <a class="reference internal" href="#omnixai.explainers.tabular.base.TabularExplainerMixin" title="omnixai.explainers.tabular.base.TabularExplainerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularExplainerMixin</span></code></a></p>
 <p>The base class of model-agnostic explainers for tabular data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

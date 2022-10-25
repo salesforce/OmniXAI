@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -67,10 +68,64 @@
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.tabular.agnostic.html">omnixai.explainers.tabular.agnostic package</a></li>
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.tabular.counterfactual.html">omnixai.explainers.tabular.counterfactual package</a></li>
 <li class="toctree-l7 current"><a class="current reference internal" href="#">omnixai.explainers.tabular.specific package</a><ul>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.specific.ig">omnixai.explainers.tabular.specific.ig module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.specific.linear">omnixai.explainers.tabular.specific.linear module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.specific.decision_tree">omnixai.explainers.tabular.specific.decision_tree module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.specific.shap_tree">omnixai.explainers.tabular.specific.shap_tree module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.specific.ig">omnixai.explainers.tabular.specific.ig module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.specific.ig.IntegratedGradient"><code class="docutils literal notranslate"><span class="pre">IntegratedGradient</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.ig.IntegratedGradient.compute_integrated_gradients"><code class="docutils literal notranslate"><span class="pre">IntegratedGradient.compute_integrated_gradients()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.specific.ig.IntegratedGradientTabular"><code class="docutils literal notranslate"><span class="pre">IntegratedGradientTabular</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.ig.IntegratedGradientTabular.explanation_type"><code class="docutils literal notranslate"><span class="pre">IntegratedGradientTabular.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.ig.IntegratedGradientTabular.alias"><code class="docutils literal notranslate"><span class="pre">IntegratedGradientTabular.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.ig.IntegratedGradientTabular.explain"><code class="docutils literal notranslate"><span class="pre">IntegratedGradientTabular.explain()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.ig.IntegratedGradientTabular.save"><code class="docutils literal notranslate"><span class="pre">IntegratedGradientTabular.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.specific.linear">omnixai.explainers.tabular.specific.linear module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LinearBase"><code class="docutils literal notranslate"><span class="pre">LinearBase</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LinearBase.explanation_type"><code class="docutils literal notranslate"><span class="pre">LinearBase.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LinearBase.fit"><code class="docutils literal notranslate"><span class="pre">LinearBase.fit()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LinearBase.explain"><code class="docutils literal notranslate"><span class="pre">LinearBase.explain()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LinearRegression"><code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LinearRegression.alias"><code class="docutils literal notranslate"><span class="pre">LinearRegression.alias</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LogisticRegression"><code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.linear.LogisticRegression.alias"><code class="docutils literal notranslate"><span class="pre">LogisticRegression.alias</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.specific.decision_tree">omnixai.explainers.tabular.specific.decision_tree module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeBase"><code class="docutils literal notranslate"><span class="pre">TreeBase</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeBase.explanation_type"><code class="docutils literal notranslate"><span class="pre">TreeBase.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeBase.fit"><code class="docutils literal notranslate"><span class="pre">TreeBase.fit()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeBase.explain"><code class="docutils literal notranslate"><span class="pre">TreeBase.explain()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeRegressor"><code class="docutils literal notranslate"><span class="pre">TreeRegressor</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeRegressor.alias"><code class="docutils literal notranslate"><span class="pre">TreeRegressor.alias</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeClassifier"><code class="docutils literal notranslate"><span class="pre">TreeClassifier</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.decision_tree.TreeClassifier.alias"><code class="docutils literal notranslate"><span class="pre">TreeClassifier.alias</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.specific.shap_tree">omnixai.explainers.tabular.specific.shap_tree module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular"><code class="docutils literal notranslate"><span class="pre">ShapTreeTabular</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular.explanation_type"><code class="docutils literal notranslate"><span class="pre">ShapTreeTabular.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular.alias"><code class="docutils literal notranslate"><span class="pre">ShapTreeTabular.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular.fit"><code class="docutils literal notranslate"><span class="pre">ShapTreeTabular.fit()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.specific.shap_tree.ShapTreeTabular.explain"><code class="docutils literal notranslate"><span class="pre">ShapTreeTabular.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -89,6 +144,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-explanation-results">Modules for Explanation Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#dashboard-for-visualization">Dashboard for Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#explainer-deployment">Explainer Deployment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a></li>

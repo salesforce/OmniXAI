@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -62,8 +63,28 @@
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.image.html">omnixai.explanations.image package</a></li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.text.html">omnixai.explanations.text package</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">omnixai.explanations.timeseries package</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.timeseries.feature_importance">omnixai.explanations.timeseries.feature_importance module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.timeseries.counterfactual">omnixai.explanations.timeseries.counterfactual module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.timeseries.feature_importance">omnixai.explanations.timeseries.feature_importance module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance"><code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance.add"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance.get_explanations"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance.plot"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance.plotly_plot"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance.ipython_plot"><code class="docutils literal notranslate"><span class="pre">FeatureImportance.ipython_plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.timeseries.counterfactual">omnixai.explanations.timeseries.counterfactual module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation"><code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation.add"><code class="docutils literal notranslate"><span class="pre">CFExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">CFExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation.plot"><code class="docutils literal notranslate"><span class="pre">CFExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">CFExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">CFExplanation.ipython_plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

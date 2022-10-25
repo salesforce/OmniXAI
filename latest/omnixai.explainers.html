@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -56,7 +57,28 @@
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#preprocessing-functions">Preprocessing Functions</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="omnixai.html#supported-explanation-methods">Supported Explanation Methods</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">omnixai.explainers package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.explainers.base">omnixai.explainers.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.explainers.base">omnixai.explainers.base module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.explainers.base.ExplainerABCMeta"><code class="docutils literal notranslate"><span class="pre">ExplainerABCMeta</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.explainers.base.ExplainerBase"><code class="docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.ExplainerBase.explain"><code class="docutils literal notranslate"><span class="pre">ExplainerBase.explain()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.ExplainerBase.explanation_type"><code class="docutils literal notranslate"><span class="pre">ExplainerBase.explanation_type</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.ExplainerBase.save"><code class="docutils literal notranslate"><span class="pre">ExplainerBase.save()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.ExplainerBase.load"><code class="docutils literal notranslate"><span class="pre">ExplainerBase.load()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.explainers.base.AutoExplainerBase"><code class="docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.AutoExplainerBase.predict"><code class="docutils literal notranslate"><span class="pre">AutoExplainerBase.predict()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.AutoExplainerBase.explain"><code class="docutils literal notranslate"><span class="pre">AutoExplainerBase.explain()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.AutoExplainerBase.explain_global"><code class="docutils literal notranslate"><span class="pre">AutoExplainerBase.explain_global()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.AutoExplainerBase.explainer_names"><code class="docutils literal notranslate"><span class="pre">AutoExplainerBase.explainer_names</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.AutoExplainerBase.list_explainers"><code class="docutils literal notranslate"><span class="pre">AutoExplainerBase.list_explainers()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.AutoExplainerBase.save"><code class="docutils literal notranslate"><span class="pre">AutoExplainerBase.save()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.AutoExplainerBase.load"><code class="docutils literal notranslate"><span class="pre">AutoExplainerBase.load()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explainers.base.AutoExplainerBase.parse_explanations_from_json"><code class="docutils literal notranslate"><span class="pre">AutoExplainerBase.parse_explanations_from_json()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="#explainers-for-different-tasks">Explainers for different tasks</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.data.html">omnixai.explainers.data package</a></li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a></li>
@@ -73,6 +95,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-explanation-results">Modules for Explanation Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#dashboard-for-visualization">Dashboard for Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.html#explainer-deployment">Explainer Deployment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a></li>
@@ -325,8 +348,22 @@ e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explainers.base.AutoExplainerBase.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.base.AutoExplainerBase.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the predictions given input instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The predictions results.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.PredictedResults" title="omnixai.explanations.base.PredictedResults">PredictedResults</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.base.AutoExplainerBase.explain">
-<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.base.AutoExplainerBase.explain" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.base.AutoExplainerBase.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates local explanations for the specific instances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -334,6 +371,7 @@ e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
 <li><p><strong>X</strong> – The instances to explain.</p></li>
 <li><p><strong>params</strong> – A dict containing the additional parameters for generating explanations,
 e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
+<li><p><strong>run_predict</strong> – Whether to generate prediction results besides explanations.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -415,6 +453,11 @@ explanation model (e.g., L2X) and the dataset for initialization is not too larg
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explainers.base.AutoExplainerBase.parse_explanations_from_json">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_explanations_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.base.AutoExplainerBase.parse_explanations_from_json" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
@@ -423,6 +466,11 @@ explanation model (e.g., L2X) and the dataset for initialization is not too larg
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.data.html">omnixai.explainers.data package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.data.html#omnixai.explainers.data.DataAnalyzer"><code class="docutils literal notranslate"><span class="pre">DataAnalyzer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.data.html#omnixai.explainers.data.ImbalanceAnalyzer"><code class="docutils literal notranslate"><span class="pre">ImbalanceAnalyzer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.data.html#omnixai.explainers.data.CorrelationAnalyzer"><code class="docutils literal notranslate"><span class="pre">CorrelationAnalyzer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.data.html#omnixai.explainers.data.MutualInformation"><code class="docutils literal notranslate"><span class="pre">MutualInformation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.data.html#omnixai.explainers.data.ChiSquare"><code class="docutils literal notranslate"><span class="pre">ChiSquare</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.data.html#module-omnixai.explainers.data.auto">omnixai.explainers.data.auto module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.data.html#module-omnixai.explainers.data.correlation">omnixai.explainers.data.correlation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.data.html#module-omnixai.explainers.data.imbalance">omnixai.explainers.data.imbalance module</a></li>
@@ -430,7 +478,10 @@ explanation model (e.g., L2X) and the dataset for initialization is not too larg
 <li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.data.html#module-omnixai.explainers.data.chi_square">omnixai.explainers.data.chi_square module</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.prediction.html">omnixai.explainers.prediction package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.prediction.html#omnixai.explainers.prediction.PredictionAnalyzer"><code class="docutils literal notranslate"><span class="pre">PredictionAnalyzer</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.tabular.html">omnixai.explainers.tabular package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.tabular.html#module-omnixai.explainers.tabular.base">omnixai.explainers.tabular.base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="omnixai.explainers.tabular.html#module-omnixai.explainers.tabular.auto">omnixai.explainers.tabular.auto module</a></li>

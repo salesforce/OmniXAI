@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -60,10 +61,50 @@
 <li class="toctree-l4 current"><a class="reference internal" href="omnixai.explanations.html#three-categories-of-explanation-results">Three categories of explanation results</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.tabular.html">omnixai.explanations.tabular package</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">omnixai.explanations.image package</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.image.pixel_importance">omnixai.explanations.image.pixel_importance module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.image.mask">omnixai.explanations.image.mask module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.image.contrast">omnixai.explanations.image.contrast module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.image.counterfactual">omnixai.explanations.image.counterfactual module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.image.pixel_importance">omnixai.explanations.image.pixel_importance module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.image.pixel_importance.PixelImportance"><code class="docutils literal notranslate"><span class="pre">PixelImportance</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.pixel_importance.PixelImportance.add"><code class="docutils literal notranslate"><span class="pre">PixelImportance.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.pixel_importance.PixelImportance.get_explanations"><code class="docutils literal notranslate"><span class="pre">PixelImportance.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.pixel_importance.PixelImportance.plot"><code class="docutils literal notranslate"><span class="pre">PixelImportance.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.pixel_importance.PixelImportance.plotly_plot"><code class="docutils literal notranslate"><span class="pre">PixelImportance.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.pixel_importance.PixelImportance.ipython_plot"><code class="docutils literal notranslate"><span class="pre">PixelImportance.ipython_plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.image.mask">omnixai.explanations.image.mask module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.image.mask.MaskExplanation"><code class="docutils literal notranslate"><span class="pre">MaskExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.mask.MaskExplanation.add"><code class="docutils literal notranslate"><span class="pre">MaskExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.mask.MaskExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">MaskExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.mask.MaskExplanation.plot"><code class="docutils literal notranslate"><span class="pre">MaskExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.mask.MaskExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">MaskExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.mask.MaskExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">MaskExplanation.ipython_plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.image.contrast">omnixai.explanations.image.contrast module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.image.contrast.ContrastiveExplanation"><code class="docutils literal notranslate"><span class="pre">ContrastiveExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.contrast.ContrastiveExplanation.add"><code class="docutils literal notranslate"><span class="pre">ContrastiveExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.contrast.ContrastiveExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">ContrastiveExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.contrast.ContrastiveExplanation.plot"><code class="docutils literal notranslate"><span class="pre">ContrastiveExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.contrast.ContrastiveExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">ContrastiveExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.contrast.ContrastiveExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">ContrastiveExplanation.ipython_plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#module-omnixai.explanations.image.counterfactual">omnixai.explanations.image.counterfactual module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#omnixai.explanations.image.counterfactual.CFExplanation"><code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code></a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.counterfactual.CFExplanation.add"><code class="docutils literal notranslate"><span class="pre">CFExplanation.add()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.counterfactual.CFExplanation.get_explanations"><code class="docutils literal notranslate"><span class="pre">CFExplanation.get_explanations()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.counterfactual.CFExplanation.plot"><code class="docutils literal notranslate"><span class="pre">CFExplanation.plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.counterfactual.CFExplanation.plotly_plot"><code class="docutils literal notranslate"><span class="pre">CFExplanation.plotly_plot()</span></code></a></li>
+<li class="toctree-l8"><a class="reference internal" href="#omnixai.explanations.image.counterfactual.CFExplanation.ipython_plot"><code class="docutils literal notranslate"><span class="pre">CFExplanation.ipython_plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="omnixai.explanations.text.html">omnixai.explanations.text package</a></li>

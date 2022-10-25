@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -55,15 +56,170 @@
 <li class="toctree-l2"><a class="reference internal" href="omnixai.html#modules-for-different-data-types">Modules for Different Data Types</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="omnixai.html#preprocessing-functions">Preprocessing Functions</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">omnixai.preprocessing package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.base">omnixai.preprocessing.base module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.encode">omnixai.preprocessing.encode module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.normalize">omnixai.preprocessing.normalize module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.fill">omnixai.preprocessing.fill module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.pipeline">omnixai.preprocessing.pipeline module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.tabular">omnixai.preprocessing.tabular module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.image">omnixai.preprocessing.image module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.text">omnixai.preprocessing.text module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.sampler.tabular">omnixai.sampler.tabular module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.base">omnixai.preprocessing.base module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.base.TransformBase"><code class="docutils literal notranslate"><span class="pre">TransformBase</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.base.TransformBase.fit"><code class="docutils literal notranslate"><span class="pre">TransformBase.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.base.TransformBase.transform"><code class="docutils literal notranslate"><span class="pre">TransformBase.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.base.TransformBase.invert"><code class="docutils literal notranslate"><span class="pre">TransformBase.invert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.base.Identity"><code class="docutils literal notranslate"><span class="pre">Identity</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.base.Identity.fit"><code class="docutils literal notranslate"><span class="pre">Identity.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.base.Identity.transform"><code class="docutils literal notranslate"><span class="pre">Identity.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.base.Identity.invert"><code class="docutils literal notranslate"><span class="pre">Identity.invert()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.encode">omnixai.preprocessing.encode module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.encode.KBins"><code class="docutils literal notranslate"><span class="pre">KBins</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.KBins.fit"><code class="docutils literal notranslate"><span class="pre">KBins.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.KBins.transform"><code class="docutils literal notranslate"><span class="pre">KBins.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.KBins.invert"><code class="docutils literal notranslate"><span class="pre">KBins.invert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.encode.OneHot"><code class="docutils literal notranslate"><span class="pre">OneHot</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.OneHot.fit"><code class="docutils literal notranslate"><span class="pre">OneHot.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.OneHot.transform"><code class="docutils literal notranslate"><span class="pre">OneHot.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.OneHot.invert"><code class="docutils literal notranslate"><span class="pre">OneHot.invert()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.OneHot.categories"><code class="docutils literal notranslate"><span class="pre">OneHot.categories</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.OneHot.get_feature_names"><code class="docutils literal notranslate"><span class="pre">OneHot.get_feature_names()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.encode.Ordinal"><code class="docutils literal notranslate"><span class="pre">Ordinal</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.Ordinal.fit"><code class="docutils literal notranslate"><span class="pre">Ordinal.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.Ordinal.transform"><code class="docutils literal notranslate"><span class="pre">Ordinal.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.Ordinal.invert"><code class="docutils literal notranslate"><span class="pre">Ordinal.invert()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.Ordinal.categories"><code class="docutils literal notranslate"><span class="pre">Ordinal.categories</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.encode.LabelEncoder"><code class="docutils literal notranslate"><span class="pre">LabelEncoder</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.LabelEncoder.fit"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.LabelEncoder.transform"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.LabelEncoder.invert"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.invert()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.encode.LabelEncoder.categories"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.categories</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.normalize">omnixai.preprocessing.normalize module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.normalize.Standard"><code class="docutils literal notranslate"><span class="pre">Standard</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.normalize.Standard.fit"><code class="docutils literal notranslate"><span class="pre">Standard.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.normalize.Standard.transform"><code class="docutils literal notranslate"><span class="pre">Standard.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.normalize.Standard.invert"><code class="docutils literal notranslate"><span class="pre">Standard.invert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.normalize.MinMax"><code class="docutils literal notranslate"><span class="pre">MinMax</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.normalize.MinMax.fit"><code class="docutils literal notranslate"><span class="pre">MinMax.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.normalize.MinMax.transform"><code class="docutils literal notranslate"><span class="pre">MinMax.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.normalize.MinMax.invert"><code class="docutils literal notranslate"><span class="pre">MinMax.invert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.normalize.Scale"><code class="docutils literal notranslate"><span class="pre">Scale</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.normalize.Scale.fit"><code class="docutils literal notranslate"><span class="pre">Scale.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.normalize.Scale.transform"><code class="docutils literal notranslate"><span class="pre">Scale.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.normalize.Scale.invert"><code class="docutils literal notranslate"><span class="pre">Scale.invert()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.fill">omnixai.preprocessing.fill module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.fill.FillNaN"><code class="docutils literal notranslate"><span class="pre">FillNaN</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.fill.FillNaN.fit"><code class="docutils literal notranslate"><span class="pre">FillNaN.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.fill.FillNaN.transform"><code class="docutils literal notranslate"><span class="pre">FillNaN.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.fill.FillNaN.invert"><code class="docutils literal notranslate"><span class="pre">FillNaN.invert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.fill.FillNaNTabular"><code class="docutils literal notranslate"><span class="pre">FillNaNTabular</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.fill.FillNaNTabular.fit"><code class="docutils literal notranslate"><span class="pre">FillNaNTabular.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.fill.FillNaNTabular.transform"><code class="docutils literal notranslate"><span class="pre">FillNaNTabular.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.fill.FillNaNTabular.invert"><code class="docutils literal notranslate"><span class="pre">FillNaNTabular.invert()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.pipeline">omnixai.preprocessing.pipeline module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.pipeline.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.pipeline.Pipeline.name"><code class="docutils literal notranslate"><span class="pre">Pipeline.name</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.pipeline.Pipeline.step"><code class="docutils literal notranslate"><span class="pre">Pipeline.step()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.pipeline.Pipeline.fit"><code class="docutils literal notranslate"><span class="pre">Pipeline.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.pipeline.Pipeline.transform"><code class="docutils literal notranslate"><span class="pre">Pipeline.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.pipeline.Pipeline.invert"><code class="docutils literal notranslate"><span class="pre">Pipeline.invert()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.pipeline.Pipeline.dump"><code class="docutils literal notranslate"><span class="pre">Pipeline.dump()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.pipeline.Pipeline.load"><code class="docutils literal notranslate"><span class="pre">Pipeline.load()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.tabular">omnixai.preprocessing.tabular module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.tabular.TabularTransform"><code class="docutils literal notranslate"><span class="pre">TabularTransform</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.tabular.TabularTransform.fit"><code class="docutils literal notranslate"><span class="pre">TabularTransform.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.tabular.TabularTransform.transform"><code class="docutils literal notranslate"><span class="pre">TabularTransform.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.tabular.TabularTransform.invert"><code class="docutils literal notranslate"><span class="pre">TabularTransform.invert()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.tabular.TabularTransform.decompose"><code class="docutils literal notranslate"><span class="pre">TabularTransform.decompose()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.tabular.TabularTransform.categories"><code class="docutils literal notranslate"><span class="pre">TabularTransform.categories</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.tabular.TabularTransform.class_names"><code class="docutils literal notranslate"><span class="pre">TabularTransform.class_names</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.tabular.TabularTransform.get_feature_names"><code class="docutils literal notranslate"><span class="pre">TabularTransform.get_feature_names()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.image">omnixai.preprocessing.image module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.image.Scale"><code class="docutils literal notranslate"><span class="pre">Scale</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Scale.fit"><code class="docutils literal notranslate"><span class="pre">Scale.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Scale.transform"><code class="docutils literal notranslate"><span class="pre">Scale.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Scale.invert"><code class="docutils literal notranslate"><span class="pre">Scale.invert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.image.Round2Int"><code class="docutils literal notranslate"><span class="pre">Round2Int</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Round2Int.fit"><code class="docutils literal notranslate"><span class="pre">Round2Int.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Round2Int.transform"><code class="docutils literal notranslate"><span class="pre">Round2Int.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Round2Int.invert"><code class="docutils literal notranslate"><span class="pre">Round2Int.invert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.image.Normalize"><code class="docutils literal notranslate"><span class="pre">Normalize</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Normalize.fit"><code class="docutils literal notranslate"><span class="pre">Normalize.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Normalize.transform"><code class="docutils literal notranslate"><span class="pre">Normalize.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Normalize.invert"><code class="docutils literal notranslate"><span class="pre">Normalize.invert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.image.Resize"><code class="docutils literal notranslate"><span class="pre">Resize</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Resize.fit"><code class="docutils literal notranslate"><span class="pre">Resize.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Resize.transform"><code class="docutils literal notranslate"><span class="pre">Resize.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.image.Resize.invert"><code class="docutils literal notranslate"><span class="pre">Resize.invert()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.preprocessing.text">omnixai.preprocessing.text module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.text.Tfidf"><code class="docutils literal notranslate"><span class="pre">Tfidf</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Tfidf.fit"><code class="docutils literal notranslate"><span class="pre">Tfidf.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Tfidf.transform"><code class="docutils literal notranslate"><span class="pre">Tfidf.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Tfidf.invert"><code class="docutils literal notranslate"><span class="pre">Tfidf.invert()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Tfidf.get_feature_names"><code class="docutils literal notranslate"><span class="pre">Tfidf.get_feature_names()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.preprocessing.text.Word2Id"><code class="docutils literal notranslate"><span class="pre">Word2Id</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Word2Id.PAD"><code class="docutils literal notranslate"><span class="pre">Word2Id.PAD</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Word2Id.START"><code class="docutils literal notranslate"><span class="pre">Word2Id.START</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Word2Id.UNK"><code class="docutils literal notranslate"><span class="pre">Word2Id.UNK</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Word2Id.fit"><code class="docutils literal notranslate"><span class="pre">Word2Id.fit()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Word2Id.transform"><code class="docutils literal notranslate"><span class="pre">Word2Id.transform()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Word2Id.invert"><code class="docutils literal notranslate"><span class="pre">Word2Id.invert()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.preprocessing.text.Word2Id.vocab_size"><code class="docutils literal notranslate"><span class="pre">Word2Id.vocab_size</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#module-omnixai.sampler.tabular">omnixai.sampler.tabular module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.sampler.tabular.Sampler"><code class="docutils literal notranslate"><span class="pre">Sampler</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.sampler.tabular.Sampler.subsample"><code class="docutils literal notranslate"><span class="pre">Sampler.subsample()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.sampler.tabular.Sampler.undersample"><code class="docutils literal notranslate"><span class="pre">Sampler.undersample()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.sampler.tabular.Sampler.oversample"><code class="docutils literal notranslate"><span class="pre">Sampler.oversample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

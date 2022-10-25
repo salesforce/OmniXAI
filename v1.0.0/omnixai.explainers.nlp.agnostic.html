@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -65,9 +66,43 @@
 <li class="toctree-l6"><a class="reference internal" href="omnixai.explainers.nlp.html#module-omnixai.explainers.nlp.auto">omnixai.explainers.nlp.auto module</a></li>
 <li class="toctree-l6 current"><a class="reference internal" href="omnixai.explainers.nlp.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l7 current"><a class="current reference internal" href="#">omnixai.explainers.nlp.agnostic package</a><ul>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.nlp.agnostic.lime">omnixai.explainers.nlp.agnostic.lime module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.nlp.agnostic.shap">omnixai.explainers.nlp.agnostic.shap module</a></li>
-<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.nlp.agnostic.l2x">omnixai.explainers.nlp.agnostic.l2x module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.nlp.agnostic.lime">omnixai.explainers.nlp.agnostic.lime module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.lime.LimeText"><code class="docutils literal notranslate"><span class="pre">LimeText</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.lime.LimeText.explanation_type"><code class="docutils literal notranslate"><span class="pre">LimeText.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.lime.LimeText.alias"><code class="docutils literal notranslate"><span class="pre">LimeText.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.lime.LimeText.explain"><code class="docutils literal notranslate"><span class="pre">LimeText.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.nlp.agnostic.shap">omnixai.explainers.nlp.agnostic.shap module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.shap.ShapText"><code class="docutils literal notranslate"><span class="pre">ShapText</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.shap.ShapText.explanation_type"><code class="docutils literal notranslate"><span class="pre">ShapText.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.shap.ShapText.alias"><code class="docutils literal notranslate"><span class="pre">ShapText.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.shap.ShapText.explain"><code class="docutils literal notranslate"><span class="pre">ShapText.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.nlp.agnostic.l2x">omnixai.explainers.nlp.agnostic.l2x module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultSelectionModel"><code class="docutils literal notranslate"><span class="pre">DefaultSelectionModel</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultSelectionModel.forward"><code class="docutils literal notranslate"><span class="pre">DefaultSelectionModel.forward()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultSelectionModel.training"><code class="docutils literal notranslate"><span class="pre">DefaultSelectionModel.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultPredictionModel"><code class="docutils literal notranslate"><span class="pre">DefaultPredictionModel</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultPredictionModel.forward"><code class="docutils literal notranslate"><span class="pre">DefaultPredictionModel.forward()</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultPredictionModel.training"><code class="docutils literal notranslate"><span class="pre">DefaultPredictionModel.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.l2x.L2XText"><code class="docutils literal notranslate"><span class="pre">L2XText</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.l2x.L2XText.explanation_type"><code class="docutils literal notranslate"><span class="pre">L2XText.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.l2x.L2XText.alias"><code class="docutils literal notranslate"><span class="pre">L2XText.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.nlp.agnostic.l2x.L2XText.explain"><code class="docutils literal notranslate"><span class="pre">L2XText.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.nlp.specific.html">omnixai.explainers.nlp.specific package</a></li>
