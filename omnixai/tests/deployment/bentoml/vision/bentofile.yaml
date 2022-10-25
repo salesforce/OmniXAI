@@ -1,0 +1,13 @@
+service: "service:svc"
+labels:
+  owner: omnixai-team
+  stage: demo
+include:
+- "*.py"
+exclude:
+- "request.py"
+- "test.py"
+python:
+  packages:
+    - omnixai
+    - omnixai[vision]
