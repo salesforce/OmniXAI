@@ -98,7 +98,7 @@ class TestDashboard(unittest.TestCase):
         prediction_explanations = explainer.explain()
 
         explainers = TabularExplainer(
-            explainers=["lime", "shap", "mace", "pdp", "ale"],
+            explainers=["lime", "shap", "mace", "knn_ce", "pdp", "ale"],
             mode="classification",
             data=self.tabular_data,
             model=self.model,

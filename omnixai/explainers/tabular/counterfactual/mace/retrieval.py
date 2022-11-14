@@ -152,13 +152,13 @@ class CFRetrieval:
         columns = [c for c, _ in column_scores][:top_k]
         return {f: v for f, v in candidate_features.items() if f in columns}
 
-    def get_cf_features(self, instance: Tabular, desired_label: int) -> (Dict, np.ndarray):
+    def get_nn_samples(self, instance: Tabular, desired_label: int) -> (pd.DataFrame, np.ndarray):
         """
-        Finds candidate features for generating counterfactual examples.
+        Finds nearest neighbor samples in a desired class.
 
         :param instance: The query instance.
         :param desired_label: The desired label.
-        :return: The candidate features and the indices of the nearest neighbors.
+        :return: The nearest neighbor samples and the corresponding indices.
         """
         assert isinstance(instance, Tabular), "Input ``instance`` should be an instance of Tabular."
         assert instance.shape[0] == 1, "Input ``instance`` can only contain one instance."
@@ -171,9 +171,19 @@ class CFRetrieval:
             )
         )
         indices = self._knn_query(query, desired_label, self.num_neighbors)[0]
-
-        x = instance.to_pd(copy=False)
         y = self.subset.iloc(indices).to_pd(copy=False)
+        return y, indices
+
+    def get_cf_features(self, instance: Tabular, desired_label: int) -> (Dict, np.ndarray):
+        """
+        Finds candidate features for generating counterfactual examples.
+
+        :param instance: The query instance.
+        :param desired_label: The desired label.
+        :return: The candidate features and the indices of the nearest neighbors.
+        """
+        x = instance.to_pd(copy=False)
+        y, indices = self.get_nn_samples(instance, desired_label)
         cate_candidates, cont_candidates = {}, {}
 
         # Categorical feature difference
