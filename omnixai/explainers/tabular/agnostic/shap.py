@@ -13,7 +13,8 @@ from typing import Callable, List
 
 from ..base import TabularExplainer
 from ....data.tabular import Tabular
-from ....explanations.tabular.feature_importance import FeatureImportance
+from ....explanations.tabular.feature_importance import \
+    FeatureImportance, GlobalFeatureImportance
 
 
 class ShapTabular(TabularExplainer):
@@ -22,7 +23,7 @@ class ShapTabular(TabularExplainer):
     If using this explainer, please cite the original work: https://github.com/slundberg/shap.
     """
 
-    explanation_type = "local"
+    explanation_type = "both"
     alias = ["shap"]
 
     def __init__(
@@ -57,19 +58,34 @@ class ShapTabular(TabularExplainer):
             kwargs["nsamples"] = 100
         self.background_data = shap.sample(self.data, nsamples=kwargs["nsamples"])
 
-    def explain(self, X, y=None, **kwargs) -> FeatureImportance:
-        """
-        Generates the feature-importance explanations for the input instances.
+    def _explain_global(self, **kwargs) -> GlobalFeatureImportance:
+        if "nsamples" not in kwargs:
+            kwargs["nsamples"] = 100
 
-        :param X: A batch of input instances. When ``X`` is `pd.DataFrame`
-            or `np.ndarray`, ``X`` will be converted into `Tabular` automatically.
-        :param y: A batch of labels to explain. For regression, ``y`` is ignored.
-            For classification, the top predicted label of each instance will be explained
-            when ``y = None``.
-        :param kwargs: Additional parameters for `shap.KernelExplainer.shap_values`,
-            e.g., ``nsamples`` -- the number of times to re-evaluate the model when explaining each prediction.
-        :return: The feature-importance explanations for all the input instances.
-        """
+        instances = self.background_data
+        explanations = GlobalFeatureImportance()
+        explainer = shap.KernelExplainer(
+            self.predict_fn, self.background_data,
+            link="logit" if self.mode == "classification" else "identity", **kwargs
+        )
+        shap_values = explainer.shap_values(instances, **kwargs)
+
+        if self.mode == "classification":
+            values = 0
+            for v in shap_values:
+                values += np.abs(v)
+            values /= len(shap_values)
+            shap_values = values
+
+        importance_scores = np.mean(np.abs(shap_values), axis=0)
+        explanations.add(
+            feature_names=self.feature_columns,
+            importance_scores=importance_scores,
+            sort=True
+        )
+        return explanations
+
+    def _explain_local(self, X, y=None, **kwargs) -> FeatureImportance:
         X = self._to_tabular(X).remove_target_column()
         explanations = FeatureImportance(self.mode)
         instances = self.transformer.transform(X)
@@ -120,6 +136,7 @@ class ShapTabular(TabularExplainer):
                     _y = np.tile(instance, (_x.shape[0], 1))
                     _y[:, self.valid_indices] = _x
                     return self.predict_fn(_y)
+
                 predict_function = _predict
                 test_x = instance[self.valid_indices]
 
@@ -147,6 +164,26 @@ class ShapTabular(TabularExplainer):
                     sort=True,
                 )
         return explanations
+
+    def explain(self, X=None, y=None, **kwargs):
+        """
+        Generates the local SHAP explanations for the input instances or global SHAP explanations.
+
+        :param X: A batch of input instances. When ``X`` is `pd.DataFrame`
+            or `np.ndarray`, ``X`` will be converted into `Tabular` automatically. If X is None,
+            it will compute global SHAP values, i.e., the mean of the absolute SHAP value for
+            each feature.
+        :param y: A batch of labels to explain. For regression, ``y`` is ignored.
+            For classification, the top predicted label of each instance will be explained
+            when ``y = None``.
+        :param kwargs: Additional parameters for `shap.KernelExplainer.shap_values`,
+            e.g., ``nsamples`` -- the number of times to re-evaluate the model when explaining each prediction.
+        :return: The feature-importance explanations.
+        """
+        if X is not None:
+            return self._explain_local(X=X, y=y, **kwargs)
+        else:
+            return self._explain_global(**kwargs)
 
     def save(
             self,
