@@ -87,18 +87,9 @@ class PermutationImportance(ExplainerBase, TabularExplainerMixin):
         """
         assert X is not None and y is not None, \
             "The test data `X` and target `y` cannot be None."
-        if isinstance(y, (list, tuple)):
-            y = np.array(y)
-        elif isinstance(y, pd.DataFrame):
-            y = y.values
-        elif isinstance(y, np.ndarray):
-            y = y
-        else:
-            raise ValueError(f"The type of `y` is {type(y)}, which is not supported."
-                             f"`y` should be a list, a numpy array or a pandas dataframe.")
+        y = y.values if isinstance(y, pd.DataFrame) else np.array(y)
         if y.ndim > 1:
             y = y.flatten()
-
         assert X.shape[0] == len(y), \
             "The numbers of samples in `X` and `y` are different."
         X = X.remove_target_column()
