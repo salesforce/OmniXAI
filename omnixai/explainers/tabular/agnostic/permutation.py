@@ -53,7 +53,7 @@ class PermutationImportance(ExplainerBase, TabularExplainerMixin):
                 z = self.predict_function(
                     Tabular(x, categorical_columns=self.categorical_columns)
                 )
-                return score_func(z, y)
+                return score_func(y, z)
         elif self.mode == "classification":
             def _score(estimator, x, y):
                 z = self.predict_function(
@@ -82,7 +82,7 @@ class PermutationImportance(ExplainerBase, TabularExplainerMixin):
         :param y: Targets or labels.
         :param n_repeats: The number of times a feature is randomly shuffled.
         :param score_func: The score function measuring the difference between
-            predictions and ground-truth targets.
+            ground-truth targets and predictions, e.g., -sklearn.metrics.log_loss(y_true, y_pred).
         :return: The permutation feature importance explanations.
         """
         if isinstance(y, (list, tuple)):
