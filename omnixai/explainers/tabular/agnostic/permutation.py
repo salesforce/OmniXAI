@@ -18,6 +18,11 @@ from ....data.tabular import Tabular
 from ....explanations.tabular.feature_importance import GlobalFeatureImportance
 
 
+class _Estimator:
+    def fit(self):
+        pass
+
+
 class PermutationImportance(ExplainerBase, TabularExplainerMixin):
     """
     The permutation feature importance explanations for tabular data. The permutation feature
@@ -93,10 +98,6 @@ class PermutationImportance(ExplainerBase, TabularExplainerMixin):
         assert X.shape[0] == len(y), \
             "The numbers of samples in `X` and `y` are different."
         X = X.remove_target_column()
-
-        class _Estimator:
-            def fit(self):
-                pass
 
         results = permutation_importance(
             estimator=_Estimator(),
