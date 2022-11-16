@@ -59,13 +59,13 @@ class PermutationImportance(ExplainerBase, TabularExplainerMixin):
                 z = self.predict_function(
                     Tabular(x, categorical_columns=self.categorical_columns)
                 )
-                return log_loss(y, z)
+                return -log_loss(y, z)
         else:
             def _score(estimator, x, y):
                 z = self.predict_function(
                     Tabular(x, categorical_columns=self.categorical_columns)
                 )
-                return np.mean((z - y) ** 2)
+                return -np.mean((z - y) ** 2)
         return _score
 
     def explain(
@@ -81,7 +81,7 @@ class PermutationImportance(ExplainerBase, TabularExplainerMixin):
         :param X: Data on which permutation importance will be computed.
         :param y: Targets or labels.
         :param n_repeats: The number of times a feature is randomly shuffled.
-        :param score_func: The score/loss function measuring the difference between
+        :param score_func: The score function measuring the difference between
             predictions and ground-truth targets.
         :return: The permutation feature importance explanations.
         """
@@ -105,10 +105,15 @@ class PermutationImportance(ExplainerBase, TabularExplainerMixin):
             def fit(self):
                 pass
 
+        explanations = GlobalFeatureImportance()
         results = permutation_importance(
             estimator=_Estimator(),
             X=X.to_pd(copy=False),
             y=y,
             scoring=self._build_score_function(score_func)
         )
-        print(results)
+        explanations.add(
+            feature_names=list(X.columns),
+            importance_scores=results["importances_mean"]
+        )
+        return explanations
