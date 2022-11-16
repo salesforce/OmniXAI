@@ -105,13 +105,13 @@ class PermutationImportance(ExplainerBase, TabularExplainerMixin):
             def fit(self):
                 pass
 
-        explanations = GlobalFeatureImportance()
         results = permutation_importance(
             estimator=_Estimator(),
             X=X.to_pd(copy=False),
             y=y,
             scoring=self._build_score_function(score_func)
         )
+        explanations = GlobalFeatureImportance()
         explanations.add(
             feature_names=list(X.columns),
             importance_scores=results["importances_mean"]
