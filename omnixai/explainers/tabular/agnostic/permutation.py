@@ -9,7 +9,7 @@ The permutation feature importance explanation for tabular data.
 """
 import numpy as np
 import pandas as pd
-from typing import Callable
+from typing import Callable, Union
 from sklearn.metrics import log_loss
 from sklearn.inspection import permutation_importance
 
@@ -70,8 +70,8 @@ class PermutationImportance(ExplainerBase, TabularExplainerMixin):
 
     def explain(
             self,
-            X,
-            y,
+            X: Tabular,
+            y: Union[np.ndarray, pd.DataFrame],
             n_repeats: int = 30,
             score_func: Callable = None
     ) -> GlobalFeatureImportance:
@@ -85,6 +85,8 @@ class PermutationImportance(ExplainerBase, TabularExplainerMixin):
             ground-truth targets and predictions, e.g., -sklearn.metrics.log_loss(y_true, y_pred).
         :return: The permutation feature importance explanations.
         """
+        assert X is not None and y is not None, \
+            "The test data `X` and target `y` cannot be None."
         if isinstance(y, (list, tuple)):
             y = np.array(y)
         elif isinstance(y, pd.DataFrame):
