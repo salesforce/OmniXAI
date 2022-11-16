@@ -108,6 +108,7 @@ class TabularClassification:
             data=tabular_data,
             train_data=transformer.invert(train),
             test_data=transformer.invert(test),
+            test_targets=labels_test
         )
 
     def train_iris(self):
