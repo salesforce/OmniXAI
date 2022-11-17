@@ -60,3 +60,19 @@ omnixai.explainers.tabular.agnostic.L2X.l2x module
    :members:
    :undoc-members:
    :show-inheritance:
+
+omnixai.explainers.tabular.agnostic.permutation module
+------------------------------------------------------
+
+.. automodule:: omnixai.explainers.tabular.agnostic.permutation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+omnixai.explainers.tabular.agnostic.shap_global module
+------------------------------------------------------
+
+.. automodule:: omnixai.explainers.tabular.agnostic.shap_global
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -63,6 +63,7 @@ We will continue improving this library to make it more comprehensive in the fut
 | Partial dependence plots  |   Black box   |      Global      |     |    ✅    |       |      |      |
 | Accumulated local effects |   Black box   |      Global      |     |    ✅    |       |      |      |
 |   Sensitivity analysis    |   Black box   |      Global      |     |    ✅    |       |      |      |
+|  Permutation explanation  |   Black box   |      Global      |     |    ✅    |       |      |      |
 |   Feature visualization   |  Torch or TF  |      Global      |     |         |   ✅   |      |      |
 |       Feature maps        |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
 |           LIME            |   Black box   |      Local       |     |    ✅    |   ✅   | ✅   |      |

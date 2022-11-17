@@ -137,7 +137,16 @@ class DashFigure:
         elif isinstance(self.component, dash_table.DataTable):
             return html.Div([self.component], id=id)
         elif isinstance(self.component, plotly.graph_objs.Figure):
-            return html.Div([dcc.Graph(figure=self.component, id=id)], id=f"div_{id}")
+            height = self.component.layout.height
+            if height is None or height <= 450:
+                return html.Div(
+                    [dcc.Graph(figure=self.component, id=id)],
+                    id=f"div_{id}")
+            else:
+                return html.Div(
+                    [dcc.Graph(figure=self.component, id=id)],
+                    id=f"div_{id}",
+                    style={"overflowY": "scroll", "height": 450})
         else:
             raise ValueError(f"The type of `component` ({type(self.component)}) "
                              f"" f"is not supported by DashFigure.")

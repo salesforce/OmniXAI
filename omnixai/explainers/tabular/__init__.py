@@ -11,8 +11,11 @@ from .agnostic.pdp import PartialDependenceTabular
 from .agnostic.ale import ALE
 from .agnostic.sensitivity import SensitivityAnalysisTabular
 from .agnostic.L2X.l2x import L2XTabular
+from .agnostic.permutation import PermutationImportance
+from .agnostic.shap_global import GlobalShapTabular
 from .counterfactual.mace.mace import MACEExplainer
 from .counterfactual.ce import CounterfactualExplainer
+from .counterfactual.knn import KNNCounterfactualExplainer
 from .specific.ig import IntegratedGradientTabular
 from .specific.linear import LinearRegression
 from .specific.linear import LogisticRegression
@@ -29,8 +32,11 @@ __all__ = [
     "ALE",
     "SensitivityAnalysisTabular",
     "L2XTabular",
+    "PermutationImportance",
+    "GlobalShapTabular",
     "MACEExplainer",
     "CounterfactualExplainer",
+    "KNNCounterfactualExplainer",
     "LinearRegression",
     "LogisticRegression",
     "TreeRegressor",
