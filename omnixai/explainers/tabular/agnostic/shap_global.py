@@ -22,7 +22,7 @@ class GlobalShapTabular(TabularExplainer):
     If using this explainer, please cite the original work: https://github.com/slundberg/shap.
     """
 
-    explanation_type = "both"
+    explanation_type = "global"
     alias = ["shap_global"]
 
     def __init__(
