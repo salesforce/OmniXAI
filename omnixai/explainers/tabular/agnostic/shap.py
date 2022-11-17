@@ -92,8 +92,9 @@ class ShapTabular(TabularExplainer):
         if len(self.ignored_features) == 0:
             explainer = shap.KernelExplainer(
                 self.predict_fn, self.background_data,
-                link="logit" if self.mode == "classification" else "identity", **kwargs
+                link="identity", **kwargs
             )
+		
             shap_values = explainer.shap_values(instances, **kwargs)
 
             for i, instance in enumerate(instances):
