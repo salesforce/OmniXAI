@@ -8,7 +8,7 @@ import os
 import unittest
 import pprint
 from omnixai.utils.misc import set_random_seed
-from omnixai.explainers.tabular import ShapTabular
+from omnixai.explainers.tabular import GlobalShapTabular
 from omnixai.tests.explainers.tasks import TabularClassification
 
 
@@ -19,7 +19,7 @@ class TestShapTabular(unittest.TestCase):
         predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
 
         set_random_seed()
-        explainer = ShapTabular(
+        explainer = GlobalShapTabular(
             training_data=task.train_data,
             predict_function=predict_function,
             ignored_features=None,
