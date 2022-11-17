@@ -22,7 +22,6 @@ class ShapTabular(TabularExplainer):
     The SHAP explainer for tabular data.
     If using this explainer, please cite the original work: https://github.com/slundberg/shap.
     """
-
     explanation_type = "local"
     alias = ["shap"]
 
@@ -48,15 +47,18 @@ class ShapTabular(TabularExplainer):
             Please refer to the doc of `shap.KernelExplainer`.
         """
         super().__init__(training_data=training_data, predict_function=predict_function, mode=mode, **kwargs)
+        self.link = kwargs.get("link", None)
+        if self.link is None:
+            self.link = "logit" if self.mode == "classification" else "identity"
+
         self.ignored_features = set(ignored_features) if ignored_features is not None else set()
         if self.target_column is not None:
             assert self.target_column not in self.ignored_features, \
                 f"The target column {self.target_column} cannot be in the ignored feature list."
         self.valid_indices = [i for i, f in enumerate(self.feature_columns) if f not in self.ignored_features]
 
-        if "nsamples" not in kwargs:
-            kwargs["nsamples"] = 100
-        self.background_data = shap.sample(self.data, nsamples=kwargs["nsamples"])
+        self.background_data = shap.sample(self.data, nsamples=kwargs.get("nsamples", 100))
+        self.explainer = shap.KernelExplainer(self.predict_fn, self.background_data, link=self.link, **kwargs)
 
     def explain(self, X, y=None, **kwargs) -> FeatureImportance:
         """
@@ -91,12 +93,7 @@ class ShapTabular(TabularExplainer):
             y = None
 
         if len(self.ignored_features) == 0:
-            explainer = shap.KernelExplainer(
-                self.predict_fn, self.background_data,
-                link="logit" if self.mode == "classification" else "identity", **kwargs
-            )
-            shap_values = explainer.shap_values(instances, **kwargs)
-
+            shap_values = self.explainer.shap_values(instances, **kwargs)
             for i, instance in enumerate(instances):
                 df = X.iloc(i).to_pd()
                 feature_values = \
@@ -124,10 +121,9 @@ class ShapTabular(TabularExplainer):
 
                 predict_function = _predict
                 test_x = instance[self.valid_indices]
-
                 explainer = shap.KernelExplainer(
                     predict_function, self.background_data[:, self.valid_indices],
-                    link="logit" if self.mode == "classification" else "identity", **kwargs
+                    link=self.link, **kwargs
                 )
                 shap_values = explainer.shap_values(np.expand_dims(test_x, axis=0), **kwargs)
 
