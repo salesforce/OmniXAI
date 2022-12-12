@@ -150,3 +150,10 @@ class BiasAnalyzer(ExplainerBase):
             qb = len([p for p in pred_b if p == label]) / len(pred_b)
             metrics[label] = qb / (qa + 1e-8)
         return metrics
+
+    @staticmethod
+    def _dco(targ_a, targ_b, pred_a, pred_b, labels):
+        """
+        Difference in conditional outcomes.
+        """
+        pass
