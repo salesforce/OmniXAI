@@ -122,7 +122,7 @@ class BiasAnalyzer(ExplainerBase):
             self._get_labels(group_a, group_b, target_value_or_threshold)
 
         res = {}
-        for metric_name in ["DPL", "DI"]:
+        for metric_name in ["DPL", "DI", "DCO"]:
             func = getattr(BiasAnalyzer, f"_{metric_name.lower()}")
             res[metric_name] = func(targ_a, targ_b, pred_a, pred_b, labels)
         print(res)
@@ -156,4 +156,11 @@ class BiasAnalyzer(ExplainerBase):
         """
         Difference in conditional outcomes.
         """
-        pass
+        metrics = {}
+        for label in labels:
+            na = len([p for p in targ_a if p == label])
+            nb = len([p for p in targ_b if p == label])
+            na_hat = len([p for p in pred_a if p == label])
+            nb_hat = len([p for p in pred_b if p == label])
+            metrics[label] = na / max(na_hat, 1) - nb / max(nb_hat, 1)
+        return metrics
