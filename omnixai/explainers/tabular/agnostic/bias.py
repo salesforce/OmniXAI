@@ -79,18 +79,6 @@ class BiasAnalyzer(ExplainerBase):
         pred_a, pred_b = self.preds[group_a], self.preds[group_b]
         return targ_a, targ_b, pred_a, pred_b, labels
 
-    @staticmethod
-    def _dpl(targ_a, targ_b, pred_a, pred_b, labels):
-        """
-        Difference in proportions in predicted labels
-        """
-        metrics = {}
-        for label in labels:
-            na = len([p for p in pred_a if p == label])
-            nb = len([p for p in pred_b if p == label])
-            metrics[label] = na / len(pred_a) - nb / len(pred_b)
-        return metrics
-
     def explain(
             self,
             feature_column,
@@ -132,5 +120,33 @@ class BiasAnalyzer(ExplainerBase):
 
         targ_a, targ_b, pred_a, pred_b, labels = \
             self._get_labels(group_a, group_b, target_value_or_threshold)
-        dpl = self._dpl(targ_a, targ_b, pred_a, pred_b, labels)
-        print(dpl)
+
+        res = {}
+        for metric_name in ["DPL", "DI"]:
+            func = getattr(BiasAnalyzer, f"_{metric_name.lower()}")
+            res[metric_name] = func(targ_a, targ_b, pred_a, pred_b, labels)
+        print(res)
+
+    @staticmethod
+    def _dpl(targ_a, targ_b, pred_a, pred_b, labels):
+        """
+        Difference in proportions in predicted labels
+        """
+        metrics = {}
+        for label in labels:
+            na = len([p for p in pred_a if p == label])
+            nb = len([p for p in pred_b if p == label])
+            metrics[label] = na / len(pred_a) - nb / len(pred_b)
+        return metrics
+
+    @staticmethod
+    def _di(targ_a, targ_b, pred_a, pred_b, labels):
+        """
+        Disparate Impact.
+        """
+        metrics = {}
+        for label in labels:
+            qa = len([p for p in pred_a if p == label]) / len(pred_a)
+            qb = len([p for p in pred_b if p == label]) / len(pred_b)
+            metrics[label] = qb / (qa + 1e-8)
+        return metrics
