@@ -122,52 +122,65 @@ class BiasAnalyzer(ExplainerBase):
             self._get_labels(group_a, group_b, target_value_or_threshold)
 
         res = {}
-        for metric_name in ["DPL", "DI", "DCO"]:
+        stats = self._compute_stats(targ_a, targ_b, pred_a, pred_b, labels)
+        for metric_name in ["DPL", "DI", "DCO", "RD"]:
             func = getattr(BiasAnalyzer, f"_{metric_name.lower()}")
-            res[metric_name] = func(targ_a, targ_b, pred_a, pred_b, labels)
+            res[metric_name] = func(stats, targ_a, targ_b, pred_a, pred_b, labels)
         print(res)
 
     @staticmethod
-    def _dpl(targ_a, targ_b, pred_a, pred_b, labels):
+    def _compute_stats(targ_a, targ_b, pred_a, pred_b, labels):
+        stats = defaultdict(dict)
+        for label in labels:
+            stats[label]["na"] = len([x for x in targ_a if x == label])
+            stats[label]["nb"] = len([x for x in targ_b if x == label])
+            stats[label]["na_hat"] = len([x for x in pred_a if x == label])
+            stats[label]["nb_hat"] = len([x for x in pred_b if x == label])
+            stats[label]["tpa"] = len([x for x, y in zip(targ_a, pred_a) if x == label and y == label])
+            stats[label]["tpb"] = len([x for x, y in zip(targ_b, pred_b) if x == label and y == label])
+        return stats
+
+    @staticmethod
+    def _dpl(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Difference in proportions in predicted labels
         """
         metrics = {}
         for label in labels:
-            na = len([p for p in pred_a if p == label])
-            nb = len([p for p in pred_b if p == label])
-            metrics[label] = na / len(pred_a) - nb / len(pred_b)
+            metrics[label] = stats[label]["na_hat"] / len(pred_a) - \
+                             stats[label]["nb_hat"] / len(pred_b)
         return metrics
 
     @staticmethod
-    def _di(targ_a, targ_b, pred_a, pred_b, labels):
+    def _di(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Disparate Impact.
         """
         metrics = {}
         for label in labels:
-            qa = len([p for p in pred_a if p == label]) / len(pred_a)
-            qb = len([p for p in pred_b if p == label]) / len(pred_b)
+            qa = stats[label]["na_hat"] / len(pred_a)
+            qb = stats[label]["nb_hat"] / len(pred_b)
             metrics[label] = qb / (qa + 1e-8)
         return metrics
 
     @staticmethod
-    def _dco(targ_a, targ_b, pred_a, pred_b, labels):
+    def _dco(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Difference in conditional outcomes.
         """
         metrics = {}
         for label in labels:
-            na = len([p for p in targ_a if p == label])
-            nb = len([p for p in targ_b if p == label])
-            na_hat = len([p for p in pred_a if p == label])
-            nb_hat = len([p for p in pred_b if p == label])
-            metrics[label] = na / max(na_hat, 1) - nb / max(nb_hat, 1)
+            metrics[label] = stats[label]["na"] / max(stats[label]["na_hat"], 1) - \
+                             stats[label]["nb"] / max(stats[label]["nb_hat"], 1)
         return metrics
 
     @staticmethod
-    def _rd(targ_a, targ_b, pred_a, pred_b, labels):
+    def _rd(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Recall difference.
         """
-        pass
+        metrics = {}
+        for label in labels:
+            metrics[label] = stats[label]["tpa"] / stats[label]["na"] - \
+                             stats[label]["tpb"] / stats[label]["nb"]
+        return metrics
