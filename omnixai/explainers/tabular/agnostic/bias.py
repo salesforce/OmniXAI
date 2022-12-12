@@ -164,3 +164,10 @@ class BiasAnalyzer(ExplainerBase):
             nb_hat = len([p for p in pred_b if p == label])
             metrics[label] = na / max(na_hat, 1) - nb / max(nb_hat, 1)
         return metrics
+
+    @staticmethod
+    def _rd(targ_a, targ_b, pred_a, pred_b, labels):
+        """
+        Recall difference.
+        """
+        pass
