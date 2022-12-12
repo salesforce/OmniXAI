@@ -9,6 +9,7 @@ The model bias analyzer for tabular data.
 """
 import numpy as np
 from typing import List
+from collections import defaultdict
 
 from ...base import ExplainerBase
 from ....data.tabular import Tabular
@@ -55,6 +56,7 @@ class BiasAnalyzer(ExplainerBase):
             training_data = training_data.remove_target_column()
 
         self.mode = mode
+        self.data = training_data.to_pd(copy=False)
         self.predict_function = predict_function
         self.targets = training_targets
         self.preds = self._predict(training_data, batch_size=kwargs.get("batch_size", 64))
@@ -69,8 +71,39 @@ class BiasAnalyzer(ExplainerBase):
     def explain(
             self,
             feature_column,
-            feature_value,
+            feature_value_or_groups,
             target_value_or_threshold,
             **kwargs
     ):
-        pass
+        assert feature_column in self.data, \
+            f"Feature column {feature_column} does not exist."
+        if isinstance(feature_value_or_groups, (list, tuple)):
+            assert len(feature_value_or_groups) == 2, \
+                "`feature_value_or_groups` is either a single value or a list/tuple " \
+                "of two lists indicating two feature groups, e.g., `feature_value_or_groups = 'X'` " \
+                "or `feature_value_or_groups = (['X', 'Y'], ['Z'])`."
+
+        feat_value2idx = defaultdict(list)
+        for i, feat in enumerate(self.data[feature_column].values):
+            feat_value2idx[feat].append(i)
+        if isinstance(feature_value_or_groups, (list, tuple)):
+            for feat in feature_value_or_groups[0]:
+                assert feat in feat_value2idx, f"Feature {feat} does not exist."
+            for feat in feature_value_or_groups[1]:
+                assert feat in feat_value2idx, f"Feature {feat} does not exist."
+        else:
+            assert feature_value_or_groups in feat_value2idx, \
+                f"Feature {feature_value_or_groups} does not exist."
+
+        group_a, group_b = [], []
+        if isinstance(feature_value_or_groups, (list, tuple)):
+            for feat in feature_value_or_groups[0]:
+                group_a += feat_value2idx[feat]
+            for feat in feature_value_or_groups[1]:
+                group_b += feat_value2idx[feat]
+        else:
+            group_a = feat_value2idx[feature_value_or_groups]
+            for feat, indices in feat_value2idx.items():
+                if feat != feature_value_or_groups:
+                    group_b += indices
+
