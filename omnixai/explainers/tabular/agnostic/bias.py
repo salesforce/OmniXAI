@@ -116,7 +116,7 @@ class BiasAnalyzer(ExplainerBase):
             assert len(feature_value_or_threshold) == 2, \
                 "`feature_value_or_threshold` is either a single value or a list/tuple " \
                 "of two lists indicating two feature groups, e.g., `feature_value_or_threshold = 'X'` " \
-                "or `feature_value_or_threshold = (['X', 'Y'], ['Z'])`."
+                "or `feature_value_or_threshold = (['X', 'Y'], 'Z')`."
 
         group_a, group_b = [], []
         if feature_column in self.cate_columns:
@@ -124,10 +124,16 @@ class BiasAnalyzer(ExplainerBase):
             for i, feat in enumerate(self.data[feature_column].values):
                 feat_value2idx[feat].append(i)
             if isinstance(feature_value_or_threshold, (list, tuple)):
-                for feat in feature_value_or_threshold[0]:
+                features = feature_value_or_threshold[0] if \
+                    isinstance(feature_value_or_threshold[0], (list, tuple)) \
+                    else [feature_value_or_threshold[0]]
+                for feat in features:
                     assert feat in feat_value2idx, f"Feature {feat} does not exist."
                     group_a += feat_value2idx[feat]
-                for feat in feature_value_or_threshold[1]:
+                features = feature_value_or_threshold[1] if \
+                    isinstance(feature_value_or_threshold[1], (list, tuple)) \
+                    else [feature_value_or_threshold[1]]
+                for feat in features:
                     assert feat in feat_value2idx, f"Feature {feat} does not exist."
                     group_b += feat_value2idx[feat]
             else:
