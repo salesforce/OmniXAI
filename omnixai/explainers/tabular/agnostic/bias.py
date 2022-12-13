@@ -61,7 +61,7 @@ class BiasAnalyzer(ExplainerBase):
         self.targs = np.array(training_targets)
         self.preds = self._predict(training_data, batch_size=kwargs.get("batch_size", 64))
         self.all_labels = list(set(self.targs.astype(int))) if mode == "classification" \
-            else self.targs
+            else np.median(self.targs)
 
     def _predict(self, X: Tabular, batch_size=64):
         n, predictions = X.shape[0], []
@@ -70,14 +70,14 @@ class BiasAnalyzer(ExplainerBase):
         z = np.concatenate(predictions, axis=0)
         return z.flatten() if self.mode == "regression" else np.argmax(z, axis=1)
 
-    def _get_labels(self, group_a, group_b, labels=None):
-        if labels is None:
-            labels = self.all_labels
-        if not isinstance(labels, (list, tuple, np.ndarray)):
-            labels = [labels]
+    def _predictions_by_groups(self, group_a, group_b, targets=None):
+        if targets is None:
+            targets = self.all_labels
+        if not isinstance(targets, (list, tuple, np.ndarray)):
+            targets = [targets]
         targ_a, targ_b = self.targs[group_a], self.targs[group_b]
         pred_a, pred_b = self.preds[group_a], self.preds[group_b]
-        return targ_a, targ_b, pred_a, pred_b, labels
+        return targ_a, targ_b, pred_a, pred_b, targets
 
     def explain(
             self,
@@ -121,7 +121,7 @@ class BiasAnalyzer(ExplainerBase):
         metric_class = _BiasMetricsForClassification if self.mode == "classification" \
             else _BiasMetricsForRegression
         targ_a, targ_b, pred_a, pred_b, labels = \
-            self._get_labels(group_a, group_b, target_value_or_threshold)
+            self._predictions_by_groups(group_a, group_b, target_value_or_threshold)
 
         res = {}
         stats = metric_class.compute_stats(targ_a, targ_b, pred_a, pred_b, labels)
