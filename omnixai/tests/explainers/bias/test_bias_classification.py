@@ -30,8 +30,7 @@ class TestClassificationBias(unittest.TestCase):
             feature_value_or_threshold="Female"
         )
         print(explanations.get_explanations())
-
-        explanations.ipython_plot()
+        explanations.plotly_plot()
 
 
 if __name__ == "__main__":
