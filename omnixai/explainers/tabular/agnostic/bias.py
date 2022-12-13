@@ -118,18 +118,23 @@ class BiasAnalyzer(ExplainerBase):
                 if feat != feature_value_or_groups:
                     group_b += indices
 
+        metric_class = _BiasMetricsForClassification if self.mode == "classification" \
+            else _BiasMetricsForRegression
         targ_a, targ_b, pred_a, pred_b, labels = \
             self._get_labels(group_a, group_b, target_value_or_threshold)
 
         res = {}
-        stats = self._compute_stats(targ_a, targ_b, pred_a, pred_b, labels)
+        stats = metric_class.compute_stats(targ_a, targ_b, pred_a, pred_b, labels)
         for metric_name in ["DPL", "DI", "DCO", "RD", "DLR", "AD", "TE"]:
-            func = getattr(BiasAnalyzer, f"_{metric_name.lower()}")
+            func = getattr(metric_class, f"_{metric_name.lower()}")
             res[metric_name] = func(stats, targ_a, targ_b, pred_a, pred_b, labels)
         print(res)
 
+
+class _BiasMetricsForClassification:
+
     @staticmethod
-    def _compute_stats(targ_a, targ_b, pred_a, pred_b, labels):
+    def compute_stats(targ_a, targ_b, pred_a, pred_b, labels):
         stats = defaultdict(dict)
         for label in labels:
             stats[label]["na"] = len([x for x in targ_a if x == label])
@@ -147,7 +152,7 @@ class BiasAnalyzer(ExplainerBase):
         return stats
 
     @staticmethod
-    def _dpl(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def dpl(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Difference in proportions in predicted labels
         """
@@ -156,7 +161,7 @@ class BiasAnalyzer(ExplainerBase):
                 for label in labels}
 
     @staticmethod
-    def _di(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def di(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Disparate Impact.
         """
@@ -165,7 +170,7 @@ class BiasAnalyzer(ExplainerBase):
                 for label in labels}
 
     @staticmethod
-    def _dco(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def dco(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Difference in conditional outcomes.
         """
@@ -174,7 +179,7 @@ class BiasAnalyzer(ExplainerBase):
                 for label in labels}
 
     @staticmethod
-    def _rd(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def rd(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Recall difference.
         """
@@ -183,7 +188,7 @@ class BiasAnalyzer(ExplainerBase):
                 for label in labels}
 
     @staticmethod
-    def _dlr(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def dlr(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Difference in Label rates (precision difference).
         """
@@ -192,7 +197,7 @@ class BiasAnalyzer(ExplainerBase):
                 for label in labels}
 
     @staticmethod
-    def _ad(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def ad(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Accuracy difference.
         """
@@ -200,7 +205,7 @@ class BiasAnalyzer(ExplainerBase):
                 for label in labels}
 
     @staticmethod
-    def _te(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def te(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Treatment equality.
         """
@@ -209,8 +214,12 @@ class BiasAnalyzer(ExplainerBase):
                 for label in labels}
 
     @staticmethod
-    def _cddpl(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def cddpl(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Conditional demographic disparity of predicted labels.
         """
         pass
+
+
+class _BiasMetricsForRegression:
+    pass
