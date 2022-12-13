@@ -127,7 +127,7 @@ class BiasAnalyzer(ExplainerBase):
         stats = metric_class.compute_stats(targ_a, targ_b, pred_a, pred_b, targets)
         for metric_name in ["DPL", "DI", "DCO", "RD", "DLR", "AD", "TE"]:
             func = getattr(metric_class, f"{metric_name.lower()}")
-            res[metric_name] = func(stats, targ_a, targ_b, pred_a, pred_b, targets)
+            res[metric_name] = func(stats, pred_a, pred_b, targets)
         print(res)
 
 
@@ -152,7 +152,7 @@ class _BiasMetricsForClassification:
         return stats
 
     @staticmethod
-    def dpl(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def dpl(stats, pred_a, pred_b, labels):
         """
         Difference in proportions in predicted labels
         """
@@ -161,7 +161,7 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
     @staticmethod
-    def di(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def di(stats, pred_a, pred_b, labels):
         """
         Disparate Impact.
         """
@@ -170,7 +170,7 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
     @staticmethod
-    def dco(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def dco(stats, pred_a, pred_b, labels):
         """
         Difference in conditional outcomes.
         """
@@ -179,7 +179,7 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
     @staticmethod
-    def rd(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def rd(stats, pred_a, pred_b, labels):
         """
         Recall difference.
         """
@@ -188,7 +188,7 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
     @staticmethod
-    def dlr(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def dlr(stats, pred_a, pred_b, labels):
         """
         Difference in Label rates (precision difference).
         """
@@ -197,7 +197,7 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
     @staticmethod
-    def ad(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def ad(stats, pred_a, pred_b, labels):
         """
         Accuracy difference.
         """
@@ -205,7 +205,7 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
     @staticmethod
-    def te(stats, targ_a, targ_b, pred_a, pred_b, labels):
+    def te(stats, pred_a, pred_b, labels):
         """
         Treatment equality.
         """
@@ -214,5 +214,22 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
 
-class _BiasMetricsForRegression:
-    pass
+class _BiasMetricsForRegression(_BiasMetricsForClassification):
+
+    @staticmethod
+    def compute_stats(targ_a, targ_b, pred_a, pred_b, targets):
+        stats = defaultdict(dict)
+        for target in targets:
+            stats[target]["na"] = len([x for x in targ_a if x <= target])
+            stats[target]["nb"] = len([x for x in targ_b if x <= target])
+            stats[target]["na_hat"] = len([x for x in pred_a if x <= target])
+            stats[target]["nb_hat"] = len([x for x in pred_b if x <= target])
+            stats[target]["tpa"] = len([x for x, y in zip(targ_a, pred_a) if x <= target and y <= target])
+            stats[target]["fpa"] = len([x for x, y in zip(targ_a, pred_a) if x > target and y <= target])
+            stats[target]["fna"] = len([x for x, y in zip(targ_a, pred_a) if x <= target and y > target])
+            stats[target]["tpb"] = len([x for x, y in zip(targ_b, pred_b) if x <= target and y <= target])
+            stats[target]["fpb"] = len([x for x, y in zip(targ_b, pred_b) if x > target and y <= target])
+            stats[target]["fnb"] = len([x for x, y in zip(targ_b, pred_b) if x <= target and y > target])
+            stats[target]["acc_a"] = np.sum(((targ_a <= target) == (pred_a <= target)).astype(int)) / len(pred_a)
+            stats[target]["acc_b"] = np.sum(((targ_b <= target) == (pred_b <= target)).astype(int)) / len(pred_b)
+        return stats
