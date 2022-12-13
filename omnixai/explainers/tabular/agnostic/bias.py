@@ -218,7 +218,7 @@ class _BiasMetricsForClassification:
         """
         Disparate Impact.
         """
-        return {label: stats[label]["nb_hat"] / len(pred_b) /
+        return {label: (stats[label]["nb_hat"] / len(pred_b)) /
                        (stats[label]["na_hat"] / len(pred_a) + 1e-8)
                 for label in labels}
 
