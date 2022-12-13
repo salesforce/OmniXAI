@@ -120,14 +120,14 @@ class BiasAnalyzer(ExplainerBase):
 
         metric_class = _BiasMetricsForClassification if self.mode == "classification" \
             else _BiasMetricsForRegression
-        targ_a, targ_b, pred_a, pred_b, labels = \
+        targ_a, targ_b, pred_a, pred_b, targets = \
             self._predictions_by_groups(group_a, group_b, target_value_or_threshold)
 
         res = {}
-        stats = metric_class.compute_stats(targ_a, targ_b, pred_a, pred_b, labels)
+        stats = metric_class.compute_stats(targ_a, targ_b, pred_a, pred_b, targets)
         for metric_name in ["DPL", "DI", "DCO", "RD", "DLR", "AD", "TE"]:
             func = getattr(metric_class, f"{metric_name.lower()}")
-            res[metric_name] = func(stats, targ_a, targ_b, pred_a, pred_b, labels)
+            res[metric_name] = func(stats, targ_a, targ_b, pred_a, pred_b, targets)
         print(res)
 
 
