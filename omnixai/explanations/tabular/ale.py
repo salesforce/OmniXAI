@@ -94,7 +94,7 @@ class ALEExplanation(ExplanationBase):
 
         explanations = self.get_explanations()
         features = list(explanations.keys())
-        num_cols = 2
+        num_cols = min(2, len(features))
         num_rows = int(np.ceil(len(features) / num_cols))
         fig = make_subplots(rows=num_rows, cols=num_cols, subplot_titles=features)
         for i, feature in enumerate(features):
