@@ -213,8 +213,8 @@ class _BiasMetricsForClassification:
         """
         Recall difference.
         """
-        return {label: stats[label]["tpa"] / stats[label]["na"] -
-                       stats[label]["tpb"] / stats[label]["nb"]
+        return {label: stats[label]["tpa"] / max(stats[label]["na"], 1) -
+                       stats[label]["tpb"] / max(stats[label]["nb"], 1)
                 for label in labels}
 
     @staticmethod

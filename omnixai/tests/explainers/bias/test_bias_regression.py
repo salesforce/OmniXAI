@@ -5,6 +5,7 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 import unittest
+import numpy as np
 from omnixai.utils.misc import set_random_seed
 from omnixai.explainers.tabular.agnostic.bias import BiasAnalyzer
 from omnixai.tests.explainers.tasks import TabularRegression
@@ -15,7 +16,7 @@ class TestRegressionBias(unittest.TestCase):
     def test_classification_metric(self):
         set_random_seed()
         task = TabularRegression().train_boston()
-        predict_function = lambda z: task.model.predict_proba(task.transform.transform(z))
+        predict_function = lambda z: task.model.predict(task.transform.transform(z))
 
         explainer = BiasAnalyzer(
             mode="regression",
@@ -24,8 +25,8 @@ class TestRegressionBias(unittest.TestCase):
             training_targets=task.test_targets
         )
         explainer.explain(
-            feature_column="Sex",
-            feature_value_or_groups="Female"
+            feature_column="LSTAT",
+            feature_value_or_threshold=10
         )
 
 
