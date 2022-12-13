@@ -25,10 +25,13 @@ class TestClassificationBias(unittest.TestCase):
             training_data=task.test_data,
             training_targets=task.test_targets
         )
-        explainer.explain(
+        explanations = explainer.explain(
             feature_column="Sex",
             feature_value_or_threshold="Female"
         )
+        print(explanations.get_explanations())
+
+        explanations.ipython_plot()
 
 
 if __name__ == "__main__":

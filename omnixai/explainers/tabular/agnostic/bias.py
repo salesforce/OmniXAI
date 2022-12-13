@@ -13,6 +13,7 @@ from collections import defaultdict
 
 from ...base import ExplainerBase
 from ....data.tabular import Tabular
+from ....explanations.tabular.bias import BiasExplanation
 
 
 class BiasAnalyzer(ExplainerBase):
@@ -86,7 +87,7 @@ class BiasAnalyzer(ExplainerBase):
             feature_value_or_threshold,
             target_value_or_threshold=None,
             **kwargs
-    ):
+    ) -> BiasExplanation:
         """
 
         :param feature_column:
@@ -155,12 +156,12 @@ class BiasAnalyzer(ExplainerBase):
         targ_a, targ_b, pred_a, pred_b, targets = \
             self._predictions_by_groups(group_a, group_b, target_value_or_threshold)
 
-        res = {}
+        explanations = BiasExplanation(mode=self.mode)
         stats = metric_class.compute_stats(targ_a, targ_b, pred_a, pred_b, targets)
         for metric_name in ["DPL", "DI", "DCO", "RD", "DLR", "AD", "TE"]:
             func = getattr(metric_class, f"{metric_name.lower()}")
-            res[metric_name] = func(stats, pred_a, pred_b, targets)
-        print(res)
+            explanations.add(metric_name, func(stats, pred_a, pred_b, targets))
+        return explanations
 
 
 class _BiasMetricsForClassification:

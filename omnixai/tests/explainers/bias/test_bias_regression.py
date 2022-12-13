@@ -24,10 +24,15 @@ class TestRegressionBias(unittest.TestCase):
             training_data=task.test_data,
             training_targets=task.test_targets
         )
-        explainer.explain(
+        explanations = explainer.explain(
             feature_column="LSTAT",
             feature_value_or_threshold=10
         )
+        print(explanations.get_explanations())
+
+        import matplotlib.pyplot as plt
+        explanations.plot()
+        plt.show()
 
 
 if __name__ == "__main__":

@@ -43,28 +43,88 @@ class BiasExplanation(ExplanationBase):
         """
         return self.explanations
 
+    def _rearrange_metrics(self):
+        metric_names = list(self.explanations.keys())
+        labels = sorted(self.explanations[metric_names[0]].keys())
+        label_metrics = [[self.explanations[metric][label] for metric in metric_names]
+                         for label in labels]
+        return metric_names, labels, label_metrics
+
     def plot(self, **kwargs):
-        pass
+        """
+        Returns a matplotlib figure showing the bias analysis results.
+
+        :return: A matplotlib figure plotting bias analysis results.
+        """
+        import matplotlib.pyplot as plt
+
+        figures = []
+        metric_names, labels, label_metrics = self._rearrange_metrics()
+        for i, label in enumerate(labels):
+            fig, axes = plt.subplots(1, 1)
+            metric_scores = sorted(
+                list(zip([f"{f}    " for f in metric_names], label_metrics[i])),
+                key=lambda x: abs(x[1]),
+            )
+            fnames = [f for f, s in metric_scores]
+            scores = [s for f, s in metric_scores]
+            colors = ["green" if x > 0 else "red" for x in scores]
+            positions = np.arange(len(scores)) + 0.5
+
+            plt.sca(axes)
+            plt.barh(positions, scores, align="center", color=colors)
+            axes.yaxis.set_ticks_position("right")
+            plt.yticks(positions, fnames, ha="right")
+            plt.title(f"Label: {label}" if self.mode == "classification"
+                      else f"Target threshold: {label}")
+            plt.grid()
+            figures.append(fig)
+        return figures
 
     def _plotly_figure(self, **kwargs):
         from plotly.subplots import make_subplots
         import plotly.graph_objects as go
 
-    def plotly_plot(self, class_names=None, **kwargs):
+        metric_names, labels, label_metrics = self._rearrange_metrics()
+        num_cols = 2
+        num_rows = int(np.ceil(len(labels) / num_cols))
+        if self.mode == "classification":
+            subplot_titles = [f"Label: {label}" for label in labels]
+        else:
+            subplot_titles = [f"Target threshold: {label}" for label in labels]
+        fig = make_subplots(rows=num_rows, cols=num_cols, subplot_titles=subplot_titles)
+
+        for i, label in enumerate(labels):
+            row, col = divmod(i, num_cols)
+            metric_scores = sorted(
+                list(zip(metric_names, label_metrics[i])),
+                key=lambda x: abs(x[1]), reverse=True
+            )
+            fnames = [f for f, s in metric_scores]
+            scores = [s for f, s in metric_scores]
+            fig.add_trace(
+                go.Bar(x=fnames, y=scores),
+                row=row + 1, col=col + 1)
+
+        if num_rows > 1:
+            fig.update_layout(height=260 * num_rows)
+        return fig
+
+    def plotly_plot(self, **kwargs):
         """
         Returns a plotly dash figure showing the bias analysis results.
 
         :return: A plotly dash figure plotting bias analysis results.
         """
-        return DashFigure(self._plotly_figure(class_names=class_names, **kwargs))
+        return DashFigure(self._plotly_figure(**kwargs))
 
-    def ipython_plot(self, class_names=None, **kwargs):
+    def ipython_plot(self, **kwargs):
         """
         Shows the bias analysis results in IPython.
         """
         import plotly
 
-        plotly.offline.iplot(self._plotly_figure(class_names=class_names, **kwargs))
+        plotly.offline.iplot(self._plotly_figure(**kwargs))
 
     @classmethod
     def from_dict(cls, d):
