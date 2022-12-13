@@ -86,7 +86,7 @@ class BiasExplanation(ExplanationBase):
         import plotly.graph_objects as go
 
         metric_names, labels, label_metrics = self._rearrange_metrics()
-        num_cols = 2
+        num_cols = min(2, len(labels))
         num_rows = int(np.ceil(len(labels) / num_cols))
         if self.mode == "classification":
             subplot_titles = [f"Label: {label}" for label in labels]

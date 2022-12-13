@@ -30,9 +30,7 @@ class TestRegressionBias(unittest.TestCase):
         )
         print(explanations.get_explanations())
 
-        import matplotlib.pyplot as plt
-        explanations.plot()
-        plt.show()
+        explanations.ipython_plot()
 
 
 if __name__ == "__main__":
