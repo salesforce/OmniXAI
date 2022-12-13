@@ -102,10 +102,11 @@ class BiasExplanation(ExplanationBase):
             )
             fnames = [f for f, s in metric_scores]
             scores = [s for f, s in metric_scores]
+            colors = ["#008B8B" if s > 0 else "#DC143C" for s in scores]
             fig.add_trace(
-                go.Bar(x=fnames, y=scores),
-                row=row + 1, col=col + 1)
-
+                go.Bar(x=fnames, y=scores, marker_color=colors),
+                row=row + 1, col=col + 1
+            )
         if num_rows > 1:
             fig.update_layout(height=260 * num_rows)
         return fig
