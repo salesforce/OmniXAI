@@ -60,6 +60,7 @@ We will continue improving this library to make it more comprehensive in the fut
 |     Feature analysis      |      NA       |      Global      |  ✅  |         |       |      |      |
 |     Feature selection     |      NA       |      Global      |  ✅  |         |       |      |      |
 |    Prediction metrics     |   Black box   |      Global      |     |    ✅    |   ✅   | ✅   |  ✅  |
+|       Bias metrics        |   Black box   |      Global      |     |    ✅    |       |      |      |
 | Partial dependence plots  |   Black box   |      Global      |     |    ✅    |       |      |      |
 | Accumulated local effects |   Black box   |      Global      |     |    ✅    |       |      |      |
 |   Sensitivity analysis    |   Black box   |      Global      |     |    ✅    |       |      |      |
