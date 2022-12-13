@@ -123,7 +123,7 @@ class BiasAnalyzer(ExplainerBase):
 
         res = {}
         stats = self._compute_stats(targ_a, targ_b, pred_a, pred_b, labels)
-        for metric_name in ["DPL", "DI", "DCO", "RD", "DLR"]:
+        for metric_name in ["DPL", "DI", "DCO", "RD", "DLR", "AD"]:
             func = getattr(BiasAnalyzer, f"_{metric_name.lower()}")
             res[metric_name] = func(stats, targ_a, targ_b, pred_a, pred_b, labels)
         print(res)
@@ -138,6 +138,8 @@ class BiasAnalyzer(ExplainerBase):
             stats[label]["nb_hat"] = len([x for x in pred_b if x == label])
             stats[label]["tpa"] = len([x for x, y in zip(targ_a, pred_a) if x == label and y == label])
             stats[label]["tpb"] = len([x for x, y in zip(targ_b, pred_b) if x == label and y == label])
+            stats[label]["acc_a"] = np.sum((targ_a == pred_a).astype(int)) / len(pred_a)
+            stats[label]["acc_b"] = np.sum((targ_b == pred_b).astype(int)) / len(pred_b)
         return stats
 
     @staticmethod
@@ -189,4 +191,12 @@ class BiasAnalyzer(ExplainerBase):
     def _ad(stats, targ_a, targ_b, pred_a, pred_b, labels):
         """
         Accuracy difference.
+        """
+        return {label: stats[label]["acc_a"] - stats[label]["acc_b"]
+                for label in labels}
+
+    @staticmethod
+    def _te(stats, targ_a, targ_b, pred_a, pred_b, labels):
+        """
+        Treatment equality.
         """
