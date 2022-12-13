@@ -50,7 +50,7 @@ class BiasAnalyzer(ExplainerBase):
             assert training_data.target_column, \
                 "`training_data` has no label/target column. Please set `training_targets`"
             assert training_data.to_pd(copy=False)[training_data.target_column] in \
-                [np.int, np.int32, np.int64, np.float, np.float32, np.float64], \
+                   [np.int, np.int32, np.int64, np.float, np.float32, np.float64], \
                 "The targets/labels in `training_data` must be either int or float."
             training_targets = training_data.get_target_column()
             training_data = training_data.remove_target_column()
@@ -130,14 +130,16 @@ class BiasAnalyzer(ExplainerBase):
                 if not isinstance(a, (list, tuple)):
                     group_a = [i for i, v in enumerate(values) if v <= a]
                 else:
-                    assert len(a) == 2, "The element in `feature_value_or_threshold` is either a number " \
-                                        "or a tuple `(min_value, max_value)`."
+                    assert len(a) == 2, \
+                        "The element in `feature_value_or_threshold` is either a number " \
+                        "or a tuple `(min_value, max_value)`."
                     group_a = [i for i, v in enumerate(values) if a[0] < v <= a[1]]
                 if not isinstance(b, (list, tuple)):
                     group_b = [i for i, v in enumerate(values) if v > b]
                 else:
-                    assert len(b) == 2, "The element in `feature_value_or_threshold` is either a number " \
-                                        "or a tuple `(min_value, max_value)`."
+                    assert len(b) == 2, \
+                        "The element in `feature_value_or_threshold` is either a number " \
+                        "or a tuple `(min_value, max_value)`."
                     group_b = [i for i, v in enumerate(values) if b[0] < v <= b[1]]
             else:
                 assert type(feature_value_or_threshold) in [int, float], \
@@ -146,8 +148,8 @@ class BiasAnalyzer(ExplainerBase):
                 group_a = [i for i, v in enumerate(values) if v <= feature_value_or_threshold]
                 group_b = [i for i, v in enumerate(values) if v > feature_value_or_threshold]
 
-        assert len(group_a) > 0, "The first group (advantaged group) for bias analysis is empty."
-        assert len(group_b) > 0, "The second group (disadvantaged group) for bias analysis is empty."
+        assert len(group_a) > 0, "The 1st group (advantaged group) for bias analysis is empty."
+        assert len(group_b) > 0, "The 2nd group (disadvantaged group) for bias analysis is empty."
         metric_class = _BiasMetricsForClassification if self.mode == "classification" \
             else _BiasMetricsForRegression
         targ_a, targ_b, pred_a, pred_b, targets = \
