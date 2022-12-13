@@ -89,12 +89,26 @@ class BiasAnalyzer(ExplainerBase):
             **kwargs
     ) -> BiasExplanation:
         """
+        Runs bias analysis on the given model and dataset.
 
-        :param feature_column:
-        :param feature_value_or_threshold:
-        :param target_value_or_threshold:
-        :param kwargs:
-        :return:
+        :param feature_column: The feature column to analyze.
+        :param feature_value_or_threshold: The feature value for a categorical feature or feature value
+            threshold for a continuous-value feature. It can either be a single value or a list/tuple.
+            When it is a single value, (a) for categorical features, the advantaged group will be those samples contains
+            this feature value and the disadvantaged group will be the other samples, (b) for continuous-valued
+            features, the advantaged group will be those samples whose values of `feature_column` <= `feature_value_or_threshold`
+            and the disadvantaged group will be the other samples. When it is a list/tuple, (a) for categorical features,
+            the advantaged group will be the samples contains the feature values in the first element in the list and
+            the disadvantaged group will be the samples contains the feature values in the second element in the list.
+            (b) for continuous-valued features, if `feature_value_or_threshold` is [a, b], then the advantaged group
+            will be the samples whose values of `feature_column` <= a and the disadvantaged group will be the samples
+            whose values of `feature_column` > b. If `feature_value_or_threshold` is [a, [b, c]], the disadvantaged
+            group will be the samples whose values of `feature_column` is in (b, c].
+        :param target_value_or_threshold: The target label for classification or target
+            threshold for regression. For regression, it will be converted into a binary classification
+            problem when computing bias metrics, i.e., label = 0 if target value <= target_value_or_threshold,
+            and label = 1 if target value > target_value_or_threshold.
+        :return: The bias analysis results stored in ``BiasExplanation``.
         """
         assert feature_column in self.data, \
             f"Feature column {feature_column} does not exist."
