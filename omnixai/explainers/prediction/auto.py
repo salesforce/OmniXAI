@@ -111,11 +111,11 @@ class PredictionAnalyzer(ExplainerBase):
 
         self.mode = mode
         self.y_test = test_targets.astype(int) if mode == "classification" else test_targets
-        self.y_prob = self._predict(test_data, batch_size=kwargs.get("batch_size", 64))
+        self.y_prob = self._predict(test_data, batch_size=kwargs.get("batch_size", 128))
         if mode == "classification":
             self.num_classes = self.y_prob.shape[1]
 
-    def _predict(self, x, batch_size=64):
+    def _predict(self, x, batch_size=128):
         n, predictions = x.shape[0], []
         for i in range(0, n, batch_size):
             predictions.append(self.predict_function(x[i: i + batch_size]))
