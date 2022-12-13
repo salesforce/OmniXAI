@@ -61,11 +61,11 @@ class BiasAnalyzer(ExplainerBase):
         self.cate_columns = training_data.categorical_columns
         self.predict_function = predict_function
         self.targs = np.array(training_targets)
-        self.preds = self._predict(training_data, batch_size=kwargs.get("batch_size", 64))
+        self.preds = self._predict(training_data, batch_size=kwargs.get("batch_size", 128))
         self.all_labels = list(set(self.targs.astype(int))) if mode == "classification" \
             else np.median(self.targs)
 
-    def _predict(self, X: Tabular, batch_size=64):
+    def _predict(self, X: Tabular, batch_size=128):
         n, predictions = X.shape[0], []
         for i in range(0, n, batch_size):
             predictions.append(self.predict_function(X[i: i + batch_size]))
