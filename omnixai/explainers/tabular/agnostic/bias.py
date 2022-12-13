@@ -57,6 +57,7 @@ class BiasAnalyzer(ExplainerBase):
 
         self.mode = mode
         self.data = training_data.to_pd(copy=False)
+        self.cate_columns = training_data.categorical_columns
         self.predict_function = predict_function
         self.targs = np.array(training_targets)
         self.preds = self._predict(training_data, batch_size=kwargs.get("batch_size", 64))
@@ -82,41 +83,55 @@ class BiasAnalyzer(ExplainerBase):
     def explain(
             self,
             feature_column,
-            feature_value_or_groups,
+            feature_value_or_threshold,
             target_value_or_threshold=None,
             **kwargs
     ):
+        """
+
+        :param feature_column:
+        :param feature_value_or_threshold:
+        :param target_value_or_threshold:
+        :param kwargs:
+        :return:
+        """
         assert feature_column in self.data, \
             f"Feature column {feature_column} does not exist."
-        if isinstance(feature_value_or_groups, (list, tuple)):
-            assert len(feature_value_or_groups) == 2, \
-                "`feature_value_or_groups` is either a single value or a list/tuple " \
-                "of two lists indicating two feature groups, e.g., `feature_value_or_groups = 'X'` " \
-                "or `feature_value_or_groups = (['X', 'Y'], ['Z'])`."
-
-        feat_value2idx = defaultdict(list)
-        for i, feat in enumerate(self.data[feature_column].values):
-            feat_value2idx[feat].append(i)
-        if isinstance(feature_value_or_groups, (list, tuple)):
-            for feat in feature_value_or_groups[0]:
-                assert feat in feat_value2idx, f"Feature {feat} does not exist."
-            for feat in feature_value_or_groups[1]:
-                assert feat in feat_value2idx, f"Feature {feat} does not exist."
-        else:
-            assert feature_value_or_groups in feat_value2idx, \
-                f"Feature {feature_value_or_groups} does not exist."
+        if isinstance(feature_value_or_threshold, (list, tuple)):
+            assert len(feature_value_or_threshold) == 2, \
+                "`feature_value_or_threshold` is either a single value or a list/tuple " \
+                "of two lists indicating two feature groups, e.g., `feature_value_or_threshold = 'X'` " \
+                "or `feature_value_or_threshold = (['X', 'Y'], ['Z'])`."
 
         group_a, group_b = [], []
-        if isinstance(feature_value_or_groups, (list, tuple)):
-            for feat in feature_value_or_groups[0]:
-                group_a += feat_value2idx[feat]
-            for feat in feature_value_or_groups[1]:
-                group_b += feat_value2idx[feat]
+        if feature_column in self.cate_columns:
+            feat_value2idx = defaultdict(list)
+            for i, feat in enumerate(self.data[feature_column].values):
+                feat_value2idx[feat].append(i)
+            if isinstance(feature_value_or_threshold, (list, tuple)):
+                for feat in feature_value_or_threshold[0]:
+                    assert feat in feat_value2idx, f"Feature {feat} does not exist."
+                    group_a += feat_value2idx[feat]
+                for feat in feature_value_or_threshold[1]:
+                    assert feat in feat_value2idx, f"Feature {feat} does not exist."
+                    group_b += feat_value2idx[feat]
+            else:
+                assert feature_value_or_threshold in feat_value2idx, \
+                    f"Feature {feature_value_or_threshold} does not exist."
+                group_a = feat_value2idx[feature_value_or_threshold]
+                for feat, indices in feat_value2idx.items():
+                    if feat != feature_value_or_threshold:
+                        group_b += indices
         else:
-            group_a = feat_value2idx[feature_value_or_groups]
-            for feat, indices in feat_value2idx.items():
-                if feat != feature_value_or_groups:
-                    group_b += indices
+            values = self.data[feature_column].values
+            if isinstance(feature_value_or_threshold, (list, tuple)):
+                pass
+            else:
+                assert type(feature_value_or_threshold) in [int, float], \
+                    "For continuous-valued features, if `feature_value_or_threshold` is not a list, " \
+                    "it must be either int or float."
+                group_a = [i for i, v in enumerate(values) if v <= feature_value_or_threshold]
+                group_b = [i for i, v in enumerate(values) if v > feature_value_or_threshold]
 
         metric_class = _BiasMetricsForClassification if self.mode == "classification" \
             else _BiasMetricsForRegression
