@@ -27,7 +27,7 @@ class TestClassificationBias(unittest.TestCase):
         )
         explainer.explain(
             feature_column="Sex",
-            feature_value_or_groups="Female"
+            feature_value_or_threshold="Female"
         )
 
 

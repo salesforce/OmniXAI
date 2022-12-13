@@ -133,6 +133,8 @@ class BiasAnalyzer(ExplainerBase):
                 group_a = [i for i, v in enumerate(values) if v <= feature_value_or_threshold]
                 group_b = [i for i, v in enumerate(values) if v > feature_value_or_threshold]
 
+        assert len(group_a) > 0, "The first group (advantaged group) for bias analysis is empty."
+        assert len(group_b) > 0, "The second group (disadvantaged group) for bias analysis is empty."
         metric_class = _BiasMetricsForClassification if self.mode == "classification" \
             else _BiasMetricsForRegression
         targ_a, targ_b, pred_a, pred_b, targets = \
