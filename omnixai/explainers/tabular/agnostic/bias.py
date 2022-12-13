@@ -125,7 +125,20 @@ class BiasAnalyzer(ExplainerBase):
         else:
             values = self.data[feature_column].values
             if isinstance(feature_value_or_threshold, (list, tuple)):
-                pass
+                a = feature_value_or_threshold[0]
+                if not isinstance(a, (list, tuple)):
+                    group_a = [i for i, v in enumerate(values) if v <= a]
+                else:
+                    assert len(a) == 2, "The element in `feature_value_or_threshold` is either a number " \
+                                        "or a tuple `(min_value, max_value)`."
+                    group_a = [i for i, v in enumerate(values) if a[0] < v <= a[1]]
+                b = feature_value_or_threshold[1]
+                if not isinstance(b, (list, tuple)):
+                    group_b = [i for i, v in enumerate(values) if v > b]
+                else:
+                    assert len(b) == 2, "The element in `feature_value_or_threshold` is either a number " \
+                                        "or a tuple `(min_value, max_value)`."
+                    group_b = [i for i, v in enumerate(values) if b[0] < v <= b[1]]
             else:
                 assert type(feature_value_or_threshold) in [int, float], \
                     "For continuous-valued features, if `feature_value_or_threshold` is not a list, " \
