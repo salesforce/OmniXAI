@@ -213,13 +213,6 @@ class _BiasMetricsForClassification:
                        stats[label]["fna"] / max(stats[label]["fpa"], 1)
                 for label in labels}
 
-    @staticmethod
-    def cddpl(stats, targ_a, targ_b, pred_a, pred_b, labels):
-        """
-        Conditional demographic disparity of predicted labels.
-        """
-        pass
-
 
 class _BiasMetricsForRegression:
     pass
