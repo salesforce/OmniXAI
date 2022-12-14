@@ -49,7 +49,7 @@ class PartialDependenceTabular(TabularExplainer):
                 candidates = sorted(np.unique(self.data[:, column_index]))
             else:
                 # Continuous-valued features
-                percentiles = np.linspace(1, 99, num=grid_resolution)
+                percentiles = np.linspace(0, 100, num=grid_resolution)
                 candidates = sorted(set(np.percentile(self.data[:, column_index], percentiles)))
             self.candidates[column_index] = candidates
 
