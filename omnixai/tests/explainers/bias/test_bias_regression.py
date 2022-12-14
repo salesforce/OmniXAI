@@ -26,7 +26,8 @@ class TestRegressionBias(unittest.TestCase):
         )
         explanations = explainer.explain(
             feature_column="LSTAT",
-            feature_value_or_threshold=10
+            feature_value_or_threshold=10,
+            label_value_or_threshold=22
         )
         print(explanations.get_explanations())
         explanations.plotly_plot()

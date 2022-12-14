@@ -27,7 +27,8 @@ class TestClassificationBias(unittest.TestCase):
         )
         explanations = explainer.explain(
             feature_column="Sex",
-            feature_value_or_threshold=["Female", ["Male"]]
+            feature_value_or_threshold=["Female", ["Male"]],
+            label_value_or_threshold=1
         )
         print(explanations.get_explanations())
         explanations.plotly_plot()

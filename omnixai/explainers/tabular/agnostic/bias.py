@@ -62,8 +62,6 @@ class BiasAnalyzer(ExplainerBase):
         self.predict_function = predict_function
         self.targs = np.array(training_targets)
         self.preds = self._predict(training_data, batch_size=kwargs.get("batch_size", 128))
-        self.all_labels = list(set(self.targs.astype(int))) if mode == "classification" \
-            else np.median(self.targs)
 
     def _predict(self, X: Tabular, batch_size=128):
         n, predictions = X.shape[0], []
@@ -72,9 +70,7 @@ class BiasAnalyzer(ExplainerBase):
         z = np.concatenate(predictions, axis=0)
         return z.flatten() if self.mode == "regression" else np.argmax(z, axis=1)
 
-    def _predictions_by_groups(self, group_a, group_b, targets=None):
-        if targets is None:
-            targets = self.all_labels
+    def _predictions_by_groups(self, group_a, group_b, targets):
         if not isinstance(targets, (list, tuple, np.ndarray)):
             targets = [targets]
         targ_a, targ_b = self.targs[group_a], self.targs[group_b]
@@ -85,7 +81,7 @@ class BiasAnalyzer(ExplainerBase):
             self,
             feature_column,
             feature_value_or_threshold,
-            target_value_or_threshold=None,
+            label_value_or_threshold,
             **kwargs
     ) -> BiasExplanation:
         """
@@ -104,7 +100,7 @@ class BiasAnalyzer(ExplainerBase):
             will be the samples whose values of `feature_column` <= a and the disadvantaged group will be the samples
             whose values of `feature_column` > b. If `feature_value_or_threshold` is [a, [b, c]], the disadvantaged
             group will be the samples whose values of `feature_column` is in (b, c].
-        :param target_value_or_threshold: The target label for classification or target
+        :param label_value_or_threshold: The target label for classification or target
             threshold for regression. For regression, it will be converted into a binary classification
             problem when computing bias metrics, i.e., label = 0 if target value <= target_value_or_threshold,
             and label = 1 if target value > target_value_or_threshold.
@@ -112,11 +108,15 @@ class BiasAnalyzer(ExplainerBase):
         """
         assert feature_column in self.data, \
             f"Feature column {feature_column} does not exist."
+        assert feature_value_or_threshold is not None, \
+            "`feature_value_or_threshold` cannot be None."
         if isinstance(feature_value_or_threshold, (list, tuple)):
             assert len(feature_value_or_threshold) == 2, \
                 "`feature_value_or_threshold` is either a single value or a list/tuple " \
                 "of two lists indicating two feature groups, e.g., `feature_value_or_threshold = 'X'` " \
                 "or `feature_value_or_threshold = (['X', 'Y'], 'Z')`."
+        assert label_value_or_threshold is not None, \
+            "`label_value_or_threshold` cannot be None."
 
         group_a, group_b = [], []
         if feature_column in self.cate_columns:
@@ -174,7 +174,7 @@ class BiasAnalyzer(ExplainerBase):
         metric_class = _BiasMetricsForClassification if self.mode == "classification" \
             else _BiasMetricsForRegression
         targ_a, targ_b, pred_a, pred_b, targets = \
-            self._predictions_by_groups(group_a, group_b, target_value_or_threshold)
+            self._predictions_by_groups(group_a, group_b, label_value_or_threshold)
 
         explanations = BiasExplanation(mode=self.mode)
         stats = metric_class.compute_stats(targ_a, targ_b, pred_a, pred_b, targets)
@@ -219,7 +219,7 @@ class _BiasMetricsForClassification:
         Disparate Impact.
         """
         return {label: (stats[label]["nb_hat"] / len(pred_b)) /
-                       (stats[label]["na_hat"] / len(pred_a) + 1e-8)
+                       (stats[label]["na_hat"] / len(pred_a) + 1e-4)
                 for label in labels}
 
     @staticmethod
