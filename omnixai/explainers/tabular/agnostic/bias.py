@@ -178,9 +178,9 @@ class BiasAnalyzer(ExplainerBase):
 
         explanations = BiasExplanation(mode=self.mode)
         stats = metric_class.compute_stats(targ_a, targ_b, pred_a, pred_b, targets)
-        for metric_name in ["DPL", "DI", "DCO", "RD", "DLR", "AD", "TE"]:
+        for metric_name in ["DPL", "DI", "DCO", "RD", "DLR", "AD", "TE", "CDDPL"]:
             func = getattr(metric_class, f"{metric_name.lower()}")
-            explanations.add(metric_name, func(stats, pred_a, pred_b, targets))
+            explanations.add(metric_name, func(stats, self.preds, len(pred_a), len(pred_b), targets))
         return explanations
 
 
@@ -205,25 +205,25 @@ class _BiasMetricsForClassification:
         return stats
 
     @staticmethod
-    def dpl(stats, pred_a, pred_b, labels):
+    def dpl(stats, pred_all, len_a, len_b, labels):
         """
         Difference in proportions in predicted labels
         """
-        return {label: stats[label]["na_hat"] / len(pred_a) -
-                       stats[label]["nb_hat"] / len(pred_b)
+        return {label: stats[label]["na_hat"] / len_a -
+                       stats[label]["nb_hat"] / len_b
                 for label in labels}
 
     @staticmethod
-    def di(stats, pred_a, pred_b, labels):
+    def di(stats, pred_all, len_a, len_b, labels):
         """
         Disparate Impact.
         """
-        return {label: (stats[label]["nb_hat"] / len(pred_b)) /
-                       (stats[label]["na_hat"] / len(pred_a) + 1e-4)
+        return {label: (stats[label]["nb_hat"] / len_b) /
+                       (stats[label]["na_hat"] / len_a + 1e-4)
                 for label in labels}
 
     @staticmethod
-    def dco(stats, pred_a, pred_b, labels):
+    def dco(stats, pred_all, len_a, len_b, labels):
         """
         Difference in conditional outcomes.
         """
@@ -232,7 +232,7 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
     @staticmethod
-    def rd(stats, pred_a, pred_b, labels):
+    def rd(stats, pred_all, len_a, len_b, labels):
         """
         Recall difference.
         """
@@ -241,7 +241,7 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
     @staticmethod
-    def dlr(stats, pred_a, pred_b, labels):
+    def dlr(stats, pred_all, len_a, len_b, labels):
         """
         Difference in Label rates (precision difference).
         """
@@ -250,7 +250,7 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
     @staticmethod
-    def ad(stats, pred_a, pred_b, labels):
+    def ad(stats, pred_all, len_a, len_b, labels):
         """
         Accuracy difference.
         """
@@ -258,13 +258,30 @@ class _BiasMetricsForClassification:
                 for label in labels}
 
     @staticmethod
-    def te(stats, pred_a, pred_b, labels):
+    def te(stats, pred_all, len_a, len_b, labels):
         """
         Treatment equality.
         """
         return {label: stats[label]["fnb"] / max(stats[label]["fpb"], 1) -
                        stats[label]["fna"] / max(stats[label]["fpa"], 1)
                 for label in labels}
+
+    @staticmethod
+    def cddpl(stats, pred_all, len_a, len_b, labels):
+        """
+        Conditional demographic disparity of predicted labels.
+        """
+        metrics = {}
+        for label in labels:
+            na1 = stats[label]["na_hat"]
+            nb1 = stats[label]["nb_hat"]
+            na0 = len_a - stats[label]["na_hat"]
+            nb0 = len_b - stats[label]["nb_hat"]
+            n0 = max(len([x for x in pred_all if x != label]), 1)
+            n1 = max(len(pred_all) - n0, 1)
+            s = (na0 / n0 - na1 / n1) * len_a + (nb0 / n0 - nb1 / n1) * len_b
+            metrics[label] = s / (len_a + len_b)
+        return metrics
 
 
 class _BiasMetricsForRegression(_BiasMetricsForClassification):
