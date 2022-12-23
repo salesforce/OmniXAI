@@ -194,7 +194,7 @@ def build_predict_function(model, preprocess, postprocess, mode):
     # A scikit-learn model
     if isinstance(model, BaseEstimator):
         # A model derived from sklearn.base.BaseEstimator
-        predict_func = model.predict_proba if mode == "classification" else model.predict
+        predict_func = model.predict
     else:
         # A torch model, tensorflow model or general function
         if is_torch_available():
