@@ -103,7 +103,7 @@ class PDPExplanation(ExplanationBase):
 
         explanations = self.get_explanations()
         features = list(explanations.keys())
-        num_cols = 2
+        num_cols = min(2, len(features))
         num_rows = int(np.ceil(len(features) / num_cols))
         fig = make_subplots(rows=num_rows, cols=num_cols, subplot_titles=features)
         for i, feature in enumerate(features):
@@ -138,7 +138,8 @@ class PDPExplanation(ExplanationBase):
                                                  line=dict(color="#808080"),
                                                  legendgroup="Target"),
                                       row=row + 1, col=col + 1)
-        fig.update_layout(height=260 * num_rows)
+        if num_rows > 1:
+            fig.update_layout(height=260 * num_rows)
         return fig
 
     def plotly_plot(self, class_names=None, **kwargs):

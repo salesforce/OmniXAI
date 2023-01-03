@@ -65,9 +65,6 @@ class NLPExplainer(AutoExplainerBase):
             params=params,
         )
 
-    def _convert_data(self, X):
-        return Text(X)
-
     @staticmethod
     def list_explainers():
         """
