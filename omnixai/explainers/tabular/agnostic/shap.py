@@ -50,6 +50,8 @@ class ShapTabular(TabularExplainer):
         self.link = kwargs.get("link", None)
         if self.link is None:
             self.link = "logit" if self.mode == "classification" else "identity"
+        else:
+            del kwargs["link"]
 
         self.ignored_features = set(ignored_features) if ignored_features is not None else set()
         if self.target_column is not None:

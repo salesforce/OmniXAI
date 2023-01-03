@@ -23,7 +23,8 @@ class TestShapTabular(unittest.TestCase):
             training_data=task.train_data,
             predict_function=predict_function,
             ignored_features=None,
-            nsamples=150
+            nsamples=150,
+            link="logit"
         )
 
         i = 1653
