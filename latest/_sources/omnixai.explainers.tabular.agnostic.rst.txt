@@ -10,8 +10,11 @@ omnixai.explainers.tabular.agnostic package
    lime
    shap
    pdp
+   ale
    sensitivity
    L2X.l2x
+   permutation
+   bias
 
 omnixai.explainers.tabular.agnostic.lime module
 -----------------------------------------------
@@ -73,6 +76,14 @@ omnixai.explainers.tabular.agnostic.shap_global module
 ------------------------------------------------------
 
 .. automodule:: omnixai.explainers.tabular.agnostic.shap_global
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+omnixai.explainers.tabular.agnostic.bias module
+-----------------------------------------------
+
+.. automodule:: omnixai.explainers.tabular.agnostic.bias
    :members:
    :undoc-members:
    :show-inheritance:

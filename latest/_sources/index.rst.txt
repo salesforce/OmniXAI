@@ -49,6 +49,7 @@ Method                   Model Type            Explanation Type  EDA            
 Feature analysis         NA                    Global            ✓
 Feature selection        NA                    Global            ✓
 Prediction metrics       Black box             Global                           ✓        ✓        ✓       ✓
+Bias metrics             Black box             Global                           ✓
 PDP                      Black box             Global                           ✓
 ALE                      Black box             Global                           ✓
 Sensitivity analysis     Black box             Global                           ✓
