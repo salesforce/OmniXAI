@@ -11,7 +11,7 @@ extras_require = {
         "plotly>=4",
         "dash>=2.0",
         "dash_bootstrap_components>=1.0",
-        "jupyter-dash>=v0.4",
+        "jupyter-dash>=0.4",
     ],
     "vision": ["torch>=1.7", "torchvision>=0.8.1", "opencv-python-headless>=4.4"],
     "nlp": ["nltk>=3.4.5", "polyjuice_nlp"],
