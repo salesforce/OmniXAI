@@ -7,10 +7,15 @@
 from setuptools import setup, find_namespace_packages
 
 extras_require = {
-    "plot": ["plotly>=4", "dash>=2.0", "dash_bootstrap_components>=1.0"],
+    "plot": [
+        "plotly>=4",
+        "dash>=2.0",
+        "dash_bootstrap_components>=1.0",
+        "jupyter-dash>=0.4",
+    ],
     "vision": ["torch>=1.7", "torchvision>=0.8.1", "opencv-python-headless>=4.4"],
     "nlp": ["nltk>=3.4.5", "polyjuice_nlp"],
-    "bentoml": ["bentoml>=1.0.0"]
+    "bentoml": ["bentoml>=1.0.0"],
 }
 extras_require["all"] = sum(extras_require.values(), [])
 
@@ -45,7 +50,7 @@ setup(
         "packaging",
         "ipython!=8.7.0",
         "tabulate",
-        "statsmodels>=0.10.1"
+        "statsmodels>=0.10.1",
     ],
     extras_require=extras_require,
     python_requires=">=3.7,<4",

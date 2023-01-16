@@ -7,45 +7,73 @@
 """
 The OmniXAI dashboard.
 """
-import omnixai.visualization.state as board
-
-board.init()
-
-import os
-import json
 import copy
+import json
+import os
+import sys
+
+from IPython import get_ipython
 import dash
-import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, State
+from jupyter_dash import JupyterDash
+import warnings
+
+import dash_bootstrap_components as dbc
+import omnixai.visualization.callbacks.data_exp
+import omnixai.visualization.callbacks.global_exp
+import omnixai.visualization.callbacks.local_exp
+import omnixai.visualization.callbacks.prediction_exp
+import omnixai.visualization.state as board
 
 from .layout import create_banner, create_layout
-from .pages.local_exp import create_local_explanation_layout
-from .pages.global_exp import create_global_explanation_layout
 from .pages.data_exp import create_data_explanation_layout
+from .pages.global_exp import create_global_explanation_layout
+from .pages.local_exp import create_local_explanation_layout
 from .pages.prediction_exp import create_prediction_explanation_layout
 
-import omnixai.visualization.callbacks.local_exp
-import omnixai.visualization.callbacks.global_exp
-import omnixai.visualization.callbacks.data_exp
-import omnixai.visualization.callbacks.prediction_exp
+board.init()
 
-app = dash.Dash(
-    __name__,
-    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
-    external_stylesheets=[dbc.themes.BOOTSTRAP],
-    title="OmniXAI",
-)
+
+_in_ipython = get_ipython() is not None
+_in_colab = "google.colab" in sys.modules
+_use_jupyter_dash = _in_ipython and _in_colab
+
+META_TAGS = [
+    {
+        "name": "viewport",
+        "content": "width=device-width, initial-scale=1",
+    }
+]
+EXTERNAL_STYLESHEETS = [dbc.themes.BOOTSTRAP]
+DASHBOARD_TITLE = "OmniXAI"
+
+if _use_jupyter_dash:
+    app = JupyterDash(
+        __name__,
+        meta_tags=META_TAGS,
+        external_stylesheets=EXTERNAL_STYLESHEETS,
+        title=DASHBOARD_TITLE,
+    )
+else:
+    app = dash.Dash(
+        __name__,
+        meta_tags=META_TAGS,
+        external_stylesheets=EXTERNAL_STYLESHEETS,
+        title=DASHBOARD_TITLE,
+    )
 app.config["suppress_callback_exceptions"] = True
-app.layout = html.Div([
-    dcc.Location(id="url", refresh=False),
-    html.Div(id="page-content"),
-    dcc.Store(id="local-explanation-state"),
-    dcc.Store(id="global-explanation-state"),
-    dcc.Store(id="data-explanation-state"),
-    dcc.Store(id="prediction-explanation-state")
-])
+app.layout = html.Div(
+    [
+        dcc.Location(id="url", refresh=False),
+        html.Div(id="page-content"),
+        dcc.Store(id="local-explanation-state"),
+        dcc.Store(id="global-explanation-state"),
+        dcc.Store(id="data-explanation-state"),
+        dcc.Store(id="prediction-explanation-state"),
+    ]
+)
 
 
 class Dashboard:
@@ -69,14 +97,14 @@ class Dashboard:
     """
 
     def __init__(
-            self,
-            instances=None,
-            local_explanations=None,
-            global_explanations=None,
-            data_explanations=None,
-            prediction_explanations=None,
-            class_names=None,
-            params=None
+        self,
+        instances=None,
+        local_explanations=None,
+        global_explanations=None,
+        data_explanations=None,
+        prediction_explanations=None,
+        class_names=None,
+        params=None,
     ):
         """
         :param instances: The instances to explain.
@@ -96,29 +124,28 @@ class Dashboard:
             data_explanations=data_explanations,
             prediction_explanations=prediction_explanations,
             class_names=class_names,
-            params=params
+            params=params,
         )
 
     def show(self, host=os.getenv("HOST", "127.0.0.1"), port=os.getenv("PORT", "8050")):
         """
         Shows the dashboard.
         """
-        if board.state.has_explanations():
+        if not _use_jupyter_dash and board.state.has_explanations():
             app.run_server(host=host, port=port, debug=False)
+        elif _use_jupyter_dash and board.state.has_explanations():
+            app.run_server(mode="inline", host=host, port=port, debug=False)
+        else:
+            warnings.warn(
+                "No explanations to show are available to show in the dashboard"
+            )
 
 
-@app.callback(
-    Output("page-content", "children"),
-    [Input("url", "pathname")]
-)
+@app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def _display_page(pathname):
     return html.Div(
         id="app-container",
-        children=[
-            create_banner(app),
-            html.Br(),
-            create_layout(board.state)
-        ],
+        children=[create_banner(app), html.Br(), create_layout(board.state)],
     )
 
 
@@ -129,15 +156,11 @@ def _display_page(pathname):
         State("local-explanation-state", "data"),
         State("global-explanation-state", "data"),
         State("data-explanation-state", "data"),
-        State("prediction-explanation-state", "data")
-    ]
+        State("prediction-explanation-state", "data"),
+    ],
 )
 def _click_tab(
-        tab,
-        local_exp_state,
-        global_exp_state,
-        data_exp_state,
-        prediction_exp_state
+    tab, local_exp_state, global_exp_state, data_exp_state, prediction_exp_state
 ):
     if tab == "local-explanation":
         state = copy.deepcopy(board.state)
@@ -162,7 +185,9 @@ def _click_tab(
 
     elif tab == "prediction-explanation":
         state = copy.deepcopy(board.state)
-        params = json.loads(prediction_exp_state) if prediction_exp_state is not None else {}
+        params = (
+            json.loads(prediction_exp_state) if prediction_exp_state is not None else {}
+        )
         for param, value in params.items():
             state.set_param("prediction", param, value)
         return create_prediction_explanation_layout(state)
