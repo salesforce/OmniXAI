@@ -439,7 +439,7 @@ will be the column names in the pandas dataframe or the indices in the numpy arr
 <li><p><strong>categorical_columns</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of categorical feature names, e.g., a subset of feature column names in
 a pandas dataframe. If <code class="docutils literal notranslate"><span class="pre">data</span></code> is a numpy array and <code class="docutils literal notranslate"><span class="pre">feature_columns</span> <span class="pre">=</span> <span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">categorical_columns</span></code>
 should be the indices of categorical features.</p></li>
-<li><p><strong>target_column</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The target/label column name. Set <code class="docutils literal notranslate"><span class="pre">target_column</span></code> to None if there is no
+<li><p><strong>target_column</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The target/label column name. Set <code class="docutils literal notranslate"><span class="pre">target_column</span></code> to None if there is no
 target column.</p></li>
 </ul>
 </dd>
@@ -552,7 +552,7 @@ target column.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.tabular.Tabular.target_column">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_column</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.target_column" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_column</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.target_column" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the target/label column name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -969,11 +969,6 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.ts_len">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ts_len</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.ts_len" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the length of the time series.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -1012,11 +1007,8 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the raw values of the data object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A numpy array of the data object.</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A numpy array of the data object.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1026,11 +1018,8 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.columns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the metric/variable names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The list of the metric/variable names.</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The list of the metric/variable names.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1040,11 +1029,8 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the timestamps.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of timestamps.</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of timestamps.</p>
 </dd>
 </dl>
 </dd></dl>
