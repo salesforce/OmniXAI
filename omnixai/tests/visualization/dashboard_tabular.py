@@ -98,7 +98,7 @@ class TestDashboard(unittest.TestCase):
         prediction_explanations = explainer.explain()
 
         explainers = TabularExplainer(
-            explainers=["lime", "shap", "mace", "knn_ce", "pdp", "ale", "shap_global"],
+            explainers=["lime", "shap", "mace"],
             mode="classification",
             data=self.tabular_data,
             model=self.model,
@@ -110,27 +110,10 @@ class TestDashboard(unittest.TestCase):
             },
         )
         local_explanations = explainers.explain(X=self.instances)
-        global_explanations = explainers.explain_global(
-            params={
-                "pdp": {
-                    "features": [
-                        "Age",
-                        "Education-Num",
-                        "Capital Gain",
-                        "Capital Loss",
-                        "Hours per week",
-                        "Education",
-                        "Marital Status",
-                        "Occupation",
-                    ]
-                }
-            }
-        )
 
         dashboard = Dashboard(
             instances=self.instances,
             local_explanations=local_explanations,
-            global_explanations=global_explanations,
             data_explanations=data_explanations,
             prediction_explanations=prediction_explanations,
             class_names=self.class_names

@@ -32,7 +32,7 @@ from .pages.data_exp import create_data_explanation_layout
 from .pages.global_exp import create_global_explanation_layout
 from .pages.local_exp import create_local_explanation_layout
 from .pages.prediction_exp import create_prediction_explanation_layout
-from .pages.what_if import create_what_if_layout
+from .pages.whatif_exp import create_what_if_layout
 
 board.init()
 

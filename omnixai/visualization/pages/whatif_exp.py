@@ -7,7 +7,7 @@
 from dash import dcc
 from dash import html
 from ..plot import plot_one_instance
-from .utils import create_explanation_layout
+from omnixai.explanations.base import DashFigure
 
 
 def create_control_panel(state) -> html.Div:
@@ -28,7 +28,7 @@ def create_control_panel(state) -> html.Div:
                 ],
             ),
 
-            html.Hr(),
+            html.Br(),
             html.P("Change the first instance"),
             html.Label("Feature name"),
             html.Div(
@@ -52,15 +52,16 @@ def create_control_panel(state) -> html.Div:
                     )
                 ],
             ),
+            html.Br(),
             html.Div(
                 children=[
                     html.Button(id="first-instance-set-btn", children="Set", n_clicks=0),
                     html.Button(id="first-instance-reset-btn", children="Reset", style={"margin-left": "15px"}),
                 ],
-                style={"textAlign": "center"},
+                style={"textAlign": "center", "width": "350px"},
             ),
 
-            html.Hr(),
+            html.Br(),
             html.P("Change the second instance"),
             html.Label("Feature name"),
             html.Div(
@@ -84,22 +85,23 @@ def create_control_panel(state) -> html.Div:
                     )
                 ],
             ),
+            html.Br(),
             html.Div(
                 children=[
                     html.Button(id="second-instance-set-btn", children="Set", n_clicks=0),
                     html.Button(id="second-instance-reset-btn", children="Reset", style={"margin-left": "15px"}),
                 ],
-                style={"textAlign": "center"},
+                style={"textAlign": "center", "width": "350px"},
             ),
 
             html.Br(),
-            html.Hr(),
+            html.P("Generate explanations"),
             html.Div(
                 children=[
                     html.Button(id="whatif-run-btn", children="Run", n_clicks=0),
                     html.Button(id="whatif-cancel-btn", children="Cancel", style={"margin-left": "15px"}),
                 ],
-                style={"textAlign": "center"},
+                style={"textAlign": "center", "width": "350px"},
             )
         ]
     )
@@ -114,7 +116,7 @@ def create_instance_layout(state, name) -> html.Div:
             name=f"instance_{name}"
         )
         return html.Div(
-            className="nine columns",
+            className="six columns",
             children=html.Div(
                 id="info_card",
                 children=[
@@ -122,19 +124,55 @@ def create_instance_layout(state, name) -> html.Div:
                     html.Hr(),
                     html.Center(id=f"instance_table_{name}", children=figure)
                 ]
-            )
+            ),
+            style={"margin-left": "15px"}
         )
     else:
         return html.Div()
 
 
-def create_result_column(state, name) -> html.Div:
-    assert name in ["a", "b"]
-    explanation_views = [create_instance_layout(state, name)]
-    explanation_views += create_explanation_layout(
-        state, explanation_type=f"what-if-{name}")
+def create_explanation_layout(state):
+    instance_index = state.get_display_instance("what-if-a")
+    explanations_a = state.get_explanations("what-if-a")
+    explanations_b = state.get_explanations("what-if-b")
+
+    def _add_figure(_children, _explanations, _name, _explanation_type):
+        figure = None
+        params = {"index": instance_index, "class_names": state.class_names}
+        params.update(state.params.get(_name, {}))
+        try:
+            if _explanations[_name] is not None:
+                figure = _explanations[_name].plotly_plot(**params)
+                assert isinstance(
+                    figure, DashFigure
+                ), f"`plotly_plot` of {type(_explanations[_name])} should return a `DashFigure` object."
+                figure = figure.to_html_div(id=f"{_explanation_type}_{_name}")
+        except Exception as e:
+            raise type(e)(f"Explanation {_name} -- {str(e)}")
+        title = f"Local Explanation: {_name.upper()}"
+        children.append(
+            html.Div(
+                id="info_card",
+                children=[html.B(title), html.Hr(), figure],
+                className="six columns",
+                style={"margin-left": "15px"},
+            )
+        )
+
+    children = []
+    for i, name in enumerate(explanations_a.keys()):
+        _add_figure(children, explanations_a, name, "what-if-a")
+        _add_figure(children, explanations_b, name, "what-if-b")
+    return children
+
+
+def create_result_column(state) -> html.Div:
+    explanation_views = [
+        create_instance_layout(state, "a"),
+        create_instance_layout(state, "b")
+    ] + create_explanation_layout(state)
     return html.Div(
-        id=f"result-column-{name}",
+        id=f"result-column",
         children=explanation_views
     )
 
@@ -151,12 +189,8 @@ def create_what_if_layout(state) -> html.Div:
             ),
             # Right column
             html.Div(
-                className="six columns",
-                children=create_result_column(state, name="a")
+                className="nine columns",
+                children=create_result_column(state)
             ),
-            html.Div(
-                className="six columns",
-                children=create_result_column(state, name="b")
-            )
         ]
     )

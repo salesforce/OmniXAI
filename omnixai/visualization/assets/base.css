@@ -185,7 +185,7 @@ input[type="button"] {
   display: inline-block;
   height: 38px;
   padding: 0 30px;
-  color: #555;
+  color: white;
   text-align: center;
   font-size: 11px;
   font-weight: 600;
@@ -194,8 +194,8 @@ input[type="button"] {
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  background-color: transparent;
-  border-radius: 4px;
+  background-color: #1B96FF;
+  border-radius: 8px;
   border: 1px solid #bbb;
   cursor: pointer;
   box-sizing: border-box; }
@@ -250,8 +250,8 @@ select {
   padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
   background-color: #fff;
   border: 1px solid #D1D1D1;
-  border-radius: 4px;
-  box-shadow: none;
+  border-radius: 8px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
   font-family: inherit;
   font-size: inherit; /*https://stackoverflow.com/questions/6080413/why-doesnt-input-inherit-the-font-from-body*/}
@@ -377,10 +377,6 @@ hr {
   margin-bottom: 3.5rem;
   border-width: 0;
   border-top: 1px solid #E1E1E1; }
-
-.Select-menu-outer {
-    display : block !important;
-}
 
 
 /* Clearing
