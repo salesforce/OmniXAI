@@ -25,6 +25,7 @@ import omnixai.visualization.callbacks.data_exp
 import omnixai.visualization.callbacks.global_exp
 import omnixai.visualization.callbacks.local_exp
 import omnixai.visualization.callbacks.prediction_exp
+import omnixai.visualization.callbacks.whatif_exp
 import omnixai.visualization.state as board
 
 from .layout import create_banner, create_layout
