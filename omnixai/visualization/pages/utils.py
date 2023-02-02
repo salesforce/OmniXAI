@@ -30,8 +30,8 @@ def create_description_card() -> html.Div:
 
 
 def create_explanation_layout(state, explanation_type: str):
-    instance_index = state.get_display_instance("local") \
-        if explanation_type == "local" else None
+    instance_index = state.get_display_instance(explanation_type) \
+        if explanation_type in ["local", "what-if-a", "what-if-b"] else None
     num_figures_per_row = state.get_num_figures_per_row(explanation_type)
     display_plots = state.get_display_plots(explanation_type)
     explanations = OrderedDict({name: state.get_explanations(explanation_type)[name]

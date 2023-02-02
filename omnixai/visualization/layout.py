@@ -63,6 +63,13 @@ def create_layout(state) -> html.Div:
                     style=tab_style, selected_style=tab_selected_style)
         )
         values.append("global-explanation")
+    # What-if explanation tab
+    if len(state.get_explanations("local")) and state.is_tabular() > 0:
+        children.append(
+            dcc.Tab(label="What-if Explanation", value="what-if-explanation",
+                    style=tab_style, selected_style=tab_selected_style)
+        )
+        values.append("what-if-explanation")
 
     layout = html.Div(
         id="app-content",

@@ -1,5 +1,9 @@
+from ..data.tabular import Tabular
+
+
 class State:
-    views = ["local", "global", "prediction", "data", "what-if"]
+    views = ["local", "global", "prediction", "data",
+             "what-if-a", "what-if-b"]
 
     def __init__(self):
         self.class_names = None
@@ -37,13 +41,17 @@ class State:
         self.set_explanations("global", global_explanations)
         self.set_explanations("data", data_explanations)
         self.set_explanations("prediction", prediction_explanations)
-        self.set_explanations("what-if", local_explanations)
+        self.set_explanations("what-if-a", local_explanations)
+        self.set_explanations("what-if-b", local_explanations)
 
         for view, explanations in self.explanations.items():
             self.set_plots(view, [name for name in explanations.keys()])
             self.set_display_plots(view, self.get_plots(view))
-            self.set_num_figures_per_row(view, 2)
             self.set_display_instance(view, 0)
+            if view not in ["what-if-a", "what-if-b"]:
+                self.set_num_figures_per_row(view, 2)
+            else:
+                self.set_num_figures_per_row(view, 1)
 
     def set_explanations(self, view, explanations):
         assert view in self.explanations
@@ -88,6 +96,9 @@ class State:
 
     def get_param(self, view, param):
         return self.state_params[param][view]
+
+    def is_tabular(self):
+        return isinstance(self.instances, Tabular)
 
 
 def init():

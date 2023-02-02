@@ -32,6 +32,7 @@ from .pages.data_exp import create_data_explanation_layout
 from .pages.global_exp import create_global_explanation_layout
 from .pages.local_exp import create_local_explanation_layout
 from .pages.prediction_exp import create_prediction_explanation_layout
+from .pages.what_if import create_what_if_layout
 
 board.init()
 
@@ -162,32 +163,33 @@ def _display_page(pathname):
 def _click_tab(
     tab, local_exp_state, global_exp_state, data_exp_state, prediction_exp_state
 ):
+    state = copy.deepcopy(board.state)
+
     if tab == "local-explanation":
-        state = copy.deepcopy(board.state)
         params = json.loads(local_exp_state) if local_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("local", param, value)
         return create_local_explanation_layout(state)
 
     elif tab == "global-explanation":
-        state = copy.deepcopy(board.state)
         params = json.loads(global_exp_state) if global_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("global", param, value)
         return create_global_explanation_layout(state)
 
     elif tab == "data-explanation":
-        state = copy.deepcopy(board.state)
         params = json.loads(data_exp_state) if data_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("data", param, value)
         return create_data_explanation_layout(state)
 
     elif tab == "prediction-explanation":
-        state = copy.deepcopy(board.state)
         params = (
             json.loads(prediction_exp_state) if prediction_exp_state is not None else {}
         )
         for param, value in params.items():
             state.set_param("prediction", param, value)
         return create_prediction_explanation_layout(state)
+
+    elif tab == "what-if-explanation":
+        return create_what_if_layout(state)
