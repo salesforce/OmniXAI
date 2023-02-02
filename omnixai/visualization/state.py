@@ -1,5 +1,5 @@
 class State:
-    views = ["local", "global", "prediction", "data"]
+    views = ["local", "global", "prediction", "data", "what-if"]
 
     def __init__(self):
         self.class_names = None
@@ -37,6 +37,7 @@ class State:
         self.set_explanations("global", global_explanations)
         self.set_explanations("data", data_explanations)
         self.set_explanations("prediction", prediction_explanations)
+        self.set_explanations("what-if", local_explanations)
 
         for view, explanations in self.explanations.items():
             self.set_plots(view, [name for name in explanations.keys()])
