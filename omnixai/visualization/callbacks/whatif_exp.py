@@ -14,6 +14,7 @@ from ..pages.whatif_exp import create_result_column
         Input("first-instance-reset-btn", "n_clicks"),
         Input("second-instance-set-btn", "n_clicks"),
         Input("second-instance-reset-btn", "n_clicks"),
+        Input("whatif-run-btn", "n_clicks"),
     ],
     [
         State("first-instance-feature-name", "value"),
@@ -29,6 +30,7 @@ def change_parameters(
         first_reset_click,
         second_set_click,
         second_reset_click,
+        run_click,
         first_feature_name,
         first_feature_value,
         second_feature_name,
@@ -56,7 +58,7 @@ def change_parameters(
             index = state.get_display_instance()
             example = state.instances.iloc(index).to_pd()
             state.set_instance("instances-a", index, example.iloc[0])
-            state.set_explanations("what-if-a")
+            state.set_explanations("what-if-a", index=index)
 
         elif prop_id == "second-instance-set-btn":
             if second_feature_name and second_feature_value:
@@ -69,7 +71,16 @@ def change_parameters(
             index = state.get_display_instance()
             example = state.instances.iloc(index).to_pd()
             state.set_instance("instances-b", index, example.iloc[0])
-            state.set_explanations("what-if-b")
+            state.set_explanations("what-if-b", index=index)
+
+        elif prop_id == "whatif-run-btn":
+            index = state.get_display_instance()
+            example_a = state.get_instance("instances-a", index)
+            example_b = state.get_instance("instances-b", index)
+            explanation_a = state.explainer.explain(X=example_a)
+            explanation_b = state.explainer.explain(X=example_b)
+            state.set_explanations("what-if-a", index=index, explanations=explanation_a)
+            state.set_explanations("what-if-b", index=index, explanations=explanation_b)
 
     return json.dumps(params)
 

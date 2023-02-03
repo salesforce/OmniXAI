@@ -22,12 +22,16 @@ class CFExplanation(ExplanationBase):
     labels of these instances.
     """
 
-    def __init__(self):
+    def __init__(self, explanations=None):
         super().__init__()
-        self.explanations = []
+        self.explanations = [] if explanations is None else explanations
 
     def __repr__(self):
         return repr(self.explanations)
+
+    def __getitem__(self, i: int):
+        assert i < len(self.explanations)
+        return CFExplanation(explanations=[self.explanations[i]])
 
     def add(self, query, cfs, **kwargs):
         """
@@ -98,7 +102,7 @@ class CFExplanation(ExplanationBase):
         plt.ylabel("The number of feature changes")
         plt.yticks(np.arange(max(counts)))
         plt.xticks([])
-        plt.title(f"Instance {index}: Counterfactual Examples")
+        plt.title(f"Counterfactual Examples")
         plt.grid()
 
         # Highlight the differences between the query and the CF examples

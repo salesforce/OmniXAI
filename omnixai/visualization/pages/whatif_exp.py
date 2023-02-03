@@ -101,8 +101,7 @@ def create_control_panel(state) -> html.Div:
             html.P("Generate explanations"),
             html.Div(
                 children=[
-                    html.Button(id="whatif-run-btn", children="Run", n_clicks=0),
-                    html.Button(id="whatif-cancel-btn", children="Cancel", style={"margin-left": "15px"}),
+                    html.Button(id="whatif-run-btn", children="Explain", n_clicks=0),
                 ],
                 style={"textAlign": "center", "width": "350px"},
             )
@@ -136,12 +135,12 @@ def create_instance_layout(state, name) -> html.Div:
 
 def create_explanation_layout(state):
     instance_index = state.get_display_instance()
-    explanations_a = state.get_explanations("what-if-a")
-    explanations_b = state.get_explanations("what-if-b")
+    explanations_a = state.get_explanations("what-if-a", instance_index)
+    explanations_b = state.get_explanations("what-if-b", instance_index)
 
     def _add_figure(_children, _explanations, _name, _explanation_type):
         figure = None
-        params = {"index": instance_index, "class_names": state.class_names}
+        params = {"index": 0, "class_names": state.class_names}
         params.update(state.params.get(_name, {}))
         try:
             if _explanations[_name] is not None:

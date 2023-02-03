@@ -1,5 +1,4 @@
-import copy
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 from ..data.tabular import Tabular
 
 
@@ -137,19 +136,23 @@ class WhatifState:
         self.state_params["display_plots"] = [name for name in local_explanations.keys()]
         self.state_params["instances-a"] = instances.copy()
         self.state_params["instances-b"] = instances.copy()
-        self.state_params["what-if-a"] = copy.deepcopy(local_explanations)
-        self.state_params["what-if-b"] = copy.deepcopy(local_explanations)
 
-    def set_explanations(self, view, explanations=None):
+        for i in range(len(self.instance_indices)):
+            exp = {name: exps[i] for name, exps in local_explanations.items()}
+            self.state_params["what-if-a"][i] = exp
+            self.state_params["what-if-b"][i] = exp
+
+    def set_explanations(self, view, index, explanations=None):
         assert view in ["what-if-a", "what-if-b"]
         if explanations is not None:
-            self.state_params[view] = explanations
+            self.state_params[view][index] = explanations
         else:
-            self.state_params[view] = copy.deepcopy(self.local_explanations)
+            exp = {name: exps[index] for name, exps in self.local_explanations.items()}
+            self.state_params[view][index] = exp
 
-    def get_explanations(self, view):
+    def get_explanations(self, view, index):
         assert view in ["what-if-a", "what-if-b"]
-        return self.state_params[view]
+        return self.state_params[view][index]
 
     def set_instance(self, view, index, values):
         assert view in ["instances-a", "instances-b"]
