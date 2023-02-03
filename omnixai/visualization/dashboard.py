@@ -25,13 +25,16 @@ import omnixai.visualization.callbacks.data_exp
 import omnixai.visualization.callbacks.global_exp
 import omnixai.visualization.callbacks.local_exp
 import omnixai.visualization.callbacks.prediction_exp
+import omnixai.visualization.callbacks.whatif_exp
 import omnixai.visualization.state as board
 
+from ..explainers.tabular import TabularExplainer
 from .layout import create_banner, create_layout
 from .pages.data_exp import create_data_explanation_layout
 from .pages.global_exp import create_global_explanation_layout
 from .pages.local_exp import create_local_explanation_layout
 from .pages.prediction_exp import create_prediction_explanation_layout
+from .pages.whatif_exp import create_what_if_layout
 
 board.init()
 
@@ -72,6 +75,7 @@ app.layout = html.Div(
         dcc.Store(id="global-explanation-state"),
         dcc.Store(id="data-explanation-state"),
         dcc.Store(id="prediction-explanation-state"),
+        dcc.Store(id="whatif-explanation-state"),
     ]
 )
 
@@ -91,7 +95,8 @@ class Dashboard:
             class_names=class_names,                 # A list of class names
             params={"pdp": {"features": ["Age", "Education-Num", "Capital Gain",
                                          "Capital Loss", "Hours per week", "Education",
-                                         "Marital Status", "Occupation"]}}
+                                         "Marital Status", "Occupation"]}},
+            explainer=explainer                      # Set a TabularExplainer if requires what-if analysis.
         )
         dashboard.show()
     """
@@ -105,6 +110,7 @@ class Dashboard:
         prediction_explanations=None,
         class_names=None,
         params=None,
+        explainer=None
     ):
         """
         :param instances: The instances to explain.
@@ -116,7 +122,12 @@ class Dashboard:
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
         :param params: A dict containing the additional parameters for plotting figures.
+        :param explainer: A ``TabularExplainer`` explainer to enable What-if explanations for tabular tasks.
         """
+        if explainer is not None:
+            assert isinstance(explainer, TabularExplainer), \
+                "`explainer` can only be a `TabularExplainer` object."
+
         board.state.set(
             instances=instances,
             local_explanations=local_explanations,
@@ -125,6 +136,13 @@ class Dashboard:
             prediction_explanations=prediction_explanations,
             class_names=class_names,
             params=params,
+        )
+        board.whatif_state.set(
+            instances=instances,
+            local_explanations=local_explanations,
+            class_names=class_names,
+            params=params,
+            explainer=explainer
         )
 
     def show(self, host=os.getenv("HOST", "127.0.0.1"), port=os.getenv("PORT", "8050")):
@@ -145,7 +163,11 @@ class Dashboard:
 def _display_page(pathname):
     return html.Div(
         id="app-container",
-        children=[create_banner(app), html.Br(), create_layout(board.state)],
+        children=[
+            create_banner(app),
+            html.Br(),
+            create_layout(board.state, board.whatif_state)
+        ],
     )
 
 
@@ -157,37 +179,53 @@ def _display_page(pathname):
         State("global-explanation-state", "data"),
         State("data-explanation-state", "data"),
         State("prediction-explanation-state", "data"),
+        State("whatif-explanation-state", "data")
     ],
 )
 def _click_tab(
-    tab, local_exp_state, global_exp_state, data_exp_state, prediction_exp_state
+        tab,
+        local_exp_state,
+        global_exp_state,
+        data_exp_state,
+        prediction_exp_state,
+        whatif_exp_state,
 ):
     if tab == "local-explanation":
         state = copy.deepcopy(board.state)
-        params = json.loads(local_exp_state) if local_exp_state is not None else {}
+        params = json.loads(local_exp_state) \
+            if local_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("local", param, value)
         return create_local_explanation_layout(state)
 
     elif tab == "global-explanation":
         state = copy.deepcopy(board.state)
-        params = json.loads(global_exp_state) if global_exp_state is not None else {}
+        params = json.loads(global_exp_state) \
+            if global_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("global", param, value)
         return create_global_explanation_layout(state)
 
     elif tab == "data-explanation":
         state = copy.deepcopy(board.state)
-        params = json.loads(data_exp_state) if data_exp_state is not None else {}
+        params = json.loads(data_exp_state) \
+            if data_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("data", param, value)
         return create_data_explanation_layout(state)
 
     elif tab == "prediction-explanation":
         state = copy.deepcopy(board.state)
-        params = (
-            json.loads(prediction_exp_state) if prediction_exp_state is not None else {}
-        )
+        params = json.loads(prediction_exp_state) \
+            if prediction_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("prediction", param, value)
         return create_prediction_explanation_layout(state)
+
+    elif tab == "what-if-explanation":
+        state = copy.deepcopy(board.whatif_state)
+        params = json.loads(whatif_exp_state) \
+            if whatif_exp_state is not None else {}
+        for param, value in params.items():
+            state.set_param(param, value)
+        return create_what_if_layout(state)

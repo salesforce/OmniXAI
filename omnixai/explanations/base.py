@@ -162,22 +162,35 @@ class PredictedResults(ExplanationBase):
     The class for prediction results.
     """
 
-    def __init__(self, predictions):
+    def __init__(self, predictions=None):
         """
         :param predictions: For classfication, ``predictions`` are the predicted class probabilities.
             For regression, ``predictions`` are the predicted values.
         """
         super().__init__()
-        if predictions.ndim == 2:
-            labels, values = [], []
-            sorted_indices = np.argsort(predictions)
-            for i in range(predictions.shape[0]):
-                top_labels = sorted_indices[i, ::-1][:5]
-                labels.append(top_labels)
-                values.append([predictions[i, label] for label in top_labels])
-            self.results = {"labels": labels, "values": values}
+        if predictions is not None:
+            if predictions.ndim == 2:
+                labels, values = [], []
+                sorted_indices = np.argsort(predictions)
+                for i in range(predictions.shape[0]):
+                    top_labels = sorted_indices[i, ::-1][:5]
+                    labels.append(top_labels)
+                    values.append([predictions[i, label] for label in top_labels])
+                self.results = {"labels": labels, "values": values}
+            else:
+                self.results = {"labels": None, "values": predictions}
         else:
-            self.results = {"labels": None, "values": predictions}
+            self.results = {}
+
+    def __getitem__(self, i: int):
+        assert i < len(self.results["values"])
+        res = PredictedResults()
+        if self.results["labels"] is not None:
+            res.results["labels"] = self.results["labels"][i:i + 1]
+        else:
+            res.results["labels"] = None
+        res.results["values"] = self.results["values"][i:i + 1]
+        return res
 
     def get_explanations(self):
         """
@@ -251,7 +264,7 @@ class PredictedResults(ExplanationBase):
             orientation="h",
             labels={"x": "Predicted value",
                     "y": "Label" if labels is not None else "Target"},
-            title=f"Instance {index}",
+            title="",
             color_discrete_map={True: "#008B8B", False: "#DC143C"},
         )
         return fig

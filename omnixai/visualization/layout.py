@@ -33,7 +33,7 @@ def create_banner(app):
     )
 
 
-def create_layout(state) -> html.Div:
+def create_layout(state, whatif_state) -> html.Div:
     children, values = [], []
     # Data analysis tab
     if len(state.get_explanations("data")) > 0:
@@ -63,6 +63,13 @@ def create_layout(state) -> html.Div:
                     style=tab_style, selected_style=tab_selected_style)
         )
         values.append("global-explanation")
+    # What-if explanation tab
+    if whatif_state.explainer and whatif_state.is_tabular() > 0:
+        children.append(
+            dcc.Tab(label="What-if Explanation", value="what-if-explanation",
+                    style=tab_style, selected_style=tab_selected_style)
+        )
+        values.append("what-if-explanation")
 
     layout = html.Div(
         id="app-content",

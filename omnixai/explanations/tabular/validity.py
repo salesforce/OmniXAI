@@ -16,12 +16,16 @@ class ValidityRankingExplanation(ExplanationBase):
     The class for validity ranking explanation results.
     """
 
-    def __init__(self):
+    def __init__(self, explanations=None):
         super().__init__()
-        self.explanations = []
+        self.explanations = [] if explanations is None else explanations
 
     def __repr__(self):
         return repr(self.explanations)
+
+    def __getitem__(self, i: int):
+        assert i < len(self.explanations)
+        return ValidityRankingExplanation(explanations=[self.explanations[i]])
 
     def add(self, query, df, top_features, validity, **kwargs):
         """

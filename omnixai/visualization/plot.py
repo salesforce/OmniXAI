@@ -15,9 +15,9 @@ from ..data.timeseries import Timeseries
 from ..preprocessing.image import Resize
 
 
-def plot_table(instance):
+def plot_table(instance, name=None):
     table = dash_table.DataTable(
-        id="table",
+        id="table" if not name else name,
         columns=[{"name": c, "id": c} for c in instance.columns],
         data=[{c: v for c, v in zip(instance.columns, instance.values[0])}],
         style_cell_conditional=[{"textAlign": "center"}],
@@ -82,11 +82,11 @@ def plot_timeseries(ts):
     return html.Div([dcc.Graph(figure=fig)])
 
 
-def plot_one_instance(instances, index):
+def plot_one_instance(instances, index, name=None):
     if instances is None:
         return None
     elif isinstance(instances, Tabular):
-        return plot_table(instances.iloc(index).to_pd())
+        return plot_table(instances.iloc(index).to_pd(), name)
     elif isinstance(instances, Image):
         img = Resize(300).transform(instances[index])
         return plot_image(img.to_pil())

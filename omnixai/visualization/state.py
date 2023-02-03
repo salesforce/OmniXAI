@@ -1,3 +1,8 @@
+import numpy as np
+from collections import OrderedDict
+from ..data.tabular import Tabular
+
+
 class State:
     views = ["local", "global", "prediction", "data"]
 
@@ -41,8 +46,8 @@ class State:
         for view, explanations in self.explanations.items():
             self.set_plots(view, [name for name in explanations.keys()])
             self.set_display_plots(view, self.get_plots(view))
-            self.set_num_figures_per_row(view, 2)
             self.set_display_instance(view, 0)
+            self.set_num_figures_per_row(view, 2)
 
     def set_explanations(self, view, explanations):
         assert view in self.explanations
@@ -88,7 +93,131 @@ class State:
     def get_param(self, view, param):
         return self.state_params[param][view]
 
+    def is_tabular(self):
+        return isinstance(self.instances, Tabular)
+
+
+class WhatifState:
+
+    def __init__(self):
+        self.class_names = None
+        self.params = None
+        self.instances = None
+        self.instance_indices = []
+        self.local_explanations = None
+        self.explainer = None
+        self.features = None
+
+        self.state_params = {
+            "display_plots": [],
+            "display_instance": 0,
+            "instances-a": None,
+            "instances-b": None,
+            "what-if-a": {},
+            "what-if-b": {}
+        }
+
+    def set(
+            self,
+            instances,
+            local_explanations,
+            class_names,
+            params,
+            explainer
+    ):
+        if explainer is None:
+            return
+
+        self.class_names = class_names
+        self.params = {} if params is None else params
+        self.instances = instances
+        self.instance_indices = list(range(self.instances.num_samples())) \
+            if instances is not None else []
+        self.local_explanations = local_explanations
+        self.explainer = explainer
+        self.features = self._extract_feature_values()
+
+        self.state_params["display_plots"] = [name for name in local_explanations.keys()]
+        self.state_params["instances-a"] = instances.copy()
+        self.state_params["instances-b"] = instances.copy()
+
+        for i in range(len(self.instance_indices)):
+            exp = {name: exps[i] for name, exps in local_explanations.items()}
+            self.state_params["what-if-a"][i] = exp
+            self.state_params["what-if-b"][i] = exp
+
+    def set_explanations(self, view, index, explanations=None):
+        assert view in ["what-if-a", "what-if-b"]
+        if explanations is not None:
+            self.state_params[view][index] = explanations
+        else:
+            exp = {name: exps[index] for name, exps in self.local_explanations.items()}
+            self.state_params[view][index] = exp
+
+    def get_explanations(self, view, index):
+        assert view in ["what-if-a", "what-if-b"]
+        return self.state_params[view][index]
+
+    def set_instance(self, view, index, values):
+        assert view in ["instances-a", "instances-b"]
+        df = self.state_params[view].to_pd(copy=False)
+        df.iloc[index, :] = values
+
+    def get_instance(self, view, index):
+        assert view in ["instances-a", "instances-b"]
+        return self.state_params[view].iloc(index)
+
+    def has_explanations(self):
+        return len(self.state_params["what-if-a"]) > 0
+
+    def set_display_plots(self, plots):
+        self.state_params["display_plots"] = plots
+
+    def get_display_plots(self):
+        return self.state_params["display_plots"]
+
+    def set_display_instance(self, index):
+        self.state_params["display_instance"] = index
+
+    def get_display_instance(self):
+        return self.state_params["display_instance"]
+
+    def set_param(self, param, value):
+        self.state_params[param] = value
+
+    def get_param(self, param):
+        return self.state_params[param]
+
+    def get_feature_values(self):
+        return self.features
+
+    def is_tabular(self):
+        return isinstance(self.instances, Tabular)
+
+    def _extract_feature_values(self):
+        if self.explainer is None:
+            return None
+        training_data = self.explainer.data
+        df = training_data.to_pd(copy=False)
+
+        feature_values = {}
+        if training_data.categorical_columns:
+            for col in training_data.categorical_columns:
+                feature_values[col] = sorted(list(set(df[col].values)))
+        if training_data.continuous_columns:
+            for col in training_data.continuous_columns:
+                values = df[col].values.astype(float)
+                percentiles = np.linspace(0, 100, num=20)
+                feature_values[col] = sorted(set(np.percentile(values, percentiles)))
+
+        features = OrderedDict()
+        for col in training_data.feature_columns:
+            features[col] = feature_values[col]
+        return features
+
 
 def init():
     global state
+    global whatif_state
     state = State()
+    whatif_state = WhatifState()

@@ -34,6 +34,10 @@ class FeatureImportance(ExplanationBase):
     def __repr__(self):
         return repr(self.explanations)
 
+    def __getitem__(self, i: int):
+        assert i < len(self.explanations)
+        return FeatureImportance(mode=self.mode, explanations=[self.explanations[i]])
+
     def add(self, instance, target_label, feature_names, feature_values, importance_scores, sort=False, **kwargs):
         """
         Adds the generated explanation corresponding to one instance.
@@ -138,9 +142,9 @@ class FeatureImportance(ExplanationBase):
         exp = self.explanations[index]
         if self.mode == "classification":
             class_name = exp["target_label"] if class_names is None else class_names[exp["target_label"]]
-            title = f"Instance {index}: Class {class_name}"
+            title = f"Label: Class {class_name}"
         else:
-            title = f"Instance {index}"
+            title = ""
 
         feat_scores = sorted(
             list(zip([f"{self._s(f)} = {self._s(v)}"
