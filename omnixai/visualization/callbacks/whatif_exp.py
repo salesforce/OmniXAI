@@ -7,6 +7,23 @@ from ..pages.whatif_exp import create_result_column
 
 
 @callback(
+    Output("whatif-explanation-state", "data"),
+    [
+        Input("select-instance-whatif", "value")
+    ],
+    State("whatif-explanation-state", "data")
+)
+def change_parameters(instance, data):
+    params = json.loads(data) if data is not None else {}
+    ctx = dash.callback_context
+    if ctx.triggered:
+        prop_id = ctx.triggered[0]["prop_id"].split(".")[0]
+        if prop_id == "select-instance-whatif":
+            params["display_instance"] = int(instance)
+    return json.dumps(params)
+
+
+@callback(
     Output("result-column", "children"),
     Input("whatif-explanation-state", "data")
 )
