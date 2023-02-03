@@ -125,6 +125,9 @@ class WhatifState:
             params,
             explainer
     ):
+        if explainer is None:
+            return
+
         self.class_names = class_names
         self.params = {} if params is None else params
         self.instances = instances
