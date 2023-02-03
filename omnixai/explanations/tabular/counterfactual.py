@@ -307,7 +307,7 @@ class CFExplanation(ExplanationBase):
             style_cell_conditional=[{"textAlign": "center"}],
             style_data_conditional=style_data_conditional,
             style_header={"backgroundColor": "rgb(230, 230, 230)", "fontWeight": "bold"},
-            style_table={"overflowX": "scroll"},
+            style_table={"overflowX": "scroll", "overflowY": "auto", "height": "260px"},
         )
         return table
 
