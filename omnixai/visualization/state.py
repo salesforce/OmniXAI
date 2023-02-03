@@ -1,4 +1,5 @@
-from collections import OrderedDict, defaultdict
+import numpy as np
+from collections import OrderedDict
 from ..data.tabular import Tabular
 
 
@@ -191,23 +192,24 @@ class WhatifState:
         return isinstance(self.instances, Tabular)
 
     def _extract_feature_values(self):
-        from ..preprocessing.base import Identity
-        from ..preprocessing.encode import KBins
-        from ..preprocessing.tabular import TabularTransform
-
         if self.explainer is None:
             return None
         training_data = self.explainer.data
-        transformer = TabularTransform(
-            cate_transform=Identity(), cont_transform=KBins(n_bins=10)
-        ).fit(training_data)
-        df = transformer.invert(
-            transformer.transform(training_data)
-        ).to_pd(copy=False)
+        df = training_data.to_pd(copy=False)
+
+        feature_values = {}
+        if training_data.categorical_columns:
+            for col in training_data.categorical_columns:
+                feature_values[col] = sorted(list(set(df[col].values)))
+        if training_data.continuous_columns:
+            for col in training_data.continuous_columns:
+                values = df[col].values.astype(float)
+                percentiles = np.linspace(0, 100, num=20)
+                feature_values[col] = sorted(set(np.percentile(values, percentiles)))
 
         features = OrderedDict()
         for col in training_data.feature_columns:
-            features[col] = sorted(list(set(df[col].values)))
+            features[col] = feature_values[col]
         return features
 
 

@@ -48,7 +48,7 @@ def change_parameters(
             state.set_display_instance(int(instance))
 
         elif prop_id == "first-instance-set-btn":
-            if first_feature_name and first_feature_value:
+            if first_feature_name is not None and first_feature_value is not None:
                 index = state.get_display_instance()
                 example = state.get_instance("instances-a", index).to_pd()
                 example[first_feature_name] = first_feature_value
@@ -61,7 +61,7 @@ def change_parameters(
             state.set_explanations("what-if-a", index=index)
 
         elif prop_id == "second-instance-set-btn":
-            if second_feature_name and second_feature_value:
+            if second_feature_name is not None and second_feature_value is not None:
                 index = state.get_display_instance()
                 example = state.get_instance("instances-b", index).to_pd()
                 example[second_feature_name] = second_feature_value
