@@ -54,6 +54,7 @@ def change_parameters(
             index = board.whatif_state.get_display_instance()
             example = board.whatif_state.instances.iloc(index).to_pd()
             board.whatif_state.set_instance("instances-a", index, example.iloc[0])
+            board.whatif_state.set_explanations("what-if-a")
 
         elif prop_id == "second-instance-set-btn":
             if second_feature_name and second_feature_value:
@@ -66,6 +67,7 @@ def change_parameters(
             index = board.whatif_state.get_display_instance()
             example = board.whatif_state.instances.iloc(index).to_pd()
             board.whatif_state.set_instance("instances-b", index, example.iloc[0])
+            board.whatif_state.set_explanations("what-if-b")
 
     return json.dumps(params)
 

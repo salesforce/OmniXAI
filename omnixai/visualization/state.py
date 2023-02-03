@@ -1,3 +1,4 @@
+import copy
 from collections import OrderedDict
 from ..data.tabular import Tabular
 
@@ -103,6 +104,7 @@ class WhatifState:
         self.params = None
         self.instances = None
         self.instance_indices = []
+        self.local_explanations = None
         self.explainer = None
         self.features = None
 
@@ -128,19 +130,22 @@ class WhatifState:
         self.instances = instances
         self.instance_indices = list(range(self.instances.num_samples())) \
             if instances is not None else []
+        self.local_explanations = local_explanations
         self.explainer = explainer
         self.features = self._extract_feature_values()
 
         self.state_params["display_plots"] = [name for name in local_explanations.keys()]
         self.state_params["instances-a"] = instances.copy()
         self.state_params["instances-b"] = instances.copy()
-        self.state_params["what-if-a"] = local_explanations
-        self.state_params["what-if-b"] = local_explanations
+        self.state_params["what-if-a"] = copy.deepcopy(local_explanations)
+        self.state_params["what-if-b"] = copy.deepcopy(local_explanations)
 
-    def set_explanations(self, view, explanations):
+    def set_explanations(self, view, explanations=None):
         assert view in ["what-if-a", "what-if-b"]
         if explanations is not None:
             self.state_params[view] = explanations
+        else:
+            self.state_params[view] = copy.deepcopy(self.local_explanations)
 
     def get_explanations(self, view):
         assert view in ["what-if-a", "what-if-b"]
