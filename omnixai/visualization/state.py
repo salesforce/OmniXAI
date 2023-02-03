@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from ..data.tabular import Tabular
 
 
@@ -192,9 +193,11 @@ class WhatifState:
         transformer = TabularTransform(
             cate_transform=Identity(), cont_transform=KBins(n_bins=10)
         ).fit(training_data)
-        df = transformer.invert(transformer.transform(training_data)).to_pd(copy=False)
+        df = transformer.invert(
+            transformer.transform(training_data)
+        ).to_pd(copy=False)
 
-        features = {}
+        features = OrderedDict()
         for col in training_data.feature_columns:
             features[col] = list(set(df[col].values))
         return features

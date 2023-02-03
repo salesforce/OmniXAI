@@ -21,7 +21,8 @@ def create_control_panel(state) -> html.Div:
                 children=[
                     dcc.Dropdown(
                         id="select-instance-whatif",
-                        options=[{"label": str(s), "value": str(s)} for s in state.instance_indices],
+                        options=[{"label": str(s), "value": str(s)}
+                                 for s in state.instance_indices],
                         value=str(state.get_display_instance()),
                         style={"width": "350px"},
                     )
@@ -36,7 +37,8 @@ def create_control_panel(state) -> html.Div:
                 children=[
                     dcc.Dropdown(
                         id="first-instance-feature-name",
-                        options=[],
+                        options=[{"label": str(s), "value": str(s)}
+                                 for s in state.get_feature_values().keys()],
                         style={"width": "350px"},
                     )
                 ],
@@ -69,7 +71,8 @@ def create_control_panel(state) -> html.Div:
                 children=[
                     dcc.Dropdown(
                         id="second-instance-feature-name",
-                        options=[],
+                        options=[{"label": str(s), "value": str(s)}
+                                 for s in state.get_feature_values().keys()],
                         style={"width": "350px"},
                     )
                 ],

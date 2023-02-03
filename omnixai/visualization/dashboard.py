@@ -95,7 +95,8 @@ class Dashboard:
             class_names=class_names,                 # A list of class names
             params={"pdp": {"features": ["Age", "Education-Num", "Capital Gain",
                                          "Capital Loss", "Hours per week", "Education",
-                                         "Marital Status", "Occupation"]}}
+                                         "Marital Status", "Occupation"]}},
+            explainer=explainer                      # Set a TabularExplainer if requires what-if analysis.
         )
         dashboard.show()
     """
