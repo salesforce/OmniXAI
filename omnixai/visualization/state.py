@@ -199,7 +199,7 @@ class WhatifState:
 
         features = OrderedDict()
         for col in training_data.feature_columns:
-            features[col] = list(set(df[col].values))
+            features[col] = sorted(list(set(df[col].values)))
         return features
 
 

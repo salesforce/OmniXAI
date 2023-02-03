@@ -24,6 +24,38 @@ def change_parameters(instance, data):
 
 
 @callback(
+    Output("first-instance-feature-value", "options"),
+    Input("first-instance-feature-value-parent", "n_clicks"),
+    State("first-instance-feature-name", "value"),
+)
+def update_first_feature_value_dropdown(n_clicks, feature_name):
+    options = []
+    ctx = dash.callback_context
+    if ctx.triggered:
+        prop_id = ctx.triggered[0]["prop_id"].split(".")[0]
+        if prop_id == "first-instance-feature-value-parent":
+            features = board.whatif_state.get_feature_values()
+            options = [{"label": v, "value": v} for v in features.get(feature_name, [])]
+    return options
+
+
+@callback(
+    Output("second-instance-feature-value", "options"),
+    Input("second-instance-feature-value-parent", "n_clicks"),
+    State("second-instance-feature-name", "value"),
+)
+def update_second_feature_value_dropdown(n_clicks, feature_name):
+    options = []
+    ctx = dash.callback_context
+    if ctx.triggered:
+        prop_id = ctx.triggered[0]["prop_id"].split(".")[0]
+        if prop_id == "second-instance-feature-value-parent":
+            features = board.whatif_state.get_feature_values()
+            options = [{"label": v, "value": v} for v in features.get(feature_name, [])]
+    return options
+
+
+@callback(
     Output("result-column", "children"),
     Input("whatif-explanation-state", "data")
 )
