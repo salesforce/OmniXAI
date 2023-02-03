@@ -103,6 +103,8 @@ class WhatifState:
         self.instances = None
         self.instance_indices = []
         self.explainer = None
+        self.features = None
+
         self.state_params = {
             "display_plots": [],
             "display_instance": 0,
@@ -126,6 +128,7 @@ class WhatifState:
         self.instance_indices = list(range(self.instances.num_samples())) \
             if instances is not None else []
         self.explainer = explainer
+        self.features = self._extract_feature_values()
 
         self.state_params["display_plots"] = [name for name in local_explanations.keys()]
         self.state_params["instances-a"] = instances.copy()
@@ -172,8 +175,29 @@ class WhatifState:
     def get_param(self, param):
         return self.state_params[param]
 
+    def get_feature_values(self):
+        return self.features
+
     def is_tabular(self):
         return isinstance(self.instances, Tabular)
+
+    def _extract_feature_values(self):
+        from ..preprocessing.base import Identity
+        from ..preprocessing.encode import KBins
+        from ..preprocessing.tabular import TabularTransform
+
+        if self.explainer is None:
+            return None
+        training_data = self.explainer.data
+        transformer = TabularTransform(
+            cate_transform=Identity(), cont_transform=KBins(n_bins=10)
+        ).fit(training_data)
+        df = transformer.invert(transformer.transform(training_data)).to_pd(copy=False)
+
+        features = {}
+        for col in training_data.feature_columns:
+            features[col] = list(set(df[col].values))
+        return features
 
 
 def init():
