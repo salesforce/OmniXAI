@@ -33,41 +33,43 @@ def change_parameters(
         first_feature_value,
         second_feature_name,
         second_feature_value,
-        state_data
+        data
 ):
-    params = json.loads(state_data) if state_data is not None else {}
+    params = json.loads(data) if data is not None else {}
     ctx = dash.callback_context
+    state = board.whatif_state
+
     if ctx.triggered:
         prop_id = ctx.triggered[0]["prop_id"].split(".")[0]
         if prop_id == "select-instance-whatif":
             params["display_instance"] = int(instance)
-            board.whatif_state.set_display_instance(int(instance))
+            state.set_display_instance(int(instance))
 
         elif prop_id == "first-instance-set-btn":
             if first_feature_name and first_feature_value:
-                index = board.whatif_state.get_display_instance()
-                example = board.whatif_state.get_instance("instances-a", index).to_pd()
+                index = state.get_display_instance()
+                example = state.get_instance("instances-a", index).to_pd()
                 example[first_feature_name] = first_feature_value
-                board.whatif_state.set_instance("instances-a", index, example.iloc[0])
+                state.set_instance("instances-a", index, example.iloc[0])
 
         elif prop_id == "first-instance-reset-btn":
-            index = board.whatif_state.get_display_instance()
-            example = board.whatif_state.instances.iloc(index).to_pd()
-            board.whatif_state.set_instance("instances-a", index, example.iloc[0])
-            board.whatif_state.set_explanations("what-if-a")
+            index = state.get_display_instance()
+            example = state.instances.iloc(index).to_pd()
+            state.set_instance("instances-a", index, example.iloc[0])
+            state.set_explanations("what-if-a")
 
         elif prop_id == "second-instance-set-btn":
             if second_feature_name and second_feature_value:
-                index = board.whatif_state.get_display_instance()
-                example = board.whatif_state.get_instance("instances-b", index).to_pd()
+                index = state.get_display_instance()
+                example = state.get_instance("instances-b", index).to_pd()
                 example[second_feature_name] = second_feature_value
-                board.whatif_state.set_instance("instances-b", index, example.iloc[0])
+                state.set_instance("instances-b", index, example.iloc[0])
 
         elif prop_id == "second-instance-reset-btn":
-            index = board.whatif_state.get_display_instance()
-            example = board.whatif_state.instances.iloc(index).to_pd()
-            board.whatif_state.set_instance("instances-b", index, example.iloc[0])
-            board.whatif_state.set_explanations("what-if-b")
+            index = state.get_display_instance()
+            example = state.instances.iloc(index).to_pd()
+            state.set_instance("instances-b", index, example.iloc[0])
+            state.set_explanations("what-if-b")
 
     return json.dumps(params)
 
