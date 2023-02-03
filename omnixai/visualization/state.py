@@ -102,6 +102,7 @@ class WhatifState:
         self.params = None
         self.instances = None
         self.instance_indices = []
+        self.explainer = None
         self.state_params = {
             "display_plots": [],
             "display_instance": 0,
@@ -116,13 +117,15 @@ class WhatifState:
             instances,
             local_explanations,
             class_names,
-            params
+            params,
+            explainer
     ):
         self.class_names = class_names
         self.params = {} if params is None else params
         self.instances = instances
         self.instance_indices = list(range(self.instances.num_samples())) \
             if instances is not None else []
+        self.explainer = explainer
 
         self.state_params["display_plots"] = [name for name in local_explanations.keys()]
         self.state_params["instances-a"] = instances.copy()

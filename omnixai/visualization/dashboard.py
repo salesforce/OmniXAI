@@ -28,6 +28,7 @@ import omnixai.visualization.callbacks.prediction_exp
 import omnixai.visualization.callbacks.whatif_exp
 import omnixai.visualization.state as board
 
+from ..explainers.tabular import TabularExplainer
 from .layout import create_banner, create_layout
 from .pages.data_exp import create_data_explanation_layout
 from .pages.global_exp import create_global_explanation_layout
@@ -108,6 +109,7 @@ class Dashboard:
         prediction_explanations=None,
         class_names=None,
         params=None,
+        explainer=None
     ):
         """
         :param instances: The instances to explain.
@@ -119,7 +121,12 @@ class Dashboard:
             ``class_name = ['dog', 'cat']`` means that label 0 corresponds to 'dog' and
             label 1 corresponds to 'cat'.
         :param params: A dict containing the additional parameters for plotting figures.
+        :param explainer: A ``TabularExplainer`` explainer to enable What-if explanations for tabular tasks.
         """
+        if explainer is not None:
+            assert isinstance(explainer, TabularExplainer), \
+                "`explainer` can only be a `TabularExplainer` object."
+
         board.state.set(
             instances=instances,
             local_explanations=local_explanations,
@@ -134,6 +141,7 @@ class Dashboard:
             local_explanations=local_explanations,
             class_names=class_names,
             params=params,
+            explainer=explainer
         )
 
     def show(self, host=os.getenv("HOST", "127.0.0.1"), port=os.getenv("PORT", "8050")):
@@ -154,7 +162,11 @@ class Dashboard:
 def _display_page(pathname):
     return html.Div(
         id="app-container",
-        children=[create_banner(app), html.Br(), create_layout(board.state)],
+        children=[
+            create_banner(app),
+            html.Br(),
+            create_layout(board.state, board.whatif_state)
+        ],
     )
 
 
