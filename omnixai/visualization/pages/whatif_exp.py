@@ -22,7 +22,7 @@ def create_control_panel(state) -> html.Div:
                     dcc.Dropdown(
                         id="select-instance-whatif",
                         options=[{"label": str(s), "value": str(s)} for s in state.instance_indices],
-                        value=str(state.get_display_instance("local")),
+                        value=str(state.get_display_instance()),
                         style={"width": "350px"},
                     )
                 ],
@@ -112,7 +112,7 @@ def create_instance_layout(state, name) -> html.Div:
     if state.instances is not None:
         figure = plot_one_instance(
             state.instances,
-            state.get_display_instance(f"what-if-{name}"),
+            state.get_display_instance(),
             name=f"instance_{name}"
         )
         return html.Div(
@@ -132,7 +132,7 @@ def create_instance_layout(state, name) -> html.Div:
 
 
 def create_explanation_layout(state):
-    instance_index = state.get_display_instance("what-if-a")
+    instance_index = state.get_display_instance()
     explanations_a = state.get_explanations("what-if-a")
     explanations_b = state.get_explanations("what-if-b")
 

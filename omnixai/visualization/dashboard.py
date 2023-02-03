@@ -74,6 +74,7 @@ app.layout = html.Div(
         dcc.Store(id="global-explanation-state"),
         dcc.Store(id="data-explanation-state"),
         dcc.Store(id="prediction-explanation-state"),
+        dcc.Store(id="whatif-explanation-state"),
     ]
 )
 
@@ -128,6 +129,12 @@ class Dashboard:
             class_names=class_names,
             params=params,
         )
+        board.whatif_state.set(
+            instances=instances,
+            local_explanations=local_explanations,
+            class_names=class_names,
+            params=params,
+        )
 
     def show(self, host=os.getenv("HOST", "127.0.0.1"), port=os.getenv("PORT", "8050")):
         """
@@ -159,38 +166,53 @@ def _display_page(pathname):
         State("global-explanation-state", "data"),
         State("data-explanation-state", "data"),
         State("prediction-explanation-state", "data"),
+        State("whatif-explanation-state", "data")
     ],
 )
 def _click_tab(
-    tab, local_exp_state, global_exp_state, data_exp_state, prediction_exp_state
+        tab,
+        local_exp_state,
+        global_exp_state,
+        data_exp_state,
+        prediction_exp_state,
+        whatif_exp_state,
 ):
-    state = copy.deepcopy(board.state)
-
     if tab == "local-explanation":
-        params = json.loads(local_exp_state) if local_exp_state is not None else {}
+        state = copy.deepcopy(board.state)
+        params = json.loads(local_exp_state) \
+            if local_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("local", param, value)
         return create_local_explanation_layout(state)
 
     elif tab == "global-explanation":
-        params = json.loads(global_exp_state) if global_exp_state is not None else {}
+        state = copy.deepcopy(board.state)
+        params = json.loads(global_exp_state) \
+            if global_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("global", param, value)
         return create_global_explanation_layout(state)
 
     elif tab == "data-explanation":
-        params = json.loads(data_exp_state) if data_exp_state is not None else {}
+        state = copy.deepcopy(board.state)
+        params = json.loads(data_exp_state) \
+            if data_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("data", param, value)
         return create_data_explanation_layout(state)
 
     elif tab == "prediction-explanation":
-        params = (
-            json.loads(prediction_exp_state) if prediction_exp_state is not None else {}
-        )
+        state = copy.deepcopy(board.state)
+        params = json.loads(prediction_exp_state) \
+            if prediction_exp_state is not None else {}
         for param, value in params.items():
             state.set_param("prediction", param, value)
         return create_prediction_explanation_layout(state)
 
     elif tab == "what-if-explanation":
+        state = copy.deepcopy(board.whatif_state)
+        params = json.loads(whatif_exp_state) \
+            if whatif_exp_state is not None else {}
+        for param, value in params.items():
+            state.set_param(param, value)
         return create_what_if_layout(state)
