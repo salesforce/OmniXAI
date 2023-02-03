@@ -133,7 +133,8 @@ class TestDashboard(unittest.TestCase):
             global_explanations=global_explanations,
             data_explanations=data_explanations,
             prediction_explanations=prediction_explanations,
-            class_names=self.class_names
+            class_names=self.class_names,
+            explainer=explainers
         )
         dashboard.show()
 
