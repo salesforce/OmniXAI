@@ -105,6 +105,8 @@ class WhatifState:
         self.state_params = {
             "display_plots": [],
             "display_instance": 0,
+            "instances-a": None,
+            "instances-b": None,
             "what-if-a": {},
             "what-if-b": {}
         }
@@ -123,6 +125,8 @@ class WhatifState:
             if instances is not None else []
 
         self.state_params["display_plots"] = [name for name in local_explanations.keys()]
+        self.state_params["instances-a"] = instances.copy()
+        self.state_params["instances-b"] = instances.copy()
         self.state_params["what-if-a"] = local_explanations
         self.state_params["what-if-b"] = local_explanations
 
@@ -132,7 +136,17 @@ class WhatifState:
             self.state_params[view] = explanations
 
     def get_explanations(self, view):
+        assert view in ["what-if-a", "what-if-b"]
         return self.state_params[view]
+
+    def set_instance(self, view, index, values):
+        assert view in ["instances-a", "instances-b"]
+        df = self.state_params[view].to_pd(copy=False)
+        df.iloc[index, :] = values
+
+    def get_instance(self, view, index):
+        assert view in ["instances-a", "instances-b"]
+        return self.state_params[view].iloc(index)
 
     def has_explanations(self):
         return len(self.state_params["what-if-a"]) > 0

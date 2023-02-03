@@ -111,8 +111,8 @@ def create_instance_layout(state, name) -> html.Div:
     assert name in ["a", "b"]
     if state.instances is not None:
         figure = plot_one_instance(
-            state.instances,
-            state.get_display_instance(),
+            state.get_instance(f"instances-{name}", state.get_display_instance()),
+            index=0,
             name=f"instance_{name}"
         )
         return html.Div(
