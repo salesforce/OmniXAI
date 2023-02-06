@@ -64,7 +64,7 @@ def create_layout(state, whatif_state) -> html.Div:
         )
         values.append("global-explanation")
     # What-if explanation tab
-    if whatif_state.explainer and whatif_state.is_tabular() > 0:
+    if whatif_state.is_available():
         children.append(
             dcc.Tab(label="What-if Explanation", value="what-if-explanation",
                     style=tab_style, selected_style=tab_selected_style)

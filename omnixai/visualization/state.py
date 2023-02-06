@@ -105,8 +105,9 @@ class WhatifState:
         self.instances = None
         self.instance_indices = []
         self.local_explanations = None
-        self.explainer = None
         self.features = None
+        self.explainer_a = None
+        self.explainer_b = None
 
         self.state_params = {
             "display_plots": [],
@@ -123,7 +124,8 @@ class WhatifState:
             local_explanations,
             class_names,
             params,
-            explainer
+            explainer,
+            second_explainer
     ):
         if explainer is None:
             return
@@ -134,9 +136,10 @@ class WhatifState:
         self.instance_indices = list(range(self.instances.num_samples())) \
             if instances is not None else []
         self.local_explanations = local_explanations
-        self.explainer = explainer
-        self.features = self._extract_feature_values()
+        self.features = self._extract_feature_values(explainer)
 
+        self.explainer_a = explainer
+        self.explainer_b = explainer if second_explainer is None else second_explainer
         self.state_params["display_plots"] = [name for name in local_explanations.keys()]
         self.state_params["instances-a"] = instances.copy()
         self.state_params["instances-b"] = instances.copy()
@@ -194,10 +197,13 @@ class WhatifState:
     def is_tabular(self):
         return isinstance(self.instances, Tabular)
 
-    def _extract_feature_values(self):
-        if self.explainer is None:
+    def is_available(self):
+        return self.explainer_a is not None and self.is_tabular()
+
+    def _extract_feature_values(self, explainer):
+        if explainer is None:
             return None
-        training_data = self.explainer.data
+        training_data = explainer.data
         df = training_data.to_pd(copy=False)
 
         feature_values = {}
