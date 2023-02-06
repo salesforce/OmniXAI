@@ -325,7 +325,16 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 </tr>
-<tr class="row-even"><td><p>Integrated gradient</p></td>
+<tr class="row-even"><td><p>What-if</p></td>
+<td><p>Black box</p></td>
+<td><p>Local</p></td>
+<td></td>
+<td><p>✓</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Integrated gradient</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -334,7 +343,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Counterfactual</p></td>
+<tr class="row-even"><td><p>Counterfactual</p></td>
 <td><p>Black box*</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -343,7 +352,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 </tr>
-<tr class="row-even"><td><p>Contrastive explanation</p></td>
+<tr class="row-odd"><td><p>Contrastive explanation</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -352,7 +361,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Grad-CAM, Grad-CAM++</p></td>
+<tr class="row-even"><td><p>Grad-CAM, Grad-CAM++</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -361,7 +370,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>Score-CAM</p></td>
+<tr class="row-odd"><td><p>Score-CAM</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -370,7 +379,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Layer-CAM</p></td>
+<tr class="row-even"><td><p>Layer-CAM</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -379,7 +388,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>Smooth gradient</p></td>
+<tr class="row-odd"><td><p>Smooth gradient</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -388,7 +397,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Guided backpropagation</p></td>
+<tr class="row-even"><td><p>Guided backpropagation</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -397,7 +406,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>Learning to explain</p></td>
+<tr class="row-odd"><td><p>Learning to explain</p></td>
 <td><p>Black box</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -406,7 +415,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td><p>✓</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Linear models</p></td>
+<tr class="row-even"><td><p>Linear models</p></td>
 <td><p>Linear models</p></td>
 <td><p>Global and Local</p></td>
 <td></td>
@@ -415,7 +424,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>Tree models</p></td>
+<tr class="row-odd"><td><p>Tree models</p></td>
 <td><p>Tree models</p></td>
 <td><p>Global and Local</p></td>
 <td></td>
@@ -424,7 +433,7 @@ explanation methods for vision, NLP and time series tasks.</p>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Feature maps</p></td>
+<tr class="row-even"><td><p>Feature maps</p></td>
 <td><p>Torch or TF</p></td>
 <td><p>Local</p></td>
 <td></td>
@@ -803,7 +812,7 @@ is not a numpy array, <code class="docutils literal notranslate"><span class="pr
 <span class="kn">from</span> <span class="nn">omnixai.visualization.dashboard</span> <span class="kn">import</span> <span class="n">Dashboard</span>
 
 <span class="c1"># Initialize a TabularExplainer</span>
-<span class="n">explainers</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
+<span class="n">explainer</span> <span class="o">=</span> <span class="n">TabularExplainer</span><span class="p">(</span>
    <span class="n">explainers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lime&quot;</span><span class="p">,</span> <span class="s2">&quot;shap&quot;</span><span class="p">,</span> <span class="s2">&quot;mace&quot;</span><span class="p">,</span> <span class="s2">&quot;pdp&quot;</span><span class="p">,</span> <span class="s2">&quot;ale&quot;</span><span class="p">],</span> <span class="c1"># The explainers to apply</span>
    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>                             <span class="c1"># The task type</span>
    <span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>                                   <span class="c1"># The data for initializing the explainers</span>
@@ -816,14 +825,14 @@ is not a numpy array, <code class="docutils literal notranslate"><span class="pr
 </pre></div>
 </div>
 <p>In this example, LIME, SHAP and MACE generate local explanations while PDP (partial dependence plot)
-generates global explanations. <code class="docutils literal notranslate"><span class="pre">explainers.explain</span></code> returns the local explanations generated by the
-three methods given the test instances, and <code class="docutils literal notranslate"><span class="pre">explainers.explain_global</span></code> returns the global explanations
+generates global explanations. <code class="docutils literal notranslate"><span class="pre">explainer.explain</span></code> returns the local explanations generated by the
+three methods given the test instances, and <code class="docutils literal notranslate"><span class="pre">explainer.explain_global</span></code> returns the global explanations
 generated by PDP. <cite>TabularExplainer</cite> hides all the details behind the explainers, so we can simply call
 these two methods to generate explanations.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate explanations</span>
 <span class="n">test_instances</span> <span class="o">=</span> <span class="n">tabular_data</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
-<span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">test_instances</span><span class="p">)</span>
-<span class="n">global_explanations</span> <span class="o">=</span> <span class="n">explainers</span><span class="o">.</span><span class="n">explain_global</span><span class="p">(</span>
+<span class="n">local_explanations</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">test_instances</span><span class="p">)</span>
+<span class="n">global_explanations</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain_global</span><span class="p">(</span>
     <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pdp&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Education-Num&quot;</span><span class="p">,</span> <span class="s2">&quot;Capital Gain&quot;</span><span class="p">,</span>
                                  <span class="s2">&quot;Capital Loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Hours per week&quot;</span><span class="p">,</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span>
                                  <span class="s2">&quot;Marital Status&quot;</span><span class="p">,</span> <span class="s2">&quot;Occupation&quot;</span><span class="p">]}}</span>
@@ -855,13 +864,17 @@ e.g., the predicted probability for each class. The output of <code class="docut
 </div>
 <p>Given the generated explanations, we can launch a dashboard (a Dash app) for visualization by setting the test
 instance, the local explanations, the global explanations, the prediction metrics, the class names, and additional
-parameters for visualization (optional).</p>
+parameters for visualization (optional). If you want “what-if” analysis, you can set the <code class="docutils literal notranslate"><span class="pre">explainer</span></code> parameter
+when initializing the dashboard. For “what-if” analysis, OmniXAI also allows you to set a second explainer
+if you want to compare different models.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch a dashboard for visualization</span>
 <span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span>
     <span class="n">instances</span><span class="o">=</span><span class="n">test_instances</span><span class="p">,</span>                        <span class="c1"># The instances to explain</span>
     <span class="n">local_explanations</span><span class="o">=</span><span class="n">local_explanations</span><span class="p">,</span>           <span class="c1"># Set the generated local explanations</span>
     <span class="n">global_explanations</span><span class="o">=</span><span class="n">global_explanations</span><span class="p">,</span>         <span class="c1"># Set the generated global explanations</span>
+    <span class="n">prediction_explanations</span><span class="o">=</span><span class="n">prediction_explanations</span><span class="p">,</span> <span class="c1"># Set the prediction metrics</span>
     <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span>                         <span class="c1"># Set class names</span>
+    <span class="n">explainer</span><span class="o">=</span><span class="n">explainer</span>                              <span class="c1"># The created TabularExplainer for what if analysis</span>
 <span class="p">)</span>
 <span class="n">dashboard</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>                                     <span class="c1"># Launch the dashboard</span>
 </pre></div>
