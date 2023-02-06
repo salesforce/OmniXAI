@@ -96,7 +96,7 @@ class Dashboard:
             params={"pdp": {"features": ["Age", "Education-Num", "Capital Gain",
                                          "Capital Loss", "Hours per week", "Education",
                                          "Marital Status", "Occupation"]}},
-            explainer=explainer                      # Set a TabularExplainer if requires what-if analysis.
+            explainer=explainer                      # Set a TabularExplainer if requiring what-if analysis.
         )
         dashboard.show()
     """
@@ -110,7 +110,8 @@ class Dashboard:
         prediction_explanations=None,
         class_names=None,
         params=None,
-        explainer=None
+        explainer=None,
+        second_explainer=None
     ):
         """
         :param instances: The instances to explain.
@@ -123,10 +124,14 @@ class Dashboard:
             label 1 corresponds to 'cat'.
         :param params: A dict containing the additional parameters for plotting figures.
         :param explainer: A ``TabularExplainer`` explainer to enable What-if explanations for tabular tasks.
+        :param second_explainer: A ``TabularExplainer`` explainer used to compare different models in What-if analysis.
         """
         if explainer is not None:
             assert isinstance(explainer, TabularExplainer), \
                 "`explainer` can only be a `TabularExplainer` object."
+        if second_explainer is not None:
+            assert isinstance(second_explainer, TabularExplainer), \
+                "`second_explainer` can only be a `TabularExplainer` object."
 
         board.state.set(
             instances=instances,
@@ -142,7 +147,8 @@ class Dashboard:
             local_explanations=local_explanations,
             class_names=class_names,
             params=params,
-            explainer=explainer
+            explainer=explainer,
+            second_explainer=second_explainer
         )
 
     def show(self, host=os.getenv("HOST", "127.0.0.1"), port=os.getenv("PORT", "8050")):

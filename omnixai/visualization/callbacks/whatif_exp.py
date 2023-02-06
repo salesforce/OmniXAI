@@ -77,8 +77,8 @@ def change_parameters(
             index = state.get_display_instance()
             example_a = state.get_instance("instances-a", index)
             example_b = state.get_instance("instances-b", index)
-            explanation_a = state.explainer.explain(X=example_a)
-            explanation_b = state.explainer.explain(X=example_b)
+            explanation_a = state.explainer_a.explain(X=example_a)
+            explanation_b = state.explainer_b.explain(X=example_b)
             state.set_explanations("what-if-a", index=index, explanations=explanation_a)
             state.set_explanations("what-if-b", index=index, explanations=explanation_b)
 
