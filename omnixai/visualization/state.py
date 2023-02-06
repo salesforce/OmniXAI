@@ -197,6 +197,9 @@ class WhatifState:
     def is_tabular(self):
         return isinstance(self.instances, Tabular)
 
+    def is_available(self):
+        return self.explainer_a is not None and self.is_tabular()
+
     def _extract_feature_values(self, explainer):
         if explainer is None:
             return None
