@@ -1,98 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>omnixai.explainers.tabular package &mdash; OmniXAI  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="omnixai.explainers.tabular.agnostic package" href="omnixai.explainers.tabular.agnostic.html" />
     <link rel="prev" title="omnixai.explainers.prediction package" href="omnixai.explainers.prediction.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
 
           
-            <a href="index.html" class="icon icon-home"> OmniXAI
           
-
-          
+          <a href="index.html" class="icon icon-home">
+            OmniXAI
           </a>
-
-          
-            
-            
               <div class="version">
                 v1.2.4
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="omnixai.html">OmniXAI: An Explanation Toolbox</a><ul class="current">
@@ -156,75 +109,32 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials &amp; Example Code</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">OmniXAI</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a> &raquo;</li>
-        
-          <li><a href="omnixai.explainers.html">omnixai.explainers package</a> &raquo;</li>
-        
-      <li>omnixai.explainers.tabular package</li>
-    
-    
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
+          <li class="breadcrumb-item"><a href="omnixai.explainers.html">omnixai.explainers package</a></li>
+      <li class="breadcrumb-item active">omnixai.explainers.tabular package</li>
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/omnixai.explainers.tabular.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   
 <style>
 /* CSS overrides for sphinx_rtd_theme */
@@ -250,18 +160,18 @@
 }
 </style>
 <section id="omnixai-explainers-tabular-package">
-<h1>omnixai.explainers.tabular package<a class="headerlink" href="#omnixai-explainers-tabular-package" title="Permalink to this heading">¶</a></h1>
+<h1>omnixai.explainers.tabular package<a class="headerlink" href="#omnixai-explainers-tabular-package" title="Permalink to this heading"></a></h1>
 <section id="module-omnixai.explainers.tabular.base">
-<span id="omnixai-explainers-tabular-base-module"></span><h2>omnixai.explainers.tabular.base module<a class="headerlink" href="#module-omnixai.explainers.tabular.base" title="Permalink to this heading">¶</a></h2>
+<span id="omnixai-explainers-tabular-base-module"></span><h2>omnixai.explainers.tabular.base module<a class="headerlink" href="#module-omnixai.explainers.tabular.base" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.base.TabularExplainerMixin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.base.</span></span><span class="sig-name descname"><span class="pre">TabularExplainerMixin</span></span><a class="headerlink" href="#omnixai.explainers.tabular.base.TabularExplainerMixin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.base.</span></span><span class="sig-name descname"><span class="pre">TabularExplainerMixin</span></span><a class="headerlink" href="#omnixai.explainers.tabular.base.TabularExplainerMixin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.base.TabularExplainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.base.</span></span><span class="sig-name descname"><span class="pre">TabularExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.TabularExplainer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.base.</span></span><span class="sig-name descname"><span class="pre">TabularExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.TabularExplainer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a>, <a class="reference internal" href="#omnixai.explainers.tabular.base.TabularExplainerMixin" title="omnixai.explainers.tabular.base.TabularExplainerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularExplainerMixin</span></code></a></p>
 <p>The base class of model-agnostic explainers for tabular data.</p>
 <dl class="field-list simple">
@@ -281,7 +191,7 @@ the <code class="docutils literal notranslate"><span class="pre">predict_functio
 
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.base.SklearnBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.base.</span></span><span class="sig-name descname"><span class="pre">SklearnBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode='classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cate_encoder=&lt;omnixai.preprocessing.encode.OneHot</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cont_encoder=&lt;omnixai.preprocessing.normalize.Standard</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_encoder=&lt;omnixai.preprocessing.encode.LabelEncoder</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.SklearnBase" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.base.</span></span><span class="sig-name descname"><span class="pre">SklearnBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode='classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cate_encoder=&lt;omnixai.preprocessing.encode.OneHot</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cont_encoder=&lt;omnixai.preprocessing.normalize.Standard</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_encoder=&lt;omnixai.preprocessing.encode.LabelEncoder</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.SklearnBase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code></p>
 <p>The base class of model-specific explainers for scikit-learn models.</p>
 <dl class="field-list simple">
@@ -299,7 +209,7 @@ e.g., <cite>Identity</cite>, <cite>Standard</cite>, <cite>MinMax</cite>, <cite>S
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.base.SklearnBase.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.SklearnBase.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.SklearnBase.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Trains the model given the training dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -314,7 +224,7 @@ of the training samples.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.base.SklearnBase.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.SklearnBase.predict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.SklearnBase.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Predicts targets or labels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -331,7 +241,7 @@ of the training samples.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.base.SklearnBase.predict_proba">
-<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.SklearnBase.predict_proba" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.SklearnBase.predict_proba" title="Permalink to this definition"></a></dt>
 <dd><p>Predicts class probabilities in classification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -348,7 +258,7 @@ of the training samples.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.base.SklearnBase.class_names">
-<span class="sig-name descname"><span class="pre">class_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.SklearnBase.class_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">class_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.base.SklearnBase.class_names" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the class names in classification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -364,10 +274,10 @@ of the training samples.</p></li>
 
 </section>
 <section id="module-omnixai.explainers.tabular.auto">
-<span id="omnixai-explainers-tabular-auto-module"></span><h2>omnixai.explainers.tabular.auto module<a class="headerlink" href="#module-omnixai.explainers.tabular.auto" title="Permalink to this heading">¶</a></h2>
+<span id="omnixai-explainers-tabular-auto-module"></span><h2>omnixai.explainers.tabular.auto module<a class="headerlink" href="#module-omnixai.explainers.tabular.auto" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.auto.TabularExplainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.auto.</span></span><span class="sig-name descname"><span class="pre">TabularExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.auto.TabularExplainer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.auto.</span></span><span class="sig-name descname"><span class="pre">TabularExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explainers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.auto.TabularExplainer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.AutoExplainerBase" title="omnixai.explainers.base.AutoExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoExplainerBase</span></code></a></p>
 <p>The class derived from <cite>AutoExplainerBase</cite> for tabular data,
 allowing users to choose multiple explainers and generate
@@ -411,7 +321,7 @@ e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.auto.TabularExplainer.list_explainers">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_explainers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.auto.TabularExplainer.list_explainers" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_explainers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.auto.TabularExplainer.list_explainers" title="Permalink to this definition"></a></dt>
 <dd><p>List the supported explainers.</p>
 </dd></dl>
 
@@ -419,7 +329,7 @@ e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
 
 </section>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="omnixai.explainers.tabular.agnostic.html">omnixai.explainers.tabular.agnostic package</a><ul>
@@ -453,37 +363,27 @@ e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="omnixai.explainers.tabular.agnostic.html" class="btn btn-neutral float-right" title="omnixai.explainers.tabular.agnostic package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="omnixai.explainers.prediction.html" class="btn btn-neutral float-left" title="omnixai.explainers.prediction package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="omnixai.explainers.tabular.agnostic.html" class="btn btn-neutral float-right" title="omnixai.explainers.tabular.agnostic package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, salesforce.com, inc..
-
-    </p>
+    <p>&#169; Copyright 2022, salesforce.com, inc..</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
   
 
@@ -551,18 +451,11 @@ e.g., <cite>params[“lime”] = {“param_1”: param_1, …}</cite>.</p></li>
     </div>
   </div>
 
- 
-
-  <script type="text/javascript">
+ <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
