@@ -10,6 +10,7 @@ from collections import defaultdict, Counter
 from typing import List, Dict, Callable, Union
 
 from .....data.tabular import Tabular
+from .....preprocessing.base import Identity
 from .....preprocessing.encode import OneHot, KBins
 from .....preprocessing.pipeline import Pipeline
 from .....preprocessing.tabular import TabularTransform
@@ -217,3 +218,46 @@ class CFRetrieval:
         if self.column_top_k > 0:
             res = self._pick_top_columns(instance, res, desired_label, self.column_top_k)
         return res, indices
+
+
+class SimpleCFRetrieval:
+    """
+    The class for extracting all the feature values in a dataset.
+    """
+
+    def __init__(
+        self,
+        training_data: Tabular,
+        ignored_features: List = None,
+        num_cont_bins: int = 10,
+        **kwargs
+    ):
+        """
+        :param training_data: The training data.
+        :param ignored_features: The features ignored in generating counterfactual examples.
+        :param num_cont_bins: The number of bins for discretizing continuous-valued features.
+        :param kwargs: Other parameters.
+        """
+        assert isinstance(training_data, Tabular), "`training_data` should be an instance of Tabular."
+        self.ignored_features = ignored_features if ignored_features is not None else []
+        subset = training_data.remove_target_column()
+
+        transformer = TabularTransform(
+            cate_transform=Identity(), cont_transform=KBins(n_bins=num_cont_bins)
+        ).fit(subset)
+        df = transformer.invert(transformer.transform(subset)).to_pd(copy=False)
+
+        self.features = {}
+        for col in df.columns:
+            if col not in self.ignored_features:
+                self.features[col] = sorted(set(df[col].unique()))
+
+    def get_cf_features(self, instance: Tabular, desired_label: int) -> (Dict, None):
+        """
+        Finds candidate features for generating counterfactual examples.
+
+        :param instance: The query instance.
+        :param desired_label: The desired label.
+        :return: The candidate features
+        """
+        return self.features, None
