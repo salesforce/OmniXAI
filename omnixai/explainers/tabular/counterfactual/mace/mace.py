@@ -15,7 +15,7 @@ from ...base import ExplainerBase
 from ....tabular.base import TabularExplainerMixin
 from .....data.tabular import Tabular
 
-from .retrieval import CFRetrieval
+from .retrieval import CFRetrieval, SimpleCFRetrieval
 from .rl import RL
 from .gld import GLD
 from .greedy import Greedy
@@ -42,6 +42,7 @@ class MACEExplainer(ExplainerBase, TabularExplainerMixin):
         mode: str = "classification",
         ignored_features: List = None,
         method: str = "gld",
+        use_knn: bool = True,
         **kwargs,
     ):
         """
@@ -54,6 +55,7 @@ class MACEExplainer(ExplainerBase, TabularExplainerMixin):
             are the class probabilities.
         :param mode: The task type can be `classification` only.
         :param ignored_features: The features ignored in generating counterfactual examples.
+        :param use_knn: Whether to use KNN search to find candidate features for generating counterfactual examples.
         :param kwargs: Additional parameters used in `CFRetrieval` and `GLD`. For more information, please
             refer to the classes `mace.retrieval.CFRetrieval` and `mace.gld.GLD`.
         """
@@ -68,7 +70,11 @@ class MACEExplainer(ExplainerBase, TabularExplainerMixin):
         self.target_column = training_data.target_column
         self.original_feature_columns = training_data.columns
 
-        self.recall = CFRetrieval(training_data, predict_function, ignored_features, **kwargs)
+        if use_knn:
+            self.recall = CFRetrieval(training_data, predict_function, ignored_features, **kwargs)
+        else:
+            self.recall = SimpleCFRetrieval(training_data, ignored_features, **kwargs)
+
         self.diversity = DiversityModule(training_data)
         self.refinement = BinarySearchRefinement(training_data)
         if method == "gld":
