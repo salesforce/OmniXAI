@@ -48,7 +48,7 @@ setup(
         "tqdm",
         "wheel",
         "packaging",
-        "ipython!=8.7.0",
+        "ipython>=8.10.0",
         "tabulate",
         "statsmodels>=0.10.1",
     ],
