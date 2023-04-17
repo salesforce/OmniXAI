@@ -207,7 +207,7 @@ these two methods to generate explanations.
 .. code-block:: python
 
    # Generate explanations
-   test_instances = tabular_data[:5]
+   test_instances = test_data[:5]
    local_explanations = explainers.explain(X=test_instances)
    global_explanations = explainers.explain_global(
        params={"pdp": {"features": ["Age", "Education-Num", "Capital Gain",
