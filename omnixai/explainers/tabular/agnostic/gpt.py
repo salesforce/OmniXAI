@@ -74,10 +74,10 @@ class GPTExplainer(ExplainerBase):
             top_k=50
     ):
         system_prompt = \
-            f"You are an assistant for explaining prediction results generated " \
+            f"You are a helpful and confident assistant for explaining prediction results generated " \
             f"by a machine learning {mode} model. " \
             f"Your decisions must always be made independently without seeking user assistance. " \
-            f"Your answers should be detailed and accurate for users to " \
+            f"Your answers should be accurate and comprehensive for users to " \
             f"understand why the model makes such predictions."
 
         prompts = []

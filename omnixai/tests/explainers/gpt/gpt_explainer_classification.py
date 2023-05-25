@@ -30,7 +30,7 @@ class TestGPTExplainer(unittest.TestCase):
         test_x = task.test_data.iloc(i)
         print(predict_function(test_x))
         explanations = explainer.explain(test_x)
-        pprint.pprint(explanations)
+        pprint.pprint(explanations.get_explanations(index=0)["text"])
 
 
 if __name__ == "__main__":
