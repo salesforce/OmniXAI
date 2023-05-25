@@ -24,6 +24,7 @@ class TestGPTExplainer(unittest.TestCase):
             training_data=task.train_data,
             predict_function=predict_function,
             ignored_features=None,
+            apikey="xxx"
         )
 
         i = 1653

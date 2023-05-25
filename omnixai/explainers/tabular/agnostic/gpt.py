@@ -30,9 +30,11 @@ class GPTExplainer(ExplainerBase):
             self,
             training_data: Tabular,
             predict_function: Callable,
+            apikey: str,
             mode: str = "classification",
             ignored_features: List = None,
             include_counterfactual: bool = True,
+            openai_model: str = "gpt-3.5-turbo",
             **kwargs
     ):
         """
@@ -42,13 +44,17 @@ class GPTExplainer(ExplainerBase):
             When the model is for classification, the outputs of the ``predict_function``
             are the class probabilities. When the model is for regression, the outputs of
             the ``predict_function`` are the estimated values.
+        :param apikey: The OpenAI API Key.
         :param mode: The task type, e.g., `classification` or `regression`.
         :param ignored_features: The features ignored in computing feature importance scores.
         :param include_counterfactual: Whether to include counterfactual explanations in the results.
+        :param openai_model: The model type for chat completion.
         :param kwargs: Additional parameters to initialize `shap.KernelExplainer`, e.g., ``nsamples``.
             Please refer to the doc of `shap.KernelExplainer`.
         """
         super().__init__()
+        self.apikey = apikey
+        self.openai_model = openai_model
         self.shap_explainer = ShapTabular(
             training_data=training_data,
             predict_function=predict_function,
@@ -74,11 +80,9 @@ class GPTExplainer(ExplainerBase):
             top_k=50
     ):
         system_prompt = \
-            f"You are a helpful and confident assistant for explaining prediction results generated " \
-            f"by a machine learning {mode} model. " \
-            f"Your decisions must always be made independently without seeking user assistance. " \
-            f"Your answers should be accurate and comprehensive for users to " \
-            f"understand why the model makes such predictions."
+            f"You are a helpful assistant for explaining prediction results generated " \
+            f"by a machine learning {mode} model based on the information provided below. " \
+            f"Your answers should be accurate and concise."
 
         prompts = []
         for i, (feature, value, score) in enumerate(zip(
@@ -136,13 +140,7 @@ class GPTExplainer(ExplainerBase):
         )
         return completion.choices[0].message.content
 
-    def explain(
-            self,
-            X,
-            apikey="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",
-            model="gpt-3.5-turbo",
-            **kwargs
-    ) -> PlainText:
+    def explain(self, X, **kwargs) -> PlainText:
         explanations = PlainText()
         shap_explanations = self.shap_explainer.explain(X, nsamples=100)
         mace_explanations = self.mace_explainer.explain(X) if self.mace_explainer is not None else None
@@ -150,6 +148,6 @@ class GPTExplainer(ExplainerBase):
         for i, e in enumerate(shap_explanations.get_explanations()):
             mace = mace_explanations.get_explanations()[i] if mace_explanations is not None else None
             input_prompt = self._generate_prompt(e, mace_explanation=mace)
-            explanation = self._api_call(input_prompt, apikey, model)
+            explanation = self._api_call(input_prompt, self.apikey, self.openai_model)
             explanations.add(instance=X.iloc(i).to_pd(), text=explanation)
         return explanations

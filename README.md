@@ -67,9 +67,10 @@ We will continue improving this library to make it more comprehensive in the fut
 |  Permutation explanation  |   Black box   |      Global      |     |    ✅    |       |      |      |
 |   Feature visualization   |  Torch or TF  |      Global      |     |         |   ✅   |      |      |
 |       Feature maps        |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
+|       GPT explainer       | Black box     |     Local        |     |    ✅    |       |      |      |
 |           LIME            |   Black box   |      Local       |     |    ✅    |   ✅   | ✅   |      |
 |           SHAP            |  Black box*   |      Local       |     |    ✅    |   ✅   | ✅   |  ✅  |
-|         What-if           |  Black box    |      Local       |     |    ✅    |       |      |     |
+|          What-if          |   Black box   |      Local       |     |    ✅    |       |      |     |
 |    Integrated gradient    |  Torch or TF  |      Local       |     |    ✅    |   ✅   | ✅   |      |
 |      Counterfactual       |  Black box*   |      Local       |     |    ✅    |   ✅   | ✅   |  ✅  |
 |  Contrastive explanation  |  Torch or TF  |      Local       |     |         |   ✅   |      |      |
@@ -89,6 +90,10 @@ image data.
 This [table](https://opensource.salesforce.com/OmniXAI/latest/index.html#comparison-with-competitors) 
 shows the comparison between our toolkit/library and other existing XAI toolkits/libraries
 in literature.
+
+**OmniXAI also integrates ChatGPT for generating plain text explanations given a classification/regression
+model on tabular datasets.** The generated results may not be 100% accurate, but it is worth trying this 
+explainer (we will continue improving the input prompts).
 
 ## Installation
 
@@ -283,6 +288,22 @@ dashboard.show()                                    # Launch the dashboard
 
 After opening the Dash app in the browser, we will see a dashboard showing the explanations:
 ![alt text](https://github.com/salesforce/OmniXAI/raw/main/docs/_static/demo.gif)
+
+You can also use the GPT explainer to generate explanations in text for tabular models:
+
+```python
+explainer = TabularExplainer(
+  explainers=["gpt"],                                # The GPT explainer to apply
+  mode="classification",                             # The task type
+  data=train_data,                                   # The data for initializing the explainers
+  model=model,                                       # The ML model to explain
+  preprocess=lambda z: transformer.transform(z),     # Converts raw features into the model inputs
+  params={
+     "gpt": {"apikey": "xxxx"}
+  }                                                  # Set the OpenAI API KEY
+)
+local_explanations = explainer.explain(X=test_instances)
+```
 
 For vision tasks, the same interface is used to create explainers and generate explanations. 
 Let's take an image classification model as an example.
