@@ -21,7 +21,7 @@ extras_require["all"] = sum(extras_require.values(), [])
 
 setup(
     name="omnixai",
-    version="1.2.5",
+    version="1.3.0",
     author="Wenzhuo Yang, Hung Le, Tanmay Shivprasad Laud, Silvio Savarese, Steven C.H. Hoi",
     description="OmniXAI: An Explainable AI Toolbox",
     long_description=open("README.md", "r", encoding="utf-8").read(),
@@ -33,7 +33,7 @@ setup(
     package_dir={"omnixai": "omnixai"},
     package_data={"omnixai": ["visualization/assets/*"]},
     install_requires=[
-        "numpy>=1.17",
+        "numpy>=1.17,<1.24",
         "pandas>=1.1.0",
         "scikit-learn>=0.24,<1.2",
         "scipy>=1.5.0",
