@@ -34,6 +34,12 @@
 8. [How to Contribute](https://opensource.salesforce.com/OmniXAI/latest/omnixai.html#how-to-contribute)
 9. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
 
+## What's New
+
+The latest version includes an experimental GPT explainer. This explainer leverages the outcomes 
+produced by SHAP and MACE to formulate the input prompt for ChatGPT. Subsequently, ChatGPT 
+analyzes these results and generates the corresponding explanations that provide developers with 
+a clearer understanding of the rationale behind the model's predictions.
 
 ## Introduction
 
