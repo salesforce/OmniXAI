@@ -51,6 +51,7 @@ setup(
         "ipython>=8.10.0",
         "tabulate",
         "statsmodels>=0.10.1",
+        "openai"
     ],
     extras_require=extras_require,
     python_requires=">=3.7,<4",
