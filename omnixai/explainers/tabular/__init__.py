@@ -14,6 +14,7 @@ from .agnostic.L2X.l2x import L2XTabular
 from .agnostic.permutation import PermutationImportance
 from .agnostic.shap_global import GlobalShapTabular
 from .agnostic.bias import BiasAnalyzer
+from .agnostic.gpt import GPTExplainer
 from .counterfactual.mace.mace import MACEExplainer
 from .counterfactual.ce import CounterfactualExplainer
 from .counterfactual.knn import KNNCounterfactualExplainer
@@ -36,6 +37,7 @@ __all__ = [
     "PermutationImportance",
     "GlobalShapTabular",
     "BiasAnalyzer",
+    "GPTExplainer",
     "MACEExplainer",
     "CounterfactualExplainer",
     "KNNCounterfactualExplainer",

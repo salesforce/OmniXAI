@@ -297,3 +297,67 @@ class PredictedResults(ExplanationBase):
         self = cls.__new__(PredictedResults)
         self.results = d["results"]
         return self
+
+
+class PlainText(ExplanationBase):
+    """
+    The class for plain text explanations.
+    """
+
+    def __init__(self, explanations=None):
+        """
+        :param explanations: The explanation results for initializing ``FeatureImportance``,
+            which is optional.
+        """
+        super().__init__()
+        self.explanations = [] if explanations is None else explanations
+
+    def __repr__(self):
+        return repr(self.explanations)
+
+    def __getitem__(self, i: int):
+        assert i < len(self.explanations)
+        return PlainText(explanations=[self.explanations[i]])
+
+    def add(self, instance, text, **kwargs):
+        """
+        Adds the generated explanation corresponding to one instance.
+
+        :param instance: The instance to explain.
+        :param text: The text explanation of the given instance.
+        """
+        e = {"instance": instance, "text": text}
+        e.update(kwargs)
+        self.explanations.append(e)
+
+    def get_explanations(self, index=None):
+        """
+        Gets the generated explanations.
+
+        :param index: The index of an explanation result stored in ``PlainText``.
+            When ``index`` is None, the function returns a list of all the explanations.
+        :return: The explanation for one specific instance (a dict)
+            or the explanations for all the instances (a list of dicts).
+            Each dict has the following format: `{"instance": the input instance,
+            "text": the corresponding explanations in plain text}`.
+        :rtype: Union[Dict, List]
+        """
+        return self.explanations if index is None else self.explanations[index]
+
+    def plot(self, **kwargs):
+        raise NotImplementedError
+
+    def plotly_plot(self, **kwargs):
+        raise NotImplementedError
+
+    def ipython_plot(self, **kwargs):
+        raise NotImplementedError
+
+    @classmethod
+    def from_dict(cls, d):
+        import pandas as pd
+        explanations = []
+        for e in d["explanations"]:
+            e["instance"] = pd.DataFrame.from_dict(e["instance"])
+            explanations.append(e)
+        return PlainText(explanations=explanations)
