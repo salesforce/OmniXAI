@@ -12,6 +12,8 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
@@ -163,6 +165,15 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l8"><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.gpt">omnixai.explainers.tabular.agnostic.gpt module</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.gpt.GPTExplainer"><code class="docutils literal notranslate"><span class="pre">GPTExplainer</span></code></a><ul>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.explanation_type"><code class="docutils literal notranslate"><span class="pre">GPTExplainer.explanation_type</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.alias"><code class="docutils literal notranslate"><span class="pre">GPTExplainer.alias</span></code></a></li>
+<li class="toctree-l10"><a class="reference internal" href="#omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.explain"><code class="docutils literal notranslate"><span class="pre">GPTExplainer.explain()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l7"><a class="reference internal" href="omnixai.explainers.tabular.counterfactual.html">omnixai.explainers.tabular.counterfactual package</a></li>
@@ -267,6 +278,9 @@
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.bias" title="omnixai.explainers.tabular.agnostic.bias"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bias</span></code></a></p></td>
 <td><p>The model bias analyzer for tabular data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.gpt" title="omnixai.explainers.tabular.agnostic.gpt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gpt</span></code></a></p></td>
+<td><p>The explainer based ChatGPT.</p></td>
 </tr>
 </tbody>
 </table>
@@ -963,6 +977,58 @@ and label = 1 if target value &gt; target_value_or_threshold.</p></li>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The bias analysis results stored in <code class="docutils literal notranslate"><span class="pre">BiasExplanation</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-omnixai.explainers.tabular.agnostic.gpt">
+<span id="omnixai-explainers-tabular-agnostic-gpt-module"></span><h2>omnixai.explainers.tabular.agnostic.gpt module<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic.gpt" title="Permalink to this heading"></a></h2>
+<p>The explainer based ChatGPT.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.gpt.GPTExplainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explainers.tabular.agnostic.gpt.</span></span><span class="sig-name descname"><span class="pre">GPTExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apikey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classification'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignored_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_counterfactual</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">openai_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gpt-3.5-turbo'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.gpt.GPTExplainer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
+<p>The explainer based on ChatGPT. The input prompt consists of the feature importance scores
+and the counterfactual examples (if used). The explanations will be the text generated by
+ChatGPT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to initialize a SHAP explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
+can be the training dataset for training the machine learning model.</p></li>
+<li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the model to explain.
+When the model is for classification, the outputs of the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
+are the class probabilities. When the model is for regression, the outputs of
+the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code> are the estimated values.</p></li>
+<li><p><strong>apikey</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The OpenAI API Key.</p></li>
+<li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
+<li><p><strong>ignored_features</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – The features ignored in computing feature importance scores.</p></li>
+<li><p><strong>include_counterfactual</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to include counterfactual explanations in the results.</p></li>
+<li><p><strong>openai_model</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The model type for chat completion.</p></li>
+<li><p><strong>kwargs</strong> – Additional parameters to initialize <cite>shap.KernelExplainer</cite>, e.g., <code class="docutils literal notranslate"><span class="pre">nsamples</span></code>.
+Please refer to the doc of <cite>shap.KernelExplainer</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.explanation_type">
+<span class="sig-name descname"><span class="pre">explanation_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'local'</span></em><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.explanation_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.alias">
+<span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gpt']</span></em><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.alias" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.explain">
+<span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.explain" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.PlainText" title="omnixai.explanations.base.PlainText"><code class="xref py py-class docutils literal notranslate"><span class="pre">PlainText</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>

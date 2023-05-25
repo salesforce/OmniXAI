@@ -12,6 +12,8 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
@@ -93,6 +95,15 @@
 <li class="toctree-l6"><a class="reference internal" href="#omnixai.explanations.base.PredictedResults.plotly_plot"><code class="docutils literal notranslate"><span class="pre">PredictedResults.plotly_plot()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="#omnixai.explanations.base.PredictedResults.ipython_plot"><code class="docutils literal notranslate"><span class="pre">PredictedResults.ipython_plot()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="#omnixai.explanations.base.PredictedResults.from_dict"><code class="docutils literal notranslate"><span class="pre">PredictedResults.from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#omnixai.explanations.base.PlainText"><code class="docutils literal notranslate"><span class="pre">PlainText</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explanations.base.PlainText.add"><code class="docutils literal notranslate"><span class="pre">PlainText.add()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explanations.base.PlainText.get_explanations"><code class="docutils literal notranslate"><span class="pre">PlainText.get_explanations()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explanations.base.PlainText.plot"><code class="docutils literal notranslate"><span class="pre">PlainText.plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explanations.base.PlainText.plotly_plot"><code class="docutils literal notranslate"><span class="pre">PlainText.plotly_plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explanations.base.PlainText.ipython_plot"><code class="docutils literal notranslate"><span class="pre">PlainText.ipython_plot()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#omnixai.explanations.base.PlainText.from_dict"><code class="docutils literal notranslate"><span class="pre">PlainText.from_dict()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -402,6 +413,87 @@ plots the feature importance scores for one instance.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="omnixai.explanations.base.PredictedResults.from_dict">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PredictedResults.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PlainText">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">omnixai.explanations.base.</span></span><span class="sig-name descname"><span class="pre">PlainText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explanations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PlainText" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#omnixai.explanations.base.ExplanationBase" title="omnixai.explanations.base.ExplanationBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplanationBase</span></code></a></p>
+<p>The class for plain text explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>explanations</strong> – The explanation results for initializing <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>,
+which is optional.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PlainText.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PlainText.add" title="Permalink to this definition"></a></dt>
+<dd><p>Adds the generated explanation corresponding to one instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instance</strong> – The instance to explain.</p></li>
+<li><p><strong>text</strong> – The text explanation of the given instance.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PlainText.get_explanations">
+<span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PlainText.get_explanations" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the generated explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">PlainText</span></code>.
+When <code class="docutils literal notranslate"><span class="pre">index</span></code> is None, the function returns a list of all the explanations.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The explanation for one specific instance (a dict)
+or the explanations for all the instances (a list of dicts).
+Each dict has the following format: <cite>{“instance”: the input instance,
+“text”: the corresponding explanations in plain text}</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[Dict, List]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PlainText.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PlainText.plot" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a matplotlib figure showing the explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A matplotlib figure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PlainText.plotly_plot">
+<span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PlainText.plotly_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a plotly dash component showing the explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A plotly dash component.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PlainText.ipython_plot">
+<span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PlainText.ipython_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots figures in IPython.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="omnixai.explanations.base.PlainText.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.base.PlainText.from_dict" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

@@ -12,6 +12,8 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
@@ -350,7 +352,7 @@ will be the column names in the pandas dataframe or the indices in the numpy arr
 <li><p><strong>categorical_columns</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of categorical feature names, e.g., a subset of feature column names in
 a pandas dataframe. If <code class="docutils literal notranslate"><span class="pre">data</span></code> is a numpy array and <code class="docutils literal notranslate"><span class="pre">feature_columns</span> <span class="pre">=</span> <span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">categorical_columns</span></code>
 should be the indices of categorical features.</p></li>
-<li><p><strong>target_column</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The target/label column name. Set <code class="docutils literal notranslate"><span class="pre">target_column</span></code> to None if there is no
+<li><p><strong>target_column</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The target/label column name. Set <code class="docutils literal notranslate"><span class="pre">target_column</span></code> to None if there is no
 target column.</p></li>
 </ul>
 </dd>

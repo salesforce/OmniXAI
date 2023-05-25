@@ -15,6 +15,7 @@ omnixai.explainers.tabular.agnostic package
    L2X.l2x
    permutation
    bias
+   gpt
 
 omnixai.explainers.tabular.agnostic.lime module
 -----------------------------------------------
@@ -84,6 +85,14 @@ omnixai.explainers.tabular.agnostic.bias module
 -----------------------------------------------
 
 .. automodule:: omnixai.explainers.tabular.agnostic.bias
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+omnixai.explainers.tabular.agnostic.gpt module
+----------------------------------------------
+
+.. automodule:: omnixai.explainers.tabular.agnostic.gpt
    :members:
    :undoc-members:
    :show-inheritance:
