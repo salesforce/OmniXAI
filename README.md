@@ -132,6 +132,7 @@ Some examples:
 7. [Ranking tasks](https://github.com/salesforce/OmniXAI/blob/main/tutorials/tabular/ranking.ipynb)
 8. [Feature visualization](https://github.com/salesforce/OmniXAI/blob/main/tutorials/vision/feature_visualization_torch.ipynb)
 9. [Check feature maps](https://github.com/salesforce/OmniXAI/blob/main/tutorials/vision/feature_map_torch.ipynb)
+10. [GPT explainer for tabular](https://github.com/salesforce/OmniXAI/blob/main/tutorials/tabular/gpt.ipynb)
 
 To get started, we recommend the linked tutorials in [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html).
 In general, we recommend using `TabularExplainer`, `VisionExplainer`,
