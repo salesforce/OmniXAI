@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>omnixai.explainers.nlp.agnostic package &mdash; OmniXAI  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            OmniXAI
+            <a href="index.html" class="icon icon-home"> OmniXAI
           </a>
               <div class="version">
                 v1.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -145,7 +142,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
           <li class="breadcrumb-item"><a href="omnixai.explainers.html">omnixai.explainers package</a></li>
           <li class="breadcrumb-item"><a href="omnixai.explainers.nlp.html">omnixai.explainers.nlp package</a></li>
@@ -186,6 +183,10 @@
 <section id="module-omnixai.explainers.nlp.agnostic">
 <span id="omnixai-explainers-nlp-agnostic-package"></span><h1>omnixai.explainers.nlp.agnostic package<a class="headerlink" href="#module-omnixai.explainers.nlp.agnostic" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.nlp.agnostic.lime" title="omnixai.explainers.nlp.agnostic.lime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lime</span></code></a></p></td>
 <td><p>The LIME explainer for text classification.</p></td>
@@ -209,7 +210,7 @@
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/marcotcr/lime">https://github.com/marcotcr/lime</a>.
 This explainer only supports text classification tasks.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>predict_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The prediction function corresponding to the machine learning
 model to explain. When the task is <cite>classification</cite>, the outputs of the <code class="docutils literal notranslate"><span class="pre">predict_function</span></code>
@@ -235,7 +236,7 @@ are the class probabilities.</p></li>
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.lime.LimeText.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the word/token-importance explanations for the input instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – A batch of input instances.</p></li>
 <li><p><strong>y</strong> – A batch of labels to explain. For classification, the top predicted label
@@ -243,10 +244,10 @@ of each input instance will be explained when <cite>y = None</cite>.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters for <cite>LimeTextExplainer.explain_instance</cite>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance" title="omnixai.explanations.text.word_importance.WordImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">WordImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The explanations for all the input instances.</p>
 </dd>
 </dl>
@@ -266,7 +267,7 @@ of each input instance will be explained when <cite>y = None</cite>.</p></li>
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/slundberg/shap">https://github.com/slundberg/shap</a>.
 This explainer only supports <cite>TextClassificationPipeline</cite> in the <cite>transformer</cite> library.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The model with type <cite>transformers.pipelines.text_classification.TextClassificationPipeline</cite>.</p></li>
 <li><p><strong>mode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The task type can be <cite>classification</cite> only.</p></li>
@@ -290,7 +291,7 @@ This explainer only supports <cite>TextClassificationPipeline</cite> in the <cit
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.shap.ShapText.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the word/token-importance explanations for the input instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – A batch of input instances.</p></li>
 <li><p><strong>y</strong> – A batch of labels to explain. For classification, the top predicted label
@@ -298,10 +299,10 @@ of each input instance will be explained when <cite>y = None</cite>.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters for <cite>shap.Explainer</cite>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance" title="omnixai.explanations.text.word_importance.WordImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">WordImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The explanations for all the instances.</p>
 </dd>
 </dl>
@@ -320,7 +321,7 @@ of each input instance will be explained when <cite>y = None</cite>.</p></li>
 <p>The default selection model in L2X for text data. It consists of five 1D convolution layers
 and one linear output layer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>explainer</strong> – A <cite>L2XText</cite> explainer.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters, e.g., <code class="docutils literal notranslate"><span class="pre">hidden_size</span></code> – the hidden layer size,
@@ -332,7 +333,7 @@ and <code class="docutils literal notranslate"><span class="pre">kernel_size</sp
 <dt class="sig sig-object py" id="omnixai.explainers.nlp.agnostic.l2x.DefaultSelectionModel.forward">
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultSelectionModel.forward" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>inputs</strong> – The input IDs.</p></li>
 <li><p><strong>masks</strong> – The input masks.</p></li>
@@ -343,7 +344,7 @@ and <code class="docutils literal notranslate"><span class="pre">kernel_size</sp
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="omnixai.explainers.nlp.agnostic.l2x.DefaultSelectionModel.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultSelectionModel.training" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultSelectionModel.training" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -355,7 +356,7 @@ and <code class="docutils literal notranslate"><span class="pre">kernel_size</sp
 <p>The default prediction model in L2X for text data. It consists of three 1D convolution layers
 and one linear output layer by default.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>explainer</strong> – A <cite>L2XText</cite> explainer.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters, e.g., <code class="docutils literal notranslate"><span class="pre">hidden_size</span></code> – the hidden layer size,
@@ -367,7 +368,7 @@ and <code class="docutils literal notranslate"><span class="pre">kernel_sizes</s
 <dt class="sig sig-object py" id="omnixai.explainers.nlp.agnostic.l2x.DefaultPredictionModel.forward">
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultPredictionModel.forward" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>inputs</strong> – The input IDs.</p></li>
 <li><p><strong>masks</strong> – The input masks.</p></li>
@@ -379,7 +380,7 @@ and <code class="docutils literal notranslate"><span class="pre">kernel_sizes</s
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="omnixai.explainers.nlp.agnostic.l2x.DefaultPredictionModel.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultPredictionModel.training" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.l2x.DefaultPredictionModel.training" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -393,7 +394,7 @@ If using this explainer, please cite the original work:
 <cite>Learning to Explain: An Information-Theoretic Perspective on Model Interpretation,
 Jianbo Chen, Le Song, Martin J. Wainwright, Michael I. Jordan, https://arxiv.org/abs/1802.07814</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – The data used to train the explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 should be the training dataset for training the machine learning model.</p></li>
@@ -436,13 +437,13 @@ and <code class="docutils literal notranslate"><span class="pre">prediction_mode
 <dd><p>Generates the explanations for the input instances. For classification,
 it explains the top predicted label for each input instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – A batch of input instances.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.text.html#omnixai.explanations.text.word_importance.WordImportance" title="omnixai.explanations.text.word_importance.WordImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">WordImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The explanations for all the input instances.</p>
 </dd>
 </dl>
@@ -453,7 +454,7 @@ it explains the top predicted label for each input instance.</p>
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.nlp.agnostic.l2x.L2XText.save" title="Permalink to this definition"></a></dt>
 <dd><p>Saves the initialized explainer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The folder for the dumped explainer.</p></li>
 <li><p><strong>filename</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The filename (the explainer class name if it is None).</p></li>

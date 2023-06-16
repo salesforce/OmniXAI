@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>omnixai.explainers.vision.specific package &mdash; OmniXAI  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            OmniXAI
+            <a href="index.html" class="icon icon-home"> OmniXAI
           </a>
               <div class="version">
                 v1.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -184,7 +181,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
           <li class="breadcrumb-item"><a href="omnixai.explainers.html">omnixai.explainers package</a></li>
           <li class="breadcrumb-item"><a href="omnixai.explainers.vision.html">omnixai.explainers.vision package</a></li>
@@ -225,6 +222,10 @@
 <section id="module-omnixai.explainers.vision.specific">
 <span id="omnixai-explainers-vision-specific-package"></span><h1>omnixai.explainers.vision.specific package<a class="headerlink" href="#module-omnixai.explainers.vision.specific" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.vision.specific.ig" title="omnixai.explainers.vision.specific.ig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ig</span></code></a></p></td>
 <td><p>The integrated-gradient explainer for vision tasks.</p></td>
@@ -247,7 +248,7 @@
 <p>The integrated-gradient explainer for vision tasks.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/ankurtaly/Integrated-Gradients">https://github.com/ankurtaly/Integrated-Gradients</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The model to explain, whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
 <li><p><strong>preprocess_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The pre-processing function that converts the raw input features
@@ -275,7 +276,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">num_random_tr
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.ig.IntegratedGradientImage.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the pixel-importance explanations for the input instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – A batch of input instances.</p></li>
 <li><p><strong>y</strong> – A batch of labels to explain. For regression, <code class="docutils literal notranslate"><span class="pre">y</span></code> is ignored.
@@ -287,10 +288,10 @@ the baselines will be sampled randomly.</p></li>
 <cite>IntegratedGradient.compute_integrated_gradients</cite>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.image.html#omnixai.explanations.image.pixel_importance.PixelImportance" title="omnixai.explanations.image.pixel_importance.PixelImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PixelImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The explanations for all the instances, e.g., pixel importance scores.</p>
 </dd>
 </dl>
@@ -310,7 +311,7 @@ the baselines will be sampled randomly.</p></li>
 If using this explainer, please cite <cite>Grad-CAM: Visual Explanations from Deep Networks
 via Gradient-based Localization, Selvaraju et al., https://arxiv.org/abs/1610.02391</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The model to explain, whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
 <li><p><strong>target_layer</strong> – The target layer for explanation, which can be
@@ -336,7 +337,7 @@ into the inputs of <code class="docutils literal notranslate"><span class="pre">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAM.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the explanations for the input instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – A batch of input instances.</p></li>
 <li><p><strong>y</strong> – A batch of labels to explain. For regression, <code class="docutils literal notranslate"><span class="pre">y</span></code> is ignored.
@@ -345,10 +346,10 @@ when <cite>y = None</cite>.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanations for all the instances, e.g., pixel importance scores.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.image.html#omnixai.explanations.image.pixel_importance.PixelImportance" title="omnixai.explanations.image.pixel_importance.PixelImportance">PixelImportance</a></p>
 </dd>
 </dl>
@@ -364,7 +365,7 @@ when <cite>y = None</cite>.</p></li>
 If using this explainer, please cite <cite>Grad-CAM++: Improved Visual Explanations for
 Deep Convolutional Networks, Chattopadhyay et al., https://arxiv.org/pdf/1710.11063</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The model whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
 <li><p><strong>target_layer</strong> – The target layer for explanation, which can be
@@ -390,7 +391,7 @@ into the inputs of <code class="docutils literal notranslate"><span class="pre">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.gradcam.gradcam.GradCAMPlus.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the explanations for the input instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – A batch of input instances.</p></li>
 <li><p><strong>y</strong> – A batch of labels to explain. For regression, <code class="docutils literal notranslate"><span class="pre">y</span></code> is ignored.
@@ -399,10 +400,10 @@ when <cite>y = None</cite>.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanations for all the instances, e.g., pixel importance scores.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.image.html#omnixai.explanations.image.pixel_importance.PixelImportance" title="omnixai.explanations.image.pixel_importance.PixelImportance">PixelImportance</a></p>
 </dd>
 </dl>
@@ -418,7 +419,7 @@ when <cite>y = None</cite>.</p></li>
 If using this explainer, please cite <cite>LayerCAM: Exploring Hierarchical Class Activation Maps for Localization,
 Jiang et al., http://mmcheng.net/mftp/Papers/21TIP_LayerCAM.pdf</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The model whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
 <li><p><strong>target_layer</strong> – The target layer for explanation, which can be
@@ -444,7 +445,7 @@ into the inputs of <code class="docutils literal notranslate"><span class="pre">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.gradcam.gradcam.LayerCAM.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the explanations for the input instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – A batch of input instances.</p></li>
 <li><p><strong>y</strong> – A batch of labels to explain. For regression, <code class="docutils literal notranslate"><span class="pre">y</span></code> is ignored.
@@ -453,10 +454,10 @@ when <cite>y = None</cite>.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanations for all the instances, e.g., pixel importance scores.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.image.html#omnixai.explanations.image.pixel_importance.PixelImportance" title="omnixai.explanations.image.pixel_importance.PixelImportance">PixelImportance</a></p>
 </dd>
 </dl>
@@ -475,7 +476,7 @@ when <cite>y = None</cite>.</p></li>
 <p>The optimizer for contrastive explanation. The module is implemented based
 on the paper: <a class="reference external" href="https://arxiv.org/abs/1802.07623">https://arxiv.org/abs/1802.07623</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x0</strong> – The input image.</p></li>
 <li><p><strong>target</strong> – The predicted label of the input image.</p></li>
@@ -498,10 +499,10 @@ on the paper: <a class="reference external" href="https://arxiv.org/abs/1802.076
 <span class="sig-name descname"><span class="pre">pn_optimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.cem.CEMOptimizer.pn_optimize" title="Permalink to this definition"></a></dt>
 <dd><p>Optimizes pertinent negatives.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The pertinent negative.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>np.ndarray</p>
 </dd>
 </dl>
@@ -512,10 +513,10 @@ on the paper: <a class="reference external" href="https://arxiv.org/abs/1802.076
 <span class="sig-name descname"><span class="pre">pp_optimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.cem.CEMOptimizer.pp_optimize" title="Permalink to this definition"></a></dt>
 <dd><p>Optimizes pertinent positives.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The pertinent positive.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>np.ndarray</p>
 </dd>
 </dl>
@@ -531,7 +532,7 @@ on the paper: <a class="reference external" href="https://arxiv.org/abs/1802.076
 If using this explainer, please cite the original work: <a class="reference external" href="https://arxiv.org/abs/1802.07623">https://arxiv.org/abs/1802.07623</a>.
 This explainer only supports classification tasks.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The model to explain, whose type is <cite>torch.nn.Module</cite> or <cite>tf.keras.Model</cite>.</p></li>
 <li><p><strong>preprocess_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The pre-processing function that converts the raw input features
@@ -569,13 +570,13 @@ the pertinent negatives and the pertinent positives have been processed
 by the <code class="docutils literal notranslate"><span class="pre">preprocess_function</span></code>, e.g., if the <code class="docutils literal notranslate"><span class="pre">preprocess_function</span></code> rescales
 [0, 255] to [0, 1], the return results will have range [0, 1].</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – A batch of the input images.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.image.html#omnixai.explanations.image.contrast.ContrastiveExplanation" title="omnixai.explanations.image.contrast.ContrastiveExplanation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContrastiveExplanation</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The explanations for all the images, e.g., pertinent negatives and pertinent positives.</p>
 </dd>
 </dl>
@@ -596,7 +597,7 @@ for PyTorch and (B, H, W, C) for TensorFlow. This class applies the optimized ba
 for visualizing layer, channel, neuron features. For more details, please visit
 <cite>https://distill.pub/2017/feature-visualization/</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The model to explain.</p></li>
 <li><p><strong>objectives</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of objectives for visualization. Each objective has the following format:
@@ -624,7 +625,7 @@ If “type” is “channel” or “neuron”, please set the channel indices o
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regularizers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fft_decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normal_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.feature_visualization.visualizer.FeatureVisualizer.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates feature visualizations for the specified model and objectives.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_iterations</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The number of iterations during optimization.</p></li>
 <li><p><strong>learning_rate</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The learning rate during optimization.</p></li>
@@ -641,7 +642,7 @@ The available transform functions can be found in <cite>.pytorch.preprocess</cit
 <li><p><strong>verbose</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to print the optimization progress.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The optimized images for the objectives.</p>
 </dd>
 </dl>
@@ -655,7 +656,7 @@ The available transform functions can be found in <cite>.pytorch.preprocess</cit
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
 <p>The class for feature map visualization.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The model to explain.</p></li>
 <li><p><strong>target_layer</strong> – The target layer for feature map visualization.</p></li>
@@ -679,10 +680,10 @@ into the inputs of <code class="docutils literal notranslate"><span class="pre">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.feature_visualization.visualizer.FeatureMapVisualizer.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates feature map visualizations for the specified layer and inputs.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – A batch of input images.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The feature maps.</p>
 </dd>
 </dl>
@@ -699,7 +700,7 @@ into the inputs of <code class="docutils literal notranslate"><span class="pre">
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GradMixin</span></code></p>
 <p>The guided back propagation method for vision models.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The model to explain, whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
 <li><p><strong>preprocess_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The preprocessing function that converts the raw data
@@ -723,7 +724,7 @@ into the inputs of <code class="docutils literal notranslate"><span class="pre">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.guided_bp.GuidedBP.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the explanations for the input instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – A batch of input instances.</p></li>
 <li><p><strong>y</strong> – A batch of labels to explain. For regression, <code class="docutils literal notranslate"><span class="pre">y</span></code> is ignored.
@@ -732,10 +733,10 @@ when <cite>y = None</cite>.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanations for all the instances, e.g., pixel importance scores.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.image.html#omnixai.explanations.image.pixel_importance.PixelImportance" title="omnixai.explanations.image.pixel_importance.PixelImportance">PixelImportance</a></p>
 </dd>
 </dl>
@@ -754,7 +755,7 @@ when <cite>y = None</cite>.</p></li>
 If using this explainer, please cite <cite>SmoothGrad: removing noise by adding noise,
 Smilkov et al., https://arxiv.org/abs/1706.03825</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The model to explain, whose type can be <cite>tf.keras.Model</cite> or <cite>torch.nn.Module</cite>.</p></li>
 <li><p><strong>preprocess_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – The preprocessing function that converts the raw data
@@ -779,7 +780,7 @@ into the inputs of <code class="docutils literal notranslate"><span class="pre">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.vision.specific.smoothgrad.SmoothGrad.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the explanations for the input instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – A batch of input instances.</p></li>
 <li><p><strong>y</strong> – A batch of labels to explain. For regression, <code class="docutils literal notranslate"><span class="pre">y</span></code> is ignored.
@@ -790,10 +791,10 @@ when <cite>y = None</cite>.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanations for all the instances, e.g., pixel importance scores.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.image.html#omnixai.explanations.image.pixel_importance.PixelImportance" title="omnixai.explanations.image.pixel_importance.PixelImportance">PixelImportance</a></p>
 </dd>
 </dl>

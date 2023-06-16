@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>omnixai.preprocessing package &mdash; OmniXAI  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            OmniXAI
+            <a href="index.html" class="icon icon-home"> OmniXAI
           </a>
               <div class="version">
                 v1.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -249,7 +246,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
       <li class="breadcrumb-item active">omnixai.preprocessing package</li>
       <li class="wy-breadcrumbs-aside">
@@ -288,6 +285,10 @@
 <section id="module-omnixai.preprocessing">
 <span id="omnixai-preprocessing-package"></span><h1>omnixai.preprocessing package<a class="headerlink" href="#module-omnixai.preprocessing" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.preprocessing.base" title="omnixai.preprocessing.base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base</span></code></a></p></td>
 <td><p>The base class for all the transforms.</p></td>
@@ -384,10 +385,10 @@ that may not recover the original data.</p>
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.base.TransformBase.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -398,10 +399,10 @@ that may not recover the original data.</p>
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.base.TransformBase.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -412,10 +413,10 @@ that may not recover the original data.</p>
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.base.TransformBase.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -433,10 +434,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.base.Identity.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -447,10 +448,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.base.Identity.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -461,10 +462,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.base.Identity.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -486,10 +487,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.KBins.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -500,10 +501,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.KBins.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -514,10 +515,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.KBins.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -535,10 +536,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.OneHot.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -549,10 +550,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.OneHot.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -563,10 +564,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.OneHot.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -596,10 +597,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.Ordinal.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -610,10 +611,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.Ordinal.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -624,10 +625,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.Ordinal.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -651,10 +652,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.LabelEncoder.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -665,10 +666,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.LabelEncoder.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -679,10 +680,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.encode.LabelEncoder.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -710,10 +711,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.normalize.Standard.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -724,10 +725,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.normalize.Standard.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -738,10 +739,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.normalize.Standard.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -759,10 +760,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.normalize.MinMax.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -773,10 +774,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.normalize.MinMax.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -787,10 +788,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.normalize.MinMax.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -808,10 +809,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.normalize.Scale.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -822,10 +823,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.normalize.Scale.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -836,10 +837,10 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.normalize.Scale.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -857,7 +858,7 @@ that may not recover the original data.</p>
 <dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Fill NaNs in a pandas dataframe or a numpy array.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – The value to fill NaNs, chosen from [‘mean’, ‘median’] or float values</p>
 </dd>
 </dl>
@@ -866,13 +867,13 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.fill.FillNaN.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]) – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The current instance.</p>
 </dd>
 </dl>
@@ -883,13 +884,13 @@ that may not recover the original data.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.fill.FillNaN.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]) – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]</p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -901,13 +902,13 @@ that may not recover the original data.</p>
 <dd><p>This is a pseudo inverse transform because the positions of
 the NANs in the original data are not stored.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]) – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Union[np.ndarray, pd.DataFrame]</p>
 </dd>
 </dl>
@@ -921,7 +922,7 @@ the NANs in the original data are not stored.</p>
 <dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Fill NaNs in a Tabular object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – The value to fill NaNs, chosen from [‘mean’, ‘median’] or float values</p>
 </dd>
 </dl>
@@ -930,13 +931,13 @@ the NANs in the original data are not stored.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.fill.FillNaNTabular.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Fits a <cite>FillNaN</cite> transformer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – A <cite>Tabular</cite> object.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Itself.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#omnixai.preprocessing.fill.FillNaNTabular" title="omnixai.preprocessing.fill.FillNaNTabular">FillNaNTabular</a></p>
 </dd>
 </dl>
@@ -947,13 +948,13 @@ the NANs in the original data are not stored.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.fill.FillNaNTabular.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Fills NaNs in the continuous-valued features.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – A <cite>Tabular</cite> object.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular">Tabular</a></p>
 </dd>
 </dl>
@@ -965,13 +966,13 @@ the NANs in the original data are not stored.</p>
 <dd><p>This is a pseudo inverse transform because the positions of
 the NANs in the original data are not stored.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular">Tabular</a></p>
 </dd>
 </dl>
@@ -998,10 +999,10 @@ the NANs in the original data are not stored.</p>
 <span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.pipeline.Pipeline.step" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a new transform into the pipeline.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>transformer</strong> (<a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a>) – A transformer derived from TransformBase</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current pipeline instance</p>
 </dd>
 </dl>
@@ -1012,10 +1013,10 @@ the NANs in the original data are not stored.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.pipeline.Pipeline.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the all transforms.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -1026,10 +1027,10 @@ the NANs in the original data are not stored.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.pipeline.Pipeline.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies all the transforms to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -1040,10 +1041,10 @@ the NANs in the original data are not stored.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.pipeline.Pipeline.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transforms to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -1054,7 +1055,7 @@ the NANs in the original data are not stored.</p>
 <span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.pipeline.Pipeline.dump" title="Permalink to this definition"></a></dt>
 <dd><p>Saves the pipeline to the specified file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>directory</strong> – The directory to save the pipeline</p>
 </dd>
 </dl>
@@ -1065,7 +1066,7 @@ the NANs in the original data are not stored.</p>
 <span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.pipeline.Pipeline.load" title="Permalink to this definition"></a></dt>
 <dd><p>Loads the pipeline from the specified file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>directory</strong> – The directory to load the pipeline from</p>
 </dd>
 </dl>
@@ -1083,7 +1084,7 @@ the NANs in the original data are not stored.</p>
 <dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Transforms for a <code class="docutils literal notranslate"><span class="pre">data.tabular.Tabular</span></code> instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cate_transform</strong> (<a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a>) – The transform for the categorical features, e.g.,
 <cite>OneHot</cite>, <cite>Ordinal</cite>.</p></li>
@@ -1099,13 +1100,13 @@ e.g., <cite>Identity</cite>, <cite>Standard</cite>, <cite>MinMax</cite>, <cite>S
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.tabular.TabularTransform.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Fits a tabular transformer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – A <cite>Tabular</cite> object.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Itself.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#omnixai.preprocessing.tabular.TabularTransform" title="omnixai.preprocessing.tabular.TabularTransform">TabularTransform</a></p>
 </dd>
 </dl>
@@ -1117,13 +1118,13 @@ e.g., <cite>Identity</cite>, <cite>Standard</cite>, <cite>MinMax</cite>, <cite>S
 <dd><p>Transforms the input tabular instance. The output data concatenates the transformed
 categorical features, continuous-valued features and targets/labels (if exist) together.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – A <cite>Tabular</cite> object.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
@@ -1134,13 +1135,13 @@ categorical features, continuous-valued features and targets/labels (if exist) t
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.tabular.TabularTransform.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Converts a numpy array into a Tabular object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – An input numpy array.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse Tabular object.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular">Tabular</a></p>
 </dd>
 </dl>
@@ -1151,13 +1152,13 @@ categorical features, continuous-valued features and targets/labels (if exist) t
 <span class="sig-name descname"><span class="pre">decompose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.tabular.TabularTransform.decompose" title="Permalink to this definition"></a></dt>
 <dd><p>Decomposes the transformed data into <cite>categorical</cite>, <cite>continuous</cite> and <cite>target</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – An input numpy array.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A tuple of <cite>categorical</cite>, <cite>continuous</cite> and <cite>target</cite> data.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
@@ -1168,7 +1169,7 @@ categorical features, continuous-valued features and targets/labels (if exist) t
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">categories</span></span><a class="headerlink" href="#omnixai.preprocessing.tabular.TabularTransform.categories" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the categories for all the features.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A list of categories, i.e., <code class="docutils literal notranslate"><span class="pre">categories[i]</span></code> holds
 the categories expected in the ith column, or None.</p>
 </dd>
@@ -1180,7 +1181,7 @@ the categories expected in the ith column, or None.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">class_names</span></span><a class="headerlink" href="#omnixai.preprocessing.tabular.TabularTransform.class_names" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the class names for a classification task.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A list of class names or None.</p>
 </dd>
 </dl>
@@ -1208,13 +1209,13 @@ the categories expected in the ith column, or None.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Scale.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The current instance.</p>
 </dd>
 </dl>
@@ -1225,13 +1226,13 @@ the categories expected in the ith column, or None.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Scale.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -1242,13 +1243,13 @@ the categories expected in the ith column, or None.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Scale.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -1266,13 +1267,13 @@ the categories expected in the ith column, or None.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Round2Int.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The current instance.</p>
 </dd>
 </dl>
@@ -1283,13 +1284,13 @@ the categories expected in the ith column, or None.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Round2Int.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -1300,13 +1301,13 @@ the categories expected in the ith column, or None.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Round2Int.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -1320,7 +1321,7 @@ the categories expected in the ith column, or None.</p>
 <dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Normalizes an image with mean and standard deviation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mean</strong> – A mean for all the channels or a sequence of means for each channel.</p></li>
 <li><p><strong>std</strong> – A std for all the channels or a sequence of stds for each channel.</p></li>
@@ -1332,13 +1333,13 @@ the categories expected in the ith column, or None.</p>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Normalize.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The current instance.</p>
 </dd>
 </dl>
@@ -1349,13 +1350,13 @@ the categories expected in the ith column, or None.</p>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Normalize.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -1366,13 +1367,13 @@ the categories expected in the ith column, or None.</p>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Normalize.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -1386,7 +1387,7 @@ the categories expected in the ith column, or None.</p>
 <dd><p>Bases: <a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 <p>Resizes the input image to a given size.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>size</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – The desired output size. If <cite>size</cite> is a sequence (h, w),
 the output size will be (h, w). If <cite>size</cite> is an int, the smaller edge
@@ -1400,13 +1401,13 @@ will match this number.</p></li>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Resize.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.preprocessing.base.TransformBase" title="omnixai.preprocessing.base.TransformBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformBase</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The current instance.</p>
 </dd>
 </dl>
@@ -1417,13 +1418,13 @@ will match this number.</p></li>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Resize.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -1434,13 +1435,13 @@ will match this number.</p></li>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.image.Resize.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>) – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.image.Image" title="omnixai.data.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -1462,10 +1463,10 @@ will match this number.</p></li>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.text.Tfidf.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -1476,10 +1477,10 @@ will match this number.</p></li>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.text.Tfidf.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -1490,10 +1491,10 @@ will match this number.</p></li>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.text.Tfidf.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -1532,10 +1533,10 @@ will match this number.</p></li>
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.text.Word2Id.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates the parameters of the transform.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – The data for estimating the parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current instance.</p>
 </dd>
 </dl>
@@ -1546,10 +1547,10 @@ will match this number.</p></li>
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.text.Word2Id.transform" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.text.Text" title="omnixai.data.text.Text"><code class="xref py py-class docutils literal notranslate"><span class="pre">Text</span></code></a>) – The data on which to apply the transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The transformed data.</p>
 </dd>
 </dl>
@@ -1560,10 +1561,10 @@ will match this number.</p></li>
 <span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.preprocessing.text.Word2Id.invert" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the inverse transform to the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – The data on which to apply the inverse transform.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inverse transformed data.</p>
 </dd>
 </dl>
@@ -1592,17 +1593,17 @@ and over-sampling.</p>
 <dd><p>Samples a subset of the input dataset. It guarantees that all the categorical values
 are included in the sampled dataframe, i.e., there will be no missing categorical values.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tabular_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The input tabular data.</p></li>
 <li><p><strong>fraction</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The fraction of the sampled instance.</p></li>
 <li><p><strong>random_state</strong> – The random seed.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A subset extracted from <code class="docutils literal notranslate"><span class="pre">tabular_data</span></code>.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular">Tabular</a></p>
 </dd>
 </dl>
@@ -1616,16 +1617,16 @@ keeping all of the data in the minority class and decreasing the size of the maj
 It guarantees that all the categorical values are included in the sampled dataframe, i.e.,
 there will be no missing categorical values.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tabular_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The input tabular data.</p></li>
 <li><p><strong>random_state</strong> – The random seed.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A subset extracted from <code class="docutils literal notranslate"><span class="pre">tabular_data</span></code>.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular">Tabular</a></p>
 </dd>
 </dl>
@@ -1639,16 +1640,16 @@ keeping all of the data in the majority class and increasing the size of the min
 It guarantees that all the categorical values are included in the sampled dataframe, i.e.,
 there will be no missing categorical values.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tabular_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The input tabular data.</p></li>
 <li><p><strong>random_state</strong> – The random seed.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>An oversampled dataset.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular">Tabular</a></p>
 </dd>
 </dl>

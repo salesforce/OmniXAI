@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>omnixai.explanations.timeseries package &mdash; OmniXAI  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            OmniXAI
+            <a href="index.html" class="icon icon-home"> OmniXAI
           </a>
               <div class="version">
                 v1.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -116,7 +113,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
           <li class="breadcrumb-item"><a href="omnixai.explanations.html">omnixai.explanations package</a></li>
       <li class="breadcrumb-item active">omnixai.explanations.timeseries package</li>
@@ -156,6 +153,10 @@
 <section id="module-omnixai.explanations.timeseries">
 <span id="omnixai-explanations-timeseries-package"></span><h1>omnixai.explanations.timeseries package<a class="headerlink" href="#module-omnixai.explanations.timeseries" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explanations.timeseries.feature_importance" title="omnixai.explanations.timeseries.feature_importance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_importance</span></code></a></p></td>
 <td><p>Feature importance explanations for time series tasks.</p></td>
@@ -177,7 +178,7 @@ the feature importance explanations of the input instances. Each item in the lis
 is a dict with the following format <cite>{“instance”: the input instance, “scores”: feature importance scores}</cite>,
 where both “instance” and “scores” are pandas dataframes.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mode</strong> – The task type, e.g., <cite>anomaly_detection</cite> or <cite>forecasting</cite>.</p></li>
 <li><p><strong>explanations</strong> – The explanation results for initializing <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>,
@@ -190,7 +191,7 @@ which is optional.</p></li>
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation corresponding to one instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> – The instance to explain.</p></li>
 <li><p><strong>importance_scores</strong> – The feature importance scores.</p></li>
@@ -204,18 +205,18 @@ which is optional.</p></li>
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>.
 When <code class="docutils literal notranslate"><span class="pre">index</span></code> is None, the function returns a list of all the explanations.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanation for one specific instance (a dict)
 or the explanations for all the instances (a list of dicts).
 Each dict has the following format: <cite>{“instance”: the input instance,
 “scores”: feature importance scores}</cite>, where both “instance” and “scores” are
 pandas dataframes.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Union[Dict, List]</p>
 </dd>
 </dl>
@@ -226,7 +227,7 @@ pandas dataframes.</p>
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_variables_to_plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots importance scores for time series data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>,
 e.g., it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.
@@ -235,7 +236,7 @@ When <code class="docutils literal notranslate"><span class="pre">index</span></
 <li><p><strong>max_num_variables_to_plot</strong> – The maximum number of variables to plot in the figure.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A matplotlib figure plotting feature importance scores.</p>
 </dd>
 </dl>
@@ -246,12 +247,12 @@ When <code class="docutils literal notranslate"><span class="pre">index</span></
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots feature importance scores for one specific instance using Dash.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>
 which cannot be None, e.g., it will plot the first explanation result
 when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting feature importance scores.</p>
 </dd>
 </dl>
@@ -262,7 +263,7 @@ when <code class="docutils literal notranslate"><span class="pre">index</span> <
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.feature_importance.FeatureImportance.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the feature importance scores in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>,
 which cannot be None, e.g., it will plot the first explanation result
 when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p>
@@ -290,7 +291,7 @@ pandas dataframes.</p>
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation corresponding to one instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>query</strong> – The instance to explain.</p></li>
 <li><p><strong>cfs</strong> – The generated counterfactual examples.</p></li>
@@ -305,18 +306,18 @@ pandas dataframes.</p>
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated counterfactual explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code>.
 When it is None, it returns a list of all the explanations.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanation for one specific instance (a dict)
 or all the explanations for all the instances (a list). Each dict has
 the following format: <cite>{“query”: the original input instance, “counterfactual”:
 the generated counterfactual examples}</cite>. Both “query” and “counterfactual” are
 pandas dataframes.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Union[Dict, List]</p>
 </dd>
 </dl>
@@ -327,7 +328,7 @@ pandas dataframes.</p>
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_variables_to_plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots counterfactual examples for time series data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code>,
 e.g., it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.
@@ -335,7 +336,7 @@ When <code class="docutils literal notranslate"><span class="pre">index</span></
 <li><p><strong>max_num_variables_to_plot</strong> – The maximum number of variables to plot in the figure.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A matplotlib figure plotting counterfactual examples.</p>
 </dd>
 </dl>
@@ -346,12 +347,12 @@ When <code class="docutils literal notranslate"><span class="pre">index</span></
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots counterfactual examples for one specific instance using Dash.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code>
 which cannot be None, e.g., it will plot the first explanation result
 when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting counterfactual examples.</p>
 </dd>
 </dl>
@@ -362,7 +363,7 @@ when <code class="docutils literal notranslate"><span class="pre">index</span> <
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.timeseries.counterfactual.CFExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots counterfactual examples in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code>,
 which cannot be None, e.g., it will plot the first explanation result
 when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p>

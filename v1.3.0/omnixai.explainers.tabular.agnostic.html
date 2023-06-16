@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>omnixai.explainers.tabular.agnostic package &mdash; OmniXAI  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            OmniXAI
+            <a href="index.html" class="icon icon-home"> OmniXAI
           </a>
               <div class="version">
                 v1.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -213,7 +210,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
           <li class="breadcrumb-item"><a href="omnixai.explainers.html">omnixai.explainers package</a></li>
           <li class="breadcrumb-item"><a href="omnixai.explainers.tabular.html">omnixai.explainers.tabular package</a></li>
@@ -254,6 +251,10 @@
 <section id="module-omnixai.explainers.tabular.agnostic">
 <span id="omnixai-explainers-tabular-agnostic-package"></span><h1>omnixai.explainers.tabular.agnostic package<a class="headerlink" href="#module-omnixai.explainers.tabular.agnostic" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explainers.tabular.agnostic.lime" title="omnixai.explainers.tabular.agnostic.lime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lime</span></code></a></p></td>
 <td><p>The LIME explainer for tabular data.</p></td>
@@ -294,7 +295,7 @@
 <p>The LIME explainer for tabular data.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/marcotcr/lime">https://github.com/marcotcr/lime</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to train local explainers in LIME. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 can be the training dataset for training the machine learning model. If the training
@@ -327,7 +328,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">kernel_width<
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.lime.LimeTabular.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the feature-importance explanations for the input instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> – A batch of input instances. When <code class="docutils literal notranslate"><span class="pre">X</span></code> is <cite>pd.DataFrame</cite>
 or <cite>np.ndarray</cite>, <code class="docutils literal notranslate"><span class="pre">X</span></code> will be converted into <cite>Tabular</cite> automatically.</p></li>
@@ -339,10 +340,10 @@ e.g., <code class="docutils literal notranslate"><span class="pre">num_features<
 <cite>LimeTabularExplainer.explain_instance</cite>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.FeatureImportance" title="omnixai.explanations.tabular.feature_importance.FeatureImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The feature-importance explanations for all the input instances.</p>
 </dd>
 </dl>
@@ -353,7 +354,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">num_features<
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.lime.LimeTabular.save" title="Permalink to this definition"></a></dt>
 <dd><p>Saves the initialized explainer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The folder for the dumped explainer.</p></li>
 <li><p><strong>filename</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The filename (the explainer class name if it is None).</p></li>
@@ -375,7 +376,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">num_features<
 <p>The SHAP explainer for tabular data.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/slundberg/shap">https://github.com/slundberg/shap</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to initialize a SHAP explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 can be the training dataset for training the machine learning model. If the training
@@ -406,7 +407,7 @@ Please refer to the doc of <cite>shap.KernelExplainer</cite>.</p></li>
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.shap.ShapTabular.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the local SHAP explanations for the input instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> – A batch of input instances. When <code class="docutils literal notranslate"><span class="pre">X</span></code> is <cite>pd.DataFrame</cite>
 or <cite>np.ndarray</cite>, <code class="docutils literal notranslate"><span class="pre">X</span></code> will be converted into <cite>Tabular</cite> automatically.</p></li>
@@ -417,10 +418,10 @@ when <code class="docutils literal notranslate"><span class="pre">y</span> <span
 e.g., <code class="docutils literal notranslate"><span class="pre">nsamples</span></code> – the number of times to re-evaluate the model when explaining each prediction.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.FeatureImportance" title="omnixai.explanations.tabular.feature_importance.FeatureImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The feature importance explanations.</p>
 </dd>
 </dl>
@@ -431,7 +432,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">nsamples</spa
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.shap.ShapTabular.save" title="Permalink to this definition"></a></dt>
 <dd><p>Saves the initialized explainer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The folder for the dumped explainer.</p></li>
 <li><p><strong>filename</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The filename (the explainer class name if it is None).</p></li>
@@ -453,7 +454,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">nsamples</spa
 <p>The partial dependence plots for tabular data. For more information, please refer to
 <a class="reference external" href="https://scikit-learn.org/stable/modules/partial_dependence.html">https://scikit-learn.org/stable/modules/partial_dependence.html</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to initialize a PDP explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 can be the training dataset for training the machine learning model. If the training
@@ -484,7 +485,7 @@ candidates for each feature during generating partial dependence plots.</p></li>
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monte_carlo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monte_carlo_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monte_carlo_frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.pdp.PartialDependenceTabular.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates global PDP explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>features</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – The names of the features to be studied.</p></li>
 <li><p><strong>monte_carlo</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether computing PDP for Monte Carlo samples.</p></li>
@@ -492,10 +493,10 @@ candidates for each feature during generating partial dependence plots.</p></li>
 <li><p><strong>monte_carlo_frac</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The number of randomly selected samples in each Monte Carlo step.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.pdp.PDPExplanation" title="omnixai.explanations.tabular.pdp.PDPExplanation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PDPExplanation</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The generated PDP explanations.</p>
 </dd>
 </dl>
@@ -514,7 +515,7 @@ candidates for each feature during generating partial dependence plots.</p></li>
 <p>The accumulated local effects (ALE) plots for tabular data. For more information, please refer to
 <a class="reference external" href="https://christophm.github.io/interpretable-ml-book/ale.html">https://christophm.github.io/interpretable-ml-book/ale.html</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to initialize the explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 can be the training dataset for training the machine learning model. If the training
@@ -552,7 +553,7 @@ candidates for each feature.</p></li>
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monte_carlo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monte_carlo_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monte_carlo_frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.ale.ALE.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates accumulated local effects (ALE) plots.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>features</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – The names of the features to be studied.</p></li>
 <li><p><strong>monte_carlo</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether computing ALE plots for Monte Carlo samples.</p></li>
@@ -560,10 +561,10 @@ candidates for each feature.</p></li>
 <li><p><strong>monte_carlo_frac</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The number of randomly selected samples in each Monte Carlo step.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ALEExplanation</span></code></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The generated ALE explanations.</p>
 </dd>
 </dl>
@@ -583,7 +584,7 @@ candidates for each feature.</p></li>
 If using this explainer, please cite the package: <a class="reference external" href="https://github.com/SALib/SALib">https://github.com/SALib/SALib</a>.
 This explainer only supports continuous-valued features.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to initialize the explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 can be the training dataset for training the machine learning model. If the training
@@ -610,14 +611,14 @@ class probabilities are not supported.</p></li>
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.sensitivity.SensitivityAnalysisTabular.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates sensitivity analysis explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>kwargs</strong> – Additional parameters, e.g., <code class="docutils literal notranslate"><span class="pre">nsamples</span></code> –
 the number of samples in Morris sampling.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.sensitivity.SensitivityExplanation" title="omnixai.explanations.tabular.sensitivity.SensitivityExplanation"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensitivityExplanation</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The generated global explanations.</p>
 </dd>
 </dl>
@@ -637,7 +638,7 @@ the number of samples in Morris sampling.</p>
 neural network with three linear layers. The categorical features are mapped to
 embeddings.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>explainer</strong> – A <cite>L2XTabular</cite> explainer.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters, e.g., <code class="docutils literal notranslate"><span class="pre">hidden_size</span></code> –
@@ -649,7 +650,7 @@ the hidden layer size.</p></li>
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultSelectionModel.forward">
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultSelectionModel.forward" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>inputs</strong> – The model inputs.</p>
 </dd>
 </dl>
@@ -657,7 +658,7 @@ the hidden layer size.</p></li>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultSelectionModel.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultSelectionModel.training" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultSelectionModel.training" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -670,7 +671,7 @@ the hidden layer size.</p></li>
 neural network with three linear layers. The categorical features are mapped to
 embeddings.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>explainer</strong> – A <cite>L2XTabular</cite> explainer.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters, e.g., <code class="docutils literal notranslate"><span class="pre">hidden_size</span></code> –
@@ -682,7 +683,7 @@ the hidden layer size.</p></li>
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultPredictionModel.forward">
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultPredictionModel.forward" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>inputs</strong> – The model inputs.</p></li>
 <li><p><strong>weights</strong> – The weights generated via Gumbel-Softmax sampling.</p></li>
@@ -693,7 +694,7 @@ the hidden layer size.</p></li>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultPredictionModel.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultPredictionModel.training" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.DefaultPredictionModel.training" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -707,7 +708,7 @@ If using this explainer, please cite the original work:
 <cite>Learning to Explain: An Information-Theoretic Perspective on Model Interpretation,
 Jianbo Chen, Le Song, Martin J. Wainwright, Michael I. Jordan, https://arxiv.org/abs/1802.07814</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to train the explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 should be the training dataset for training the machine learning model.</p></li>
@@ -750,17 +751,17 @@ and <code class="docutils literal notranslate"><span class="pre">prediction_mode
 <dd><p>Generates the explanations corresponding to the input instances. For classification,
 it explains the top predicted label for each input instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> – A batch of input instances. When <code class="docutils literal notranslate"><span class="pre">X</span></code> is <cite>pd.DataFrame</cite>
 or <cite>np.ndarray</cite>, <code class="docutils literal notranslate"><span class="pre">X</span></code> will be converted into <cite>Tabular</cite> automatically.</p></li>
 <li><p><strong>kwargs</strong> – Not used here.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.FeatureImportance" title="omnixai.explanations.tabular.feature_importance.FeatureImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The feature-importance explanations for all the input instances.</p>
 </dd>
 </dl>
@@ -771,7 +772,7 @@ or <cite>np.ndarray</cite>, <code class="docutils literal notranslate"><span cla
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.L2X.l2x.L2XTabular.save" title="Permalink to this definition"></a></dt>
 <dd><p>Saves the initialized explainer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The folder for the dumped explainer.</p></li>
 <li><p><strong>filename</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The filename (the explainer class name if it is None).</p></li>
@@ -794,7 +795,7 @@ or <cite>np.ndarray</cite>, <code class="docutils literal notranslate"><span cla
 importance is defined to be the decrease in a model score when a single feature value
 is randomly shuffled.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The training dataset for training the machine learning model.</p></li>
 <li><p><strong>predict_function</strong> – The prediction function corresponding to the model to explain.
@@ -820,7 +821,7 @@ the <code class="docutils literal notranslate"><span class="pre">predict_functio
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.permutation.PermutationImportance.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generate permutation feature importance scores.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – Data on which permutation importance will be computed.</p></li>
 <li><p><strong>y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]) – Targets or labels.</p></li>
@@ -829,10 +830,10 @@ the <code class="docutils literal notranslate"><span class="pre">predict_functio
 ground-truth targets and predictions, e.g., -sklearn.metrics.log_loss(y_true, y_pred).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="omnixai.explanations.tabular.html#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance" title="omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance"><code class="xref py py-class docutils literal notranslate"><span class="pre">GlobalFeatureImportance</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The permutation feature importance explanations.</p>
 </dd>
 </dl>
@@ -851,7 +852,7 @@ ground-truth targets and predictions, e.g., -sklearn.metrics.log_loss(y_true, y_
 <p>The SHAP explainer for global feature importance.
 If using this explainer, please cite the original work: <a class="reference external" href="https://github.com/slundberg/shap">https://github.com/slundberg/shap</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to initialize a SHAP explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 can be the training dataset for training the machine learning model. If the training
@@ -882,7 +883,7 @@ Please refer to the doc of <cite>shap.KernelExplainer</cite>.</p></li>
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.shap_global.GlobalShapTabular.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the global SHAP explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>]) – The data will be used to compute global SHAP values, i.e., the mean of the absolute
 SHAP value for each feature. If <cite>X</cite> is None, a set of training samples will be used.</p></li>
@@ -890,7 +891,7 @@ SHAP value for each feature. If <cite>X</cite> is None, a set of training sample
 e.g., <code class="docutils literal notranslate"><span class="pre">nsamples</span></code> – the number of times to re-evaluate the model when explaining each prediction.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The global feature importance explanations.</p>
 </dd>
 </dl>
@@ -901,7 +902,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">nsamples</spa
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.shap_global.GlobalShapTabular.save" title="Permalink to this definition"></a></dt>
 <dd><p>Saves the initialized explainer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The folder for the dumped explainer.</p></li>
 <li><p><strong>filename</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The filename (the explainer class name if it is None).</p></li>
@@ -922,7 +923,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">nsamples</spa
 <dd><p>Bases: <a class="reference internal" href="omnixai.explainers.html#omnixai.explainers.base.ExplainerBase" title="omnixai.explainers.base.ExplainerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExplainerBase</span></code></a></p>
 <p>The bias analysis for a classification or regression model.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to initialize the explainer.</p></li>
 <li><p><strong>predict_function</strong> – The prediction function corresponding to the model to explain.
@@ -951,7 +952,7 @@ the <code class="docutils literal notranslate"><span class="pre">predict_functio
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_value_or_threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_value_or_threshold</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.bias.BiasAnalyzer.explain" title="Permalink to this definition"></a></dt>
 <dd><p>Runs bias analysis on the given model and dataset.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>feature_column</strong> – The feature column to analyze.</p></li>
 <li><p><strong>feature_value_or_threshold</strong> – The feature value for a categorical feature or feature value
@@ -972,10 +973,10 @@ problem when computing bias metrics, i.e., label = 0 if target value &lt;= targe
 and label = 1 if target value &gt; target_value_or_threshold.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">BiasExplanation</span></code></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The bias analysis results stored in <code class="docutils literal notranslate"><span class="pre">BiasExplanation</span></code>.</p>
 </dd>
 </dl>
@@ -995,7 +996,7 @@ and label = 1 if target value &gt; target_value_or_threshold.</p></li>
 and the counterfactual examples (if used). The explanations will be the text generated by
 ChatGPT.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>training_data</strong> (<a class="reference internal" href="omnixai.data.html#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tabular</span></code></a>) – The data used to initialize a SHAP explainer. <code class="docutils literal notranslate"><span class="pre">training_data</span></code>
 can be the training dataset for training the machine learning model.</p></li>
@@ -1027,7 +1028,7 @@ Please refer to the doc of <cite>shap.KernelExplainer</cite>.</p></li>
 <dt class="sig sig-object py" id="omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.explain">
 <span class="sig-name descname"><span class="pre">explain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explainers.tabular.agnostic.gpt.GPTExplainer.explain" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="omnixai.explanations.html#omnixai.explanations.base.PlainText" title="omnixai.explanations.base.PlainText"><code class="xref py py-class docutils literal notranslate"><span class="pre">PlainText</span></code></a></p>
 </dd>
 </dl>

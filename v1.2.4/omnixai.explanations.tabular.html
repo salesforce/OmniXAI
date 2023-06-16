@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>omnixai.explanations.tabular package &mdash; OmniXAI  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            OmniXAI
+            <a href="index.html" class="icon icon-home"> OmniXAI
           </a>
               <div class="version">
                 v1.2.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -215,7 +212,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
           <li class="breadcrumb-item"><a href="omnixai.explanations.html">omnixai.explanations package</a></li>
       <li class="breadcrumb-item active">omnixai.explanations.tabular package</li>
@@ -255,6 +252,10 @@
 <section id="module-omnixai.explanations.tabular">
 <span id="omnixai-explanations-tabular-package"></span><h1>omnixai.explanations.tabular package<a class="headerlink" href="#module-omnixai.explanations.tabular" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explanations.tabular.feature_importance" title="omnixai.explanations.tabular.feature_importance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_importance</span></code></a></p></td>
 <td><p>Feature importance explanations.</p></td>
@@ -293,7 +294,7 @@ is a dict with the following format <cite>{“instance”: the input instance, �
 If the task is <cite>classification</cite>, the dict has an additional entry <cite>{“target_label”:
 the predicted label of the input instance}</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mode</strong> – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
 <li><p><strong>explanations</strong> – The explanation results for initializing <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>,
@@ -306,7 +307,7 @@ which is optional.</p></li>
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation corresponding to one instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> – The instance to explain.</p></li>
 <li><p><strong>target_label</strong> – The label to explain, which is ignored for regression.</p></li>
@@ -324,11 +325,11 @@ which is optional.</p></li>
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>.
 When <code class="docutils literal notranslate"><span class="pre">index</span></code> is None, the function returns a list of all the explanations.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanation for one specific instance (a dict)
 or the explanations for all the instances (a list of dicts).
 Each dict has the following format: <cite>{“instance”: the input instance,
@@ -337,7 +338,7 @@ Each dict has the following format: <cite>{“instance”: the input instance,
 the dict has an additional entry <cite>{“target_label”: the predicted label
 of the input instance}</cite>.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Union[Dict, List]</p>
 </dd>
 </dl>
@@ -348,7 +349,7 @@ of the input instance}</cite>.</p>
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_subplots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots feature importance scores.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>,
 e.g., it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.
@@ -361,7 +362,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <li><p><strong>max_num_subplots</strong> – The maximum number of subplots in the figure.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A matplotlib figure plotting feature importance scores.</p>
 </dd>
 </dl>
@@ -372,7 +373,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots feature importance scores for one specific instance using Dash.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>
 which cannot be None, e.g., it will plot the first explanation result
@@ -383,7 +384,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <li><p><strong>num_features</strong> – The maximum number of features to plot.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting feature importance scores.</p>
 </dd>
 </dl>
@@ -394,7 +395,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.FeatureImportance.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the feature importance scores in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">FeatureImportance</span></code>,
 which cannot be None, e.g., it will plot the first explanation result
@@ -427,7 +428,7 @@ the feature importance scores with the following format <cite>{“features”: a
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated feature importance scores.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>feature_names</strong> – The list of the feature column names.</p></li>
 <li><p><strong>importance_scores</strong> – The list of the feature importance scores.</p></li>
@@ -442,12 +443,12 @@ the feature importance scores with the following format <cite>{“features”: a
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The feature importance scores.
 The returned dict has the following format: <cite>{“features”: a list of feature names,
 “scores”: a list of feature importance scores}</cite>.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Dict</p>
 </dd>
 </dl>
@@ -458,13 +459,13 @@ The returned dict has the following format: <cite>{“features”: a list of fea
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate_long_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots feature importance scores.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_features</strong> – The maximum number of features to plot.</p></li>
 <li><p><strong>truncate_long_features</strong> – Flag to truncate long feature names</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A matplotlib figure plotting feature importance scores.</p>
 </dd>
 </dl>
@@ -475,13 +476,13 @@ The returned dict has the following format: <cite>{“features”: a list of fea
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate_long_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots feature importance scores for one specific instance using Dash.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_features</strong> – The maximum number of features to plot.</p></li>
 <li><p><strong>truncate_long_features</strong> – Flag to truncate long feature names</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting feature importance scores.</p>
 </dd>
 </dl>
@@ -492,7 +493,7 @@ The returned dict has the following format: <cite>{“features”: a list of fea
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate_long_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.feature_importance.GlobalFeatureImportance.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the feature importance scores in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_features</strong> – The maximum number of features to plot.</p></li>
 <li><p><strong>truncate_long_features</strong> – Flag to truncate long feature names</p></li>
@@ -527,7 +528,7 @@ labels of these instances.</p>
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation corresponding to one instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>query</strong> – The instance to explain.</p></li>
 <li><p><strong>cfs</strong> – The generated counterfactual examples.</p></li>
@@ -542,11 +543,11 @@ labels of these instances.</p>
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated counterfactual explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code>.
 When it is None, it returns a list of all the explanations.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanation for one specific instance (a dict)
 or all the explanations for all the instances (a list). Each dict has
 the following format: <cite>{“query”: the original input instance, “counterfactual”:
@@ -554,7 +555,7 @@ the generated counterfactual examples}</cite>. Both “query” and “counterfa
 pandas dataframes with an additional column “label” which stores the predicted
 labels of these instances.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Union[Dict, List]</p>
 </dd>
 </dl>
@@ -566,7 +567,7 @@ labels of these instances.</p>
 <dd><p>Returns a list of matplotlib figures showing the explanations of
 one or the first 5 instances.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code>. For
 example, it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.
@@ -577,7 +578,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <li><p><strong>font_size</strong> – The font size of table entries.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of matplotlib figures plotting counterfactual examples.</p>
 </dd>
 </dl>
@@ -588,7 +589,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the generated counterfactual examples in Dash.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code>,
 which cannot be None, e.g., it will plot the first explanation result
@@ -598,7 +599,7 @@ when <code class="docutils literal notranslate"><span class="pre">index</span> <
 label 1 corresponds to ‘cat’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure showing the counterfactual examples.</p>
 </dd>
 </dl>
@@ -609,7 +610,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.counterfactual.CFExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the generated counterfactual examples in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CFExplanation</span></code>,
 which cannot be None, e.g., it will plot the first explanation result
@@ -643,7 +644,7 @@ The value in the dict is another dict with the following format:
 <cite>{feature_name: {“values”: the PDP grid values, “scores”: the average PDP scores,
 “sampled_scores”: the PDP scores computed with Monte-Carlo samples}}</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>mode</strong> – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p>
 </dd>
 </dl>
@@ -653,7 +654,7 @@ The value in the dict is another dict with the following format:
 <dd><p>Adds the raw values of the partial dependence function
 corresponding to one specific feature.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>feature_name</strong> – The feature column name.</p></li>
 <li><p><strong>values</strong> – The features values.</p></li>
@@ -669,7 +670,7 @@ corresponding to one specific feature.</p>
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the partial dependence scores.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A dict containing the partial
 dependence scores of all the studied features with the following format:
 <cite>{feature_name: {“values”: the feature values, “scores”: the average PDP scores,
@@ -683,12 +684,12 @@ dependence scores of all the studied features with the following format:
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a matplotlib figure showing the PDP explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
 <code class="docutils literal notranslate"><span class="pre">class_name</span> <span class="pre">=</span> <span class="pre">['dog',</span> <span class="pre">'cat']</span></code> means that label 0 corresponds to ‘dog’ and
 label 1 corresponds to ‘cat’.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A matplotlib figure plotting PDP explanations.</p>
 </dd>
 </dl>
@@ -699,12 +700,12 @@ label 1 corresponds to ‘cat’.</p>
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a plotly dash figure showing the PDP explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
 <code class="docutils literal notranslate"><span class="pre">class_name</span> <span class="pre">=</span> <span class="pre">['dog',</span> <span class="pre">'cat']</span></code> means that label 0 corresponds to ‘dog’ and
 label 1 corresponds to ‘cat’.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting PDP explanations.</p>
 </dd>
 </dl>
@@ -715,7 +716,7 @@ label 1 corresponds to ‘cat’.</p>
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.pdp.PDPExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Shows the partial dependence plots in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
 <code class="docutils literal notranslate"><span class="pre">class_name</span> <span class="pre">=</span> <span class="pre">['dog',</span> <span class="pre">'cat']</span></code> means that label 0 corresponds to ‘dog’ and
 label 1 corresponds to ‘cat’.</p>
@@ -747,7 +748,7 @@ Morris mu_star_conf}}</cite>.</p>
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_star_conf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the sensitivity analysis result of a specific feature.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>feature_name</strong> – The feature column name.</p></li>
 <li><p><strong>mu</strong> – <cite>mu</cite>.</p></li>
@@ -764,14 +765,14 @@ Morris mu_star_conf}}</cite>.</p>
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the Morris sensitivity analysis results.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A dict containing the raw values of the partial
 dependence function for all the features with the following format:
 <cite>{feature_name: {“mu”: Morris mu,
 “mu_star”: Morris mu_star, “sigma”: Morris sigma, “mu_star_conf”:
 Morris mu_star_conf}}</cite>.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Dict</p>
 </dd>
 </dl>
@@ -782,7 +783,7 @@ Morris mu_star_conf}}</cite>.</p>
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.sensitivity.SensitivityExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a matplotlib figure showing the sensitivity analysis results.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A matplotlib figure.</p>
 </dd>
 </dl>
@@ -821,7 +822,7 @@ in a dict with the following format: <cite>{“coefficients”: the linear coeff
 predicted values of a batch of instances}</cite>. The value of “scores” is a dict whose
 keys are feature names and values are feature importance scores.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>mode</strong> – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p>
 </dd>
 </dl>
@@ -830,7 +831,7 @@ keys are feature names and values are feature importance scores.</p>
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.linear.LinearExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation corresponding to one instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>coefficients</strong> – Linear coefficients.</p></li>
 <li><p><strong>importance_scores</strong> – Feature importance scores, e.g., <cite>feature value * coefficient</cite>.</p></li>
@@ -845,7 +846,7 @@ keys are feature names and values are feature importance scores.</p>
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.linear.LinearExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A dict containing the global explanation, i.e., the linear coefficients,
 and the local explanations for all the instances, i.e., feature importance scores,
 with the following format: <cite>{“coefficients”: the linear coefficients,
@@ -861,7 +862,7 @@ is a dict whose keys are feature names and values are feature importance scores.
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot_coefficients</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_subplots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.linear.LinearExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a list of matplotlib figures showing the global and local explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>plot_coefficients</strong> – Whether to plot linear coefficients.</p></li>
 <li><p><strong>class_names</strong> – A list of the class names indexed by the labels, e.g.,
@@ -871,7 +872,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <li><p><strong>font_size</strong> – The font size of ticks.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of matplotlib figures plotting linear coefficients and
 feature importance scores.</p>
 </dd>
@@ -884,7 +885,7 @@ feature importance scores.</p>
 <dd><p>Returns a plotly dash figure showing the linear coefficients and feature
 importance scores for one specific instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of the instance which cannot be None, e.g.,
 it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
@@ -893,7 +894,7 @@ it will plot the first explanation result when <code class="docutils literal not
 label 1 corresponds to ‘cat’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting linear coefficients and feature importance scores.</p>
 </dd>
 </dl>
@@ -904,7 +905,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.linear.LinearExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the linear coefficients and feature importance scores in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of the instance which cannot be None, e.g.,
 it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
@@ -941,7 +942,7 @@ for a batch of instances}</cite>.</p>
 <span class="sig-name descname"><span class="pre">add_global</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.tree.TreeExplanation.add_global" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the global explanations, i.e., the whole tree structure.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The tree model.</p></li>
 <li><p><strong>feature_names</strong> – The feature column names.</p></li>
@@ -956,7 +957,7 @@ for a batch of instances}</cite>.</p>
 <span class="sig-name descname"><span class="pre">add_local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decision_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_indicator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.tree.TreeExplanation.add_local" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the local explanations, i.e., decision paths.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The tree model.</p></li>
 <li><p><strong>decision_paths</strong> – The decision paths for one instance.</p></li>
@@ -973,12 +974,12 @@ for a batch of instances}</cite>.</p>
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.tree.TreeExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of the instance, e.g., it will plot the
 first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.When it is None,
 this method return all the explanations.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanations for one specific instance
 or all the explanations for all the instances.</p>
 </dd>
@@ -990,7 +991,7 @@ or all the explanations for all the instances.</p>
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(15,</span> <span class="pre">10)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.tree.TreeExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a matplotlib figure showing the explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">TreeExplanation</span></code>,
 e.g., it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.
@@ -999,7 +1000,7 @@ When <code class="docutils literal notranslate"><span class="pre">index</span></
 <li><p><strong>fontsize</strong> – The font size of texts.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of matplotlib figures plotting the tree and the decision paths.</p>
 </dd>
 </dl>
@@ -1010,11 +1011,11 @@ When <code class="docutils literal notranslate"><span class="pre">index</span></
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.tree.TreeExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a plotly dash figure showing decision paths.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of the instance which cannot be None, e.g.,
 it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting decision paths.</p>
 </dd>
 </dl>
@@ -1025,7 +1026,7 @@ it will plot the first explanation result when <code class="docutils literal not
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(15,</span> <span class="pre">10)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.tree.TreeExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots decision paths in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of the instance which cannot be None, e.g.,
 it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
@@ -1064,7 +1065,7 @@ it will plot the first explanation result when <code class="docutils literal not
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the count for a cross-feature.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>features</strong> – The feature names.</p></li>
 <li><p><strong>correlation</strong> – The correlation matrix.</p></li>
@@ -1078,7 +1079,7 @@ it will plot the first explanation result when <code class="docutils literal not
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the correlation matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A Dict for the feature names and the correlation matrix., i.e.,
 <cite>{“features”: a list of feature names, “correlation”: the correlation matrix}</cite>.</p>
 </dd>
@@ -1090,7 +1091,7 @@ it will plot the first explanation result when <code class="docutils literal not
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the correlation matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A matplotlib figure plotting the correlation matrix.</p>
 </dd>
 </dl>
@@ -1101,7 +1102,7 @@ it will plot the first explanation result when <code class="docutils literal not
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.correlation.CorrelationExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the correlation matrix using Dash.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A plotly dash figure plotting the correlation matrix.</p>
 </dd>
 </dl>
@@ -1138,7 +1139,7 @@ class label 2: count 2, …}}</cite>. If there are no class labels, the dict wil
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the count for a cross-feature.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>feature</strong> – A cross-feature (a list of feature values).</p></li>
 <li><p><strong>count</strong> – The number of appearances.</p></li>
@@ -1152,7 +1153,7 @@ class label 2: count 2, …}}</cite>. If there are no class labels, the dict wil
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the imbalance analysis results.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A Dict storing the counts for all the cross-features,
 i.e., <cite>{“feature”: feature value, “count”: {class label 1: count 1,
 class label 2: count 2, …}}</cite>. If there are no class labels, the dict will be
@@ -1166,7 +1167,7 @@ class label 2: count 2, …}}</cite>. If there are no class labels, the dict wil
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Shows the imbalance plot.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A matplotlib figure plotting the feature counts.</p>
 </dd>
 </dl>
@@ -1177,7 +1178,7 @@ class label 2: count 2, …}}</cite>. If there are no class labels, the dict wil
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.imbalance.ImbalanceExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Shows the imbalance plot.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A plotly dash figure plotting the feature counts.</p>
 </dd>
 </dl>
@@ -1210,7 +1211,7 @@ class label 2: count 2, …}}</cite>. If there are no class labels, the dict wil
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validity</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation corresponding to one instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>query</strong> – The instance to explain.</p></li>
 <li><p><strong>df</strong> – The dataframe of input query item features.</p></li>
@@ -1227,18 +1228,18 @@ class label 2: count 2, …}}</cite>. If there are no class labels, the dict wil
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation</span></code>.
 When it is None, it returns a list of all the explanations.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanation for one specific instance (a dict)
 or all the explanations for all the instances (a list). Each dict has
 the following format: <cite>{“query”: the original input instance, “item”:
 The dataframe of input query item features, “top_features”: The top features that
 explain the ranking, “validity”: The validity metrics for the top features.}</cite>.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Union[Dict, List]</p>
 </dd>
 </dl>
@@ -1249,13 +1250,13 @@ explain the ranking, “validity”: The validity metrics for the top features.}
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a matplotlib figure showing the explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation</span></code>.</p></li>
 <li><p><strong>font_size</strong> – The font size of table entries.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Matplotlib figure plotting the most important features followed by remaining features.</p>
 </dd>
 </dl>
@@ -1266,10 +1267,10 @@ explain the ranking, “validity”: The validity metrics for the top features.}
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.tabular.validity.ValidityRankingExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the document features and explainable features in Dash.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">ValidityRankingExplanation</span></code>.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure showing the important features followed by remaining features</p>
 </dd>
 </dl>

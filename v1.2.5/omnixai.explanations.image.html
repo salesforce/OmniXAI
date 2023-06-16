@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>omnixai.explanations.image package &mdash; OmniXAI  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            OmniXAI
+            <a href="index.html" class="icon icon-home"> OmniXAI
           </a>
               <div class="version">
                 v1.2.5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -143,7 +140,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
           <li class="breadcrumb-item"><a href="omnixai.explanations.html">omnixai.explanations package</a></li>
       <li class="breadcrumb-item active">omnixai.explanations.image package</li>
@@ -183,6 +180,10 @@
 <section id="module-omnixai.explanations.image">
 <span id="omnixai-explanations-image-package"></span><h1>omnixai.explanations.image package<a class="headerlink" href="#module-omnixai.explanations.image" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.explanations.image.pixel_importance" title="omnixai.explanations.image.pixel_importance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_importance</span></code></a></p></td>
 <td><p>Pixel importance explanations for vision tasks.</p></td>
@@ -211,7 +212,7 @@ the following format: <cite>{“image”: the input image, “scores”: the pix
 If the task is <cite>classification</cite>, the dict has an additional entry <cite>{“target_label”:
 the predicted label of the input instance}</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mode</strong> – The task type, e.g., <cite>classification</cite> or <cite>regression</cite>.</p></li>
 <li><p><strong>explanations</strong> – The explanation results for initializing <code class="docutils literal notranslate"><span class="pre">PixelImportance</span></code>,
@@ -226,7 +227,7 @@ or <cite>False</cite> if plot raw values (for integrated gradients and SHAP).</p
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">importance_scores</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation of one image.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>image</strong> – The input image.</p></li>
 <li><p><strong>target_label</strong> – The label to be explained, which is ignored for regression.</p></li>
@@ -241,11 +242,11 @@ or <cite>False</cite> if plot raw values (for integrated gradients and SHAP).</p
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">PixelImportance</span></code>.
 When <code class="docutils literal notranslate"><span class="pre">index</span></code> is None, the function returns a list of all the explanations.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanation for one specific image (a dict)
 or the explanations for all the instances (a list of dicts).
 Each dict has the following format: <cite>{“image”: the input image, “scores”: the pixel
@@ -260,7 +261,7 @@ entry <cite>{“target_label”: the predicted label of the input instance}</cit
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_figures</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns matplotlib figures plotting pixel importance scores.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">PixelImportance</span></code>,
 e.g., it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.
@@ -272,7 +273,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <li><p><strong>max_num_figures</strong> – The maximum number of figures to plot.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of matplotlib figures plotting pixel importance scores.</p>
 </dd>
 </dl>
@@ -284,7 +285,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <dd><p>Returns a plotly dash figure plotting the pixel importance scores for one
 specific instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of the instance which cannot be None, e.g., it will
 plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
@@ -294,7 +295,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <li><p><strong>max_num_figures</strong> – The maximum number of figures to plot.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting the pixel importance scores.</p>
 </dd>
 </dl>
@@ -305,7 +306,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_figures</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.pixel_importance.PixelImportance.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the pixel importance scores in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of the instance which cannot be None, e.g., it will
 plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
@@ -342,7 +343,7 @@ the explainer, e.g., LIME, “boundary”: the boundaries extracted from “mask
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.mask.MaskExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation of one image.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>labels</strong> – The predicted labels.</p></li>
 <li><p><strong>images</strong> – The input images.</p></li>
@@ -357,11 +358,11 @@ the explainer, e.g., LIME, “boundary”: the boundaries extracted from “mask
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.mask.MaskExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index or name of the instance. When <code class="docutils literal notranslate"><span class="pre">index</span></code> is None,
 this method return all the explanations.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanation for one specific instance (a dict)
 or the explanations for all the instances (a list of dicts).
 Each dict has the following format: <cite>{“images”: the input images,
@@ -376,7 +377,7 @@ e.g., LIME, “boundary”: the boundaries extracted from “masks”}</cite>.</
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.mask.MaskExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a matplotlib figure showing the explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of the instance, e.g., it will plot the first explanation
 result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>. When <code class="docutils literal notranslate"><span class="pre">index</span></code> is None, it returns a figure showing
@@ -386,7 +387,7 @@ the mask explanations for the first 10 instances.</p></li>
 label 1 corresponds to ‘cat’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A matplotlib figure plotting mask explanations.</p>
 </dd>
 </dl>
@@ -397,7 +398,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <span class="sig-name descname"><span class="pre">plotly_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.mask.MaskExplanation.plotly_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a plotly dash figure showing the explanations for one specific instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of the instance which cannot be None, e.g., it will plot
 the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
@@ -406,7 +407,7 @@ the first explanation result when <code class="docutils literal notranslate"><sp
 label 1 corresponds to ‘cat’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting mask explanations.</p>
 </dd>
 </dl>
@@ -417,7 +418,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.mask.MaskExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots mask explanations in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of the instance which cannot be None, e.g., it will plot
 the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
@@ -455,7 +456,7 @@ predicted label of the pertinent positive}</cite>.</p>
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pn_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pp_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.contrast.ContrastiveExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation of one image.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>image</strong> – The input image.</p></li>
 <li><p><strong>label</strong> – The label of the input.</p></li>
@@ -473,11 +474,11 @@ predicted label of the pertinent positive}</cite>.</p>
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.contrast.ContrastiveExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">ContrastiveExplanation</span></code>.
 When <code class="docutils literal notranslate"><span class="pre">index</span></code> is None, the function returns a list of all the explanations.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanation for one specific image (a dict)
 or the explanations for all the instances (a list of dicts).
 Each dict has the following format: <cite>{“image”: the input image, “label”: the
@@ -493,7 +494,7 @@ predicted label of the pertinent positive}</cite>.</p>
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.contrast.ContrastiveExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a matplotlib figure showing the contrastive explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">ContrastiveExplanation</span></code>,
 e.g., it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>. When <code class="docutils literal notranslate"><span class="pre">index</span></code>
@@ -503,7 +504,7 @@ is None, it returns a figure showing the PNs and PPs for the first 5 instances.<
 label 1 corresponds to ‘cat’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A matplotlib figure plotting PNs and PPs.</p>
 </dd>
 </dl>
@@ -515,7 +516,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <dd><p>Returns a plotly dash figure showing the contrastive explanations
 for one specific instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">ContrastiveExplanation</span></code>
 which cannot be None, e.g., it will plot the first explanation result
@@ -525,7 +526,7 @@ when <code class="docutils literal notranslate"><span class="pre">index</span> <
 label 1 corresponds to ‘cat’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting PNs and PPs.</p>
 </dd>
 </dl>
@@ -536,7 +537,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.contrast.ContrastiveExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots PNs and PPs in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">ContrastiveExplanation</span></code>
 which cannot be None, e.g., it will plot the first explanation result
@@ -573,7 +574,7 @@ the counterfactual example, “cf_label”: the predicted label of the counterfa
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation.add" title="Permalink to this definition"></a></dt>
 <dd><p>Adds the generated explanation of one image.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>image</strong> – The input image.</p></li>
 <li><p><strong>label</strong> – The label of the input.</p></li>
@@ -589,11 +590,11 @@ the counterfactual example, “cf_label”: the predicted label of the counterfa
 <span class="sig-name descname"><span class="pre">get_explanations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation.get_explanations" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the generated explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CounterfactualExplanation</span></code>.
 When <code class="docutils literal notranslate"><span class="pre">index</span></code> is None, the function returns a list of all the explanations.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The explanation for one specific image (a dict)
 or the explanations for all the instances (a list of dicts).
 Each dict has the following format: <cite>{“image”: the input image, “label”: the predicted
@@ -608,7 +609,7 @@ the predicted label of the counterfactual example}</cite>.</p>
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a matplotlib figure showing the counterfactual explanations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CounterfactualExplanation</span></code>,
 e.g., it will plot the first explanation result when <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">0</span></code>. When <code class="docutils literal notranslate"><span class="pre">index</span></code>
@@ -618,7 +619,7 @@ is None, it returns a figure showing the PNs and PPs for the first 5 instances.<
 label 1 corresponds to ‘cat’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A matplotlib figure plotting counterfactuals.</p>
 </dd>
 </dl>
@@ -630,7 +631,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <dd><p>Returns a plotly dash figure showing the counterfactual explanations for
 one specific instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CounterfactualExplanation</span></code>
 which cannot be None, e.g., it will plot the first explanation result
@@ -640,7 +641,7 @@ when <code class="docutils literal notranslate"><span class="pre">index</span> <
 label 1 corresponds to ‘cat’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A plotly dash figure plotting counterfactual examples.</p>
 </dd>
 </dl>
@@ -651,7 +652,7 @@ label 1 corresponds to ‘cat’.</p></li>
 <span class="sig-name descname"><span class="pre">ipython_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.explanations.image.counterfactual.CFExplanation.ipython_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plots counterfactual examples in IPython.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>index</strong> – The index of an explanation result stored in <code class="docutils literal notranslate"><span class="pre">CounterfactualExplanation</span></code>
 which cannot be None, e.g., it will plot the first explanation result

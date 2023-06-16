@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>omnixai.data package &mdash; OmniXAI  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            OmniXAI
+            <a href="index.html" class="icon icon-home"> OmniXAI
           </a>
               <div class="version">
                 v1.2.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -163,7 +160,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="omnixai.html">OmniXAI: An Explanation Toolbox</a></li>
       <li class="breadcrumb-item active">omnixai.data package</li>
       <li class="wy-breadcrumbs-aside">
@@ -202,6 +199,10 @@
 <section id="module-omnixai.data">
 <span id="omnixai-data-package"></span><h1>omnixai.data package<a class="headerlink" href="#module-omnixai.data" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-omnixai.data.base" title="omnixai.data.base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base</span></code></a></p></td>
 <td><p>The base class for all data types.</p></td>
@@ -303,7 +304,7 @@ indicates the timestamps and the columns are the variables.</p>
 <dt class="sig sig-object py" id="omnixai.data.base.Data.data_type">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data_type</span></span><a class="headerlink" href="#omnixai.data.base.Data.data_type" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A string indicates the data type, e.g., tabular, image, text or time series</p>
 </dd>
 </dl>
@@ -313,7 +314,7 @@ indicates the timestamps and the columns are the variables.</p>
 <dt class="sig sig-object py" id="omnixai.data.base.Data.values">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.base.Data.values" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The raw values of the data object.</p>
 </dd>
 </dl>
@@ -323,7 +324,7 @@ indicates the timestamps and the columns are the variables.</p>
 <dt class="sig sig-object py" id="omnixai.data.base.Data.num_samples">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.base.Data.num_samples" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The number samples in the dataset.</p>
 </dd>
 </dl>
@@ -342,7 +343,7 @@ indicates the timestamps and the columns are the variables.</p>
 <p>The class represents a tabular dataset that may contain categorical features,
 continuous-valued features and targets/labels (optional).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]) – A pandas dataframe or a numpy array containing the raw data. <cite>data</cite> should have the
 shape <cite>(num_samples, num_features)</cite>.</p></li>
@@ -366,13 +367,13 @@ target column.</p></li>
 <span class="sig-name descname"><span class="pre">iloc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular.iloc" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the row(s) given an index or a set of indices.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>i</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">slice</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]) – An integer index, slice or list.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A tabular object with the selected rows.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular">Tabular</a></p>
 </dd>
 </dl>
@@ -383,10 +384,10 @@ target column.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.shape" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the data shape, e.g., (num_samples, num_features).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A tuple for the data shape.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
 </dd>
 </dl>
@@ -397,10 +398,10 @@ target column.</p></li>
 <span class="sig-name descname"><span class="pre">num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular.num_samples" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the number of the examples.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The number of the examples.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>int</p>
 </dd>
 </dl>
@@ -411,10 +412,10 @@ target column.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.values" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the raw values of the data object (without feature column names).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A numpy array of the data object.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>np.ndarray</p>
 </dd>
 </dl>
@@ -425,10 +426,10 @@ target column.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">categorical_columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.categorical_columns" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the categorical feature names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The list of the categorical feature names.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Union[List[str], List[int]]</p>
 </dd>
 </dl>
@@ -439,10 +440,10 @@ target column.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">continuous_columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.continuous_columns" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the continuous-valued feature names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The list of the continuous-valued feature names.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Union[List[str], List[int]]</p>
 </dd>
 </dl>
@@ -453,10 +454,10 @@ target column.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">feature_columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.feature_columns" title="Permalink to this definition"></a></dt>
 <dd><p>Gets all feature names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The list of all the feature column names except the target column.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Union[List[str], List[int]]</p>
 </dd>
 </dl>
@@ -464,13 +465,13 @@ target column.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="omnixai.data.tabular.Tabular.target_column">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_column</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.target_column" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_column</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#omnixai.data.tabular.Tabular.target_column" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the target/label column name.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The target column name, or None if there is no target column.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Union[str, int]</p>
 </dd>
 </dl>
@@ -482,10 +483,10 @@ target column.</p></li>
 <dd><p>Gets all the data columns including both the feature columns and
 target/label column.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The list of the column names.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Sequence</p>
 </dd>
 </dl>
@@ -496,13 +497,13 @@ target/label column.</p>
 <span class="sig-name descname"><span class="pre">to_pd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular.to_pd" title="Permalink to this definition"></a></dt>
 <dd><p>Converts <cite>Tabular</cite> to <cite>pd.DataFrame</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, or <cite>False</cite> otherwise.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A pandas DataFrame representing the tabular data.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
@@ -513,13 +514,13 @@ target/label column.</p>
 <span class="sig-name descname"><span class="pre">to_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular.to_numpy" title="Permalink to this definition"></a></dt>
 <dd><p>Converts <cite>Tabular</cite> to <cite>np.ndarray</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, or <cite>False</cite> otherwise.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A numpy ndarray representing the tabular data.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
@@ -530,10 +531,10 @@ target/label column.</p>
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular.copy" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a copy of the tabular data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The copied tabular data.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular">Tabular</a></p>
 </dd>
 </dl>
@@ -544,10 +545,10 @@ target/label column.</p>
 <span class="sig-name descname"><span class="pre">remove_target_column</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular.remove_target_column" title="Permalink to this definition"></a></dt>
 <dd><p>Removes the target/label column and returns a new <cite>Tabular</cite> instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The new tabular data without target/label column.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.data.tabular.Tabular" title="omnixai.data.tabular.Tabular">Tabular</a></p>
 </dd>
 </dl>
@@ -558,10 +559,10 @@ target/label column.</p>
 <span class="sig-name descname"><span class="pre">get_target_column</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular.get_target_column" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the target/label column.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A list of targets or labels.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>List</p>
 </dd>
 </dl>
@@ -572,10 +573,10 @@ target/label column.</p>
 <span class="sig-name descname"><span class="pre">get_continuous_medians</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular.get_continuous_medians" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the absolute median values of the continuous-valued features.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A dict storing the absolute median value for each continuous-valued feature.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Dict</p>
 </dd>
 </dl>
@@ -586,10 +587,10 @@ target/label column.</p>
 <span class="sig-name descname"><span class="pre">get_continuous_bounds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.tabular.Tabular.get_continuous_bounds" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the upper and lower bounds of the continuous-valued features.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The upper and lower bounds, i.e., a tuple of two numpy arrays.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
 </dd>
 </dl>
@@ -609,7 +610,7 @@ target/label column.</p>
 It will convert the input images into the <cite>(batch_size, h, w, channel)</cite> format. If
 there is only one input image, <cite>batch_size</cite> will be 1.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The image data, which is either np.ndarray or PIL.Image. If <code class="docutils literal notranslate"><span class="pre">data</span></code>
 is a numpy array, it should have the following format: <cite>(h, w, channel)</cite>, <cite>(channel, h, w)</cite>,
@@ -635,10 +636,10 @@ has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#omnixai.data.image.Image.shape" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the raw data shape.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A tuple for the raw data shape, e.g., <cite>(batch_size, h, w, channel)</cite>.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
 </dd>
 </dl>
@@ -649,10 +650,10 @@ has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 <span class="sig-name descname"><span class="pre">num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.image.Image.num_samples" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the number of the images.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The number of the images.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>int</p>
 </dd>
 </dl>
@@ -663,10 +664,10 @@ has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">image_shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#omnixai.data.image.Image.image_shape" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the image shape.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A tuple for the image shape, e.g., <cite>(h, w, channel)</cite>.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
 </dd>
 </dl>
@@ -677,10 +678,10 @@ has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.image.Image.values" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the raw values.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A numpy array of the stored images.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>np.ndarray</p>
 </dd>
 </dl>
@@ -691,7 +692,7 @@ has no color channel, e.g., grayscale images, this argument is ignored.</p></li>
 <span class="sig-name descname"><span class="pre">to_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hwc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.image.Image.to_numpy" title="Permalink to this definition"></a></dt>
 <dd><p>Converts <cite>Image</cite> into a numpy ndarray.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>hwc</strong> – The output has format <cite>(batch_size, h, w, channel)</cite> if <cite>hwc</cite> is True
 or <cite>(batch_size, channel, h, w)</cite> otherwise.</p></li>
@@ -700,10 +701,10 @@ or <cite>(batch_size, channel, h, w)</cite> otherwise.</p></li>
 <cite>False</cite> if the channel dimension is squeezed.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A numpy ndarray representing the images.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
@@ -714,11 +715,11 @@ or <cite>(batch_size, channel, h, w)</cite> otherwise.</p></li>
 <span class="sig-name descname"><span class="pre">to_pil</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.image.Image.to_pil" title="Permalink to this definition"></a></dt>
 <dd><p>Converts <cite>Image</cite> into a Pillow image or a list of Pillow images.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A single Pillow image if <cite>batch_size = 1</cite> or a list of Pillow images
 if <cite>batch_size &gt; 1</cite>.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Union[PilImage.Image, List]</p>
 </dd>
 </dl>
@@ -729,10 +730,10 @@ if <cite>batch_size &gt; 1</cite>.</p>
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.image.Image.copy" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a copy of the image data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The copied image data.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.data.image.Image" title="omnixai.data.image.Image">Image</a></p>
 </dd>
 </dl>
@@ -751,7 +752,7 @@ if <cite>batch_size &gt; 1</cite>.</p>
 <p>The class represents a batch of texts or sentences.
 The texts or sentences are stored in a list of strings.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – The text data, either a string or a list of strings.</p></li>
 <li><p><strong>tokenizer</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>]) – A tokenizer for splitting texts/sentences into tokens,
@@ -770,10 +771,10 @@ which should be <cite>Callable</cite> object. If <cite>tokenizer</cite> is None,
 <span class="sig-name descname"><span class="pre">num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.text.Text.num_samples" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the number of the texts or sentences.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The number of the texts or sentences.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>int</p>
 </dd>
 </dl>
@@ -784,10 +785,10 @@ which should be <cite>Callable</cite> object. If <cite>tokenizer</cite> is None,
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#omnixai.data.text.Text.values" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the raw text data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A list of the sentences/texts.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>List</p>
 </dd>
 </dl>
@@ -801,13 +802,13 @@ If <cite>tokenizer</cite> is None, a default <cite>split</cite> function, e.g., 
 to split a sentence into tokens. For example, <cite>[“omnixai library”, “explainable AI”]</cite> will
 be split into <cite>[[“omnixai”, “library”], [“explainable”, “AI”]]</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>kwargs</strong> – Additional parameters for the tokenizer</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A batch of tokens.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>List</p>
 </dd>
 </dl>
@@ -819,13 +820,13 @@ be split into <cite>[[“omnixai”, “library”], [“explainable”, “AI�
 <dd><p>Returns a string if it has only one sentence or
 a list of strings if it contains multiple sentences.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>copy</strong> – Whether to copy the data.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A single string or a list of strings.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Union[List, str]</p>
 </dd>
 </dl>
@@ -841,10 +842,10 @@ a list of strings if it contains multiple sentences.</p>
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.text.Text.copy" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a copy of the text data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The copied text data.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.data.text.Text" title="omnixai.data.text.Text">Text</a></p>
 </dd>
 </dl>
@@ -864,7 +865,7 @@ a list of strings if it contains multiple sentences.</p>
 The dataset contains a time series whose metric values are stored in a numpy array
 with shape <cite>(timestamps, num_variables)</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – A numpy array containing a time series. The shape of <code class="docutils literal notranslate"><span class="pre">data</span></code> is <cite>(timestamps, num_variables)</cite>.</p></li>
 <li><p><strong>timestamps</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – A list of timestamps.</p></li>
@@ -881,6 +882,11 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <dt class="sig sig-object py" id="omnixai.data.timeseries.Timeseries.ts_len">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ts_len</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.ts_len" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the length of the time series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -888,10 +894,10 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.shape" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the raw data shape, e.g., (timestamps, num_variables).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A tuple for the raw data shape.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
 </dd>
 </dl>
@@ -902,13 +908,13 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <span class="sig-name descname"><span class="pre">num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.num_samples" title="Permalink to this definition"></a></dt>
 <dd><p>Returns 1 because a Timeseries object only contains one time-series.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><ol class="arabic simple">
 <li></li>
 </ol>
 </p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>int</p>
 </dd>
 </dl>
@@ -919,8 +925,11 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.values" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the raw values of the data object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A numpy array of the data object.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A numpy array of the data object.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -930,8 +939,11 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.columns" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the metric/variable names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The list of the metric/variable names.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of the metric/variable names.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -941,8 +953,11 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.index" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the timestamps.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of timestamps.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of timestamps.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -952,10 +967,10 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <span class="sig-name descname"><span class="pre">to_pd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.to_pd" title="Permalink to this definition"></a></dt>
 <dd><p>Converts <cite>Timeseries</cite> to <cite>pd.DataFrame</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A pandas dataframe representing the time series.</p>
 </dd>
 </dl>
@@ -966,13 +981,13 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <span class="sig-name descname"><span class="pre">to_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.to_numpy" title="Permalink to this definition"></a></dt>
 <dd><p>Converts <cite>Timeseries</cite> to <cite>np.ndarray</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>copy</strong> – <cite>True</cite> if it returns a data copy, or <cite>False</cite> otherwise.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A numpy ndarray representing the time series.</p>
 </dd>
 </dl>
@@ -983,10 +998,10 @@ with shape <cite>(timestamps, num_variables)</cite>.</p>
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.copy" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a copy of the time series instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The copied time series instance.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#omnixai.data.timeseries.Timeseries" title="omnixai.data.timeseries.Timeseries">Timeseries</a></p>
 </dd>
 </dl>
@@ -1007,10 +1022,10 @@ The index of each dataframe should contain the timestamps.</p>
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_timestamp_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.get_timestamp_info" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a dict containing timestamp information, e.g., timestamp index name, timestamp values.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>ts</strong> – A Timeseries instance.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The timestamp information.</p>
 </dd>
 </dl>
@@ -1021,13 +1036,13 @@ The index of each dataframe should contain the timestamps.</p>
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset_timestamp_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.reset_timestamp_index" title="Permalink to this definition"></a></dt>
 <dd><p>Moves the timestamp index to a column and converts timestamps into floats.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ts</strong> – A Timeseries instance.</p></li>
 <li><p><strong>timestamp_info</strong> – The timestamp information.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A converted Timeseries instance.</p>
 </dd>
 </dl>
@@ -1038,13 +1053,13 @@ The index of each dataframe should contain the timestamps.</p>
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">restore_timestamp_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#omnixai.data.timeseries.Timeseries.restore_timestamp_index" title="Permalink to this definition"></a></dt>
 <dd><p>Moves the timestamp column to the index and converts the floats back to timestamps.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ts</strong> – A Timeseries instance with a <cite>&#64;timestamp</cite> column.</p></li>
 <li><p><strong>timestamp_info</strong> – The timestamp information.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The original time-series dataframe.</p>
 </dd>
 </dl>
