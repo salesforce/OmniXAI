@@ -45,35 +45,13 @@ sphinx-build -b html "${DIRNAME}" "${DIRNAME}/_build/html/${current_version}" -W
 rm -rf "${DIRNAME}/_build/html/${current_version}/.doctrees"
 pip3 uninstall -y omnixai
 
-# Install all previous released versions
-# and use them to build the appropriate API docs.
-# Uninstall after we're done with each one.
-versions=()
-checkout_files=("${DIRNAME}/*.rst" "tutorials" "omnixai" "setup.py")
-for version in $(git tag --list 'v[0-9]*'); do
-    versions+=("$version")
-    git checkout -b "${version}_local_docs_only"
-    for f in $(git diff --name-only --diff-filter=A "tags/${version}" "${DIRNAME}/*.rst"); do
-        git rm "$f"
-    done
-    git checkout "tags/${version}" -- "${checkout_files[@]}"
-    export current_version=${version}
-    pip3 install ".[all]"
-    sphinx-build -b html "${DIRNAME}" "${DIRNAME}/_build/html/${current_version}" -W --keep-going
-    rm -rf "${DIRNAME}/_build/html/${current_version}/.doctrees"
-    pip3 uninstall -y omnixai
-    git reset --hard
-    git checkout "${GIT_BRANCH}" --
-done
+# Build API docs for current head
+export current_version="latest"
+pip3 install ".[all]"
+sphinx-build -b html "${DIRNAME}" "${DIRNAME}/_build/html/${current_version}" -W --keep-going
+rm -rf "${DIRNAME}/_build/html/${current_version}/.doctrees"
 
-# Determine the latest stable version if there is one
-if (( ${#versions[@]} > 0 )); then
-  stable_hash=$(git rev-list --tags --max-count=1)
-  stable_version=$(git describe --tags "$stable_hash")
-  export stable_version
-else
-  export stable_version="latest"
-fi
+export stable_version="latest"
 
 # Create dummy HTML's for the stable version in the base directory
 while read -r filename; do
