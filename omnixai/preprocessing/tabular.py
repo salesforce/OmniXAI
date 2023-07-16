@@ -9,6 +9,7 @@ The pre-processing function for tabular data.
 """
 import numpy as np
 import pandas as pd
+from typing import Optional
 from .base import TransformBase, Identity
 from .encode import OneHot, Ordinal, LabelEncoder
 from ..data.tabular import Tabular
@@ -21,21 +22,25 @@ class TabularTransform(TransformBase):
 
     def __init__(
         self,
-        cate_transform: TransformBase = OneHot(),
-        cont_transform: TransformBase = Identity(),
-        target_transform: TransformBase = LabelEncoder(),
+        cate_transform: Optional[TransformBase] = None,
+        cont_transform: Optional[TransformBase] = None,
+        target_transform: Optional[TransformBase] = None,
     ):
         """
         :param cate_transform: The transform for the categorical features, e.g.,
-            `OneHot`, `Ordinal`.
+            `OneHot`, `Ordinal`. Default is `OneHot`.
         :param cont_transform: The transform for the continuous-valued features,
-            e.g., `Identity`, `Standard`, `MinMax`, `Scale`.
+            e.g., `Identity`, `Standard`, `MinMax`, `Scale`. Default is `Identity`.
         :param target_transform: The transform for the target column, e.g.,
-            `Identity` for regression, `LabelEncoder` for classification.
+            `Identity` for regression, `LabelEncoder` for classification. Default is `LabelEncoder`.
         """
         super().__init__()
-        assert cate_transform is not None, "Transform for categorical features cannot be None."
-        assert cont_transform is not None, "Transform for continuous-valued features cannot be None."
+        if cate_transform is None:
+            cate_transform = OneHot()
+        if cont_transform is None:
+            cont_transform = Identity()
+        if target_transform is None:
+            target_transform = LabelEncoder()
 
         # Feature column
         self.cate_transform = cate_transform
