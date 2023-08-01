@@ -30,7 +30,7 @@
 4. [Documentation](https://opensource.salesforce.com/OmniXAI/latest/index.html)
 5. [Tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html)
 6. [Deployment](#deployment)
-7. [Dashboard Demo](https://sfr-omnixai-demo-cc9e4edb6447.herokuapp.com/)
+7. [Dashboard Demo](https://omnixai-24e10803fd23.herokuapp.com/)
 8. [How to Contribute](https://opensource.salesforce.com/OmniXAI/latest/omnixai.html#how-to-contribute)
 9. [Technical Report and Citing OmniXAI](#technical-report-and-citing-omnixai)
 
@@ -120,7 +120,7 @@ cloning the OmniXAI repo, navigating to the root directory, and calling
 
 For example code and an introduction to the library, see the Jupyter notebooks in
 [tutorials](https://opensource.salesforce.com/OmniXAI/latest/tutorials.html), and the guided walkthrough
-[here](https://opensource.salesforce.com/OmniXAI/latest/index.html). A dashboard demo can be found [here](https://sfr-omnixai-demo-cc9e4edb6447.herokuapp.com/).
+[here](https://opensource.salesforce.com/OmniXAI/latest/index.html).
 
 Some examples:
 1. [Tabular classification](https://github.com/salesforce/OmniXAI/blob/main/tutorials/tabular_classification.ipynb)
