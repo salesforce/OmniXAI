@@ -16,7 +16,7 @@
   <img alt="Documentation" src="https://github.com/salesforce/OmniXAI/actions/workflows/docs.yml/badge.svg"/>
   </a>
   <a href="https://pepy.tech/project/omnixai">
-  <img alt="Downloads" src="https://pepy.tech/badge/omnixai">
+  <img alt="Downloads" src="https://static.pepy.tech/badge/omnixai">
   </a>
   <a href="https://arxiv.org/abs/2206.01612">
   <img alt="DOI" src="https://zenodo.org/badge/DOI/10.48550/ARXIV.2206.01612.svg"/>
